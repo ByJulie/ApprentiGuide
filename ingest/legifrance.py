@@ -1,12 +1,13 @@
 """Fetch the in-force articles of the scope (ingest/scope.yaml) from the Legifrance API (PISTE).
 
-Usage: python -I ingest/legifrance.py [code_travail|ceseda] [--limit N]
+Usage: python -I ingest/legifrance.py [corpus] [--limit N]
+The corpora are the keys of `legifrance` in scope.yaml; all of them when none is given.
 Writes data/raw/legifrance_<corpus>.jsonl (one raw article per line); a rerun resumes.
 """
+import argparse
 import json
 import os
 import re
-import sys
 import time
 
 import requests
@@ -15,7 +16,8 @@ from dotenv import load_dotenv
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 CFG = yaml.safe_load(open(os.path.join(ROOT, "config.yaml"), encoding="utf-8"))["legifrance"]
-SCOPE = yaml.safe_load(open(os.path.join(ROOT, "ingest", "scope.yaml"), encoding="utf-8"))
+SCOPE = yaml.safe_load(
+    open(os.path.join(ROOT, "ingest", "scope.yaml"), encoding="utf-8"))["legifrance"]
 RAW = os.path.join(ROOT, "data", "raw")
 load_dotenv(os.path.join(ROOT, ".env"))
 
@@ -93,8 +95,12 @@ def main(corpus: str, limit: int | None):
 
 
 if __name__ == "__main__":
-    args = sys.argv[1:]
-    limit = int(args[args.index("--limit") + 1]) if "--limit" in args else None
-    corpora = [a for a in args if a in ("code_travail", "ceseda")] or ["code_travail", "ceseda"]
-    for c in corpora:
-        main(c, limit)
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("corpora", nargs="*", help=f"among {', '.join(SCOPE)}; all by default")
+    parser.add_argument("--limit", type=int, help="fetch at most this many articles per corpus")
+    cli = parser.parse_args()
+    unknown = [c for c in cli.corpora if c not in SCOPE]
+    if unknown:
+        parser.error(f"unknown corpus {unknown}, expected one of {list(SCOPE)}")
+    for corpus in cli.corpora or SCOPE:
+        main(corpus, cli.limit)

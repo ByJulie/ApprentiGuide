@@ -29,9 +29,9 @@ def read_jsonl(name: str) -> list[dict]:
 def build_chunks() -> list[clean.Chunk]:
     """All chunks from the raw files."""
     chunks = []
-    for corpus in ("code_travail", "ceseda"):
+    for corpus, config in SCOPE["legifrance"].items():
         chunks += clean.legifrance_chunks(
-            read_jsonl(f"legifrance_{corpus}.jsonl"), corpus, SCOPE[corpus]["patterns"])
+            read_jsonl(f"legifrance_{corpus}.jsonl"), corpus, config["patterns"], config["label"])
     fiches = []
     for audience in SCOPE["service_public"]:
         fiches += read_jsonl(f"service_public_{audience}.jsonl")

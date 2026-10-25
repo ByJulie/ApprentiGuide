@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS chunks (
     id            SERIAL PRIMARY KEY,
     source        TEXT NOT NULL CHECK (source IN ('legifrance', 'service-public')),
-    corpus        TEXT NOT NULL CHECK (corpus IN ('code_travail', 'ceseda', 'sp_particuliers', 'sp_entreprendre')),
+    corpus        TEXT NOT NULL,
     citation_id   TEXT NOT NULL,
     part          SMALLINT NOT NULL DEFAULT 0,
     title         TEXT,

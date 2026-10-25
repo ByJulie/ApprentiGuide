@@ -1,20 +1,31 @@
-# Articles kept from each code: regex on the article number, theme for scope.theme.
-# Only in-force articles are fetched.
-code_travail:
-  text_id: LEGITEXT000006072050
-  patterns:
-    - {regex: '^[LRD]62\d\d-', theme: apprentissage}
-    - {regex: '^[LRD]314[1-6]-', theme: conges}
-    - {regex: '^[LRD]3261-', theme: transport}
-    - {regex: '^[LRD]3262-', theme: titres_restaurant}
-    - {regex: '^[LRD]5221-', theme: etranger}
-ceseda:
-  text_id: LEGITEXT000006070158
-  patterns:
-    - {regex: '^[LRD]\*?422-', theme: etranger}
-    - {regex: '^L414-1[0-5]$', theme: etranger}
-    - {regex: '^L433-3$', theme: etranger}
-# Mutuelle (complementary health) is in the Code de la securite sociale (L911-7), not covered here.
+# The only place where corpora are defined. For each Legifrance code: the label shown as the
+# source of its chunks, and the articles kept (regex on the article number, theme for
+# scope.theme). Only in-force articles are fetched.
+legifrance:
+  code_travail:
+    label: Code du travail, Legifrance
+    text_id: LEGITEXT000006072050
+    patterns:
+      - {regex: '^[LRD]62\d\d-', theme: apprentissage}
+      - {regex: '^[LRD]314[1-6]-', theme: conges}
+      - {regex: '^[LRD]3261-', theme: transport}
+      - {regex: '^[LRD]3262-', theme: titres_restaurant}
+      - {regex: '^[LRD]5221-', theme: etranger}
+      - {regex: '^L1222-(9|10|11)$', theme: teletravail}
+  ceseda:
+    label: CESEDA, Legifrance
+    text_id: LEGITEXT000006070158
+    patterns:
+      - {regex: '^[LRD]\*?422-', theme: etranger}
+      - {regex: '^L414-1[0-5]$', theme: etranger}
+      - {regex: '^L433-3$', theme: etranger}
+  securite_sociale:   # mutuelle: obligation, portability, minimum cover, exemptions
+    label: Code de la securite sociale, Legifrance
+    text_id: LEGITEXT000006073189
+    patterns:
+      - {regex: '^L911-(1|7|7-1|8)$', theme: mutuelle}
+      - {regex: '^D911-', theme: mutuelle}
+      - {regex: '^R242-1-6$', theme: mutuelle}
 
 # service-public.fr fiches kept, by theme (the theme is what scope.theme will be built from).
 service_public:
@@ -26,6 +37,7 @@ service_public:
     titres_restaurant: [F21059]
     transport: [F19846]
     mutuelle: [F20739, F20740, F20744]
+    teletravail: [F13851]
     travail: [F303, F144, F2405, F2300, F2216, F1911, F2211]
     etranger: [F2728, F2733, F3100, F2713, F2229, F2231, F13519, F22116, F35796, F33886, F2863,
                F39, F15763]

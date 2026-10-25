@@ -9,11 +9,12 @@ from datetime import UTC, datetime
 
 # About 750 tokens: long enough to keep a rule with its conditions, short enough to retrieve.
 MAX_CHUNK_CHARS = 3000
+HEADING_MAX_CHARS = 40
+HEADING_END_MARKS = (".", ":", ";", "?", "!", ")", "%")
 # ABROGE_DIFF: repealed from a later date, so still applicable today.
 KEPT_ARTICLE_STATES = {"VIGUEUR", "ABROGE_DIFF"}
 # Menus that only lead to other fiches, not rules.
 MENU_TYPES = {"Comment faire si...", "Recherche guidée"}
-LEGIFRANCE_LABELS = {"code_travail": "Code du travail, Legifrance", "ceseda": "CESEDA, Legifrance"}
 ARTICLE_URL = "https://www.legifrance.gouv.fr/codes/article_lc/"
 
 
@@ -60,7 +61,8 @@ def epoch_ms_to_date(value) -> str | None:
     return datetime.fromtimestamp(int(value) / 1000, UTC).date().isoformat()
 
 
-def legifrance_chunks(articles: list[dict], corpus: str, patterns: list[dict]) -> list[Chunk]:
+def legifrance_chunks(articles: list[dict], corpus: str, patterns: list[dict],
+                      label: str) -> list[Chunk]:
     """One chunk per in-force article; the article number is the citation."""
     seen, chunks = set(), []
     for article in articles:
@@ -78,18 +80,32 @@ def legifrance_chunks(articles: list[dict], corpus: str, patterns: list[dict]) -
             source="legifrance", corpus=corpus, citation_id=number, part=0,
             title=f"Article {number}", section_path=article.get("sectionPath", ""),
             text=body, version_date=epoch_ms_to_date(article.get("dateDebut")),
-            source_label=LEGIFRANCE_LABELS[corpus], url=ARTICLE_URL + article["id"],
+            source_label=label, url=ARTICLE_URL + article["id"],
             scope=build_scope(theme_for(number, patterns))))
     return chunks
 
 
+def is_heading(line: str) -> bool:
+    """A short line with no closing punctuation, not a list item or a table row."""
+    return (len(line) < HEADING_MAX_CHARS and not line.endswith(HEADING_END_MARKS)
+            and not line.startswith("- ") and "|" not in line)
+
+
 def split_text(text: str, max_chars: int = MAX_CHUNK_CHARS) -> list[str]:
-    """Split on line boundaries into pieces of at most max_chars (a longer line stays whole)."""
+    """Split on line boundaries into pieces of at most max_chars (a longer line stays whole).
+
+    A heading never ends a piece: it moves to the next one, with the text it introduces.
+    """
     pieces, current = [], ""
     for line in text.split("\n"):
         if current and len(current) + len(line) + 1 > max_chars:
-            pieces.append(current)
-            current = line
+            head, _, last = current.rpartition("\n")
+            if head and is_heading(last):
+                pieces.append(head)
+                current = f"{last}\n{line}"
+            else:
+                pieces.append(current)
+                current = line
         else:
             current = f"{current}\n{line}" if current else line
     if current:
@@ -123,5 +139,10 @@ def service_public_chunks(fiches: list[dict]) -> list[Chunk]:
 
 
 def chunk_rows(chunks: list[Chunk]) -> list[dict]:
-    """Chunks as plain dicts, in column order."""
-    return [asdict(chunk) for chunk in chunks]
+    """Chunks as plain dicts, without the NUL characters PostgreSQL refuses in text."""
+    rows = []
+    for chunk in chunks:
+        row = asdict(chunk)
+        rows.append({k: v.replace("\x00", "") if isinstance(v, str) else v
+                     for k, v in row.items()})
+    return rows

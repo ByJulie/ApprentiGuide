@@ -22,10 +22,10 @@ RAW = os.path.join(ROOT, "data", "raw")
 SOURCE_LABEL = "Service-Public.fr/DILA"
 DC = "{http://purl.org/dc/elements/1.1/}"
 MAX_XML_BYTES = 5_000_000
-# Dropped on purpose: layout and images (TitreRiche, ServiceEnLigne, Infographie), cross links
-# (VoirAussi) and legal references (Reference). Also not read: Definition, PourEnSavoirPlus and
-# QuiPeutMAider (glossary, further reading, contacts), which carry no rule.
-SKIPPED_TAGS = {"TitreRiche", "ServiceEnLigne", "Infographie", "Reference", "VoirAussi"}
+# Dropped on purpose: layout and images (TitreRiche, Infographie), cross links (VoirAussi) and
+# legal references (Reference). Also not read: Definition, PourEnSavoirPlus and QuiPeutMAider
+# (glossary, further reading, contacts), which carry no rule.
+SKIPPED_TAGS = {"TitreRiche", "Infographie", "Reference", "VoirAussi"}
 PARSER = etree.XMLParser(resolve_entities=False, no_network=True, load_dtd=False)
 
 
@@ -49,18 +49,32 @@ def render(node) -> list[str]:
         return ["- " + text] if text else []
     if tag == "Tableau":
         return table_lines(node)
+    if tag == "ServiceEnLigne":
+        return [service_line(node)]
     return [line for child in node for line in render(child)]
+
+
+def service_line(node) -> str:
+    """Name of an online service (and its publisher): the sentence before it points to it."""
+    title_node, source_node = node.find("Titre"), node.find("Source")
+    title = squash("".join(title_node.itertext())) if title_node is not None else ""
+    source = squash("".join(source_node.itertext())) if source_node is not None else ""
+    return f"Service en ligne : {title}" + (f" ({source})" if source else "")
+
+
+def cell_text(cell) -> str:
+    """Text of a table cell, its paragraphs separated by a space so words do not stick."""
+    paragraphs = [squash("".join(p.itertext())) for p in cell.iter("Paragraphe")]
+    return squash(" ".join(paragraphs) or "".join(cell.itertext()))
 
 
 def table_lines(table) -> list[str]:
     """One line per table row, cells separated by ' | ', preceded by the column headers."""
-    headers = [squash("".join(c.itertext())) for c in table
-               if etree.QName(c).localname == "Colonne"]
+    headers = [cell_text(c) for c in table if etree.QName(c).localname == "Colonne"]
     lines = [" | ".join(headers)] if any(headers) else []
     for row in table:
         if etree.QName(row).localname == "Rangée":
-            cells = [squash("".join(c.itertext())) for c in row]
-            lines.append(" | ".join(cells))
+            lines.append(" | ".join(cell_text(c) for c in row))
     return lines
 
 
