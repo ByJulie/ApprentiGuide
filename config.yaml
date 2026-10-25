@@ -1,0 +1,21 @@
+# All settings in one place: change them here, not in the code.
+model:
+  # Default: Groq (free plan, rate-limited). Key in .env as GROQ_API_KEY.
+  base_url: https://api.groq.com/openai/v1
+  name: openai/gpt-oss-20b
+  api_key_env: GROQ_API_KEY
+  # Cerebras (trial credits, needs a payment method):
+  #   base_url: https://api.cerebras.ai/v1   name: gpt-oss-120b      api_key_env: CEREBRAS_API_KEY
+  # Local, when data must stay on the laptop or offline (ollama pull llama3.2):
+  #   base_url: http://localhost:11434/v1    name: llama3.2          api_key_env: none
+  temperature: 0
+  max_tokens: 400
+prompt_file: prompts/system_v1.txt
+retrieval:            # used only if your pipeline does RAG
+  enabled: false
+  top_k: 3
+  chunk_size: 400
+  chunk_overlap: 60
+evaluation:
+  testset: eval/testset.jsonl
+  report: eval/report.json

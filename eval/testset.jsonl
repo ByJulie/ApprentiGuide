@@ -1,0 +1,3 @@
+{"id": "q001", "question": "<a real question from a user>", "gold_source": "<doc or section id>", "answer": "<short reference answer>", "tags": ["core"]}
+{"id": "q002", "question": "<the same need, phrased differently>", "gold_source": "<id>", "answer": "<reference>", "tags": ["paraphrase"]}
+{"id": "q003", "question": "<a question your documents cannot answer>", "gold_source": null, "answer": "NOT FOUND", "tags": ["unanswerable"]}

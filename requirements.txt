@@ -1,0 +1,6 @@
+openai>=1.40
+pyyaml
+python-dotenv
+streamlit
+ollama
+# add: chromadb, rank_bm25, sentence-transformers (RAG) · peft, trl, datasets (LoRA)
