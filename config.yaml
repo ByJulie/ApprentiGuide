@@ -19,3 +19,13 @@ retrieval:            # used only if your pipeline does RAG
 evaluation:
   testset: eval/testset.jsonl
   report: eval/report.json
+database:             # connection string read from DATABASE_URL in .env
+  table: chunks
+  schema_file: db/schema.sql
+legifrance:           # keys in .env are PISTE sandbox keys: sandbox URLs. Production keys: drop "sandbox-".
+  oauth_url: https://sandbox-oauth.piste.gouv.fr/api/oauth/token
+  api_url: https://sandbox-api.piste.gouv.fr/dila/legifrance/lf-engine-app
+  request_delay_s: 0.2
+service_public:       # open data DILA, one zip per audience, one XML per fiche
+  particuliers_zip: https://www.data.gouv.fr/api/1/datasets/r/0ed10f28-d197-4324-97b3-037f625095ac
+  entreprendre_zip: https://www.data.gouv.fr/api/1/datasets/r/93c81767-6ae6-4b31-8dd7-2158e560d181

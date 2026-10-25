@@ -1,0 +1,37 @@
+# Articles kept from each code: regex on the article number, theme for scope.theme.
+# Only in-force articles are fetched.
+code_travail:
+  text_id: LEGITEXT000006072050
+  patterns:
+    - {regex: '^[LRD]62\d\d-', theme: apprentissage}
+    - {regex: '^[LRD]314[1-6]-', theme: conges}
+    - {regex: '^[LRD]3261-', theme: transport}
+    - {regex: '^[LRD]3262-', theme: titres_restaurant}
+    - {regex: '^[LRD]5221-', theme: etranger}
+ceseda:
+  text_id: LEGITEXT000006070158
+  patterns:
+    - {regex: '^[LRD]\*?422-', theme: etranger}
+    - {regex: '^L414-1[0-5]$', theme: etranger}
+    - {regex: '^L433-3$', theme: etranger}
+# Mutuelle (complementary health) is in the Code de la securite sociale (L911-7), not covered here.
+
+# service-public.fr fiches kept, by theme (the theme is what scope.theme will be built from).
+service_public:
+  particuliers:
+    apprentissage: [F2918, F15478, F31704, F31633, F219, F3059, F38630, F39004, F33375, F34964,
+                    F11249]
+    conges: [F2258, F10030, F12803, F12410, F33359, F24661, F12814, F37482, F2179, F2262,
+             F18260, F1016, F2930, F682]
+    titres_restaurant: [F21059]
+    transport: [F19846]
+    mutuelle: [F20739, F20740, F20744]
+    travail: [F303, F144, F2405, F2300, F2216, F1911, F2211]
+    etranger: [F2728, F2733, F3100, F2713, F2229, F2231, F13519, F22116, F35796, F33886, F2863,
+               F39, F15763]
+  entreprendre:
+    apprentissage: [F2918, F15478, F31704, F31633, F23556]
+    conges: [F2258]
+    transport: [F19846, F37900]
+    mutuelle: [F33754]
+    etranger: [F2728, F2733]
