@@ -32,6 +32,7 @@ class Retrieval:
     # instead of answering from a neighbouring article.
     missing_ids: list[str] = field(default_factory=list)
     question_fr: str | None = None
+    extra_queries: list[str] = field(default_factory=list)
 
 
 def cited_ids(question: str) -> list[str]:
@@ -187,12 +188,19 @@ class Retriever:
             out["dense"] = dense_signal(self.conn, vector, n)
         return out
 
-    def __call__(self, question: str, question_fr: str | None = None) -> Retrieval:
+    def __call__(self, question: str, question_fr: str | None = None,
+                 extra_queries: list[str] = ()) -> Retrieval:
         """question_fr: the question rewritten in French. The corpus is French and the cross-encoder
-        scores an English question against French text far too low, so it reranks with this version."""
+        scores an English question against French text far too low, so it reranks with this version.
+        extra_queries: other French search queries (second search); their candidates join the fusion,
+        and the reranker still judges every passage against the question itself."""
         ids = cited_ids(question)
         sig = self.signals(question, question_fr)
-        fused = rrf([r for r in sig.values() if r])[: self.cfg.get("rerank_candidates", 30)]
+        rankings = [r for r in sig.values() if r]
+        for query in extra_queries:
+            rankings += [r for name, r in self.signals(query, query).items() if r and name != "exact"]
+        pool = self.cfg.get("rerank_candidates", 30) * (1 + bool(extra_queries))
+        fused = rrf(rankings)[:pool]
         rows = fetch(self.conn, fused)
         top_k, threshold = self.cfg.get("top_k", 5), self.cfg.get("abstain_threshold", 0.0)
         if self.cfg.get("rerank", True):

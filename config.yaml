@@ -28,6 +28,7 @@ retrieval:            # rag/retrieve.py
   top_k: 5
   max_per_doc: 1           # passages per article or fiche given to the model (E12: 5 distinct documents, Recall@5 0.80 -> 0.85)
   follow_references: 0     # articles cited by the top passages, added to the sources (0 = off; no gain in E13)
+  retry_below: 0            # second search with 2 other phrasings when the best score is under this (0 = off)
   sector_priority: true    # public-sector texts after the others unless the question is about the public sector (E14)
   rewrite_fr: true          # French version of the question for the reranker and the full text search
   # Reranker score under which the answer is NOT FOUND. Set on the draft test set (30 Oct.): unanswerable

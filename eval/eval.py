@@ -80,13 +80,14 @@ def first_gold_rank(ids: list[str], gold: set[str]) -> int | None:
 def run_retrieval(tests: list[dict]) -> dict:
     rows = []
     for t in tests:
-        question_fr = pipeline.rewrite_fr(t["question"]) if CFG["retrieval"].get("rewrite_fr") else None
-        found = pipeline.retriever()(t["question"], question_fr)
+        found = pipeline.retrieve(t["question"])
+        question_fr = found.question_fr
         ids = list(dict.fromkeys(s["id"] for s in found.sources))
         gold = golds(t)
         rows.append({"id": t["id"], "tags": tags(t), "question_fr": question_fr,
                      "answerable": bool(gold), "sources": ids, "best_score": found.best_score,
                      "abstain": found.abstain, "missing_ids": found.missing_ids,
+                     "extra_queries": found.extra_queries,
                      "gold_rank": first_gold_rank(ids, gold) if gold else None})
     answerable = [r for r in rows if r["answerable"]]
     report = {f"recall@{k}": rate([r["gold_rank"] is not None and r["gold_rank"] <= k for r in answerable])

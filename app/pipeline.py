@@ -47,6 +47,11 @@ REFUSAL = re.compile(r"\b(sorry|can['’]?t help|cannot help|unable to|désolée
 REWRITE_CACHE: dict | None = None
 
 
+def clean(text: str) -> str:
+    """Model output without control characters (one answer contained a NUL byte, which PostgreSQL rejects)."""
+    return re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", " ", text)
+
+
 def _cache_key(question: str) -> str:
     import hashlib
     return hashlib.sha256(f"{REWRITE_CFG['name']}\n{REWRITE}\n{question}".encode()).hexdigest()
@@ -68,7 +73,7 @@ def _rewrite(question: str) -> str | None:
             model=REWRITE_CFG["name"], temperature=0, max_tokens=400,
             **({"reasoning_effort": "low"} if "gpt-oss" in REWRITE_CFG["name"] else {}),
             messages=[{"role": "system", "content": REWRITE}, {"role": "user", "content": question}])
-        text = (r.choices[0].message.content or "").strip()
+        text = clean(r.choices[0].message.content or "").strip()
     except Exception:
         return None
     text = text.strip().strip('"«»“”').strip()
@@ -80,12 +85,52 @@ def _rewrite(question: str) -> str | None:
     return strip_unasked_ids(question, text) or None
 
 
+ALTERNATIVES = ("Give 2 other French search queries that would find the French labour-law article or the "
+                "Service-Public.fr fiche answering this question. Use the legal or administrative terms "
+                "(for example 'congé pour examen', 'période d'essai', 'complémentaire santé', 'durée maximale "
+                "du travail'), keep only the topic, drop personal details. One query per line, no numbering, "
+                "no article numbers, no explanation.")
+
+
+def alternatives(question: str) -> list[str]:
+    """Two other search queries for a second search, or [] if the call fails. Cached like the rewrite."""
+    key = "alt:" + _cache_key(question)
+    if REWRITE_CACHE is not None and key in REWRITE_CACHE:
+        return REWRITE_CACHE[key]
+    try:
+        r = rewrite_client.chat.completions.create(
+            model=REWRITE_CFG["name"], temperature=0, max_tokens=500,
+            **({"reasoning_effort": "low"} if "gpt-oss" in REWRITE_CFG["name"] else {}),
+            messages=[{"role": "system", "content": ALTERNATIVES}, {"role": "user", "content": question}])
+        text = clean(r.choices[0].message.content or "")
+    except Exception:
+        return []
+    from rag.retrieve import strip_unasked_ids
+    queries = [strip_unasked_ids(question, re.sub(r"^[\s\-*•\d.)]+", "", line).strip('"«»“” '))
+               for line in text.splitlines()]
+    queries = [q for q in queries if q and not REFUSAL.search(q)][:2]
+    if REWRITE_CACHE is not None and queries:
+        REWRITE_CACHE[key] = queries
+    return queries
+
+
 def retrieve(question: str):
-    """Retrieval result (sources, abstain decision), or None when retrieval is disabled (baseline)."""
+    """Retrieval result (sources, abstain decision), or None when retrieval is disabled (baseline).
+
+    Second search, like an agent that checks its result: when the best passage scores under
+    retry_below, two other phrasings join the search; the reranker judges everything against the
+    question, then abstention is decided on the new best score."""
     if not CFG["retrieval"]["enabled"]:
         return None
     question_fr = rewrite_fr(question) if CFG["retrieval"].get("rewrite_fr") else None
-    return retriever()(question, question_fr)
+    found = retriever()(question, question_fr)
+    retry_below = CFG["retrieval"].get("retry_below", 0)
+    if retry_below and found.best_score < retry_below and not found.missing_ids:
+        extra = alternatives(question_fr or question)
+        if extra:
+            found = retriever()(question, question_fr, extra)
+            found.extra_queries = extra
+    return found
 
 
 ANSWER_LANGUAGE = {
