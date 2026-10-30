@@ -69,3 +69,10 @@ def test_generic_categories_are_dropped_and_known_ones_listed_alphabetically():
 def test_copied_section_path_is_not_a_category():
     pairs = labels.postprocess({"categories": ["Paid Leave > Section 5 : Caisses", "Sabbatical Leave"]})
     assert pairs == [("category", "Sabbatical Leave")]
+
+
+def test_a_refusal_is_not_used_as_a_search_query():
+    from app.pipeline import REFUSAL
+    assert REFUSAL.search("I’m sorry, but I can’t help with that.")
+    assert REFUSAL.search("Je ne peux pas répondre")
+    assert not REFUSAL.search("salaire minimum apprenti 22 ans première année")

@@ -1,5 +1,5 @@
 """The whole product logic lives here, as small functions: easy to test, easy to turn into agent tools later."""
-import os, sys, time, yaml
+import os, re, sys, time, yaml
 from dotenv import load_dotenv
 from openai import OpenAI
 
@@ -10,7 +10,8 @@ load_dotenv(os.path.join(ROOT, ".env"))
 key_env = CFG["model"].get("api_key_env", "none")
 # Ollama ignores the key; cloud endpoints need the one named in config.yaml (checked on first call)
 client = OpenAI(base_url=CFG["model"]["base_url"],
-                api_key="ollama" if key_env == "none" else os.environ.get(key_env) or "missing")
+                api_key="ollama" if key_env == "none" else os.environ.get(key_env) or "missing",
+                max_retries=6)  # the free plan answers 429 when calls come in a burst (evaluation runs)
 SYSTEM = open(os.path.join(ROOT, CFG["prompt_file"])).read()
 NOT_FOUND = "NOT FOUND"
 _retriever = None
@@ -30,6 +31,9 @@ REWRITE = ("Rewrite the user's question in French, as a short search query for F
            "Return the query only.")
 
 
+REFUSAL = re.compile(r"\b(sorry|can['’]?t help|cannot help|unable to|désolée?|je ne peux pas)\b", re.I)
+
+
 def rewrite_fr(question: str) -> str | None:
     """French version of the question, or None if the call fails (retrieval then uses the original)."""
     try:
@@ -39,6 +43,9 @@ def rewrite_fr(question: str) -> str | None:
             messages=[{"role": "system", "content": REWRITE}, {"role": "user", "content": question}])
         text = (r.choices[0].message.content or "").strip()
     except Exception:
+        return None
+    # A refusal is not a query: searching with it would rank noise. Fall back to the original question.
+    if REFUSAL.search(text):
         return None
     # A number the user did not write would send retrieval to the wrong article: removed in code.
     from rag.retrieve import strip_unasked_ids

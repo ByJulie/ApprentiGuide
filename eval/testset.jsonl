@@ -1,3 +1,36 @@
-{"id": "q001", "question": "<a real question from a user>", "gold_source": "<doc or section id>", "answer": "<short reference answer>", "tags": ["core"]}
-{"id": "q002", "question": "<the same need, phrased differently>", "gold_source": "<id>", "answer": "<reference>", "tags": ["paraphrase"]}
-{"id": "q003", "question": "<a question your documents cannot answer>", "gold_source": null, "answer": "NOT FOUND", "tags": ["unanswerable"]}
+{"id": "q001", "question": "Combien de jours de congé ai-je pour préparer mes examens en tant qu'apprenti ?", "gold_source": ["L6222-35", "F2918"], "answer": "5 jours ouvrables", "tags": ["core", "fr", "draft"]}
+{"id": "q002", "question": "J'ai un partiel le mois prochain, mon patron doit-il me laisser des jours pour réviser ?", "gold_source": ["L6222-35", "F2918"], "answer": "5 jours ouvrables", "tags": ["paraphrase", "fr", "draft"]}
+{"id": "q003", "question": "As an apprentice, do I get extra days off before my exams?", "gold_source": ["L6222-35", "F2918"], "answer": "5", "tags": ["paraphrase", "en", "draft"]}
+{"id": "q004", "question": "Combien de jours de congés payés je gagne par mois ?", "gold_source": ["L3141-3", "F2258", "F2918"], "answer": "2,5 jours ouvrables", "tags": ["core", "fr", "draft"]}
+{"id": "q005", "question": "How many days of paid leave can I take in a year at most?", "gold_source": ["L3141-3", "F2258"], "answer": "30 jours ouvrables", "tags": ["paraphrase", "en", "draft"]}
+{"id": "q006", "question": "Quel est le salaire minimum d'un apprenti de 22 ans en première année ?", "gold_source": ["D6222-26", "F2918"], "answer": "53 %", "tags": ["core", "fr", "draft"]}
+{"id": "q007", "question": "I am 19 and in the second year of my apprenticeship contract. What is the minimum I should be paid?", "gold_source": ["D6222-26", "F2918"], "answer": "51 %", "tags": ["paraphrase", "en", "draft"]}
+{"id": "q008", "question": "Jusqu'à quel âge peut-on signer un contrat d'apprentissage ?", "gold_source": ["L6222-1", "F2918"], "answer": "29 ans", "tags": ["core", "fr", "draft"]}
+{"id": "q009", "question": "Combien de temps peut durer un contrat d'apprentissage ?", "gold_source": ["L6222-7-1", "F2918"], "answer": "six mois", "tags": ["core", "fr", "draft"]}
+{"id": "q010", "question": "Je veux arrêter mon contrat d'apprentissage après un mois, c'est possible ?", "gold_source": ["L6222-18", "F2918"], "answer": "45", "tags": ["core", "fr", "draft"]}
+{"id": "q011", "question": "Can my apprenticeship end early if I already got my diploma?", "gold_source": ["L6222-19", "F2918"], "answer": "", "tags": ["core", "en", "draft"]}
+{"id": "q012", "question": "Le temps que je passe à l'école compte-t-il comme du temps de travail ?", "gold_source": ["L6222-24", "F2918"], "answer": "", "tags": ["core", "fr", "draft"]}
+{"id": "q013", "question": "J'ai 17 ans, mon employeur peut-il me faire travailler la nuit ?", "gold_source": ["L6222-26", "F2918"], "answer": "", "tags": ["core", "fr", "draft"]}
+{"id": "q014", "question": "Que dit l'article L6222-35 ?", "gold_source": "L6222-35", "answer": "5 jours ouvrables", "tags": ["exact", "fr", "draft"]}
+{"id": "q015", "question": "I am a first-year international student in the PGE. Can I do an apprenticeship this year?", "gold_source": ["R5221-7", "F2713"], "answer": "", "tags": ["core", "en", "international", "draft"]}
+{"id": "q016", "question": "Je suis étudiante étrangère arrivée en France il y a 6 mois, inscrite en master. Puis-je signer un contrat d'apprentissage ?", "gold_source": ["R5221-7", "F2713"], "answer": "", "tags": ["core", "fr", "international", "draft"]}
+{"id": "q017", "question": "How many hours a year can a non-EU student work in France without a work permit?", "gold_source": ["F2713"], "answer": "964", "tags": ["core", "en", "international", "draft"]}
+{"id": "q018", "question": "Mon employeur est-il obligé de me donner des tickets restaurant ?", "gold_source": ["F21059"], "answer": "", "tags": ["core", "fr", "draft"]}
+{"id": "q019", "question": "Combien de titres-restaurant puis-je recevoir par jour de travail ?", "gold_source": ["R3262-7", "F21059"], "answer": "un", "tags": ["core", "fr", "draft"]}
+{"id": "q020", "question": "Jusqu'à quand puis-je utiliser mes titres-restaurant de cette année ?", "gold_source": ["F21059"], "answer": "février", "tags": ["core", "fr", "draft"]}
+{"id": "q021", "question": "What share of a meal voucher does the employer have to pay?", "gold_source": ["F21059", "L3262-1"], "answer": "50", "tags": ["paraphrase", "en", "draft"]}
+{"id": "q022", "question": "Mon employeur rembourse-t-il mon pass Navigo ?", "gold_source": ["R3261-1", "L3261-2", "F19846"], "answer": "50 %", "tags": ["paraphrase", "fr", "draft"]}
+{"id": "q023", "question": "Does my employer have to pay part of my public transport pass?", "gold_source": ["R3261-1", "L3261-2", "F19846"], "answer": "50", "tags": ["core", "en", "draft"]}
+{"id": "q024", "question": "Mon employeur peut-il refuser ma demande de télétravail ?", "gold_source": ["F13851", "L1222-9"], "answer": "", "tags": ["core", "fr", "draft"]}
+{"id": "q025", "question": "Combien mon employeur doit-il payer au minimum sur la mutuelle d'entreprise ?", "gold_source": ["F20739", "L911-7"], "answer": "50 %", "tags": ["core", "fr", "draft"]}
+{"id": "q026", "question": "J'ai déjà une mutuelle individuelle, suis-je obligée d'adhérer à celle de mon entreprise ?", "gold_source": ["D911-2", "F20739"], "answer": "", "tags": ["core", "fr", "draft"]}
+{"id": "q027", "question": "Mes titres-restaurant sont plus bas que d'habitude ce mois-ci, pourquoi ?", "gold_source": ["R3262-7", "F21059"], "answer": "", "tags": ["company_specific", "fr", "draft"]}
+{"id": "q028", "question": "Combien vaut un titre-restaurant dans mon entreprise ?", "gold_source": ["F21059"], "answer": "", "tags": ["company_specific", "fr", "draft"]}
+{"id": "q029", "question": "How many days of remote work per week does my company allow?", "gold_source": ["F13851", "L1222-9"], "answer": "", "tags": ["company_specific", "en", "draft"]}
+{"id": "q030", "question": "Quelle mutuelle a choisie mon entreprise et combien elle me coûte ?", "gold_source": ["F20739"], "answer": "", "tags": ["company_specific", "fr", "draft"]}
+{"id": "q031", "question": "Quelle est la date des examens de fin d'année à aivancity ?", "gold_source": null, "answer": "NOT FOUND", "tags": ["unanswerable", "fr", "draft"]}
+{"id": "q032", "question": "Who is the director of aivancity?", "gold_source": null, "answer": "NOT FOUND", "tags": ["unanswerable", "en", "draft"]}
+{"id": "q033", "question": "Quel est le menu de la cantine de l'école cette semaine ?", "gold_source": null, "answer": "NOT FOUND", "tags": ["unanswerable", "fr", "draft"]}
+{"id": "q034", "question": "Quel est le taux de l'impôt sur les sociétés en France ?", "gold_source": null, "answer": "NOT FOUND", "tags": ["unanswerable", "fr", "draft"]}
+{"id": "q035", "question": "How do I open an online bank account in France?", "gold_source": null, "answer": "NOT FOUND", "tags": ["unanswerable", "en", "draft"]}
+{"id": "q036", "question": "Que dit l'article L9999-1 du Code du travail ?", "gold_source": null, "answer": "NOT FOUND", "tags": ["unanswerable", "exact", "fr", "draft"]}
