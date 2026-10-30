@@ -39,6 +39,9 @@ question
 | D14 | The answer language is decided in code (French if the French rewrite left the question unchanged, else English) and stated at the end of the request to the model. | E11: 9 of 9 English questions answered in French with French sources, despite the prompt rule. | Prompt rule only. |
 | D15 | Prompt v2 (`prompts/system_v2.txt`, v1 kept as measured): answer the exact question (a maximum is a maximum); for company-dependent questions give what the law sets or say it sets nothing, then what to ask HR or the school, never NOT FOUND if a source covers the topic; NOT FOUND only if no source is about the topic; ids in square brackets. | E11 reading. To be measured against v1 on the same questions before switching `prompt_file`. | |
 | D16 | NOT FOUND is shown as a fixed message written in code, in the language of the question: where we looked (the codes and Service-Public.fr) and what to do (rephrase, ask the school or HR), plus the missing article when one was named. NOT FOUND stays an internal flag (`not_found`, with its reason) for the evaluation. | A bare "NOT FOUND" tells the user nothing; a fixed text cannot be hallucinated. | Message written by the model. |
+| D18 | At most 1 passage per article or fiche among the 5 given to the model (`max_per_doc`). | E12: three sections of one fiche often took three of the five places; with the cap the model sees 5 distinct documents and Recall@5 goes from 0.80 to 0.85. To check when reading answers: a long fiche now contributes one section. | 2 per document (0.83). |
+| D19 | Public-sector texts (section title "secteur public", fiche F3059) go after the others unless the question is about the public sector (`sector_priority`). | E14: they took 36 of 400 places while one question of 81 is about the public sector; with the rule 6 questions improve, none gets worse. Same idea as a country priority in an HR assistant: the user's own rules first. Detected by section title, not by article number (R6227 is a chapter of penalties, not the public sector). | Removing them: kept, in case nothing else answers. |
+| D20 | Not kept: wider candidate pools (E12) and following references between articles (E13). | No measurable gain. | |
 | D17 | Sources under each answer come from the database, never from the model: link (Legifrance article or Service-Public fiche), label, version date, passages; ids cited but not retrieved are flagged as unverified and counted. The page shows the Licence Ouverte attribution with the date of the data files. | Users must be able to check the text themselves; Licence Ouverte requires the source and its date. | Links written by the model. |
 
 Not in the 3 Nov. scope: an agent that chooses its own search tools (planned for the Agentic AI course), boosting by user profile (international, age, programme), the school regulations (written permission pending).
@@ -181,6 +184,32 @@ Read by hand, question by question:
 - **Company-dependent questions.** Q58 (bonus, 13th month) and Q16 (company health plan) got NOT FOUND instead of "the law sets no general rule / here is the rule, ask HR for ...". A10 (our pitch story, fewer meal vouchers this month) gave secondary reasons (25 euros a day, order of use) but not the key rule (one voucher per meal within the working day, so none on days of absence), and never said to ask HR. Prompt v2 targets this (D15).
 - **Exact question.** Q36 (maximum hours per week) answered the legal 35 hours instead of the maximum, with F1911 among the sources. Prompt v2 rule 2.
 - Q58 still abstains with v2: no retrieved source is about bonuses (the relevant F2918 section, "L'apprenti est-il un salarié comme les autres ?", is not retrieved): a retrieval miss, not a prompt one.
+
+### E12. Wider search and passages per document (81 questions, retrieval only, cached rewrites: no tokens)
+
+| Variant | R@1 | R@3 | R@5 | R@8 | R@10 |
+|---|---|---|---|---|---|
+| 20 candidates per signal, 30 reranked (current) | 0.55 | 0.77 | 0.85 | 0.88 | 0.88 |
+| 40 and 60 | 0.55 | 0.77 | 0.87 | 0.90 | 0.90 |
+| 60 and 100 | 0.55 | 0.77 | 0.87 | 0.90 | 0.90 |
+
+(Recall@k here counts distinct documents among 10 passages.) Wider pools: one question gained, within noise, slower: not kept. But the model only received 5 passages, often several sections of one fiche (median 4 distinct documents). Capping passages per document:
+
+| Variant (5 passages to the model) | R@5 | Distinct documents (median) |
+|---|---|---|
+| no cap | 0.80 | 4 |
+| at most 2 per document | 0.83 | 4 |
+| **at most 1 per document (kept)** | **0.85** | 5 |
+
+### E13. Following references between articles (agent-like step, in code)
+
+459 legislative chunks cite another article ("prévu à l'article L. 6222-29"). Adding up to 2 cited articles from the top 3 passages: no question gained a gold source (Recall@5 0.85 with and without). Not kept. The answers are not lost in the references of the top passages.
+
+### E14. Sector priority
+
+Remaining misses read one by one: public-sector texts (F3059, L6227) appeared in 6 of the 9 questions without any gold source, because the word "apprenti" pulls every apprenticeship text. With public-sector texts ranked after the others (unless the question mentions the public sector): R@1 0.55 to 0.57, R@5 0.85 to 0.87, MRR 0.66 to 0.68; better on Q21, Q25, Q28, Q31, Q32, Q37; worse on none; Q64 (the one public-sector question) still at rank 1.
+
+Remaining misses after E14 (in the 5 sources given): Q03, Q10, Q37 (F2918 probably states the rule: gold too narrow, to validate), Q16 (company health plan: the word "apprenti" still pulls apprenticeship texts), Q57, Q58, Q65, Q68, Q69.
 
 ## 5. Next steps
 

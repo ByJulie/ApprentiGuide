@@ -42,8 +42,27 @@ REWRITE = ("Translate the user's question into French. If it is already in Frenc
 REFUSAL = re.compile(r"\b(sorry|can['’]?t help|cannot help|unable to|désolée?|je ne peux pas)\b", re.I)
 
 
+# Evaluation only (set by eval.py): test questions are rewritten once, later runs cost no tokens.
+# Never enabled for real users: their questions are not written to disk.
+REWRITE_CACHE: dict | None = None
+
+
+def _cache_key(question: str) -> str:
+    import hashlib
+    return hashlib.sha256(f"{REWRITE_CFG['name']}\n{REWRITE}\n{question}".encode()).hexdigest()
+
+
 def rewrite_fr(question: str) -> str | None:
     """French version of the question, or None if the call fails (retrieval then uses the original)."""
+    if REWRITE_CACHE is not None and _cache_key(question) in REWRITE_CACHE:
+        return REWRITE_CACHE[_cache_key(question)]
+    text = _rewrite(question)
+    if REWRITE_CACHE is not None and text is not None:  # failures are not cached
+        REWRITE_CACHE[_cache_key(question)] = text
+    return text
+
+
+def _rewrite(question: str) -> str | None:
     try:
         r = rewrite_client.chat.completions.create(
             model=REWRITE_CFG["name"], temperature=0, max_tokens=400,

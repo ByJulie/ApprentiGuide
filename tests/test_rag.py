@@ -64,3 +64,28 @@ def test_cited_ids_read_every_citation_format_models_write():
     from app.pipeline import cited_ids
     text = "a [ F2918 ] b 【F33754】 c [F2918 ; D6222-1] d [​F21059​] e [L6222-1][R5221-7]"
     assert cited_ids(text) == ["F2918", "F33754", "D6222-1", "F21059", "L6222-1", "R5221-7"]
+
+
+def test_diversify_caps_passages_per_document():
+    from rag.retrieve import diversify
+    ranked = [({"citation_id": c}, s) for c, s in
+              [("F21059", .9), ("F21059", .8), ("F21059", .7), ("R3262-7", .6), ("L3262-1", .5)]]
+    assert [r["citation_id"] for r, _ in diversify(ranked, 3, 2)] == ["F21059", "F21059", "R3262-7"]
+    assert len(diversify(ranked, 3, None)) == 3
+
+
+def test_references_found_in_order_without_duplicates_or_excluded():
+    from rag.retrieve import references
+    rows = [{"text": "prévu à l'article L. 6222-29 et aux articles L. 3142-83 à L. 3142-87 ; voir l'article L. 6222-29"},
+            {"text": "selon l'article R. 5221-2"}]
+    assert references(rows, {"L3142-83"}) == ["L6222-29", "L3142-87", "R5221-2"]
+
+
+def test_public_sector_texts_go_last_unless_the_question_asks_about_it():
+    from rag.retrieve import sector_priority
+    pub = ({"citation_id": "F3059", "title": "Apprentissage dans la fonction publique : congés", "section_path": ""}, .9)
+    pen = ({"citation_id": "R6227-7", "title": "Article R6227-7",
+            "section_path": "Chapitre VII : Dispositions pénales"}, .8)
+    priv = ({"citation_id": "F2918", "title": "Contrat d'apprentissage : congés", "section_path": ""}, .7)
+    assert [r["citation_id"] for r, _ in sector_priority("Combien de congés ?", [pub, pen, priv])] == ["R6227-7", "F2918", "F3059"]
+    assert sector_priority("Et dans une mairie ?", [pub, priv])[0][0]["citation_id"] == "F3059"

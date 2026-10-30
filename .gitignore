@@ -7,3 +7,4 @@ eval/report.json
 data/raw/*
 !data/raw/legifrance_*.jsonl
 !data/raw/service_public_*.jsonl
+eval/.rewrite_cache.json

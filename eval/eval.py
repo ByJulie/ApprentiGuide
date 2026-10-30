@@ -9,11 +9,12 @@ Test set line: {"id", "question", "gold_source", "answer", "tags"}; gold_source 
 ids (any of them counts) or null for a question without an answer (NOT FOUND expected).
 """
 import argparse, json, math, os, re, statistics, sys
+import yaml
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from app import pipeline
 from app.pipeline import CFG
 
-K_VALUES = (1, 3, 5)
+K_VALUES = (1, 3, 5, 8, 10)
 
 
 def wilson(successes: int, n: int, z: float = 1.96) -> list[float] | None:
@@ -160,18 +161,25 @@ def main():
     ap.add_argument("--out", default=CFG["evaluation"]["report"])
     ap.add_argument("--testset", help="another test set file (default: config.yaml)")
     ap.add_argument("--lead-gold-only", action="store_true", help="ignore gold_added (sources added after review)")
+    ap.add_argument("--set", action="append", default=[], metavar="KEY=VALUE",
+                    help="override a retrieval setting for this run, e.g. --set top_k=10 --set rerank_candidates=60")
     ap.add_argument("--model", help="answer model for this run, e.g. openai/gpt-oss-120b (same endpoint as config.yaml)")
     args = ap.parse_args()
     global USE_ADDED_GOLD
     USE_ADDED_GOLD = not args.lead_gold_only
     if args.model:
         CFG["model"]["name"] = args.model
+    for item in args.set:
+        key, value = item.split("=", 1)
+        CFG["retrieval"][key] = yaml.safe_load(value)
     if args.baseline:
         CFG["retrieval"]["enabled"] = False
     if args.signals:
         CFG["retrieval"]["signals"] = args.signals.split(",")
     if args.no_rerank:
         CFG["retrieval"]["rerank"] = False
+    cache_path = os.path.join(os.path.dirname(__file__), ".rewrite_cache.json")
+    pipeline.REWRITE_CACHE = json.load(open(cache_path, encoding="utf-8")) if os.path.exists(cache_path) else {}
     tests = [json.loads(l) for l in open(args.testset or CFG["evaluation"]["testset"], encoding="utf-8") if l.strip()]
     tests, gaps = split_by_corpus(tests)
     result = run_retrieval(tests) if args.retrieval_only else run_answers(tests)
@@ -180,6 +188,7 @@ def main():
     result.update(n=len(tests), corpus_gaps=gaps, mode="retrieval" if args.retrieval_only else "baseline" if args.baseline else "system",
                   config=CFG)
     json.dump(result, open(args.out, "w", encoding="utf-8"), indent=2, ensure_ascii=False, default=str)
+    json.dump(pipeline.REWRITE_CACHE, open(cache_path, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
     print(json.dumps({"n": len(tests), "mode": result["mode"], **result["report"]}, indent=1, ensure_ascii=False))
 
 
