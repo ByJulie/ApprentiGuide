@@ -27,3 +27,12 @@ CREATE TABLE IF NOT EXISTS doc_labels (
     PRIMARY KEY (corpus, citation_id, kind, label)
 );
 CREATE INDEX IF NOT EXISTS doc_labels_hnsw ON doc_labels USING hnsw (embedding vector_cosine_ops);
+
+-- Documents already sent to the LLM for labels, with the hash of the text they had: a document whose
+-- labels were all filtered out is not sent again at every run.
+CREATE TABLE IF NOT EXISTS labelled_docs (
+    corpus       TEXT NOT NULL,
+    citation_id  TEXT NOT NULL,
+    doc_hash     TEXT NOT NULL,
+    PRIMARY KEY (corpus, citation_id)
+);

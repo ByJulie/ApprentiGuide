@@ -85,10 +85,22 @@ def llm_client():
 def index_labels(conn) -> None:
     docs = documents(conn)
     # Documents removed from the corpus (scope change) lose their labels too.
-    conn.execute("""DELETE FROM doc_labels dl WHERE NOT EXISTS (
-                        SELECT 1 FROM chunks c WHERE c.corpus = dl.corpus AND c.citation_id = dl.citation_id)""")
-    done ={(r["corpus"], r["citation_id"]): r["doc_hash"] for r in conn.execute(
-        "SELECT DISTINCT corpus, citation_id, doc_hash FROM doc_labels")}
+    for table in ("doc_labels", "labelled_docs"):
+        conn.execute(f"""DELETE FROM {table} t WHERE NOT EXISTS (
+                            SELECT 1 FROM chunks c WHERE c.corpus = t.corpus AND c.citation_id = t.citation_id)""")
+    # Labels stored before a filter was added are cleaned with the current rules.
+    noisy = [(r["corpus"], r["citation_id"], r["kind"], r["label"]) for r in conn.execute(
+        "SELECT corpus, citation_id, kind, label FROM doc_labels") if labels.is_noise(r["label"])]
+    with conn.cursor() as cur:
+        cur.executemany("DELETE FROM doc_labels WHERE corpus = %s AND citation_id = %s AND kind = %s AND label = %s",
+                        noisy)
+    # Documents labelled before labelled_docs existed are recorded from their labels.
+    conn.execute("""INSERT INTO labelled_docs SELECT DISTINCT corpus, citation_id, doc_hash FROM doc_labels
+                    ON CONFLICT DO NOTHING""")
+    conn.commit()
+    print(f"labels: {len(noisy)} stored labels removed by the current filters")
+    done = {(r["corpus"], r["citation_id"]): r["doc_hash"] for r in conn.execute(
+        "SELECT corpus, citation_id, doc_hash FROM labelled_docs")}
     todo = [d for d in docs if done.get((d["corpus"], d["citation_id"])) != text_hash(d["text"])]
     print(f"labels: {len(docs)} documents, {len(todo)} to label")
     category_counts = Counter(r["label"] for r in conn.execute(
@@ -112,6 +124,9 @@ def index_labels(conn) -> None:
                    VALUES (%s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING""",
                 [(doc["corpus"], doc["citation_id"], kind, label, text_hash(doc["text"]), v)
                  for (kind, label), v in zip(pairs, vectors)])
+            cur.execute("""INSERT INTO labelled_docs VALUES (%s, %s, %s) ON CONFLICT (corpus, citation_id)
+                           DO UPDATE SET doc_hash = EXCLUDED.doc_hash""",
+                        (doc["corpus"], doc["citation_id"], text_hash(doc["text"])))
         conn.commit()
         if i % 25 == 0:
             print(f"  {i}/{len(todo)} labelled")
