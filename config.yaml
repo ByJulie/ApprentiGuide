@@ -13,6 +13,11 @@ model:
   max_tokens: 2000
   reasoning_effort: low
 prompt_file: prompts/system_v1.txt
+labels:               # rag/index.py --labels: one call per document, run once. Local, so the free
+  # Groq quota (8000 tokens/min, 1000 requests/day) stays for the answers and the evaluation.
+  base_url: http://localhost:11434/v1
+  name: llama3.2
+  api_key_env: none
 retrieval:            # rag/retrieve.py
   enabled: true
   signals: [exact, fulltext, dense, labels]   # remove one to measure what it brings

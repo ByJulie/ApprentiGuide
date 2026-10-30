@@ -64,3 +64,8 @@ def test_generic_categories_are_dropped_and_known_ones_listed_alphabetically():
     assert pairs == [("category", "Caregiver Leave")]
     prompt = labels.build_prompt({"citation_id": "L1", "title": "", "text": "x"}, ["Paid Leave", "Immigration"])
     assert "Known categories: Immigration, Paid Leave" in prompt
+
+
+def test_copied_section_path_is_not_a_category():
+    pairs = labels.postprocess({"categories": ["Paid Leave > Section 5 : Caisses", "Sabbatical Leave"]})
+    assert pairs == [("category", "Sabbatical Leave")]

@@ -117,7 +117,9 @@ def postprocess(data: dict) -> list[tuple[str, str]]:
     seen: set[str] = set()
     out = []
     categories = [_clean(c) for c in data.get("categories") or [] if isinstance(c, str)]
-    categories = [c for c in categories if _fold(c) not in GENERIC_CATEGORIES]
+    # A category is a short topic: a copied section path ("Paid Leave > Section 5 : ...") is not one.
+    categories = [c for c in categories if _fold(c) not in GENERIC_CATEGORIES
+                  and not re.search(r"[>:]", c) and len(c.split()) <= 5]
     for label in [c for c in categories if _keep(c, seen)][:MAX_CATEGORIES]:
         out.append(("category", label))
     keywords = [_clean(k) for k in data.get("keywords") or [] if isinstance(k, str)]

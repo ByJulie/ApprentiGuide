@@ -72,12 +72,14 @@ def documents(conn) -> list[dict]:
 
 
 def llm_client():
+    """Client and model for labels: the labels section of config.yaml, else the answer model."""
     from openai import OpenAI
-    key_env = CFG["model"].get("api_key_env", "none")
+    cfg = CFG.get("labels") or CFG["model"]
+    key_env = cfg.get("api_key_env", "none")
     key = "ollama" if key_env == "none" else os.environ.get(key_env)
     if not key:
         raise SystemExit(f"{key_env} is empty in .env: labels need the LLM from config.yaml")
-    return OpenAI(base_url=CFG["model"]["base_url"], api_key=key, max_retries=8)
+    return OpenAI(base_url=cfg["base_url"], api_key=key, max_retries=8), cfg["name"]
 
 
 def index_labels(conn) -> None:
@@ -91,7 +93,7 @@ def index_labels(conn) -> None:
     print(f"labels: {len(docs)} documents, {len(todo)} to label")
     category_counts = Counter(r["label"] for r in conn.execute(
         "SELECT label FROM doc_labels WHERE kind = 'category'"))
-    client, model = llm_client(), CFG["model"]["name"]
+    client, model = llm_client()
     for i, doc in enumerate(todo, 1):
         known = [c for c, _ in category_counts.most_common()]
         try:
