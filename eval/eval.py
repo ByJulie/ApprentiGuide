@@ -118,7 +118,7 @@ def run_answers(tests: list[dict]) -> dict:
         out = pipeline.answer(t["question"])
         gold = golds(t)
         said_nf = out.get("not_found", out["answer"].strip().upper().startswith(pipeline.NOT_FOUND))
-        cited = {c.upper() for c in re.findall(r"\[([^\]]+)\]", out["answer"])}
+        cited = set(pipeline.cited_ids(out["answer"]))
         rows.append({
             "id": t["id"], "tags": tags(t), "answer": out["answer"], "sources": out["sources"],
             "best_score": out.get("best_score"), "seconds": out["seconds"],

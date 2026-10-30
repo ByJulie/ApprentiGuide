@@ -84,7 +84,20 @@ def generate(question: str, sources: list[dict], missing_ids: list[str] = ()) ->
     return (r.choices[0].message.content or "").strip()
 
 
-CITATION = re.compile(r"\[([^\[\]]+)\]")
+CITATION = re.compile(r"[\[【]([^\[\]【】]+)[\]】]")
+INVISIBLE = re.compile(r"[\u200b-\u200f\u2060\ufeff\s]")
+
+
+def cited_ids(text: str) -> list[str]:
+    """Ids cited in an answer, in order. Models write [F2918], [ F2918 ], 【F2918】, [F2918; L6222-1]
+    or wrap ids in invisible characters: all read the same."""
+    out = []
+    for group in CITATION.findall(text):
+        for ref in re.split(r"[,;]|\]\s*\[", group):
+            ref = INVISIBLE.sub("", ref).upper()
+            if ref and ref not in out:
+                out.append(ref)
+    return out
 
 
 def citations(text: str, sources: list[dict]) -> dict:
@@ -100,15 +113,10 @@ def citations(text: str, sources: list[dict]) -> dict:
                                                     "url": s["url"], "version_date": s["version_date"],
                                                     "passages": []})
         entry["passages"].append({"title": s.get("title"), "text": s["text"]})
-    cited_ids = []
-    for group in CITATION.findall(text):
-        for ref in re.split(r"[,;]\s*", group):
-            ref = ref.strip().upper()
-            if ref and ref not in cited_ids:
-                cited_ids.append(ref)
-    return {"cited": [by_id[i] for i in cited_ids if i in by_id],
-            "consulted": [e for i, e in by_id.items() if i not in cited_ids],
-            "invented": [i for i in cited_ids if i not in by_id]}
+    ids = cited_ids(text)
+    return {"cited": [by_id[i] for i in ids if i in by_id],
+            "consulted": [e for i, e in by_id.items() if i not in ids],
+            "invented": [i for i in ids if i not in by_id]}
 
 
 ENGLISH = re.compile(r"\b(the|is|are|can|my|what|how|do|does|i am|should|which|who)\b", re.I)

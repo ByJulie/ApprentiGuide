@@ -1,0 +1,944 @@
+{
+  "report": {
+    "retrieved_gold": {
+      "rate": 0.778,
+      "n": 27,
+      "ci95": [
+        0.592,
+        0.894
+      ]
+    },
+    "cited_gold": {
+      "rate": 0.704,
+      "n": 27,
+      "ci95": [
+        0.515,
+        0.841
+      ]
+    },
+    "contains_reference": {
+      "rate": 0.0,
+      "n": 27,
+      "ci95": [
+        0.0,
+        0.125
+      ]
+    },
+    "answered_when_answerable": {
+      "rate": 0.926,
+      "n": 27,
+      "ci95": [
+        0.766,
+        0.979
+      ]
+    },
+    "not_found_ok": {
+      "rate": 0.889,
+      "n": 9,
+      "ci95": [
+        0.565,
+        0.98
+      ]
+    },
+    "median_seconds": 12.96,
+    "by_tag": {
+      "company_dependent": {
+        "rate": 0.5,
+        "n": 10,
+        "ci95": [
+          0.237,
+          0.763
+        ]
+      },
+      "en": {
+        "rate": 0.636,
+        "n": 11,
+        "ci95": [
+          0.354,
+          0.848
+        ]
+      },
+      "fr": {
+        "rate": 0.6,
+        "n": 25,
+        "ci95": [
+          0.407,
+          0.766
+        ]
+      },
+      "in_corpus": {
+        "rate": 0.529,
+        "n": 17,
+        "ci95": [
+          0.31,
+          0.738
+        ]
+      },
+      "no_answer": {
+        "rate": 0.889,
+        "n": 9,
+        "ci95": [
+          0.565,
+          0.98
+        ]
+      }
+    },
+    "corpus_gaps": 1,
+    "answers_with_invented_citation": {
+      "rate": 0.0,
+      "n": 36,
+      "ci95": [
+        0.0,
+        0.096
+      ]
+    },
+    "rescored": "cited_gold and invented citations recomputed with the fixed citation parser (30 Oct.)"
+  },
+  "rows": [
+    {
+      "id": "A03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L’article L 6222‑35 prévoit que l’apprenti bénéficie, pour la préparation directe des épreuves, d’un congé supplémentaire de cinq jours ouvrables, payé et maintenu en salaire, à prendre dans le mois qui précède les épreuves. Ce congé s’ajoute au congé payé prévu à l’article L 3141‑1, au congé annuel pour les salariés de moins de vingt‑et‑un ans prévu à l’article L 3164‑9, ainsi qu’à la durée de formation en centre de formation d’apprentis fixée par le contrat, à condition que la convention mentionnée à l’article L 6232‑1 prévoie son organisation. [L6222-35]\n\nSources:  \n[L6222-35]",
+      "sources": [
+        "L6222-35",
+        "L6235-4",
+        "L6222-34",
+        "D6235-9",
+        "L6235-5"
+      ],
+      "best_score": 0.912,
+      "seconds": 16.87,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A10",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Les titres‑restaurant ne sont pas obligatoires ; c’est à l’employeur de décider s’il les attribue et de fixer leur valeur [​F21059​]. De plus, le salarié ne peut les utiliser que les jours ouvrables (sauf travail le dimanche ou jours fériés) et dans la limite de 25 € par jour [F21059]. Enfin, les titres émis pour l’année en cours ne sont utilisables qu’après épuisement de tous ceux de l’année précédente [R3262-5]; s’ils n’ont pas été utilisés, ils sont récupérés par l’employeur et remplacés, ce qui peut réduire le nombre disponible [R3262-5].  \n\nSources: [F21059] ; [R3262-5]",
+      "sources": [
+        "L3262-1",
+        "R3262-5",
+        "F21059",
+        "F21059",
+        "F21059"
+      ],
+      "best_score": 0.252,
+      "seconds": 4.43,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A11",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "NOT FOUND (L9999-1 is not in the texts I can search)",
+      "sources": [],
+      "best_score": 0.386,
+      "seconds": 4.16,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q36",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Pour un apprenti :\n\n- **Majeur** : le temps de travail effectif est identique à celui des autres salariés, soit **35 heures par semaine** ; il peut réaliser des heures supplémentaires [F2918].  \n- **Mineur** : la durée légale reste **35 heures par semaine**, mais il peut exceptionnellement effectuer **jusqu’à 5 heures supplémentaires** par semaine après accord de l’inspecteur du travail et avis du médecin du travail [F2918].\n\nSources : [F2918]",
+      "sources": [
+        "F2918",
+        "F2216",
+        "F3059",
+        "F2216",
+        "F1911"
+      ],
+      "best_score": 0.967,
+      "seconds": 4.49,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q04",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Vous acquérez **2,5 jours ouvrables de congés payés** pour chaque mois de travail effectif chez le même employeur【F2258】.  \n\nSources:\n[F2258]",
+      "sources": [
+        "F2258",
+        "F2258",
+        "F37482",
+        "F33359",
+        "L3141-3"
+      ],
+      "best_score": 0.997,
+      "seconds": 4.29,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q01",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L’âge maximum général pour signer un contrat d’apprentissage est de 29 ans révolus (30 ans moins 1 jour) [ F2918 ].  \nIl peut être porté à 35 ans révolus (36 ans moins 1 jour) lorsqu’on signe un nouveau contrat pour obtenir un diplôme supérieur, que le contrat précédent a été rompu pour des raisons indépendantes de la volonté de l’apprenti, ou pour inaptitude physique temporaire, à condition que l’intervalle entre les deux contrats ne dépasse pas un an [ F2918 ; D6222-1 ].  \nIl n’y a aucune limite d’âge dans les cas suivants : apprenti reconnu travailleur handicapé, projet de création ou reprise d’entreprise nécessitant un diplôme, sportif de haut niveau, ou apprenti qui n’a pas obtenu son diplôme et conclut un nouveau contrat avec un autre employeur pour repasser l’examen [ F2918 ].\n\nSources: F2918, D6222-1",
+      "sources": [
+        "F2918",
+        "D6222-1",
+        "F31704",
+        "L6222-12-1",
+        "L6222-1"
+      ],
+      "best_score": 0.993,
+      "seconds": 4.79,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q39",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L’entreprise qui embauche un apprenti peut bénéficier d’une **aide à l’embauche** :\n\n* **Aide unique** – ouverte à toutes les entreprises, sans condition de date de signature ou de début du contrat ; le contrat doit être un contrat d’apprentissage et l’apprenti doit préparer un diplôme ou titre jusqu’au niveau master (Bac + 5) [F23556].\n\n* **Aide exceptionnelle** – valable uniquement pour les contrats conclus à partir du 8 mars 2026 et débutant avant le 1 janvier 2027 [F23556].  \n  * Pour les entreprises de **moins de 250 salariés**, les seules conditions sont : contrat d’apprentissage, dates ci‑dessus, diplôme visé (niveau master maximum) et absence d’une aide déjà perçue pour le même apprenti et la même certification [F23556].  \n  * Pour les entreprises de **250 salariés et plus**, en plus des conditions précédentes, l’entreprise doit atteindre **au moins 5 %** de contrats d’insertion professionnelle dans son effectif total annuel au 31 / 12 2027, **ou** au moins **3 %** d’alternants avec une progression de **10 %** d’un an sur l’autre (comparaison 31 / 12 2026 vs 31 / 12 2027) [F23556].\n\nCes aides sont destinées à l’employeur et sont conditionnées par la taille de l’entreprise et les dates de signature/début du contrat.  \n\n**Sources:** [F23556]",
+      "sources": [
+        "F38630",
+        "F38630",
+        "F38630",
+        "F23556",
+        "F23556"
+      ],
+      "best_score": 0.912,
+      "seconds": 15.89,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q10",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "La formation en centre de formation d’apprentis (CFA) doit représenter au moins 25 % de la durée totale du contrat d’apprentissage ; c’est le minimum requis quel que soit le type de contrat. [ F2918 ] [ F3059 ]\n\nSources:\n[F2918]\n[F3059]",
+      "sources": [
+        "F2918",
+        "F2918",
+        "F3059",
+        "F3059",
+        "F2918"
+      ],
+      "best_score": 0.994,
+      "seconds": 23.04,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Un apprenti de 19 ans en première année perçoit au minimum 43 % du SMIC, soit 802,82 € brut mensuel. [F2918]  \n\nSources: F2918",
+      "sources": [
+        "F2918",
+        "D6222-26",
+        "F2918",
+        "F3059",
+        "F2918"
+      ],
+      "best_score": 0.862,
+      "seconds": 30.04,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q40",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, le contrat d’apprentissage peut être exécuté en partie à l’étranger, à condition que la période de mobilité ne dépasse pas un an ni la moitié de la durée totale du contrat [ L6222-42] . Cette mobilité doit être encadrée par une convention signée entre l’apprenti, l’employeur en France, le CFA en France et la ou les structures d’accueil à l’étranger, précisant notamment les dates de début et de fin, l’objet de la formation, les lieux de travail, le rythme et les congés, etc. [F2918] . Deux modalités sont possibles : la mise en veille du contrat (l’organisme d’accueil à l’étranger assume les conditions de travail) ou la mise à disposition de l’apprenti (l’employeur français conserve la responsabilité salariale). [F2918] .  \n\nSources: [L6222-42] [F2918] [F2918]",
+      "sources": [
+        "F2918",
+        "L6222-42",
+        "F2918",
+        "F2713",
+        "R6222-66"
+      ],
+      "best_score": 0.999,
+      "seconds": 21.92,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q05",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, votre employeur doit prendre en charge une partie de votre abonnement de transport en commun. La prise en charge est obligatoire et doit être d’au moins 50 % du coût de l’abonnement, remboursée mensuellement au plus tard à la fin du mois suivant la validation du titre [ F37900 ]. Le salarié doit fournir le titre d’abonnement (ou une attestation sur l’honneur si le titre ne porte pas son nom) pour ouvrir droit à la prise en charge [ F37900 ]. En l’absence d’accord collectif, l’employeur fixe le montant mais il ne peut pas être inférieur à 50 % du coût de l’abonnement [ F37900 ].  \n\nSources: [F37900] , [F19846]",
+      "sources": [
+        "F19846",
+        "F37900",
+        "F37900",
+        "F19846",
+        "F37900"
+      ],
+      "best_score": 0.991,
+      "seconds": 16.01,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L’employeur doit financer au moins la moitié du coût de la mutuelle : sa participation financière doit être **au moins égale à 50 % de la cotisation** (le reste étant à la charge du salarié)【F33754】.  \nSources: F33754",
+      "sources": [
+        "F20739",
+        "F20744",
+        "F20739",
+        "F20744",
+        "F33754"
+      ],
+      "best_score": 0.822,
+      "seconds": 14.79,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q29",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Le salaire minimum d’un apprenti de 22 ans en deuxième année correspond à 61 % du SMIC, soit 1 138,88 € brut par mois. [ F2918 ][ D6222-26 ]\n\nSources:  \n[F2918]  \n[D6222-26]",
+      "sources": [
+        "F2918",
+        "D6222-26",
+        "F3059",
+        "F219",
+        "F2918"
+      ],
+      "best_score": 0.85,
+      "seconds": 28.95,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Il n’y a généralement aucune période d’essai : lorsqu’un apprenti est embauché à l’issue de son contrat d’apprentissage (CDI, CDD ou contrat de travail temporaire), aucune période d’essai ne peut être imposée, sauf si une clause conventionnelle le prévoit autrement【F2918】.  \nSources: F2918",
+      "sources": [
+        "F2918",
+        "F2918",
+        "L6222-12",
+        "F2918",
+        "F3059"
+      ],
+      "best_score": 0.875,
+      "seconds": 12.46,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A04",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "Un étudiant étranger non‑européen peut travailler jusqu’à 964 heures par an (soit 60 % de la durée légale annuelle du travail) sans devoir obtenir d’autorisation de travail [ F2713 ].  \nSources: [F2713]",
+      "sources": [
+        "F2713",
+        "F2713",
+        "F2713",
+        "F2713",
+        "F2713"
+      ],
+      "best_score": 0.999,
+      "seconds": 17.65,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q09",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "Le apprenti doit normalement être âgé au maximum de 29 ans révolus (30 ans moins 1 jour) au moment de la signature du contrat [ F2918 ][ L6222-1 ].\n\nCette limite peut être portée à 35 ans révolus (36 ans moins 1 jour) lorsqu’il signe un nouveau contrat pour obtenir un diplôme supérieur, que son précédent contrat a été rompu pour des raisons indépendantes de sa volonté ou pour inaptitude physique, à condition que l’intervalle entre les deux contrats ne dépasse pas un an [ F2918 ][ D6222-1 ].\n\nIl n’y a aucune limite d’âge dans les cas suivants : reconnu travailleur handicapé, projet de création ou reprise d’entreprise nécessitant un diplôme, sportif de haut niveau, ou apprenti n’ayant pas obtenu son diplôme et concluant un nouveau contrat avec un autre employeur pour repasser l’examen [ F2918 ].\n\n**Sources:** F2918, L6222-1, D6222-1",
+      "sources": [
+        "F2918",
+        "L6222-1",
+        "L6222-12-1",
+        "D6222-1",
+        "F31704"
+      ],
+      "best_score": 0.981,
+      "seconds": 20.45,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A07",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "L’employeur doit prendre à sa charge entre 50 % et 60 % de la valeur du titre‑restaurant ; le reste (40 % à 50 %) reste à la charge du salarié【F21059】.  \nSources: F21059",
+      "sources": [
+        "F21059",
+        "F21059",
+        "L3262-1",
+        "R3262-11",
+        "F2728"
+      ],
+      "best_score": 0.988,
+      "seconds": 13.34,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A01",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "Oui, vous pouvez mettre fin à votre contrat d’apprentissage avant la date prévue si vous obtenez votre diplôme : l’apprenti peut demander la rupture à son initiative, à condition d’en informer l’employeur par écrit un mois à l’avance et que la rupture intervienne au plus tôt le lendemain de la publication des résultats [L6222-19][F2918].  \n\nSources:\nL6222-19, F2918",
+      "sources": [
+        "L6222-19",
+        "F2918",
+        "D6222-30",
+        "F2918",
+        "F2918"
+      ],
+      "best_score": 0.948,
+      "seconds": 16.96,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q31",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "Oui, votre employeur ne peut pas vous imposer le travail de nuit ni le travail le dimanche, sauf cas très limités :\n\n- **Travail de nuit** : il est interdit pour tout apprenti de moins de 18 ans (article L6222‑26) et ne peut être dérogé que dans les conditions très précises de l’article L. 3163‑2 [ L6222-26 ].  \n- **Travail le dimanche** : il est interdit sauf si votre secteur justifie cette exception (hôtellerie‑restauration, cafés, boulangerie‑pâtisserie, commerces de fleurs, etc.) ; dans ce cas, vous devez bénéficier d’au moins deux jours de repos consécutifs chaque semaine [F2216].\n\nSources : [L6222-26] ; [F2216]",
+      "sources": [
+        "F3059",
+        "F2918",
+        "L6222-26",
+        "F2216",
+        "F2216"
+      ],
+      "best_score": 0.949,
+      "seconds": 12.58,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q58",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "NOT FOUND\n\nSources:",
+      "sources": [
+        "F33375",
+        "F38630",
+        "F38630",
+        "L6243-1",
+        "F33359"
+      ],
+      "best_score": 0.309,
+      "seconds": 18.87,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": false,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q59",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Non, l’employeur n’est pas tenu de remettre des titres‑restaurant à ses salariés ; il peut choisir de proposer une cantine, une salle de restauration ou une prime de déjeuner à la place【F21059】.  \n\nSources:\n[F21059]",
+      "sources": [
+        "F21059",
+        "F21059",
+        "R3262-11",
+        "F21059",
+        "F21059"
+      ],
+      "best_score": 0.967,
+      "seconds": 7.35,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q16",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "NOT FOUND  \nSources:",
+      "sources": [
+        "L6227-8",
+        "L6227-9",
+        "L6222-32",
+        "F3059",
+        "L6227-8-1"
+      ],
+      "best_score": 0.319,
+      "seconds": 6.58,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": false,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q69",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "En l’absence du maître d’apprentissage, c’est l’employeur qui doit veiller à ce que l’apprenti continue d’être suivi ; il peut désigner un autre maître d’apprentissage ou un référent au sein de l’entreprise pour assurer la continuité de la formation [L6223-8].  \n\nSources: L6223-8",
+      "sources": [
+        "F2918",
+        "R6226-5",
+        "F2918",
+        "L6223-8",
+        "L6223-8-1"
+      ],
+      "best_score": 0.336,
+      "seconds": 11.31,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q20",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, votre employeur peut vous imposer des horaires de travail : il peut mettre en place des horaires collectifs applicables à tous les salariés et les afficher (heures de début, de fin et de pause). S’il modifie ces horaires, il doit afficher les changements au moins 7 jours avant leur mise en place【F1911】.  \nSources: F1911",
+      "sources": [
+        "F1911",
+        "F2211",
+        "F1911",
+        "F2918",
+        "F15478"
+      ],
+      "best_score": 0.926,
+      "seconds": 15.24,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q64",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, vous pouvez réaliser votre alternance au sein d’une administration publique, d’une collectivité territoriale ou d’une mairie ; le contrat d’apprentissage s’applique aussi dans le secteur public et la formation se fait en alternance entre le CFA et l’employeur public [F3059].  \nSources:\n[F3059]",
+      "sources": [
+        "F3059",
+        "F3059",
+        "F38630",
+        "F34964",
+        "F34964"
+      ],
+      "best_score": 0.045,
+      "seconds": 14.58,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q66",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "Pour signer un contrat d’apprentissage, vous devez :\n\n1. Être titulaire d’un visa de long séjour valant titre de séjour (VLS‑TS) étudiant ou d’une carte de séjour étudiant ;  \n2. Résider en France depuis plus d’un an (votre deuxième année de séjour satisfait cette condition) ;  \n3. Faire déclarer votre embauche par l’employeur auprès de la préfecture au moins 2 jours ouvrables avant la date d’effet du contrat ;  \n4. Signer le contrat écrit (cerfa n°10103) avec votre employeur (et, si vous êtes mineur, votre représentant légal) ; le contrat doit contenir les mentions obligatoires (nom de l’employeur, effectif, diplôme préparé, salaire, maître d’apprentissage, etc.) ;  \n5. L’employeur transmet le contrat à l’OPCO (ou à la DDETS pour le secteur public) dans les 5 jours ouvrables suivant le début du contrat.\n\nSources : [F2713] ; [R5221-7] ; [F2918] .",
+      "sources": [
+        "F2713",
+        "F2918",
+        "R6222-2",
+        "F3059",
+        "R5221-7"
+      ],
+      "best_score": 0.939,
+      "seconds": 17.14,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q60",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "L’employeur doit obligatoirement prendre en charge une partie des frais de transports publics de ses salariés ; il doit couvrir au moins 50 % du coût de l’abonnement (sur la base tarif 2e classe) pour les salariés à temps plein, avec possibilité d’aller au-delà selon sa politique RSE [F37900].  \nEn revanche, la prise en charge des frais liés à un moyen de transport personnel (voiture, vélo, covoiturage, etc.) n’est pas obligatoire ; elle ne s’applique que si un accord collectif ou une décision de l’employeur le prévoit, et alors elle doit être offerte à l’ensemble des salariés dans les mêmes conditions [F19846].  \n\nDonc, si vous utilisez les transports publics, votre entreprise est tenue de financer au moins 50 % de votre abonnement ; si vous utilisez un véhicule personnel, le remboursement dépend d’un accord ou d’une décision interne.  \n\nSources: [F37900] ; [F19846]",
+      "sources": [
+        "F37900",
+        "F19846",
+        "F19846",
+        "F19846",
+        "F37900"
+      ],
+      "best_score": 0.843,
+      "seconds": 11.81,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q67",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "L’employeur n’a pas à demander d’autorisation de travail tant que votre emploi ne dépasse pas 60 % de la durée annuelle de travail (964 heures) et qu’il est compatible avec votre cursus d’étudiant ; dans ce cas le titre de séjour « étudiant » vous autorise à travailler sans autorisation supplémentaire. En revanche, si l’activité salariée devait excéder ce plafond de 60 % ou ne correspondait pas à votre formation, l’employeur devrait alors solliciter une autorisation de travail. [ F2728 ] [ R5221-3 ]\n\nSources: F2728, R5221-3",
+      "sources": [
+        "F2728",
+        "F2728",
+        "F2728",
+        "F2728",
+        "R5221-3"
+      ],
+      "best_score": 0.904,
+      "seconds": 31.69,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q46",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "NOT FOUND",
+      "sources": [],
+      "best_score": 0.004,
+      "seconds": 4.84,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q41",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "NOT FOUND",
+      "sources": [],
+      "best_score": 0.003,
+      "seconds": 3.77,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q51",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "NOT FOUND",
+      "sources": [],
+      "best_score": 0.001,
+      "seconds": 4.26,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q11",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "NOT FOUND",
+      "sources": [],
+      "best_score": 0.002,
+      "seconds": 3.37,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q13",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "NOT FOUND",
+      "sources": [],
+      "best_score": 0.0,
+      "seconds": 3.16,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q53",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "Le centre de formation d’apprentis peut mettre à disposition des locaux d’hébergement ; cela doit être prévu dans la convention signée entre le CFA, les établissements d’enseignement, les organismes de formation ou les entreprises [ R6232-2 ].  \nDonc, si la convention de votre école comporte la mention « mise à disposition de locaux destinés à l’hébergement », elle peut offrir un logement aux apprentis.  \nDans le cas contraire, il faut vérifier directement auprès de votre service administratif ou du responsable des conventions.  \n\nSources: [R6232-2]",
+      "sources": [
+        "F38630",
+        "L6232-1",
+        "F38630",
+        "F3059",
+        "R6232-2"
+      ],
+      "best_score": 0.14,
+      "seconds": 4.66,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": false,
+      "invented_citations": []
+    },
+    {
+      "id": "Q49",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "NOT FOUND",
+      "sources": [],
+      "best_score": 0.006,
+      "seconds": 4.62,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q50",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "NOT FOUND  \nSources:",
+      "sources": [
+        "R6222-66",
+        "F2918",
+        "L6222-42",
+        "R6222-67",
+        "L6243-1-2"
+      ],
+      "best_score": 0.056,
+      "seconds": 18.53,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    }
+  ],
+  "n": 36,
+  "corpus_gaps": [
+    {
+      "id": "Q62",
+      "question": "L'entreprise veut me faire travailler le samedi, c'est légal ?",
+      "gold_source": [
+        "L3132-1",
+        "L3132-3"
+      ]
+    }
+  ],
+  "mode": "system",
+  "config": {
+    "model": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-120b",
+      "api_key_env": "GROQ_API_KEY",
+      "temperature": 0,
+      "max_tokens": 2000,
+      "reasoning_effort": "low"
+    },
+    "prompt_file": "prompts/system_v1.txt",
+    "rewrite": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-120b",
+      "api_key_env": "GROQ_API_KEY"
+    },
+    "retrieval": {
+      "enabled": true,
+      "signals": [
+        "exact",
+        "fulltext",
+        "dense"
+      ],
+      "candidates_per_signal": 20,
+      "rerank": true,
+      "rerank_candidates": 30,
+      "top_k": 5,
+      "rewrite_fr": true,
+      "abstain_threshold": 0.015
+    },
+    "evaluation": {
+      "testset": "eval/testset.jsonl",
+      "report": "eval/report.json"
+    },
+    "database": {
+      "table": "chunks",
+      "schema_file": "db/schema.sql"
+    },
+    "legifrance": {
+      "oauth_url": "https://sandbox-oauth.piste.gouv.fr/api/oauth/token",
+      "api_url": "https://sandbox-api.piste.gouv.fr/dila/legifrance/lf-engine-app",
+      "request_delay_s": 0.2
+    },
+    "service_public": {
+      "particuliers_zip": "https://www.data.gouv.fr/api/1/datasets/r/0ed10f28-d197-4324-97b3-037f625095ac",
+      "entreprendre_zip": "https://www.data.gouv.fr/api/1/datasets/r/93c81767-6ae6-4b31-8dd7-2158e560d181"
+    }
+  }
+}

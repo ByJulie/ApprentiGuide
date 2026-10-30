@@ -58,3 +58,9 @@ def test_not_found_message_is_fixed_and_in_the_language_of_the_question():
     msg = not_found_message("fr", ["L9999-1"])
     assert "école ou à tes RH" in msg and "L'article L9999-1 ne fait pas partie" in msg
     assert not_found_message("en").startswith("I could not find")
+
+
+def test_cited_ids_read_every_citation_format_models_write():
+    from app.pipeline import cited_ids
+    text = "a [ F2918 ] b 【F33754】 c [F2918 ; D6222-1] d [​F21059​] e [L6222-1][R5221-7]"
+    assert cited_ids(text) == ["F2918", "F33754", "D6222-1", "F21059", "L6222-1", "R5221-7"]
