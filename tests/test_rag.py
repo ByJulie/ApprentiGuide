@@ -34,3 +34,11 @@ def test_postprocess_drops_noise_and_survives_bad_output():
     assert pairs == []
     assert labels.parse("not json") == {}
     assert labels.parse('```json\n{"categories": ["Paid Leave"]}\n```') == {"categories": ["Paid Leave"]}
+
+
+def test_postprocess_drops_legal_plumbing_keeps_rules():
+    data = {"keywords": ["article R. 422-9", "décret n° 2020-1734", "1er mai 2021", "L. 422-10",
+                         "cinq jours ouvrables", "moins de 18 ans", "50 % du SMIC"],
+            "concepts": ["Effective Date", "Decree 2020-1734", "Exam Preparation Leave"]}
+    labels_kept = [l for _, l in labels.postprocess(data)]
+    assert labels_kept == ["cinq jours ouvrables", "moins de 18 ans", "50 % du SMIC", "Exam Preparation Leave"]

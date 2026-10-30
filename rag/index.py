@@ -82,7 +82,10 @@ def llm_client():
 
 def index_labels(conn) -> None:
     docs = documents(conn)
-    done = {(r["corpus"], r["citation_id"]): r["doc_hash"] for r in conn.execute(
+    # Documents removed from the corpus (scope change) lose their labels too.
+    conn.execute("""DELETE FROM doc_labels dl WHERE NOT EXISTS (
+                        SELECT 1 FROM chunks c WHERE c.corpus = dl.corpus AND c.citation_id = dl.citation_id)""")
+    done ={(r["corpus"], r["citation_id"]): r["doc_hash"] for r in conn.execute(
         "SELECT DISTINCT corpus, citation_id, doc_hash FROM doc_labels")}
     todo = [d for d in docs if done.get((d["corpus"], d["citation_id"])) != text_hash(d["text"])]
     print(f"labels: {len(docs)} documents, {len(todo)} to label")
