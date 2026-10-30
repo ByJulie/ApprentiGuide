@@ -74,13 +74,6 @@ def test_diversify_caps_passages_per_document():
     assert len(diversify(ranked, 3, None)) == 3
 
 
-def test_references_found_in_order_without_duplicates_or_excluded():
-    from rag.retrieve import references
-    rows = [{"text": "prévu à l'article L. 6222-29 et aux articles L. 3142-83 à L. 3142-87 ; voir l'article L. 6222-29"},
-            {"text": "selon l'article R. 5221-2"}]
-    assert references(rows, {"L3142-83"}) == ["L6222-29", "L3142-87", "R5221-2"]
-
-
 def test_public_sector_texts_go_last_unless_the_question_asks_about_it():
     from rag.retrieve import sector_priority
     pub = ({"citation_id": "F3059", "title": "Apprentissage dans la fonction publique : congés", "section_path": ""}, .9)

@@ -8,7 +8,7 @@
 Test set line: {"id", "question", "gold_source", "answer", "tags"}; gold_source is an id, a list of
 ids (any of them counts) or null for a question without an answer (NOT FOUND expected).
 """
-import argparse, json, math, os, re, statistics, sys
+import argparse, json, math, os, statistics, sys
 import yaml
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from app import pipeline
@@ -87,7 +87,6 @@ def run_retrieval(tests: list[dict]) -> dict:
         rows.append({"id": t["id"], "tags": tags(t), "question_fr": question_fr,
                      "answerable": bool(gold), "sources": ids, "best_score": found.best_score,
                      "abstain": found.abstain, "missing_ids": found.missing_ids,
-                     "extra_queries": found.extra_queries,
                      "gold_rank": first_gold_rank(ids, gold) if gold else None})
     answerable = [r for r in rows if r["answerable"]]
     report = {f"recall@{k}": rate([r["gold_rank"] is not None and r["gold_rank"] <= k for r in answerable])

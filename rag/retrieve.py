@@ -32,7 +32,6 @@ class Retrieval:
     # instead of answering from a neighbouring article.
     missing_ids: list[str] = field(default_factory=list)
     question_fr: str | None = None
-    extra_queries: list[str] = field(default_factory=list)
 
 
 def cited_ids(question: str) -> list[str]:
@@ -146,21 +145,6 @@ def diversify(ranked: list[tuple], top_k: int, max_per_doc: int | None) -> list[
     return chosen
 
 
-# "article L. 6222-29", "articles L. 3142-83 à L. 3142-87": the way Legifrance texts cite each other.
-REFERENCE_RE = re.compile(r"\b([LRD])\.\s?(\d{3,4}-\d+(?:-\d+)*)")
-
-
-def references(rows: list[dict], exclude: set[str]) -> list[str]:
-    """Articles cited by the given articles, in order of appearance, without the excluded ids."""
-    out = []
-    for row in rows:
-        for letter, number in REFERENCE_RE.findall(row["text"]):
-            ref = f"{letter}{number}"
-            if ref.upper() not in exclude and ref not in out:
-                out.append(ref)
-    return out
-
-
 def passage(row: dict) -> str:
     """Text given to the reranker and to the LLM: where it comes from, then the rule."""
     return f"{row['title'] or row['citation_id']}\n{row['text']}"
@@ -188,19 +172,12 @@ class Retriever:
             out["dense"] = dense_signal(self.conn, vector, n)
         return out
 
-    def __call__(self, question: str, question_fr: str | None = None,
-                 extra_queries: list[str] = ()) -> Retrieval:
+    def __call__(self, question: str, question_fr: str | None = None) -> Retrieval:
         """question_fr: the question rewritten in French. The corpus is French and the cross-encoder
-        scores an English question against French text far too low, so it reranks with this version.
-        extra_queries: other French search queries (second search); their candidates join the fusion,
-        and the reranker still judges every passage against the question itself."""
+        scores an English question against French text far too low, so it reranks with this version."""
         ids = cited_ids(question)
         sig = self.signals(question, question_fr)
-        rankings = [r for r in sig.values() if r]
-        for query in extra_queries:
-            rankings += [r for name, r in self.signals(query, query).items() if r and name != "exact"]
-        pool = self.cfg.get("rerank_candidates", 30) * (1 + bool(extra_queries))
-        fused = rrf(rankings)[:pool]
+        fused = rrf([r for r in sig.values() if r])[: self.cfg.get("rerank_candidates", 30)]
         rows = fetch(self.conn, fused)
         top_k, threshold = self.cfg.get("top_k", 5), self.cfg.get("abstain_threshold", 0.0)
         if self.cfg.get("rerank", True):
@@ -214,23 +191,11 @@ class Retriever:
         named = [(r, s) for r, s in ranked if r["citation_id"].upper() in ids]
         rest = [(r, s) for r, s in ranked if r["citation_id"].upper() not in ids]
         chosen = diversify(named + rest, top_k, self.cfg.get("max_per_doc"))
-        # Follow references like an agent would: an article saying "prévu à l'article L. 6222-29" often
-        # needs that article to be understood. Only from the top passages, in order, a few at most.
-        follow = self.cfg.get("follow_references", 0)
-        if follow:
-            ids_chosen = {r["citation_id"].upper() for r, _ in chosen}
-            refs = references([r for r, _ in chosen[:3]], ids_chosen)
-            rows_ref = self.conn.execute(
-                f"""SELECT {KEY}, title, section_path, text, source_label, url, version_date, scope
-                    FROM chunks WHERE citation_id = ANY(%s) AND part = 0""", (refs,)).fetchall()
-            by_id = {r["citation_id"]: r for r in rows_ref}
-            chosen += [(dict(by_id[ref], via=True), 0.0) for ref in refs if ref in by_id][:follow]
         best = max((s for _, s in ranked), default=0.0)
         found = {r["citation_id"].upper() for r in rows}
         sources = [{"id": r["citation_id"], "text": passage(r), "score": round(s, 3),
                     "title": r["title"], "url": r["url"], "source_label": r["source_label"],
-                    "version_date": str(r["version_date"]) if r["version_date"] else None,
-                    "followed_reference": bool(r.get("via"))}
+                    "version_date": str(r["version_date"]) if r["version_date"] else None}
                    for r, s in chosen]
         missing = [i for i in ids if i not in found]
         # The user asked about an article we do not have, and none they named was found: answering

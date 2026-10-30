@@ -41,7 +41,7 @@ question
 | D16 | NOT FOUND is shown as a fixed message written in code, in the language of the question: where we looked (the codes and Service-Public.fr) and what to do (rephrase, ask the school or HR), plus the missing article when one was named. NOT FOUND stays an internal flag (`not_found`, with its reason) for the evaluation. | A bare "NOT FOUND" tells the user nothing; a fixed text cannot be hallucinated. | Message written by the model. |
 | D18 | At most 1 passage per article or fiche among the 5 given to the model (`max_per_doc`). | E12: three sections of one fiche often took three of the five places; with the cap the model sees 5 distinct documents and Recall@5 goes from 0.80 to 0.85. To check when reading answers: a long fiche now contributes one section. | 2 per document (0.83). |
 | D19 | Public-sector texts (section title "secteur public", fiche F3059) go after the others unless the question is about the public sector (`sector_priority`). | E14: they took 36 of 400 places while one question of 81 is about the public sector; with the rule 6 questions improve, none gets worse. Same idea as a country priority in an HR assistant: the user's own rules first. Detected by section title, not by article number (R6227 is a chapter of penalties, not the public sector). | Removing them: kept, in case nothing else answers. |
-| D20 | Not kept: wider candidate pools (E12) and following references between articles (E13). | No measurable gain. | |
+| D20 | Not kept: wider candidate pools (E12), and two agent-like steps done in code: following references between articles (E13) and a second search with other phrasings when the first is weak (E15). Their code is removed (kept in history at commit `571cc60`). | No measurable gain (section 3b). | |
 | D17 | Sources under each answer come from the database, never from the model: link (Legifrance article or Service-Public fiche), label, version date, passages; ids cited but not retrieved are flagged as unverified and counted. The page shows the Licence Ouverte attribution with the date of the data files. | Users must be able to check the text themselves; Licence Ouverte requires the source and its date. | Links written by the model. |
 
 Not in the 3 Nov. scope: an agent that chooses its own search tools (planned for the Agentic AI course), boosting by user profile (international, age, programme), the school regulations (written permission pending).
@@ -76,6 +76,27 @@ With labels (823 of 850 documents labelled): Recall@1 0.90, Recall@3 0.93, MRR 0
 - **Cost:** about one hour of local LLM for a full index, and the first attempt used up a day of the Groq quota (E5).
 
 Labels could be worth trying again with a weaker or English-only embedding model, a much larger corpus with poorer titles, or as a discovery tool for the agent ("which topics exist?"). The code is in the history at commit `6158cbc` (`rag/labels.py`, `index_labels` in `rag/index.py`, `labels_signal` in `rag/retrieve.py`).
+
+## 3b. Tried and removed: agent-like steps in a fixed pipeline
+
+### Why we tried them
+
+In the production HR assistant mentioned above, much of the quality comes from an agent (ReAct, several search tools): it judges its first results, searches again with other words, reads a whole page, follows links. Before building an agent (planned for the Agentic AI course), we tested whether its typical moves help retrieval here, as deterministic steps measured one at a time:
+
+- **Follow references** (E13): when a top passage says "prévu à l'article L. 6222-29", add that article.
+- **Search again** (E15): when the best reranker score is under 0.5, the LLM writes 2 other French queries with the legal terms ("congé pour examen" for "réviser un partiel"); their candidates join the fusion and the reranker judges all of them against the question.
+
+### What the measures showed
+
+Neither gained a single question (81 questions, 60 with an answer). The second search ran 32 times with good phrasings ("liquidation judiciaire cessation d'activité maintien du contrat de travail") and moved one gold source from rank 3 to 4; abstention did not change.
+
+### Why
+
+The remaining misses (8 of 60 after E14) are not phrasing problems: either the text is not in the corpus (working time, rest, bonus rules: articles requested from the data lead), or the gold source is too narrow (F2918 probably answers Q03, Q10 and Q37), or the question has no general rule (Q58 bonus, Q65 second job). A better query cannot find a text that is not there.
+
+### What it means for the agent
+
+On this corpus, an agent will not win by searching harder. Its value lies elsewhere: tools that compute (apprentice minimum wage from age and year, deadlines), questions back to the user when the answer depends on their situation (age, year of contract, nationality), and actions (drafting the email to HR). To be compared with the pipeline on the same test set.
 
 ## 4. Experiments
 
@@ -204,6 +225,10 @@ Read by hand, question by question:
 ### E13. Following references between articles (agent-like step, in code)
 
 459 legislative chunks cite another article ("prévu à l'article L. 6222-29"). Adding up to 2 cited articles from the top 3 passages: no question gained a gold source (Recall@5 0.85 with and without). Not kept. The answers are not lost in the references of the top passages.
+
+### E15. Second search when the first is weak (agent-like step, `retry05.json`)
+
+Threshold chosen from the scores: under 0.5, the retry covers 15 of 60 answerable questions (6 of the 8 misses) and 19 of 20 unanswerable ones. Result: R@1 0.567 and R@5 0.867 before and after, MRR 0.682 to 0.680 (Q70 from rank 3 to 4), abstention unchanged, 32 extra LLM calls. Not kept (see 3b). One model output contained a NUL byte, rejected by PostgreSQL: model output is now cleaned of control characters.
 
 ### E14. Sector priority
 
