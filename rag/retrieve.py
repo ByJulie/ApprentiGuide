@@ -178,5 +178,8 @@ class Retriever:
                     "url": r["url"], "source_label": r["source_label"],
                     "version_date": str(r["version_date"]) if r["version_date"] else None}
                    for r, s in chosen]
-        return Retrieval(sources=sources, abstain=not named and best < threshold,
-                         best_score=round(best, 3), missing_ids=[i for i in ids if i not in found])
+        missing = [i for i in ids if i not in found]
+        # The user asked about an article we do not have, and none they named was found: answering
+        # from the closest articles would present a neighbour as the answer. Abstain and say why.
+        abstain = (not named and best < threshold) or bool(missing and not named)
+        return Retrieval(sources=sources, abstain=abstain, best_score=round(best, 3), missing_ids=missing)

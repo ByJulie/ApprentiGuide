@@ -49,12 +49,16 @@ def run_retrieval(tests: list[dict]) -> dict:
         gold = golds(t)
         rows.append({"id": t["id"], "tags": t.get("tags", []), "question_fr": question_fr,
                      "answerable": bool(gold), "sources": ids, "best_score": found.best_score,
+                     "abstain": found.abstain, "missing_ids": found.missing_ids,
                      "gold_rank": first_gold_rank(ids, gold) if gold else None})
     answerable = [r for r in rows if r["answerable"]]
     report = {f"recall@{k}": rate([r["gold_rank"] is not None and r["gold_rank"] <= k for r in answerable])
               for k in K_VALUES}
     report["mrr"] = round(statistics.mean(1 / r["gold_rank"] if r["gold_rank"] else 0 for r in answerable), 3) if answerable else None
     report["threshold"] = suggest_threshold(rows)
+    # With the configured threshold and the missing-article rule (what the product actually does).
+    report["abstention"] = {"answerable_kept": rate([not r["abstain"] for r in answerable]),
+                            "unanswerable_abstained": rate([r["abstain"] for r in rows if not r["answerable"]])}
     return {"report": report, "rows": rows}
 
 

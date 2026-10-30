@@ -31,7 +31,9 @@ retrieval:            # rag/retrieve.py
   rerank_candidates: 30
   top_k: 5
   rewrite_fr: true          # French version of the question for the reranker and the full text search
-  abstain_threshold: 0.0    # reranker score under which the answer is NOT FOUND, set from the test set
+  # Reranker score under which the answer is NOT FOUND. Set on the draft test set (30 Oct.): unanswerable
+  # questions scored <= 0.009, answerable ones >= 0.024. Optimistic until checked on new questions.
+  abstain_threshold: 0.015
 evaluation:
   testset: eval/testset.jsonl
   report: eval/report.json

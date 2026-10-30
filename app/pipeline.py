@@ -89,7 +89,10 @@ def answer(question: str) -> dict:
     found = retrieve(question)
     if found is not None and found.abstain:
         # Decided in code from the reranker score: the model never sees weak sources.
-        return {"answer": NOT_FOUND, "sources": [], "seconds": round(time.time() - t0, 2),
+        text = NOT_FOUND
+        if found.missing_ids:
+            text += f" ({', '.join(found.missing_ids)} is not in the texts I can search)"
+        return {"answer": text, "sources": [], "seconds": round(time.time() - t0, 2),
                 "best_score": found.best_score}
     sources = found.sources if found else []
     text = generate(question, sources, found.missing_ids if found else [])
