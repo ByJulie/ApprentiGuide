@@ -76,3 +76,11 @@ def test_a_refusal_is_not_used_as_a_search_query():
     assert REFUSAL.search("I’m sorry, but I can’t help with that.")
     assert REFUSAL.search("Je ne peux pas répondre")
     assert not REFUSAL.search("salaire minimum apprenti 22 ans première année")
+
+
+def test_code_structure_headings_are_noise_topics_are_not():
+    for heading in ["Ordre public", "ordre public", "Dispositions supplétives", "Notification of Decision",
+                    "Employer's Obligations", "Période"]:
+        assert labels.is_noise(heading), heading
+    for topic in ["Sabbatical Leave", "titre-mobilité", "congé sabbatique", "Meal Vouchers"]:
+        assert not labels.is_noise(topic), topic

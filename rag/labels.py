@@ -100,9 +100,23 @@ def is_plumbing(label: str) -> bool:
     return any(p.search(label) for p in PLUMBING)
 
 
+# Headings of the structure of the code, and words too vague to rank anything: they are the same
+# on hundreds of articles ("Ordre public" heads a paragraph in almost every chapter).
+STRUCTURE = re.compile(
+    r"^(ordre public|champ de la n[ée]gociation collective|dispositions?( (suppl[ée]tives|g[ée]n[ée]rales|"
+    r"particuli[èe]res|communes|transitoires|p[ée]nales|finales|d'application))?|notification( of decision)?|"
+    r"employer'?s? obligations?|sanctions?|p[ée]riode|fonds|connexion|calendrier|versement|modalit[ée]s|"
+    r"conditions|d[ée]finitions?|application|champ d'application)$", re.I)
+
+
+def is_noise(label: str) -> bool:
+    """True for a label that would match many unrelated documents (used at extraction and to clean stored labels)."""
+    return _fold(label) in NOISE or is_plumbing(label) or bool(STRUCTURE.match(label.strip()))
+
+
 def _keep(label: str, seen: set[str]) -> bool:
     key = _fold(label)
-    if not label or key in NOISE or key in seen or is_plumbing(label):
+    if not label or key in seen or is_noise(label):
         return False
     seen.add(key)
     return True
