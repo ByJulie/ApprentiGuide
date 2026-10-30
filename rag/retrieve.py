@@ -1,10 +1,9 @@
-"""Hybrid retrieval: four signals fused by rank, then a cross-encoder decides the order and whether to answer.
+"""Hybrid retrieval: three signals fused by rank, then a cross-encoder decides the order and whether to answer.
 
 Signals (each returns chunk keys ranked best first):
   exact     an article or fiche number written in the question (L6222-35, F2918) goes straight to it
   fulltext  PostgreSQL French full text, any word may match (BM25-like: wins on legal terms and numbers)
   dense     bge-m3 on the chunks (wins on paraphrases, works across French and English)
-  labels    bge-m3 on the short labels of each document (bridges everyday words and legal wording)
 Fusion: reciprocal rank fusion. Ranking signals are not comparable, ranks are.
 Decision: the reranker scores the fused candidates; under the threshold the system abstains in code,
 so NOT FOUND never depends on the model's judgement.
@@ -100,21 +99,6 @@ def dense_signal(conn, vector, limit: int) -> list[tuple]:
         f"SELECT {KEY} FROM chunk_vectors ORDER BY embedding <=> %s LIMIT %s", (vector, limit)).fetchall())
 
 
-def labels_signal(conn, vector, limit: int) -> list[tuple]:
-    """Documents ranked by their closest label, each represented by its chunk closest to the question."""
-    return _keys(conn.execute(
-        f"""WITH hits AS (
-                SELECT corpus, citation_id, min(embedding <=> %(v)s) AS d
-                FROM (SELECT corpus, citation_id, embedding FROM doc_labels
-                      ORDER BY embedding <=> %(v)s LIMIT %(pool)s) nearest
-                GROUP BY corpus, citation_id)
-            SELECT DISTINCT ON (h.d, h.corpus, h.citation_id) h.corpus, h.citation_id, cv.part
-            FROM hits h JOIN chunk_vectors cv USING (corpus, citation_id)
-            ORDER BY h.d, h.corpus, h.citation_id, cv.embedding <=> %(v)s
-            LIMIT %(n)s""",
-        {"v": vector, "pool": limit * 4, "n": limit}).fetchall())
-
-
 def fetch(conn, keys: list[tuple]) -> list[dict]:
     if not keys:
         return []
@@ -142,7 +126,7 @@ class Retriever:
         n = self.cfg.get("candidates_per_signal", 20)
         vector = np.array(models.embed([question])[0], dtype=np.float32)
         ids = cited_ids(question)
-        enabled = self.cfg.get("signals", ["exact", "fulltext", "dense", "labels"])
+        enabled = self.cfg.get("signals", ["exact", "fulltext", "dense"])
         out = {}
         if "exact" in enabled:
             out["exact"] = exact_signal(self.conn, ids)
@@ -151,8 +135,6 @@ class Retriever:
             out["fulltext"] = fulltext_signal(self.conn, question_fr or question, n)
         if "dense" in enabled:
             out["dense"] = dense_signal(self.conn, vector, n)
-        if "labels" in enabled:
-            out["labels"] = labels_signal(self.conn, vector, n)
         return out
 
     def __call__(self, question: str, question_fr: str | None = None) -> Retrieval:

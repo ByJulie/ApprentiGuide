@@ -9,7 +9,7 @@ RERANK_MODEL = "BAAI/bge-reranker-v2-m3"
 
 
 def _device() -> str:
-    # RAG_DEVICE=cpu when the GPU is busy (for example Ollama computing labels on the same Mac).
+    # RAG_DEVICE=cpu when the GPU is busy (for example a local LLM running on the same Mac).
     if os.environ.get("RAG_DEVICE"):
         return os.environ["RAG_DEVICE"]
     if torch.backends.mps.is_available():

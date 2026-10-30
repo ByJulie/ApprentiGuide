@@ -18,14 +18,9 @@ rewrite:              # French version of the question (app/pipeline.py), about 
   base_url: https://api.groq.com/openai/v1
   name: openai/gpt-oss-120b
   api_key_env: GROQ_API_KEY
-labels:               # rag/index.py --labels: one call per document, run once. Local, so the free
-  # Groq quota (8000 tokens/min, 1000 requests/day) stays for the answers and the evaluation.
-  base_url: http://localhost:11434/v1
-  name: llama3.2
-  api_key_env: none
 retrieval:            # rag/retrieve.py
   enabled: true
-  signals: [exact, fulltext, dense, labels]   # remove one to measure what it brings
+  signals: [exact, fulltext, dense]   # remove one to measure what it brings
   candidates_per_signal: 20
   rerank: true
   rerank_candidates: 30

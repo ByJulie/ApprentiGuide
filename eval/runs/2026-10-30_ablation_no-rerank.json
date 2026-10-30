@@ -1,0 +1,854 @@
+{
+  "report": {
+    "recall@1": {
+      "rate": 0.433,
+      "n": 30,
+      "ci95": [
+        0.274,
+        0.608
+      ]
+    },
+    "recall@3": {
+      "rate": 0.9,
+      "n": 30,
+      "ci95": [
+        0.744,
+        0.965
+      ]
+    },
+    "recall@5": {
+      "rate": 0.9,
+      "n": 30,
+      "ci95": [
+        0.744,
+        0.965
+      ]
+    },
+    "mrr": 0.639,
+    "threshold": {
+      "value": 0.016,
+      "answerable_kept": {
+        "rate": 1.0,
+        "n": 30,
+        "ci95": [
+          0.886,
+          1.0
+        ]
+      },
+      "unanswerable_abstained": {
+        "rate": 0.0,
+        "n": 6,
+        "ci95": [
+          0.0,
+          0.39
+        ]
+      }
+    },
+    "abstention": {
+      "answerable_kept": {
+        "rate": 1.0,
+        "n": 30,
+        "ci95": [
+          0.886,
+          1.0
+        ]
+      },
+      "unanswerable_abstained": {
+        "rate": 0.167,
+        "n": 6,
+        "ci95": [
+          0.03,
+          0.564
+        ]
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "q001",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Combien de jours de congé ai-je pour préparer mes examens en tant qu'apprenti ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "F3059",
+        "F682",
+        "D6222-31"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q002",
+      "tags": [
+        "paraphrase",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "J'ai un partiel le mois prochain, mon patron doit-il me laisser des jours pour réviser ?",
+      "answerable": true,
+      "sources": [
+        "D3142-76",
+        "F144",
+        "D3142-79",
+        "L3142-20"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "q003",
+      "tags": [
+        "paraphrase",
+        "en",
+        "draft"
+      ],
+      "question_fr": "En tant qu'apprenti, ai-je des jours de congé supplémentaires avant mes examens ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "F3059",
+        "F682",
+        "L6222-35"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q004",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Combien de jours de congés payés je gagne par mois ?",
+      "answerable": true,
+      "sources": [
+        "F2258",
+        "F33359",
+        "F682"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q005",
+      "tags": [
+        "paraphrase",
+        "en",
+        "draft"
+      ],
+      "question_fr": "Combien de jours de congé payé puis-je prendre au maximum en une année ?",
+      "answerable": true,
+      "sources": [
+        "L3142-41",
+        "L3142-59",
+        "F2258"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 3
+    },
+    {
+      "id": "q006",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Quel est le salaire minimum d'un apprenti de 22 ans en première année ?",
+      "answerable": true,
+      "sources": [
+        "F3059",
+        "D6222-26",
+        "F2918",
+        "D6222-32"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "q007",
+      "tags": [
+        "paraphrase",
+        "en",
+        "draft"
+      ],
+      "question_fr": "J'ai 19 ans et je suis en deuxième année de mon contrat d'apprentissage. Quel est le salaire minimum que je devrais percevoir ?",
+      "answerable": true,
+      "sources": [
+        "F3059",
+        "D6222-26",
+        "F2918",
+        "D6222-32"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "q008",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Jusqu'à quel âge peut-on signer un contrat d'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "F31704",
+        "F2918",
+        "L6222-1",
+        "F23556",
+        "L6222-18"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "q009",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Combien de temps peut durer un contrat d'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "F31704",
+        "F2918"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "q010",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Je veux arrêter mon contrat d'apprentissage après un mois, c'est possible ?",
+      "answerable": true,
+      "sources": [
+        "L6225-3-1",
+        "F2918",
+        "D6222-21-1",
+        "D6222-1",
+        "F23556"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "q011",
+      "tags": [
+        "core",
+        "en",
+        "draft"
+      ],
+      "question_fr": "Mon apprentissage peut-il se terminer plus tôt si j'ai déjà obtenu mon diplôme ?",
+      "answerable": true,
+      "sources": [
+        "D6235-13",
+        "L6222-18-1",
+        "F2918"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 3
+    },
+    {
+      "id": "q012",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Le temps que je passe à l'école compte-t-il comme du temps de travail ?",
+      "answerable": true,
+      "sources": [
+        "F15478",
+        "F2918",
+        "F3059",
+        "F2216",
+        "L6211-2"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "q013",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "J'ai 17 ans, mon employeur peut-il me faire travailler la nuit ?",
+      "answerable": true,
+      "sources": [
+        "R6227-3",
+        "L6222-26",
+        "F2216",
+        "R6222-25",
+        "F1911"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "q014",
+      "tags": [
+        "exact",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Que dit l'article L6222-35 ?",
+      "answerable": true,
+      "sources": [
+        "L6222-35",
+        "L3141-22",
+        "L6235-4",
+        "D6235-9",
+        "L6222-31"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q015",
+      "tags": [
+        "core",
+        "en",
+        "international",
+        "draft"
+      ],
+      "question_fr": "Je suis étudiant international en première année du PGE. Puis-je faire un apprentissage cette année ?",
+      "answerable": true,
+      "sources": [
+        "D6235-15",
+        "L6241-2",
+        "R5221-7",
+        "L6235-4",
+        "L6242-1"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 3
+    },
+    {
+      "id": "q016",
+      "tags": [
+        "core",
+        "fr",
+        "international",
+        "draft"
+      ],
+      "question_fr": "Je suis étudiante étrangère arrivée en France il y a 6 mois, inscrite en master. Puis-je signer un contrat d'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "F2728",
+        "F2713",
+        "D6222-1",
+        "F31704",
+        "F2918"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "q017",
+      "tags": [
+        "core",
+        "en",
+        "international",
+        "draft"
+      ],
+      "question_fr": "Combien d'heures par an un étudiant non-UE peut-il travailler en France sans permis de travail ?",
+      "answerable": true,
+      "sources": [
+        "R5221-26",
+        "L422-4",
+        "F2713",
+        "F35796"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 3
+    },
+    {
+      "id": "q018",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Mon employeur est-il obligé de me donner des tickets restaurant ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "F2728",
+        "F33754",
+        "R3262-11"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q019",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Combien de titres-restaurant puis-je recevoir par jour de travail ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "L3262-3",
+        "R3262-10",
+        "R3262-7"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q020",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Jusqu'à quand puis-je utiliser mes titres-restaurant de cette année ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "R3262-5",
+        "L3262-3",
+        "R3262-9",
+        "L3262-5"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q021",
+      "tags": [
+        "paraphrase",
+        "en",
+        "draft"
+      ],
+      "question_fr": "Quelle part d'un ticket restaurant l'employeur doit-il payer ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "L3262-1",
+        "D3141-29",
+        "R3261-11",
+        "R3261-13-2"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q022",
+      "tags": [
+        "paraphrase",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Mon employeur rembourse-t-il mon pass Navigo ?",
+      "answerable": true,
+      "sources": [
+        "F19846",
+        "F37900",
+        "L3261-2",
+        "F2728",
+        "L3142-44"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q023",
+      "tags": [
+        "core",
+        "en",
+        "draft"
+      ],
+      "question_fr": "Mon employeur doit-il payer une partie de mon abonnement de transport public ?",
+      "answerable": true,
+      "sources": [
+        "F37900",
+        "L3261-2"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q024",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Mon employeur peut-il refuser ma demande de télétravail ?",
+      "answerable": true,
+      "sources": [
+        "F12803",
+        "L1222-9",
+        "F13851"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "q025",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Combien mon employeur doit-il payer au minimum sur la mutuelle d'entreprise ?",
+      "answerable": true,
+      "sources": [
+        "F1016",
+        "F20744",
+        "F33754",
+        "F37900"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "q026",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "J'ai déjà une mutuelle individuelle, suis-je obligée d'adhérer à celle de mon entreprise ?",
+      "answerable": true,
+      "sources": [
+        "F20740",
+        "F33754"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q027",
+      "tags": [
+        "company_specific",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Mes titres-restaurant sont plus bas que d'habitude ce mois-ci, pourquoi ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "L3262-3",
+        "R3262-10",
+        "R3262-17"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q028",
+      "tags": [
+        "company_specific",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Combien vaut un titre-restaurant dans mon entreprise ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "L3262-3",
+        "R3262-36"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "q029",
+      "tags": [
+        "company_specific",
+        "en",
+        "draft"
+      ],
+      "question_fr": "Combien de jours de télétravail par semaine mon entreprise autorise-t-elle ?",
+      "answerable": true,
+      "sources": [
+        "F1911",
+        "L3142-41",
+        "F2258",
+        "D3142-82"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "q030",
+      "tags": [
+        "company_specific",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Quelle mutuelle a choisie mon entreprise et combien elle me coûte ?",
+      "answerable": true,
+      "sources": [
+        "F20744",
+        "F2728",
+        "F20739",
+        "D911-8",
+        "F15478"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 3
+    },
+    {
+      "id": "q031",
+      "tags": [
+        "unanswerable",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Quelle est la date des examens de fin d'année à aivancity ?",
+      "answerable": false,
+      "sources": [
+        "L6222-12",
+        "R6241-28-2",
+        "F2258",
+        "R6251-3",
+        "R3142-44"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "q032",
+      "tags": [
+        "unanswerable",
+        "en",
+        "draft"
+      ],
+      "question_fr": "Qui est le directeur d'aivancity ?",
+      "answerable": false,
+      "sources": [
+        "R6225-9",
+        "R5221-2",
+        "D3141-35",
+        "R6231-1",
+        "R6222-21"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "q033",
+      "tags": [
+        "unanswerable",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Quel est le menu de la cantine de l'école cette semaine ?",
+      "answerable": false,
+      "sources": [
+        "F2918",
+        "F3059",
+        "F20740",
+        "F38630",
+        "D6235-15"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "q034",
+      "tags": [
+        "unanswerable",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Quel est le taux de l'impôt sur les sociétés en France ?",
+      "answerable": false,
+      "sources": [
+        "L6241-1",
+        "L6241-1-1",
+        "L6242-1",
+        "D6241-25-1",
+        "L6241-2"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "q035",
+      "tags": [
+        "unanswerable",
+        "en",
+        "draft"
+      ],
+      "question_fr": "Comment ouvrir un compte bancaire en ligne en France ?",
+      "answerable": false,
+      "sources": [
+        "F2728",
+        "F2863",
+        "F2231",
+        "L3262-2"
+      ],
+      "best_score": 0.016,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "q036",
+      "tags": [
+        "unanswerable",
+        "exact",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Que dit l'article L9999-1 du Code du travail ?",
+      "answerable": false,
+      "sources": [
+        "R5221-2",
+        "L911-7-1",
+        "L911-7",
+        "L1222-9",
+        "D911-8"
+      ],
+      "best_score": 0.016,
+      "abstain": true,
+      "missing_ids": [
+        "L9999-1"
+      ],
+      "gold_rank": null
+    }
+  ],
+  "n": 36,
+  "mode": "retrieval",
+  "config": {
+    "model": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-20b",
+      "api_key_env": "GROQ_API_KEY",
+      "temperature": 0,
+      "max_tokens": 2000,
+      "reasoning_effort": "low"
+    },
+    "prompt_file": "prompts/system_v1.txt",
+    "rewrite": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-120b",
+      "api_key_env": "GROQ_API_KEY"
+    },
+    "labels": {
+      "base_url": "http://localhost:11434/v1",
+      "name": "llama3.2",
+      "api_key_env": "none"
+    },
+    "retrieval": {
+      "enabled": true,
+      "signals": [
+        "exact",
+        "fulltext",
+        "dense",
+        "labels"
+      ],
+      "candidates_per_signal": 20,
+      "rerank": false,
+      "rerank_candidates": 30,
+      "top_k": 5,
+      "rewrite_fr": true,
+      "abstain_threshold": 0.015
+    },
+    "evaluation": {
+      "testset": "eval/testset.jsonl",
+      "report": "eval/report.json"
+    },
+    "database": {
+      "table": "chunks",
+      "schema_file": "db/schema.sql"
+    },
+    "legifrance": {
+      "oauth_url": "https://sandbox-oauth.piste.gouv.fr/api/oauth/token",
+      "api_url": "https://sandbox-api.piste.gouv.fr/dila/legifrance/lf-engine-app",
+      "request_delay_s": 0.2
+    },
+    "service_public": {
+      "particuliers_zip": "https://www.data.gouv.fr/api/1/datasets/r/0ed10f28-d197-4324-97b3-037f625095ac",
+      "entreprendre_zip": "https://www.data.gouv.fr/api/1/datasets/r/93c81767-6ae6-4b31-8dd7-2158e560d181"
+    }
+  }
+}

@@ -36,6 +36,34 @@ def golds(t: dict) -> set[str]:
     return set() if g is None else {g.upper()} if isinstance(g, str) else {x.upper() for x in g}
 
 
+def tags(t: dict) -> list[str]:
+    """Tags of the draft format, or family and language of the evaluation lead's format."""
+    return t.get("tags") or [x for x in (t.get("family"), t.get("lang")) if x]
+
+
+def corpus_ids() -> set[str]:
+    return {r["citation_id"].upper() for r in pipeline.retriever().conn.execute("SELECT DISTINCT citation_id FROM chunks")}
+
+
+def split_by_corpus(tests: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Questions whose gold sources are all outside the corpus measure the corpus, not retrieval: kept apart.
+
+    Gold ids not in the corpus (placeholders such as "CESEDA (à confirmer)", articles outside the scope)
+    are dropped from the others, which stay measurable on the ids that exist.
+    """
+    have = corpus_ids()
+    kept, gaps = [], []
+    for t in tests:
+        gold = golds(t)
+        if gold and not gold & have:
+            gaps.append({"id": t["id"], "question": t["question"], "gold_source": sorted(gold)})
+            continue
+        if gold - have:
+            t = {**t, "gold_source": sorted(gold & have), "gold_outside_corpus": sorted(gold - have)}
+        kept.append(t)
+    return kept, gaps
+
+
 def first_gold_rank(ids: list[str], gold: set[str]) -> int | None:
     return next((i for i, s in enumerate(ids, 1) if s.upper() in gold), None)
 
@@ -47,7 +75,7 @@ def run_retrieval(tests: list[dict]) -> dict:
         found = pipeline.retriever()(t["question"], question_fr)
         ids = list(dict.fromkeys(s["id"] for s in found.sources))
         gold = golds(t)
-        rows.append({"id": t["id"], "tags": t.get("tags", []), "question_fr": question_fr,
+        rows.append({"id": t["id"], "tags": tags(t), "question_fr": question_fr,
                      "answerable": bool(gold), "sources": ids, "best_score": found.best_score,
                      "abstain": found.abstain, "missing_ids": found.missing_ids,
                      "gold_rank": first_gold_rank(ids, gold) if gold else None})
@@ -84,7 +112,7 @@ def run_answers(tests: list[dict]) -> dict:
         said_nf = out["answer"].strip().upper().startswith(pipeline.NOT_FOUND)
         cited = {c.upper() for c in re.findall(r"\[([^\]]+)\]", out["answer"])}
         rows.append({
-            "id": t["id"], "tags": t.get("tags", []), "answer": out["answer"], "sources": out["sources"],
+            "id": t["id"], "tags": tags(t), "answer": out["answer"], "sources": out["sources"],
             "best_score": out.get("best_score"), "seconds": out["seconds"],
             "retrieved_gold": bool(gold & {s.upper() for s in out["sources"]}) if gold else None,
             "cited_gold": bool(gold & cited) if gold else None,
@@ -98,13 +126,27 @@ def run_answers(tests: list[dict]) -> dict:
     return {"report": report, "rows": rows}
 
 
+def by_tag(rows: list[dict]) -> dict:
+    """Main rate per tag: Recall@1 in retrieval mode, cited gold or correct NOT FOUND in answer mode."""
+    out = {}
+    for tag in sorted({t for r in rows for t in r["tags"]}):
+        sub = [r for r in rows if tag in r["tags"]]
+        if "gold_rank" in sub[0]:
+            vals = [r["gold_rank"] == 1 if r["answerable"] else r["abstain"] for r in sub]
+        else:
+            vals = [r["cited_gold"] if r["cited_gold"] is not None else r["not_found_ok"] for r in sub]
+        out[tag] = rate(vals)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--baseline", action="store_true", help="no documents: what the model knows alone")
     ap.add_argument("--retrieval-only", action="store_true", help="measure retrieval without answering")
-    ap.add_argument("--signals", help="comma-separated subset of exact,fulltext,dense,labels")
+    ap.add_argument("--signals", help="comma-separated subset of exact,fulltext,dense")
     ap.add_argument("--no-rerank", action="store_true")
     ap.add_argument("--out", default=CFG["evaluation"]["report"])
+    ap.add_argument("--testset", help="another test set file (default: config.yaml)")
     args = ap.parse_args()
     if args.baseline:
         CFG["retrieval"]["enabled"] = False
@@ -112,9 +154,12 @@ def main():
         CFG["retrieval"]["signals"] = args.signals.split(",")
     if args.no_rerank:
         CFG["retrieval"]["rerank"] = False
-    tests = [json.loads(l) for l in open(CFG["evaluation"]["testset"], encoding="utf-8") if l.strip()]
+    tests = [json.loads(l) for l in open(args.testset or CFG["evaluation"]["testset"], encoding="utf-8") if l.strip()]
+    tests, gaps = split_by_corpus(tests)
     result = run_retrieval(tests) if args.retrieval_only else run_answers(tests)
-    result.update(n=len(tests), mode="retrieval" if args.retrieval_only else "baseline" if args.baseline else "system",
+    result["report"]["by_tag"] = by_tag(result["rows"])
+    result["report"]["corpus_gaps"] = len(gaps)
+    result.update(n=len(tests), corpus_gaps=gaps, mode="retrieval" if args.retrieval_only else "baseline" if args.baseline else "system",
                   config=CFG)
     json.dump(result, open(args.out, "w", encoding="utf-8"), indent=2, ensure_ascii=False, default=str)
     print(json.dumps({"n": len(tests), "mode": result["mode"], **result["report"]}, indent=1, ensure_ascii=False))
