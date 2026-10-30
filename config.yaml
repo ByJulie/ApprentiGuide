@@ -22,9 +22,9 @@ evaluation:
 database:             # connection string read from DATABASE_URL in .env
   table: chunks
   schema_file: db/schema.sql
-legifrance:           # keys in .env are PISTE sandbox keys: sandbox URLs. Production keys: drop "sandbox-".
-  oauth_url: https://sandbox-oauth.piste.gouv.fr/api/oauth/token
-  api_url: https://sandbox-api.piste.gouv.fr/dila/legifrance/lf-engine-app
+legifrance:           # keys in .env are PISTE production keys.
+  oauth_url: https://oauth.piste.gouv.fr/api/oauth/token
+  api_url: https://api.piste.gouv.fr/dila/legifrance/lf-engine-app
   request_delay_s: 0.2
 service_public:       # open data DILA, one zip per audience, one XML per fiche
   particuliers_zip: https://www.data.gouv.fr/api/1/datasets/r/0ed10f28-d197-4324-97b3-037f625095ac
