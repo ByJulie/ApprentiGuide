@@ -84,6 +84,33 @@ def generate(question: str, sources: list[dict], missing_ids: list[str] = ()) ->
     return (r.choices[0].message.content or "").strip()
 
 
+CITATION = re.compile(r"\[([^\[\]]+)\]")
+
+
+def citations(text: str, sources: list[dict]) -> dict:
+    """Sources shown under the answer, built from the database, never from the model's text.
+
+    cited: sources whose id the answer cites, in order of first citation, with link, label, date and
+    passages (a fiche can contribute several sections). consulted: retrieved but not cited.
+    invented: ids cited by the model that are not among the retrieved sources (no link is made).
+    """
+    by_id: dict[str, dict] = {}
+    for s in sources:
+        entry = by_id.setdefault(s["id"].upper(), {"id": s["id"], "source_label": s["source_label"],
+                                                    "url": s["url"], "version_date": s["version_date"],
+                                                    "passages": []})
+        entry["passages"].append({"title": s.get("title"), "text": s["text"]})
+    cited_ids = []
+    for group in CITATION.findall(text):
+        for ref in re.split(r"[,;]\s*", group):
+            ref = ref.strip().upper()
+            if ref and ref not in cited_ids:
+                cited_ids.append(ref)
+    return {"cited": [by_id[i] for i in cited_ids if i in by_id],
+            "consulted": [e for i, e in by_id.items() if i not in cited_ids],
+            "invented": [i for i in cited_ids if i not in by_id]}
+
+
 def answer(question: str) -> dict:
     t0 = time.time()
     found = retrieve(question)
@@ -93,8 +120,8 @@ def answer(question: str) -> dict:
         if found.missing_ids:
             text += f" ({', '.join(found.missing_ids)} is not in the texts I can search)"
         return {"answer": text, "sources": [], "seconds": round(time.time() - t0, 2),
-                "best_score": found.best_score}
+                "best_score": found.best_score, "citations": citations("", [])}
     sources = found.sources if found else []
     text = generate(question, sources, found.missing_ids if found else [])
     return {"answer": text, "sources": [s["id"] for s in sources], "seconds": round(time.time() - t0, 2),
-            "best_score": found.best_score if found else None}
+            "best_score": found.best_score if found else None, "citations": citations(text, sources)}

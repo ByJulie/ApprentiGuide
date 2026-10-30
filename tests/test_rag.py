@@ -32,3 +32,19 @@ def test_a_refusal_is_not_used_as_a_search_query():
     assert REFUSAL.search("I’m sorry, but I can’t help with that.")
     assert REFUSAL.search("Je ne peux pas répondre")
     assert not REFUSAL.search("salaire minimum apprenti 22 ans première année")
+
+
+def test_citations_come_from_retrieved_sources_never_from_the_model():
+    from app.pipeline import citations
+    sources = [{"id": "L6222-35", "text": "cinq jours", "title": "Article L6222-35", "url": "https://legifrance/x",
+                "source_label": "Code du travail, Legifrance", "version_date": "2009-11-26"},
+               {"id": "F2918", "text": "section 1", "title": "a", "url": "https://sp/F2918",
+                "source_label": "Service-Public.fr/DILA", "version_date": "2026-09-08"},
+               {"id": "F2918", "text": "section 2", "title": "b", "url": "https://sp/F2918",
+                "source_label": "Service-Public.fr/DILA", "version_date": "2026-09-08"}]
+    out = citations("Tu as 5 jours [L6222-35] et la fiche le confirme [F2918; L9999-1].", sources)
+    assert [c["id"] for c in out["cited"]] == ["L6222-35", "F2918"]
+    assert len(out["cited"][1]["passages"]) == 2
+    assert out["invented"] == ["L9999-1"]
+    assert out["consulted"] == []
+    assert citations("NOT FOUND", sources)["consulted"][0]["id"] == "L6222-35"

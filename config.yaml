@@ -13,6 +13,7 @@ model:
   max_tokens: 2000
   reasoning_effort: low
 prompt_file: prompts/system_v1.txt
+corpus_snapshot: 2026-10-25   # date of the data files (Licence Ouverte: cite the source and its date)
 rewrite:              # French version of the question (app/pipeline.py), about 200 tokens per call.
   # Not llama3.2: it answered instead of translating (E6). gpt-oss-120b has its own Groq quota.
   base_url: https://api.groq.com/openai/v1

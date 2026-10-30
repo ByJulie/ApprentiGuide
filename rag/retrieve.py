@@ -157,7 +157,7 @@ class Retriever:
         best = max((s for _, s in ranked), default=0.0)
         found = {r["citation_id"].upper() for r in rows}
         sources = [{"id": r["citation_id"], "text": passage(r), "score": round(s, 3),
-                    "url": r["url"], "source_label": r["source_label"],
+                    "title": r["title"], "url": r["url"], "source_label": r["source_label"],
                     "version_date": str(r["version_date"]) if r["version_date"] else None}
                    for r, s in chosen]
         missing = [i for i in ids if i not in found]

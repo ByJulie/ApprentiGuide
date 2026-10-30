@@ -127,10 +127,13 @@ def run_answers(tests: list[dict]) -> dict:
             # crude: replace by a judge calibrated on human labels
             "contains_reference": (t["answer"].lower() in out["answer"].lower()) if gold else None,
             "answered_when_answerable": (not said_nf) if gold else None,
-            "not_found_ok": said_nf if not gold else None})
+            "not_found_ok": said_nf if not gold else None,
+            # ids cited by the model that were not among the retrieved sources: must stay at 0
+            "invented_citations": out.get("citations", {}).get("invented", [])})
     report = {k: rate([r[k] for r in rows]) for k in
               ("retrieved_gold", "cited_gold", "contains_reference", "answered_when_answerable", "not_found_ok")}
     report["median_seconds"] = statistics.median(r["seconds"] for r in rows) if rows else None
+    report["answers_with_invented_citation"] = rate([bool(r["invented_citations"]) for r in rows])
     return {"report": report, "rows": rows}
 
 
@@ -156,9 +159,12 @@ def main():
     ap.add_argument("--out", default=CFG["evaluation"]["report"])
     ap.add_argument("--testset", help="another test set file (default: config.yaml)")
     ap.add_argument("--lead-gold-only", action="store_true", help="ignore gold_added (sources added after review)")
+    ap.add_argument("--model", help="answer model for this run, e.g. openai/gpt-oss-120b (same endpoint as config.yaml)")
     args = ap.parse_args()
     global USE_ADDED_GOLD
     USE_ADDED_GOLD = not args.lead_gold_only
+    if args.model:
+        CFG["model"]["name"] = args.model
     if args.baseline:
         CFG["retrieval"]["enabled"] = False
     if args.signals:
