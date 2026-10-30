@@ -111,17 +111,54 @@ def citations(text: str, sources: list[dict]) -> dict:
             "invented": [i for i in cited_ids if i not in by_id]}
 
 
+ENGLISH = re.compile(r"\b(the|is|are|can|my|what|how|do|does|i am|should|which|who)\b", re.I)
+NOT_FOUND_MESSAGE = {
+    "fr": ("Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, "
+           "Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou "
+           "pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat."),
+    "en": ("I could not find the answer in the texts I search (French labour code, immigration code, "
+           "social security code and Service-Public.fr fact sheets). Try asking differently, or ask your "
+           "school or your HR team: they know the rules specific to your contract."),
+}
+MISSING_MESSAGE = {"fr": " L'article {ids} ne fait pas partie de ces textes.",
+                   "en": " Article {ids} is not among these texts."}
+
+
+def language(question: str, question_fr: str | None) -> str:
+    """fr when the French rewrite left the question unchanged, else en (heuristic without a rewrite)."""
+    if question_fr is not None:
+        same = re.sub(r"\W+", "", question_fr.lower()) == re.sub(r"\W+", "", question.lower())
+        return "fr" if same else "en"
+    return "en" if len(ENGLISH.findall(question)) >= 2 else "fr"
+
+
+def not_found_message(lang: str, missing_ids: list[str] = ()) -> str:
+    """Fixed text written in code, in the language of the question: the user sees where we looked and
+    what to do next; NOT FOUND stays an internal signal (field not_found)."""
+    text = NOT_FOUND_MESSAGE[lang]
+    if missing_ids:
+        text += MISSING_MESSAGE[lang].format(ids=", ".join(missing_ids))
+    return text
+
+
 def answer(question: str) -> dict:
     t0 = time.time()
     found = retrieve(question)
+    lang = language(question, found.question_fr if found else None)
     if found is not None and found.abstain:
         # Decided in code from the reranker score: the model never sees weak sources.
-        text = NOT_FOUND
-        if found.missing_ids:
-            text += f" ({', '.join(found.missing_ids)} is not in the texts I can search)"
-        return {"answer": text, "sources": [], "seconds": round(time.time() - t0, 2),
+        reason = "missing_article" if found.missing_ids else "weak_sources"
+        return {"answer": not_found_message(lang, found.missing_ids), "not_found": True,
+                "not_found_reason": reason, "sources": [], "seconds": round(time.time() - t0, 2),
                 "best_score": found.best_score, "citations": citations("", [])}
     sources = found.sources if found else []
     text = generate(question, sources, found.missing_ids if found else [])
-    return {"answer": text, "sources": [s["id"] for s in sources], "seconds": round(time.time() - t0, 2),
-            "best_score": found.best_score if found else None, "citations": citations(text, sources)}
+    if text.strip().upper().startswith(NOT_FOUND):
+        # The model judged the sources insufficient (rule 6 of the prompt): same fixed message.
+        return {"answer": not_found_message(lang, found.missing_ids if found else []), "not_found": True,
+                "not_found_reason": "model", "sources": [s["id"] for s in sources],
+                "seconds": round(time.time() - t0, 2), "best_score": found.best_score if found else None,
+                "citations": citations("", sources)}
+    return {"answer": text, "not_found": False, "sources": [s["id"] for s in sources],
+            "seconds": round(time.time() - t0, 2), "best_score": found.best_score if found else None,
+            "citations": citations(text, sources)}

@@ -117,11 +117,12 @@ def run_answers(tests: list[dict]) -> dict:
     for t in tests:
         out = pipeline.answer(t["question"])
         gold = golds(t)
-        said_nf = out["answer"].strip().upper().startswith(pipeline.NOT_FOUND)
+        said_nf = out.get("not_found", out["answer"].strip().upper().startswith(pipeline.NOT_FOUND))
         cited = {c.upper() for c in re.findall(r"\[([^\]]+)\]", out["answer"])}
         rows.append({
             "id": t["id"], "tags": tags(t), "answer": out["answer"], "sources": out["sources"],
             "best_score": out.get("best_score"), "seconds": out["seconds"],
+            "not_found_reason": out.get("not_found_reason"),
             "retrieved_gold": bool(gold & {s.upper() for s in out["sources"]}) if gold else None,
             "cited_gold": bool(gold & cited) if gold else None,
             # crude: replace by a judge calibrated on human labels

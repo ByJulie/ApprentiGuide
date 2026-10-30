@@ -31,6 +31,7 @@ class Retrieval:
     # Numbers written in the question that are not in the corpus: the answer must say so
     # instead of answering from a neighbouring article.
     missing_ids: list[str] = field(default_factory=list)
+    question_fr: str | None = None
 
 
 def cited_ids(question: str) -> list[str]:
@@ -164,4 +165,5 @@ class Retriever:
         # The user asked about an article we do not have, and none they named was found: answering
         # from the closest articles would present a neighbour as the answer. Abstain and say why.
         abstain = (not named and best < threshold) or bool(missing and not named)
-        return Retrieval(sources=sources, abstain=abstain, best_score=round(best, 3), missing_ids=missing)
+        return Retrieval(sources=sources, abstain=abstain, best_score=round(best, 3), missing_ids=missing,
+                         question_fr=question_fr)

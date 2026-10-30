@@ -48,3 +48,13 @@ def test_citations_come_from_retrieved_sources_never_from_the_model():
     assert out["invented"] == ["L9999-1"]
     assert out["consulted"] == []
     assert citations("NOT FOUND", sources)["consulted"][0]["id"] == "L6222-35"
+
+
+def test_not_found_message_is_fixed_and_in_the_language_of_the_question():
+    from app.pipeline import language, not_found_message
+    assert language("Quel est le menu de la cantine ?", "Quel est le menu de la cantine ?") == "fr"
+    assert language("Who is the director of aivancity?", "Qui est le directeur d'aivancity ?") == "en"
+    assert language("How many days can I take?", None) == "en"
+    msg = not_found_message("fr", ["L9999-1"])
+    assert "école ou à tes RH" in msg and "L'article L9999-1 ne fait pas partie" in msg
+    assert not_found_message("en").startswith("I could not find")
