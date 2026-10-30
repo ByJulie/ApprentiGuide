@@ -30,7 +30,7 @@ Return JSON only, with this shape:
 {{"categories": [...], "keywords": [...], "concepts": [{{"concept": "...", "keyword": "..."}}]}}
 
 Rules:
-- categories: 1 to 3, in English, Title Case: the topic of the rule as a person would name it (e.g. "Paid Leave", "Caregiver Leave", "Apprenticeship Contract", "Student Work Rights"), never a procedure or form ("Notification", "Procedure", "Deadline"). Reuse a known category only if it names this exact topic; otherwise create a precise one.
+- categories: 1 to 3, in English, Title Case: the topic of the rule as a person would name it, read from the place of the document in the code (its section titles). Never a procedure or form ("Notification", "Procedure", "Deadline"). Reuse a known category only if it names this exact topic; otherwise create a precise one.
 - keywords: up to 12, copied in the document's original French wording and case, concrete (amounts, durations, conditions, named schemes), at most 6 words each.
 - concepts: up to 8, in English, Title Case, each one the stable abstraction of one keyword from your list (give that keyword).
 - Never use the name of the source, the code, or generic words such as "article", "employer", "employee".
@@ -38,7 +38,8 @@ Rules:
 
 Known categories: {known}
 
-Document {citation_id} ({title}):
+Document {citation_id} ({title})
+Place in the code: {place}
 {text}"""
 
 
@@ -47,7 +48,14 @@ def build_prompt(doc: dict, known_categories: list[str]) -> str:
     # Alphabetical, not by frequency: a frequency order pulls every document into the top category.
     known = ", ".join(sorted(known_categories[:MAX_KNOWN_CATEGORIES])) or "(none yet)"
     return PROMPT.format(known=known, citation_id=doc["citation_id"], title=doc["title"] or "",
-                         text=doc["text"][:DOC_CHARS_FOR_LABELS])
+                         place=place(doc.get("section_path")), text=doc["text"][:DOC_CHARS_FOR_LABELS])
+
+
+def place(section_path: str | None, levels: int = 4) -> str:
+    """The last section titles: "Caisses de congés payés > ... bâtiment" says what a short article is about."""
+    if not section_path:
+        return "(unknown)"
+    return " > ".join(section_path.split(" > ")[-levels:])
 
 
 def parse(raw: str) -> dict:

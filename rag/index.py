@@ -66,7 +66,7 @@ def index_chunks(conn) -> None:
 def documents(conn) -> list[dict]:
     """One record per article or fiche: its parts joined in order."""
     return conn.execute(
-        """SELECT corpus, citation_id, min(title) AS title,
+        """SELECT corpus, citation_id, min(title) AS title, min(section_path) AS section_path,
                   string_agg(text, E'\n' ORDER BY part) AS text
            FROM chunks GROUP BY corpus, citation_id ORDER BY corpus, citation_id""").fetchall()
 
