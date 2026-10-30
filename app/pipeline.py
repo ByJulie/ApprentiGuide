@@ -25,8 +25,9 @@ def retriever():
 
 
 REWRITE = ("Rewrite the user's question in French, as a short search query for French employment "
-           "law and service-public.fr fiches. Keep article numbers and facts about the person "
-           "(age, nationality, year of study). Return the query only.")
+           "law and service-public.fr fiches. Keep the facts about the person (age, nationality, "
+           "year of study). Never add an article or fiche number that is not in the question. "
+           "Return the query only.")
 
 
 def rewrite_fr(question: str) -> str | None:
@@ -36,9 +37,12 @@ def rewrite_fr(question: str) -> str | None:
             model=CFG["model"]["name"], temperature=0, max_tokens=400,
             **({"reasoning_effort": "low"} if CFG["model"].get("reasoning_effort") else {}),
             messages=[{"role": "system", "content": REWRITE}, {"role": "user", "content": question}])
-        return (r.choices[0].message.content or "").strip() or None
+        text = (r.choices[0].message.content or "").strip()
     except Exception:
         return None
+    # A number the user did not write would send retrieval to the wrong article: removed in code.
+    from rag.retrieve import strip_unasked_ids
+    return strip_unasked_ids(question, text) or None
 
 
 def retrieve(question: str):

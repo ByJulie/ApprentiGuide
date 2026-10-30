@@ -20,7 +20,7 @@ from pgvector.psycopg import register_vector
 from rag import models
 
 RRF_K = 60
-ARTICLE_RE = re.compile(r"\b([LRD]\*?\s?\d{3,4}-\d+(?:-\d+)*)\b", re.IGNORECASE)
+ARTICLE_RE = re.compile(r"\b([LRD]\.?\s?\*?\s?\d{3,4}-\d+(?:-\d+)*)\b", re.IGNORECASE)
 FICHE_RE = re.compile(r"\b(F\d{2,6})\b", re.IGNORECASE)
 
 
@@ -36,9 +36,22 @@ class Retrieval:
 
 def cited_ids(question: str) -> list[str]:
     """Article and fiche numbers written in the question, normalised (L 6222-35 -> L6222-35)."""
-    ids = [m.replace(" ", "").upper() for m in ARTICLE_RE.findall(question)]
+    ids = [_norm(m) for m in ARTICLE_RE.findall(question)]
     ids += [m.upper() for m in FICHE_RE.findall(question)]
     return list(dict.fromkeys(ids))
+
+
+def _norm(ref: str) -> str:
+    return re.sub(r"[\s.]", "", ref).upper()
+
+
+def strip_unasked_ids(question: str, text: str) -> str:
+    """Remove from a rewritten question the article or fiche numbers the user did not write."""
+    asked = set(cited_ids(question))
+    for pattern in (ARTICLE_RE, FICHE_RE):
+        text = pattern.sub(lambda m: m.group(0) if _norm(m.group(0)) in asked else "", text)
+    text = re.sub(r"\(\s*(?:article|art\.|fiche)?\s*\)", "", text, flags=re.I)
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def rrf(rankings: list[list], k: int = RRF_K) -> list:

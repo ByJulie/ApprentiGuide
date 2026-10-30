@@ -42,3 +42,18 @@ def test_postprocess_drops_legal_plumbing_keeps_rules():
             "concepts": ["Effective Date", "Decree 2020-1734", "Exam Preparation Leave"]}
     labels_kept = [l for _, l in labels.postprocess(data)]
     assert labels_kept == ["cinq jours ouvrables", "moins de 18 ans", "50 % du SMIC", "Exam Preparation Leave"]
+
+
+def test_wilson_interval_matches_the_course_table():
+    from eval.eval import wilson
+    assert wilson(16, 20) == [0.584, 0.919]
+    assert wilson(48, 60) == [0.682, 0.882]
+
+
+def test_rewrite_loses_invented_article_numbers_keeps_asked_ones():
+    from rag.retrieve import strip_unasked_ids
+    invented = "Combien de jours de congés pour préparer mes examens en apprentissage ? (article L. 6323-1)"
+    assert strip_unasked_ids("How many days off for exams?", invented) == \
+        "Combien de jours de congés pour préparer mes examens en apprentissage ?"
+    assert strip_unasked_ids("What does L6222-35 say?", "Que dit l'article L6222-35 ?") == "Que dit l'article L6222-35 ?"
+    assert cited_ids("voir l'article L. 6222-35") == ["L6222-35"]
