@@ -69,7 +69,13 @@ def retrieve(question: str):
     return retriever()(question, question_fr)
 
 
-def generate(question: str, sources: list[dict], missing_ids: list[str] = ()) -> str:
+ANSWER_LANGUAGE = {
+    "fr": "Réponds en français.",
+    "en": "Answer in English. The sources are in French: translate what they say, keep the ids as they are.",
+}
+
+
+def generate(question: str, sources: list[dict], missing_ids: list[str] = (), lang: str = "fr") -> str:
     ctx = "\n\n".join(f"[{s['id']}] {s['text']}" for s in sources) or "(no sources)"
     note = ""
     if missing_ids:
@@ -80,7 +86,8 @@ def generate(question: str, sources: list[dict], missing_ids: list[str] = ()) ->
         max_tokens=CFG["model"]["max_tokens"],
         **({"reasoning_effort": CFG["model"]["reasoning_effort"]} if CFG["model"].get("reasoning_effort") else {}),
         messages=[{"role": "system", "content": SYSTEM},
-                  {"role": "user", "content": f"<sources>\n{ctx}\n</sources>{note}\n\nQuestion: {question}"}])
+                  {"role": "user", "content": f"<sources>\n{ctx}\n</sources>{note}\n\nQuestion: {question}\n\n"
+                                              f"{ANSWER_LANGUAGE[lang]}"}])
     return (r.choices[0].message.content or "").strip()
 
 
@@ -160,7 +167,9 @@ def answer(question: str) -> dict:
                 "not_found_reason": reason, "sources": [], "seconds": round(time.time() - t0, 2),
                 "best_score": found.best_score, "citations": citations("", [])}
     sources = found.sources if found else []
-    text = generate(question, sources, found.missing_ids if found else [])
+    # The answer language is decided in code: with French sources the model answered English questions
+    # in French 9 times out of 9 although the prompt asked for the language of the question.
+    text = generate(question, sources, found.missing_ids if found else [], lang)
     if text.strip().upper().startswith(NOT_FOUND):
         # The model judged the sources insufficient (rule 6 of the prompt): same fixed message.
         return {"answer": not_found_message(lang, found.missing_ids if found else []), "not_found": True,

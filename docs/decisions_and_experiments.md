@@ -36,6 +36,10 @@ question
 | D11 | PostgreSQL with pgvector (image `pgvector/pgvector`), host port set by `DB_PORT` (default 5432). | One database for text, full text index and vectors; the port avoids a clash with another local PostgreSQL. | A separate vector store (Chroma). |
 | D12 | `RAG_DEVICE=cpu` to run the embedding model and the reranker on the CPU. | On a Mac, a local LLM using the GPU made them wait with 0 % CPU (E5). | |
 | D13 | Labels per document: tried, measured, removed (section 3). | No gain in the ablation, one hour of local LLM per full index. | |
+| D14 | The answer language is decided in code (French if the French rewrite left the question unchanged, else English) and stated at the end of the request to the model. | E11: 9 of 9 English questions answered in French with French sources, despite the prompt rule. | Prompt rule only. |
+| D15 | Prompt v2 (`prompts/system_v2.txt`, v1 kept as measured): answer the exact question (a maximum is a maximum); for company-dependent questions give what the law sets or say it sets nothing, then what to ask HR or the school, never NOT FOUND if a source covers the topic; NOT FOUND only if no source is about the topic; ids in square brackets. | E11 reading. To be measured against v1 on the same questions before switching `prompt_file`. | |
+| D16 | NOT FOUND is shown as a fixed message written in code, in the language of the question: where we looked (the codes and Service-Public.fr) and what to do (rephrase, ask the school or HR), plus the missing article when one was named. NOT FOUND stays an internal flag (`not_found`, with its reason) for the evaluation. | A bare "NOT FOUND" tells the user nothing; a fixed text cannot be hallucinated. | Message written by the model. |
+| D17 | Sources under each answer come from the database, never from the model: link (Legifrance article or Service-Public fiche), label, version date, passages; ids cited but not retrieved are flagged as unverified and counted. The page shows the Licence Ouverte attribution with the date of the data files. | Users must be able to check the text themselves; Licence Ouverte requires the source and its date. | Links written by the model. |
 
 Not in the 3 Nov. scope: an agent that chooses its own search tools (planned for the Agentic AI course), boosting by user profile (international, age, programme), the school regulations (written permission pending).
 
@@ -160,8 +164,27 @@ Abstention with the threshold of D7: 14 of 20 unanswerable questions abstained, 
 
 This set is much harder than the draft (0.90): more paraphrases, conditions and company-dependent cases. The number that matters for the answer is Recall@5: in 80 % of answerable questions the model sees at least one source that states the rule. The review marked cut-off passages as uncertain rather than correct (for example the age section of F2918 for Q01), so Recall@1 is a lower bound.
 
+### E11. First answer run (37 questions drawn from the 81, all families and both languages; gpt-oss-120b, prompt v1; `answers37_120b_prompt-v1.json`)
+
+| Measure | Result (95 % CI) |
+|---|---|
+| A gold source is among the 5 given to the model | 0.78 (0.59 to 0.89) |
+| The answer cites a gold source | 0.70 (0.52 to 0.84) |
+| Answers when an answer exists | 0.93 (0.77 to 0.98) |
+| NOT FOUND when no answer exists | 8/9 (0.57 to 0.98) |
+| Answers citing an id that was not given (invented) | 0/36 |
+| Median latency | 13 s |
+
+Read by hand, question by question:
+- **Citations.** The model writes ids as `[ F2918 ]`, `【F33754】`, `[F2918 ; D6222-1]` or wrapped in invisible characters; the first parser missed them (cited gold 0.52 before the fix, 0.70 after). Fixed in code (`cited_ids`), unit tested on these exact forms.
+- **Language.** The 9 English questions answered were all answered in French, although the prompt asked for the language of the question. Now decided in code (D14).
+- **Company-dependent questions.** Q58 (bonus, 13th month) and Q16 (company health plan) got NOT FOUND instead of "the law sets no general rule / here is the rule, ask HR for ...". A10 (our pitch story, fewer meal vouchers this month) gave secondary reasons (25 euros a day, order of use) but not the key rule (one voucher per meal within the working day, so none on days of absence), and never said to ask HR. Prompt v2 targets this (D15).
+- **Exact question.** Q36 (maximum hours per week) answered the legal 35 hours instead of the maximum, with F1911 among the sources. Prompt v2 rule 2.
+- Q58 still abstains with v2: no retrieved source is about bonuses (the relevant F2918 section, "L'apprenti est-il un salarié comme les autres ?", is not retrieved): a retrieval miss, not a prompt one.
+
 ## 5. Next steps
 
-1. Gold sources of the evaluation lead's test set: list every article or fiche section that states the rule (candidates proposed with the passage as evidence, validated by the evaluation lead).
-2. Corpus gaps: either the data lead adds durée du travail, repos, travail de nuit and médecine du travail to `ingest/scope.yaml`, or those questions become "no answer" for 3 Nov.
-3. Rerun retrieval, then answers (system and baseline, same questions, 95 % intervals), then the red-team set (`eval/redteam.jsonl`, 28 cases).
+1. Answer runs when the Groq quota is back: v1 + language in code against v2 + language in code, same 37 questions, same model (gpt-oss-120b); then the baseline (no documents) and the red-team set.
+2. Gold sources of the evaluation lead's test set: list every article or fiche section that states the rule (candidates proposed with the passage as evidence, validated by the evaluation lead).
+3. Corpus gaps: either the data lead adds durée du travail, repos, travail de nuit and médecine du travail to `ingest/scope.yaml`, or those questions become "no answer" for 3 Nov.
+4. Rerun retrieval, then answers (system and baseline, same questions, 95 % intervals), then the red-team set (`eval/redteam.jsonl`, 28 cases).
