@@ -31,9 +31,17 @@ def rate(values: list) -> dict:
     return {"rate": round(sum(v) / len(v), 3) if v else None, "n": len(v), "ci95": wilson(sum(v), len(v))}
 
 
+USE_ADDED_GOLD = True
+
+
 def golds(t: dict) -> set[str]:
+    """Gold sources: the evaluation lead's, plus the ones added after review (gold_added) unless
+    --lead-gold-only. Any of them counts as a correct retrieval."""
     g = t.get("gold_source")
-    return set() if g is None else {g.upper()} if isinstance(g, str) else {x.upper() for x in g}
+    out = set() if g is None else {g.upper()} if isinstance(g, str) else {x.upper() for x in g}
+    if USE_ADDED_GOLD:
+        out |= {x.upper() for x in t.get("gold_added") or []}
+    return out
 
 
 def tags(t: dict) -> list[str]:
@@ -147,7 +155,10 @@ def main():
     ap.add_argument("--no-rerank", action="store_true")
     ap.add_argument("--out", default=CFG["evaluation"]["report"])
     ap.add_argument("--testset", help="another test set file (default: config.yaml)")
+    ap.add_argument("--lead-gold-only", action="store_true", help="ignore gold_added (sources added after review)")
     args = ap.parse_args()
+    global USE_ADDED_GOLD
+    USE_ADDED_GOLD = not args.lead_gold_only
     if args.baseline:
         CFG["retrieval"]["enabled"] = False
     if args.signals:

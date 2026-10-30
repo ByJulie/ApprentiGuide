@@ -2,7 +2,7 @@
 
 Log of the retrieval and answer pipeline (`rag/`, `app/pipeline.py`, `eval/eval.py`): what we decided, what we tried, what we kept, what we removed and why. Every number comes from a run on the database built by `ingest.load` (1372 chunks, 850 documents, data files of 2026-10-25). Raw results of each run are in `eval/runs/`.
 
-**Status, 30 Oct. 2026, 16:30.** Pipeline built and unit tested (44 tests). On the draft test set (36 questions), retrieval reaches Recall@1 0.90 (95 % CI 0.74 to 0.97), Recall@3 0.97, MRR 0.92 (E7). The ablation (E8) showed that labels per document bring nothing here: they were removed (section 3). The evaluation lead's test set (70 questions, `eval/testset.jsonl`) is now the reference; its first run (E9) shows that gold sources must list every text that answers, not only the Code article, before its numbers mean anything.
+**Status, 30 Oct. 2026, 17:00.** On the full test set (81 questions, gold sources reviewed): Recall@1 0.55, Recall@5 0.80 (E10). Earlier, at 16:30: Pipeline built and unit tested (44 tests). On the draft test set (36 questions), retrieval reaches Recall@1 0.90 (95 % CI 0.74 to 0.97), Recall@3 0.97, MRR 0.92 (E7). The ablation (E8) showed that labels per document bring nothing here: they were removed (section 3). The evaluation lead's test set (70 questions, `eval/testset.jsonl`) is now the reference; its first run (E9) shows that gold sources must list every text that answers, not only the Code article, before its numbers mean anything.
 
 ## 1. The pipeline as it is
 
@@ -146,6 +146,19 @@ Thirty answerable questions give wide intervals: the differences between the fir
 8 questions have gold sources that are all outside the corpus (durée du travail L3121-18 and L3121-20, repos L3132-1 and L3132-3, travail de nuit L3163-1, médecine du travail L4624-1, L2254-1, and two fiches "à identifier"): reported apart as corpus gaps. On the other 62: Recall@1 0.12, Recall@3 0.35, Recall@5 0.49.
 
 These numbers mostly measure how narrow the gold sources are, not retrieval: in 23 of the 38 misses a service-public fiche that states the rule (often F2918, "Contrat d'apprentissage") is ranked first while only the Code article is listed as gold; Q02 lists L6222-7 while L6222-7-1, the article on the length of the contract, is retrieved. Real abstention problem: "C'est quoi le numéro de mon contrat d'apprentissage ?" scores 0.909 on F2918, which speaks about contracts but not about the user's own contract number. That one must be caught at answer time (rule 6 of the prompt), not by the threshold.
+
+### E10. Retrieval on the full test set (81 questions: the evaluation lead's 70 plus 11 from the draft; `testset81_retrieval.json`)
+
+Gold sources reviewed first: for each answerable question, the 5 retrieved passages were read and a passage was added as gold (`gold_added`, with a quote as evidence) only if it states the rule of the reference answer; replacement articles named in the review were checked in the database (all present except L3121-20, a corpus gap). The evaluation lead's fields are unchanged; `--lead-gold-only` ignores the additions.
+
+| Gold sources | Recall@1 (95 % CI) | Recall@3 | Recall@5 (95 % CI) | MRR |
+|---|---|---|---|---|
+| evaluation lead's only | 0.23 | 0.42 | | |
+| with reviewed additions | **0.55** (0.43 to 0.67) | 0.75 | **0.80** (0.68 to 0.88) | 0.65 |
+
+Abstention with the threshold of D7: 14 of 20 unanswerable questions abstained, 3 of 60 answerable ones wrongly abstained. Per family (Recall@1, or abstention for "no answer"): in corpus 0.54, company dependent 0.57, no answer 0.70; English 0.65, French 0.57. One question left as corpus gap (Q62, work on Saturday: L3132 not in the corpus).
+
+This set is much harder than the draft (0.90): more paraphrases, conditions and company-dependent cases. The number that matters for the answer is Recall@5: in 80 % of answerable questions the model sees at least one source that states the rule. The review marked cut-off passages as uncertain rather than correct (for example the age section of F2918 for Q01), so Recall@1 is a lower bound.
 
 ## 5. Next steps
 
