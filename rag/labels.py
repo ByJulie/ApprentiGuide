@@ -30,7 +30,7 @@ Return JSON only, with this shape:
 {{"categories": [...], "keywords": [...], "concepts": [{{"concept": "...", "keyword": "..."}}]}}
 
 Rules:
-- categories: 1 to 3, in English, Title Case, abstract (e.g. "Paid Leave", not "congés payés en apprentissage"). Reuse a known category when one fits.
+- categories: 1 to 3, in English, Title Case: the topic of the rule as a person would name it (e.g. "Paid Leave", "Caregiver Leave", "Apprenticeship Contract", "Student Work Rights"), never a procedure or form ("Notification", "Procedure", "Deadline"). Reuse a known category only if it names this exact topic; otherwise create a precise one.
 - keywords: up to 12, copied in the document's original French wording and case, concrete (amounts, durations, conditions, named schemes), at most 6 words each.
 - concepts: up to 8, in English, Title Case, each one the stable abstraction of one keyword from your list (give that keyword).
 - Never use the name of the source, the code, or generic words such as "article", "employer", "employee".
@@ -44,7 +44,8 @@ Document {citation_id} ({title}):
 
 def build_prompt(doc: dict, known_categories: list[str]) -> str:
     """Prompt for one document; known categories are the most used ones so far."""
-    known = ", ".join(known_categories[:MAX_KNOWN_CATEGORIES]) or "(none yet)"
+    # Alphabetical, not by frequency: a frequency order pulls every document into the top category.
+    known = ", ".join(sorted(known_categories[:MAX_KNOWN_CATEGORIES])) or "(none yet)"
     return PROMPT.format(known=known, citation_id=doc["citation_id"], title=doc["title"] or "",
                          text=doc["text"][:DOC_CHARS_FOR_LABELS])
 
@@ -71,6 +72,9 @@ def _fold(text: str) -> str:
 
 
 NOISE = {_fold(n) for n in NOISE}
+# Procedures, not topics: as categories they would join unrelated rules.
+GENERIC_CATEGORIES = {_fold(c) for c in ("Notification", "Procedure", "Procedures", "Deadline", "Deadlines",
+                                         "Formalities", "Administrative Procedure", "Obligations", "Rights")}
 
 # Legal plumbing, deterministic: references to other texts and entry-into-force notes.
 # Amounts, durations and ages stay ("5 jours ouvrables", "moins de 18 ans").
@@ -105,6 +109,7 @@ def postprocess(data: dict) -> list[tuple[str, str]]:
     seen: set[str] = set()
     out = []
     categories = [_clean(c) for c in data.get("categories") or [] if isinstance(c, str)]
+    categories = [c for c in categories if _fold(c) not in GENERIC_CATEGORIES]
     for label in [c for c in categories if _keep(c, seen)][:MAX_CATEGORIES]:
         out.append(("category", label))
     keywords = [_clean(k) for k in data.get("keywords") or [] if isinstance(k, str)]

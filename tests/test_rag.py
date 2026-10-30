@@ -57,3 +57,10 @@ def test_rewrite_loses_invented_article_numbers_keeps_asked_ones():
         "Combien de jours de congés pour préparer mes examens en apprentissage ?"
     assert strip_unasked_ids("What does L6222-35 say?", "Que dit l'article L6222-35 ?") == "Que dit l'article L6222-35 ?"
     assert cited_ids("voir l'article L. 6222-35") == ["L6222-35"]
+
+
+def test_generic_categories_are_dropped_and_known_ones_listed_alphabetically():
+    pairs = labels.postprocess({"categories": ["Notification", "Caregiver Leave"]})
+    assert pairs == [("category", "Caregiver Leave")]
+    prompt = labels.build_prompt({"citation_id": "L1", "title": "", "text": "x"}, ["Paid Leave", "Immigration"])
+    assert "Known categories: Immigration, Paid Leave" in prompt
