@@ -12,6 +12,15 @@ key_env = CFG["model"].get("api_key_env", "none")
 client = OpenAI(base_url=CFG["model"]["base_url"],
                 api_key="ollama" if key_env == "none" else os.environ.get(key_env) or "missing",
                 max_retries=6)  # the free plan answers 429 when calls come in a burst (evaluation runs)
+def _client(cfg: dict) -> OpenAI:
+    env = cfg.get("api_key_env", "none")
+    return OpenAI(base_url=cfg["base_url"], max_retries=6,
+                  api_key="ollama" if env == "none" else os.environ.get(env) or "missing")
+
+
+# The rewrite can use its own (local) model: section rewrite of config.yaml, else the answer model.
+REWRITE_CFG = CFG.get("rewrite") or CFG["model"]
+rewrite_client = _client(REWRITE_CFG)
 SYSTEM = open(os.path.join(ROOT, CFG["prompt_file"])).read()
 NOT_FOUND = "NOT FOUND"
 _retriever = None
@@ -25,10 +34,9 @@ def retriever():
     return _retriever
 
 
-REWRITE = ("Rewrite the user's question in French, as a short search query for French employment "
-           "law and service-public.fr fiches. Keep the facts about the person (age, nationality, "
-           "year of study). Never add an article or fiche number that is not in the question. "
-           "Return the query only.")
+REWRITE = ("Translate the user's question into French. If it is already in French, return it unchanged. "
+           "Keep everything it says: the person's situation (age, nationality, year, contract) and what "
+           "they ask. Do not answer, do not add websites, sources or article numbers. One line, no quotes.")
 
 
 REFUSAL = re.compile(r"\b(sorry|can['’]?t help|cannot help|unable to|désolée?|je ne peux pas)\b", re.I)
@@ -37,13 +45,14 @@ REFUSAL = re.compile(r"\b(sorry|can['’]?t help|cannot help|unable to|désolée
 def rewrite_fr(question: str) -> str | None:
     """French version of the question, or None if the call fails (retrieval then uses the original)."""
     try:
-        r = client.chat.completions.create(
-            model=CFG["model"]["name"], temperature=0, max_tokens=400,
-            **({"reasoning_effort": "low"} if CFG["model"].get("reasoning_effort") else {}),
+        r = rewrite_client.chat.completions.create(
+            model=REWRITE_CFG["name"], temperature=0, max_tokens=400,
+            **({"reasoning_effort": "low"} if "gpt-oss" in REWRITE_CFG["name"] else {}),
             messages=[{"role": "system", "content": REWRITE}, {"role": "user", "content": question}])
         text = (r.choices[0].message.content or "").strip()
     except Exception:
         return None
+    text = text.strip().strip('"«»“”').strip()
     # A refusal is not a query: searching with it would rank noise. Fall back to the original question.
     if REFUSAL.search(text):
         return None

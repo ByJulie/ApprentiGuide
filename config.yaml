@@ -13,6 +13,11 @@ model:
   max_tokens: 2000
   reasoning_effort: low
 prompt_file: prompts/system_v1.txt
+rewrite:              # French version of the question (app/pipeline.py), about 200 tokens per call.
+  # Not llama3.2: it answered instead of translating (E6). gpt-oss-120b has its own Groq quota.
+  base_url: https://api.groq.com/openai/v1
+  name: openai/gpt-oss-120b
+  api_key_env: GROQ_API_KEY
 labels:               # rag/index.py --labels: one call per document, run once. Local, so the free
   # Groq quota (8000 tokens/min, 1000 requests/day) stays for the answers and the evaluation.
   base_url: http://localhost:11434/v1

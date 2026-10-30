@@ -1,0 +1,740 @@
+{
+  "report": {
+    "recall@1": {
+      "rate": 0.8,
+      "n": 30,
+      "ci95": [
+        0.627,
+        0.905
+      ]
+    },
+    "recall@3": {
+      "rate": 0.933,
+      "n": 30,
+      "ci95": [
+        0.787,
+        0.982
+      ]
+    },
+    "recall@5": {
+      "rate": 0.933,
+      "n": 30,
+      "ci95": [
+        0.787,
+        0.982
+      ]
+    },
+    "mrr": 0.856,
+    "threshold": {
+      "value": 0.005,
+      "answerable_kept": {
+        "rate": 1.0,
+        "n": 30,
+        "ci95": [
+          0.886,
+          1.0
+        ]
+      },
+      "unanswerable_abstained": {
+        "rate": 0.667,
+        "n": 6,
+        "ci95": [
+          0.3,
+          0.903
+        ]
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "q001",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Combien de jours de congé pour préparer mes examens en tant qu'apprenti?",
+      "answerable": true,
+      "sources": [
+        "L6222-35",
+        "F2918",
+        "F3059",
+        "R6227-7",
+        "F2258"
+      ],
+      "best_score": 0.992,
+      "gold_rank": 1
+    },
+    {
+      "id": "q002",
+      "tags": [
+        "paraphrase",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "partiel, droit du travail, congés de révision, service-public.fr fiches",
+      "answerable": true,
+      "sources": [
+        "L3142-117",
+        "L3142-119",
+        "L3142-130",
+        "L3142-107",
+        "L3142-113"
+      ],
+      "best_score": 0.042,
+      "gold_rank": null
+    },
+    {
+      "id": "q003",
+      "tags": [
+        "paraphrase",
+        "en",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "L6222-35",
+        "F2918",
+        "F3059",
+        "R6227-7"
+      ],
+      "best_score": 0.882,
+      "gold_rank": 1
+    },
+    {
+      "id": "q004",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F2258",
+        "F37482",
+        "F33359"
+      ],
+      "best_score": 0.993,
+      "gold_rank": 1
+    },
+    {
+      "id": "q005",
+      "tags": [
+        "paraphrase",
+        "en",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F2258",
+        "L3142-41",
+        "L3142-66",
+        "L3142-59"
+      ],
+      "best_score": 0.592,
+      "gold_rank": 1
+    },
+    {
+      "id": "q006",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "salaire minimum apprenti 22 ans première année",
+      "answerable": true,
+      "sources": [
+        "D6222-26",
+        "F2918",
+        "F3059",
+        "F219",
+        "D6222-31"
+      ],
+      "best_score": 0.885,
+      "gold_rank": 1
+    },
+    {
+      "id": "q007",
+      "tags": [
+        "paraphrase",
+        "en",
+        "draft"
+      ],
+      "question_fr": "19 ans, deuxième année de contrat d'apprentissage, salaire minimum à recevoir?",
+      "answerable": true,
+      "sources": [
+        "D6222-26",
+        "F2918",
+        "F219",
+        "D6222-32",
+        "F3059"
+      ],
+      "best_score": 0.943,
+      "gold_rank": 1
+    },
+    {
+      "id": "q008",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L6222-12-1",
+        "L6222-1",
+        "F219",
+        "D6222-1"
+      ],
+      "best_score": 0.992,
+      "gold_rank": 1
+    },
+    {
+      "id": "q009",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L6222-7-1",
+        "F3059",
+        "F219",
+        "F31704"
+      ],
+      "best_score": 1.0,
+      "gold_rank": 1
+    },
+    {
+      "id": "q010",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "arrêt contrat apprentissage après un mois possible?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "F3059",
+        "D6222-21-1",
+        "D6243-2"
+      ],
+      "best_score": 0.82,
+      "gold_rank": 1
+    },
+    {
+      "id": "q011",
+      "tags": [
+        "core",
+        "en",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "L6222-19",
+        "F2918",
+        "D6222-30",
+        "L6222-22-1"
+      ],
+      "best_score": 0.778,
+      "gold_rank": 1
+    },
+    {
+      "id": "q012",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "temps d'école compte-t-il comme temps de travail?",
+      "answerable": true,
+      "sources": [
+        "F2216",
+        "F2918",
+        "L6222-24",
+        "F3059"
+      ],
+      "best_score": 0.18,
+      "gold_rank": 2
+    },
+    {
+      "id": "q013",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "17 ans, travail de nuit, employeur, droit du travail français",
+      "answerable": true,
+      "sources": [
+        "L6222-26",
+        "R6227-3",
+        "R6222-25",
+        "F2216"
+      ],
+      "best_score": 0.523,
+      "gold_rank": 1
+    },
+    {
+      "id": "q014",
+      "tags": [
+        "exact",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "L6222-35",
+        "L6235-4",
+        "L6222-34",
+        "D6235-9",
+        "L6235-5"
+      ],
+      "best_score": 0.912,
+      "gold_rank": 1
+    },
+    {
+      "id": "q015",
+      "tags": [
+        "core",
+        "en",
+        "international",
+        "draft"
+      ],
+      "question_fr": "étudiant international première année PGE apprentissage possible",
+      "answerable": true,
+      "sources": [
+        "R5221-7",
+        "L422-5",
+        "F2863",
+        "L6222-42"
+      ],
+      "best_score": 0.127,
+      "gold_rank": 1
+    },
+    {
+      "id": "q016",
+      "tags": [
+        "core",
+        "fr",
+        "international",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F2713",
+        "R5221-7",
+        "F2918",
+        "L6222-12-1"
+      ],
+      "best_score": 0.972,
+      "gold_rank": 1
+    },
+    {
+      "id": "q017",
+      "tags": [
+        "core",
+        "en",
+        "international",
+        "draft"
+      ],
+      "question_fr": "Combien d’heures par an un étudiant non‑UE peut-il travailler en France sans permis de travail?",
+      "answerable": true,
+      "sources": [
+        "F2713"
+      ],
+      "best_score": 0.999,
+      "gold_rank": 1
+    },
+    {
+      "id": "q018",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F21059"
+      ],
+      "best_score": 0.999,
+      "gold_rank": 1
+    },
+    {
+      "id": "q019",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "R3262-7",
+        "R3262-10"
+      ],
+      "best_score": 0.989,
+      "gold_rank": 1
+    },
+    {
+      "id": "q020",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Jusqu'à quand puis-je utiliser mes titres-restaurant de cette année ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "R3262-5",
+        "R3262-10"
+      ],
+      "best_score": 0.995,
+      "gold_rank": 1
+    },
+    {
+      "id": "q021",
+      "tags": [
+        "paraphrase",
+        "en",
+        "draft"
+      ],
+      "question_fr": "Quel pourcentage d'un chèque repas doit être payé par l'employeur?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "L3262-1",
+        "D3141-29",
+        "F33754"
+      ],
+      "best_score": 0.122,
+      "gold_rank": 1
+    },
+    {
+      "id": "q022",
+      "tags": [
+        "paraphrase",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F19846",
+        "F37900"
+      ],
+      "best_score": 0.077,
+      "gold_rank": 1
+    },
+    {
+      "id": "q023",
+      "tags": [
+        "core",
+        "en",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F37900",
+        "L3261-2"
+      ],
+      "best_score": 0.934,
+      "gold_rank": 2
+    },
+    {
+      "id": "q024",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F13851",
+        "L1222-10",
+        "L1222-11",
+        "L1222-9"
+      ],
+      "best_score": 1.0,
+      "gold_rank": 1
+    },
+    {
+      "id": "q025",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F20739",
+        "F20744",
+        "F33754"
+      ],
+      "best_score": 0.822,
+      "gold_rank": 1
+    },
+    {
+      "id": "q026",
+      "tags": [
+        "core",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F20740",
+        "F33754",
+        "F20739"
+      ],
+      "best_score": 0.95,
+      "gold_rank": 3
+    },
+    {
+      "id": "q027",
+      "tags": [
+        "company_specific",
+        "fr",
+        "draft"
+      ],
+      "question_fr": "Pourquoi mes titres-restaurant sont plus bas que d'habitude ce mois-ci ?",
+      "answerable": true,
+      "sources": [
+        "L3262-1",
+        "R3262-5",
+        "F21059"
+      ],
+      "best_score": 0.178,
+      "gold_rank": 3
+    },
+    {
+      "id": "q028",
+      "tags": [
+        "company_specific",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "L3262-1",
+        "R3262-10"
+      ],
+      "best_score": 0.976,
+      "gold_rank": 1
+    },
+    {
+      "id": "q029",
+      "tags": [
+        "company_specific",
+        "en",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F2258",
+        "F1911",
+        "D3142-82",
+        "L3141-17"
+      ],
+      "best_score": 0.005,
+      "gold_rank": null
+    },
+    {
+      "id": "q030",
+      "tags": [
+        "company_specific",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": true,
+      "sources": [
+        "F20739",
+        "F20744"
+      ],
+      "best_score": 0.492,
+      "gold_rank": 1
+    },
+    {
+      "id": "q031",
+      "tags": [
+        "unanswerable",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": false,
+      "sources": [
+        "F2405",
+        "R6251-3",
+        "F23556",
+        "F2918",
+        "D6235-13"
+      ],
+      "best_score": 0.0,
+      "gold_rank": null
+    },
+    {
+      "id": "q032",
+      "tags": [
+        "unanswerable",
+        "en",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": false,
+      "sources": [
+        "F2229",
+        "F15478"
+      ],
+      "best_score": 0.0,
+      "gold_rank": null
+    },
+    {
+      "id": "q033",
+      "tags": [
+        "unanswerable",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": false,
+      "sources": [
+        "F38630",
+        "F21059",
+        "F2918",
+        "F2216"
+      ],
+      "best_score": 0.001,
+      "gold_rank": null
+    },
+    {
+      "id": "q034",
+      "tags": [
+        "unanswerable",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": false,
+      "sources": [
+        "L6241-1",
+        "L6241-1-1",
+        "L6241-2",
+        "F2728"
+      ],
+      "best_score": 0.009,
+      "gold_rank": null
+    },
+    {
+      "id": "q035",
+      "tags": [
+        "unanswerable",
+        "en",
+        "draft"
+      ],
+      "question_fr": "Comment ouvrir un compte bancaire en ligne en France?",
+      "answerable": false,
+      "sources": [
+        "L3262-2",
+        "R3262-16",
+        "F22116",
+        "F33375",
+        "F2728"
+      ],
+      "best_score": 0.002,
+      "gold_rank": null
+    },
+    {
+      "id": "q036",
+      "tags": [
+        "unanswerable",
+        "exact",
+        "fr",
+        "draft"
+      ],
+      "question_fr": null,
+      "answerable": false,
+      "sources": [
+        "L911-8",
+        "D911-4",
+        "D911-8",
+        "L911-7-1",
+        "D911-3"
+      ],
+      "best_score": 0.386,
+      "gold_rank": null
+    }
+  ],
+  "n": 36,
+  "mode": "retrieval",
+  "config": {
+    "model": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-20b",
+      "api_key_env": "GROQ_API_KEY",
+      "temperature": 0,
+      "max_tokens": 2000,
+      "reasoning_effort": "low"
+    },
+    "prompt_file": "prompts/system_v1.txt",
+    "labels": {
+      "base_url": "http://localhost:11434/v1",
+      "name": "llama3.2",
+      "api_key_env": "none"
+    },
+    "retrieval": {
+      "enabled": true,
+      "signals": [
+        "exact",
+        "fulltext",
+        "dense"
+      ],
+      "candidates_per_signal": 20,
+      "rerank": true,
+      "rerank_candidates": 30,
+      "top_k": 5,
+      "rewrite_fr": true,
+      "abstain_threshold": 0.0
+    },
+    "evaluation": {
+      "testset": "eval/testset.jsonl",
+      "report": "eval/report.json"
+    },
+    "database": {
+      "table": "chunks",
+      "schema_file": "db/schema.sql"
+    },
+    "legifrance": {
+      "oauth_url": "https://sandbox-oauth.piste.gouv.fr/api/oauth/token",
+      "api_url": "https://sandbox-api.piste.gouv.fr/dila/legifrance/lf-engine-app",
+      "request_delay_s": 0.2
+    },
+    "service_public": {
+      "particuliers_zip": "https://www.data.gouv.fr/api/1/datasets/r/0ed10f28-d197-4324-97b3-037f625095ac",
+      "entreprendre_zip": "https://www.data.gouv.fr/api/1/datasets/r/93c81767-6ae6-4b31-8dd7-2158e560d181"
+    }
+  }
+}
