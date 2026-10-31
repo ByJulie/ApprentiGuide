@@ -154,20 +154,42 @@ ANSWER_LANGUAGE = {
 }
 
 
-def generate(question: str, sources: list[dict], missing_ids: list[str] = (), lang: str = "fr") -> str:
+def _messages(question: str, sources: list[dict], missing_ids: list[str], lang: str) -> list[dict]:
     ctx = "\n\n".join(f"[{s['id']}] {s['text']}" for s in sources) or "(no sources)"
     note = ""
     if missing_ids:
         note = (f"\n\nNote: {', '.join(missing_ids)} is not in the sources. Say so; do not answer "
                 "from another article as if it were this one.")
-    r = client.chat.completions.create(
-        model=CFG["model"]["name"], temperature=CFG["model"]["temperature"],
-        max_tokens=CFG["model"]["max_tokens"],
-        **_reasoning(),
-        messages=[{"role": "system", "content": SYSTEM},
-                  {"role": "user", "content": f"<sources>\n{ctx}\n</sources>{note}\n\nQuestion: {question}\n\n"
-                                              f"{ANSWER_LANGUAGE[lang]}"}])
+    return [{"role": "system", "content": SYSTEM},
+            {"role": "user", "content": f"<sources>\n{ctx}\n</sources>{note}\n\nQuestion: {question}\n\n"
+                                        f"{ANSWER_LANGUAGE[lang]}"}]
+
+
+def _params() -> dict:
+    return {"model": CFG["model"]["name"], "temperature": CFG["model"]["temperature"],
+            "max_tokens": CFG["model"]["max_tokens"], **_reasoning()}
+
+
+def generate(question: str, sources: list[dict], missing_ids: list[str] = (), lang: str = "fr") -> str:
+    r = client.chat.completions.create(messages=_messages(question, sources, list(missing_ids), lang), **_params())
     return THINK.sub("", r.choices[0].message.content or "").strip()
+
+
+def generate_stream(question: str, sources: list[dict], missing_ids: list[str] = (), lang: str = "fr"):
+    """Same answer as generate(), as ("reasoning" | "content", text) pieces while the model writes, for
+    an interface that shows the text (and the model's reasoning) as it comes."""
+    stream = client.chat.completions.create(messages=_messages(question, sources, list(missing_ids), lang),
+                                            stream=True, **_params())
+    for chunk in stream:
+        if not chunk.choices:
+            continue
+        delta = chunk.choices[0].delta
+        extra = delta.model_extra or {}
+        reasoning = extra.get("reasoning") or extra.get("reasoning_content")
+        if reasoning:
+            yield "reasoning", reasoning
+        if delta.content:
+            yield "content", delta.content
 
 
 CITATION = re.compile(r"[\[【]([^\[\]【】]+)[\]】]")

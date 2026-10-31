@@ -120,8 +120,45 @@ def test_api_openai_compatible_with_tasks_history_and_streaming(monkeypatch):
     assert seen["question"] == "Et si je suis mineur ? (complete)"
     assert seen["history"][1]["content"] == "5 jours."
     assert "[L6222-35](https://legifrance/x)" in out and "Licence Ouverte" in out
-    stream = client.post("/v1/chat/completions", json={"messages": msgs, "stream": True}).text
-    assert stream.strip().endswith("data: [DONE]") and "chat.completion.chunk" in stream
+
+
+def _stream_client(monkeypatch, pieces, abstain=False):
+    import sys, os, json
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "app"))
+    from fastapi.testclient import TestClient
+    from types import SimpleNamespace
+    import api, pipeline
+    src = {"id": "L6222-35", "text": "cinq jours", "title": "t", "url": "https://legifrance/x",
+           "source_label": "Code du travail, Legifrance", "version_date": "2009-11-26"}
+    monkeypatch.setattr(pipeline, "retrieve", lambda q: SimpleNamespace(
+        abstain=abstain, sources=[src], missing_ids=[], question_fr=q, best_score=0.9))
+    monkeypatch.setattr(pipeline, "generate_stream", lambda *a, **k: iter(pieces))
+    body = {"stream": True, "messages": [{"role": "user", "content": "Congés pour examens ?"}]}
+    raw = TestClient(api.app).post("/v1/chat/completions", json=body).text
+    chunks = [json.loads(l[6:]) for l in raw.splitlines() if l.startswith("data: {")]
+    text = "".join(c["choices"][0]["delta"].get("content", "") for c in chunks if c["choices"])
+    reasoning = "".join(c["choices"][0]["delta"].get("reasoning_content", "") for c in chunks if c["choices"])
+    events = [c["event"] for c in chunks if "event" in c]
+    return raw, text, reasoning, events
+
+
+def test_stream_shows_status_reasoning_answer_and_source_cards(monkeypatch):
+    pieces = [("reasoning", "Je lis L6222-35."), ("content", "Tu as 5 jours "), ("content", "[L6222-35].\n\nSour"),
+              ("content", "ces\n[L6222-35]")]
+    raw, text, reasoning, events = _stream_client(monkeypatch, pieces)
+    assert raw.strip().endswith("data: [DONE]")
+    assert text.startswith("Tu as 5 jours [L6222-35].") and "Sources :" not in text and "Licence Ouverte" in text
+    assert reasoning == "Je lis L6222-35."
+    assert [e["type"] for e in events][0] == "status" and events[-1]["data"]["done"] is True
+    cards = [e["data"] for e in events if e["type"] == "source"]
+    assert cards[0]["source"]["name"] == "L6222-35" and cards[0]["document"] == ["cinq jours"]
+
+
+def test_stream_never_shows_the_models_not_found(monkeypatch):
+    _, text, _, _ = _stream_client(monkeypatch, [("content", "NOT "), ("content", "FOUND")])
+    assert "NOT FOUND" not in text and text.startswith("Je n'ai pas trouvé")
+    _, text, _, _ = _stream_client(monkeypatch, [], abstain=True)
+    assert text.startswith("Je n'ai pas trouvé")
 
 
 def test_model_sources_line_is_replaced_by_the_database_block():
