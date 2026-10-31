@@ -256,6 +256,18 @@ First run: R@1 0.525, R@5 0.852, lower than before, because the new texts answer
 - Trap found on the way: Ollama ignores Qwen3's "/no_think" text switch (a first "no reasoning" run still reasoned: 1464 reasoning characters, 21 s on a test question); `reasoning_effort: "none"` works (3.5 s, no reasoning). That first run is kept as a second reasoning run (`think-again`): same cited-gold rate, 0 invented, which shows the measure is stable.
 - Choice for the demo: gpt-oss on Groq as main model (to be measured with prompt v2 and the current retrieval), Qwen3 8B with reasoning as local fallback (no question leaves the laptop).
 
+### E18. Spoken questions (modality; `eval/voice_eval.py`, `2026-10-31_voice_synthetic.json`)
+
+10 questions with an answer (5 French, 5 English), spoken by macOS voices (Thomas, Samantha), transcribed locally by faster-whisper `small`, then retrieved as typed.
+
+| Measure | Result (95 % CI) |
+|---|---|
+| Median word error rate | 0.00 |
+| Language detected right | 10/10 (0.72 to 1.00) |
+| Gold source at the same rank as with the typed question | 10/10 (0.72 to 1.00) |
+
+The only transcription errors are homophones ("est-je" for "ai-je", "travaillés", "titres-restaurants"): no effect on retrieval. Two problems found on the way: the first voice tried ("Flo", a robotic voice) was transcribed as Russian (language probability 0.43), so the language is now chosen between French and English only, as our users ask in one or the other; and faster-whisper 1.2.1 fails with PyAV 19 (`av==15.1.0` pinned). Limit: synthetic voices are cleaner than a student in a corridor; the script takes real recordings (`--audio-dir`, one `<id>.wav` per question) for a realistic measure.
+
 ## 5. Next steps
 
 1. Answer runs when the Groq quota is back: v1 + language in code against v2 + language in code, same 37 questions, same model (gpt-oss-120b); then the baseline (no documents) and the red-team set.

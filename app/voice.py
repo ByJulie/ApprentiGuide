@@ -16,15 +16,25 @@ def whisper():
     return WhisperModel(WHISPER_MODEL, device="cpu", compute_type="int8")
 
 
-def transcribe(audio: bytes) -> dict:
-    """Text and detected language ("fr" or "en", else the code Whisper returns) of a spoken question.
+LANGUAGES = ("fr", "en")  # our users ask in French or English
+PROMPT = {"fr": "Apprentissage, contrat d'apprentissage, CFA, titres-restaurant, congés payés, mutuelle, "
+                "télétravail, titre de séjour.",
+          "en": "Apprenticeship, apprenticeship contract, meal vouchers, paid leave, residence permit."}
 
-    The initial prompt gives Whisper the vocabulary of the domain, so "titres-restaurant" or "CFA" are
-    spelled as in the texts we search.
+
+def transcribe(audio: bytes) -> dict:
+    """Text and language ("fr" or "en") of a spoken question.
+
+    Whisper's language guess is limited to French and English: on a short question it can hesitate
+    between a hundred languages (a test sentence came out in Russian). The initial prompt gives the
+    vocabulary of the domain, so "titres-restaurant" or "CFA" are spelled as in the texts we search.
     """
-    segments, info = whisper().transcribe(
-        io.BytesIO(audio), beam_size=5, vad_filter=True,
-        initial_prompt="Apprentissage, contrat d'apprentissage, CFA, titres-restaurant, congés payés, "
-                       "mutuelle, télétravail, titre de séjour, apprenticeship, meal vouchers.")
+    from faster_whisper.audio import decode_audio
+    samples = decode_audio(io.BytesIO(audio), sampling_rate=16000)
+    _, _, probs = whisper().detect_language(samples)
+    scores = dict(probs)
+    language = max(LANGUAGES, key=lambda l: scores.get(l, 0.0))
+    segments, _ = whisper().transcribe(samples, language=language, beam_size=5, vad_filter=True,
+                                       initial_prompt=PROMPT[language])
     text = " ".join(s.text.strip() for s in segments).strip()
-    return {"text": text, "language": info.language, "language_probability": round(info.language_probability, 2)}
+    return {"text": text, "language": language, "language_probability": round(scores.get(language, 0.0), 2)}
