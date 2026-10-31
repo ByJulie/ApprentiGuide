@@ -170,13 +170,8 @@ def main():
     args = ap.parse_args()
     global USE_ADDED_GOLD
     USE_ADDED_GOLD = not args.lead_gold_only
-    if args.model and args.model.startswith("ollama:"):
-        from openai import OpenAI
-        pipeline.client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
-        CFG["model"]["name"] = args.model.split(":", 1)[1]
-        CFG["model"]["reasoning_effort"] = None  # not a reasoning model
-    elif args.model:
-        CFG["model"]["name"] = args.model
+    if args.model:
+        pipeline.use_model(args.model)
     if args.no_think:
         CFG["model"]["think"] = False
     if args.prompt:
