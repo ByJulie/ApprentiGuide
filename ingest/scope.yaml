@@ -12,6 +12,12 @@ legifrance:
       - {regex: '^[LRD]3262-', theme: titres_restaurant}
       - {regex: '^[LRD]5221-', theme: etranger}
       - {regex: '^L1222-(9|10|11)$', theme: teletravail}
+      - {regex: '^L3121-(18|19|20|21|22|27)$', theme: duree_travail}   # durees maximales, duree legale
+      - {regex: '^[LRD]316[0-5]-', theme: jeunes}                      # jeunes travailleurs: duree, nuit, repos
+      - {regex: '^L3132-(1|2|3)$', theme: repos}                       # repos hebdomadaire, dimanche
+      - {regex: '^L4624-1$', theme: sante_travail}                     # visite d'information et de prevention
+      - {regex: '^L2254-1$', theme: conventions}                       # principe de faveur
+      - {regex: '^L6332-14$', theme: apprentissage}                    # prise en charge du contrat par l'OPCO
   ceseda:
     label: CESEDA, Legifrance
     text_id: LEGITEXT000006070158
@@ -38,7 +44,7 @@ service_public:
     transport: [F19846]
     mutuelle: [F20739, F20740, F20744]
     teletravail: [F13851]
-    travail: [F303, F144, F2405, F2300, F2216, F1911, F2211]
+    travail: [F303, F144, F2405, F2300, F2216, F1911, F2211, F2327, F13887]
     etranger: [F2728, F2733, F3100, F2713, F2229, F2231, F13519, F22116, F35796, F33886, F2863,
                F39, F15763]
   entreprendre:
