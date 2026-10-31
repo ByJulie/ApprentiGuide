@@ -151,7 +151,10 @@ def test_stream_shows_status_reasoning_answer_and_source_cards(monkeypatch):
     assert reasoning == "Je lis L6222-35."
     assert [e["type"] for e in events][0] == "status" and events[-1]["data"]["done"] is True
     cards = [e["data"] for e in events if e["type"] == "source"]
-    assert cards[0]["source"]["name"].startswith("L6222-35") and cards[0]["document"] == ["« cinq jours »"]
+    assert cards[0]["source"]["name"] == "L6222-35" and cards[0]["metadata"][0]["name"] == "L6222-35"
+    doc = cards[0]["document"][0]
+    assert doc.startswith("Article L6222-35 · Code du travail, Legifrance, version du 2009-11-26")
+    assert "Ce qui répond à ta question :\n« cinq jours »" in doc
 
 
 def test_stream_never_shows_the_models_not_found(monkeypatch):

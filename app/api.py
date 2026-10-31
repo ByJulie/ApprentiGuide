@@ -94,8 +94,8 @@ def clean_passage(text: str, citation_id: str) -> tuple[str, str]:
 
 
 def excerpt(source: dict, answer: str, keep: int = 2) -> str:
-    """The sentences of the source closest to the sentences of the answer that cite it (bge-m3, local).
-    What the user needs to check the claim, not the whole section."""
+    """What the user reads when opening a source: where it comes from, the sentences closest to the
+    sentences of the answer that cite it (bge-m3, local), then the full cleaned text for context."""
     from rag import models
     title, body = clean_passage(" ".join(p["text"] for p in source["passages"]), source["id"])
     sentences = [s for s in SENTENCE_END.split(body) if len(s) > 20]
@@ -104,19 +104,24 @@ def excerpt(source: dict, answer: str, keep: int = 2) -> str:
         vectors = models.embed([" ".join(claims)] + sentences)
         scores = [sum(a * b for a, b in zip(vectors[0], v)) for v in vectors[1:]]
         best = sorted(sorted(range(len(sentences)), key=lambda i: -scores[i])[:keep])
-        text = ("… " if best[0] > 0 else "") + " … ".join(sentences[i] for i in best)
+        key = ("… " if best[0] > 0 else "") + " … ".join(sentences[i] for i in best)
     else:
-        text = " ".join(sentences) or body
-    return f"{title}\n\n« {text} »" if title else f"« {text} »"
+        key = " ".join(sentences) or body
+    kind = "Fiche" if source["id"].upper().startswith("F") else "Article"
+    date = f", version du {source['version_date']}" if source.get("version_date") else ""
+    head = f"{kind} {source['id']} · {source['source_label']}{date}"
+    if title:
+        head += f"\n{title}"
+    full = f"\n\nTexte complet :\n{body}" if key != body else ""
+    return f"{head}\n\nCe qui répond à ta question :\n« {key} »{full}"
 
 
 def source_card(s: dict, answer: str) -> dict:
     """A source as Open WebUI shows it: a numbered card under the answer; opened, the excerpt that supports
     the answer, the label, version date and the link to the full text."""
-    date = f", version du {s['version_date']}" if s.get("version_date") else ""
-    return {"source": {"id": s["url"], "name": f"{s['id']} · {s['source_label']}", "url": s["url"]},
+    return {"source": {"id": s["url"], "name": s["id"], "url": s["url"]},
             "document": [excerpt(s, answer)],
-            "metadata": [{"source": s["url"], "name": f"{s['id']} · {s['source_label']}{date}"}]}
+            "metadata": [{"source": s["url"], "name": s["id"]}]}
 
 
 def numbered(text: str, known: set[str], final: bool = False) -> str:
