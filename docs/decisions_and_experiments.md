@@ -1,8 +1,10 @@
 # Retrieval: decisions and experiments
 
-Log of the retrieval and answer pipeline (`rag/`, `app/pipeline.py`, `eval/eval.py`): what we decided, what we tried, what we kept, what we removed and why. Every number comes from a run on the database built by `ingest.load` (1372 chunks until 30 Oct., 1434 since the data lead's additions of 30 Oct.; Service-Public.fr file of 2026-10-25). Raw results of each run are in `eval/runs/`.
+Log of the retrieval and answer pipeline (`rag/`, `app/pipeline.py`, `eval/eval.py`): what we decided, what we tried, what we kept, what we removed and why.
 
-**Status, 31 Oct. 2026.** Retrieval on 61 answerable questions of the 81-question test set: Recall@1 0.57 (0.45 to 0.69), Recall@5 0.87 (0.76 to 0.93) (E16). Answers: gpt-oss-120b cites a gold source in 0.70 of answers with no invented citation (E11); local fallback Qwen3 8B with reasoning 0.68, no invented citation (E17). Spoken questions find the same sources as typed ones on 10/10 (E18). Interface: Open WebUI 0.12.5 with streamed answers, numbered citations and source cards (D21, D22, D24). Ideas measured and removed: labels per document (section 3), agent-like steps in a fixed pipeline (section 3b). Pending: prompt v2 against v1 and the baseline on gpt-oss (Groq quota), red-team set, validation of the gold sources by the evaluation lead.
+**Scope.** This log is the retrieval lead's working record. Its numbers are development measurements, made to choose the settings of the retrieval and of the answer step, on the evaluation lead's test set with gold sources proposed but not yet validated by her. They are not the project's evaluation, which is done by the evaluation lead (`docs/evaluation_report.md`, `docs/red_team_log.md`, `docs/system_card.md`). Every number comes from a run on the database built by `ingest.load` (1372 chunks until 30 Oct., 1434 since the data lead's additions of 30 Oct.; Service-Public.fr file of 2026-10-25). Raw results of each run are in `eval/runs/`.
+
+**Status, 31 Oct. 2026 (development measurements).** Retrieval: a gold source among the 5 passages given to the model on 0.87 of 61 answerable questions (E16). Answers: gpt-oss-120b cites a gold source in 0.70 of answers with no invented citation (E11); local fallback Qwen3 8B with reasoning 0.68 (E17). Spoken questions find the same sources as typed ones on 10/10 (E18). Interface: Open WebUI 0.12.5 with streamed answers, numbered citations and source cards (D21, D22, D24). Ideas measured and removed: labels per document (section 3), agent-like steps in a fixed pipeline (section 3b).
 
 ## 1. The pipeline as it is
 
@@ -278,8 +280,9 @@ The only transcription errors are homophones ("est-je" for "ai-je", "travaillés
 
 ## 5. Next steps
 
-1. When the Groq quota is back: prompt v1 against v2 on gpt-oss-120b, same 37 questions and current retrieval; then the baseline (same model, no documents); then the red-team set (`eval/redteam.jsonl`, 28 cases), analysed by the evaluation lead in `docs/red_team_log.md`.
-2. Validation of the test set by the evaluation lead: questions A01 to A11, `gold_added` (each with its quote), `gold_issue`.
-3. Spoken questions with real recordings (`eval/voice_eval.py --audio-dir`), to compare with the synthetic voices of E18.
-4. Evaluation report and system card (`docs/`), with the numbers above and the snapshot date of the texts.
-5. For the agent (Agentic AI course): tools that compute (minimum wage from age and year, deadlines), questions back to the user on their situation, actions (draft the email to HR); compared with this pipeline on the same test set (section 3b).
+For the retrieval and answer step:
+1. Prompt v1 against v2 on gpt-oss-120b, same questions and current retrieval, to choose the prompt of the demo.
+2. Spoken questions with real recordings (`eval/voice_eval.py --audio-dir`), to compare with the synthetic voices of E18.
+3. For the agent (Agentic AI course): tools that compute (minimum wage from age and year, deadlines), questions back to the user on their situation, actions (draft the email to HR); compared with this pipeline on the same test set (section 3b).
+
+Led by the evaluation lead: validation of the test set (accept or remove questions A01 to A11, `gold_added`, `gold_issue`), the final runs (system and baseline), the red-team set, the evaluation report and the system card. `eval/eval.py` runs all of them (see the README).

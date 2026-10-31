@@ -57,38 +57,25 @@ python eval/eval.py --model ollama:qwen3:8b # local answer model (ollama pull qw
 See `data/README.md`: Code du travail, CESEDA and Code de la sécurité sociale articles through the Legifrance API (PISTE), Service-Public.fr fact sheets (open data DILA, Licence Ouverte), how they were selected and cleaned. Fact sheets from the open data file of 25 Oct. 2026 (date shown under every answer); articles fetched on 25 and 30 Oct. 2026, each with its version date. No personal data in the corpus; user questions are not stored.
 
 ## 5. Evaluation (summary)
-Test set: `eval/testset.jsonl`, 81 questions (70 by the evaluation lead, 11 added; 61 with an answer in the texts, 20 without), French and English, three families: answer in the texts, depends on the employer, no answer. Gold sources under review (`gold_added`, to be validated). 95 % Wilson intervals.
+The evaluation is led by Nafissatou Ndiaye: test set (`eval/testset.jsonl`, 70 questions in French and English: answer in the texts, depends on the employer, no answer), red-team set (`eval/redteam.jsonl`, 28 cases), final runs, report and system card. Results to come in `docs/evaluation_report.md`, `docs/red_team_log.md` and `docs/system_card.md`.
 
-| Measure (31 Oct.) | Result |
-|---|---|
-| A gold source among the 5 passages given to the model (Recall@5) | 0.87 (0.76 to 0.93) |
-| Gold source ranked first (Recall@1) | 0.57 (0.45 to 0.69) |
+| System | Main metric | NOT FOUND rate | Median latency |
+|---|---|---|---|
+| Baseline (prompt only) | | | |
+| Our system | | | |
 
-| System (37 questions drawn from the 81) | Gold source cited | NOT FOUND when no answer | Invented citations | Median latency |
-|---|---|---|---|---|
-| Baseline (prompt only) | to be run (Groq quota) | | | |
-| gpt-oss-120b, prompt v1 (30 Oct.) | 0.70 (0.52 to 0.84) | 8/9 | 0/36 | 13 s |
-| Qwen3 8B local, prompt v2, with reasoning | 0.68 (0.49 to 0.82) | 7/9 | 0/37 | 49 s |
-| Qwen3 8B local, prompt v2, without reasoning | 0.64 (0.46 to 0.79) | 7/9 | 0/37 | 31 s |
-| llama3.2 3B local, prompt v2 | 0.64 (0.46 to 0.79) | 7/9 | 2/37 | 22 s |
-
-| Spoken questions (10, synthetic voices, `eval/voice_eval.py`) | Result |
-|---|---|
-| Median word error rate | 0.00 |
-| Same gold-source rank as the typed question | 10/10 (0.72 to 1.00) |
-
-Full report: `docs/evaluation_report.md`. System card: `docs/system_card.md`. Every decision and experiment, including the ideas we measured and removed (labels per document, agent-like steps in a fixed pipeline): `docs/decisions_and_experiments.md`.
+The development measurements made while building the retrieval (to choose its settings) are in `docs/decisions_and_experiments.md`, with every decision and the ideas measured and removed. They are not the project's evaluation.
 
 ## 6. AI tools used to build this project
 | Tool | Used for |
 |---|---|
-| Claude Code (Anthropic), by Johanna Fokui | Retrieval and evaluation code (`rag/`, `app/pipeline.py`, `eval/eval.py`), 11 questions added to the test set (ids A01 to A11, tagged `added_by: assistant`), review of gold sources (`gold_added`, each with a quote from the text, checked against the database), drafts of the documentation. Every result was checked by running it; the decisions are ours. |
+| Claude Code (Anthropic), by Johanna Fokui | Retrieval, interface and evaluation tooling code (`rag/`, `app/`, `eval/eval.py`, `eval/voice_eval.py`), development measurements, proposals for the test set (11 questions with ids A01 to A11 and `gold_added` sources, each with a quote from the text; to be accepted or removed by the evaluation lead), drafts of the documentation. Every result was checked by running it; the decisions are ours. |
 | *(each member adds the tools they used)* | |
 
 ## 7. Team
 | Member | Main role | Also worked on |
 |---|---|---|
 | Julie Abouem | data (Legifrance API, Service-Public.fr open data, PostgreSQL) | corpus extensions requested from the test set |
-| Johanna Fokui | retrieval / model | evaluation tooling, test set additions |
+| Johanna Fokui | retrieval / model | chat interface and voice input, tooling to run the evaluation |
 | Nafissatou Ndiaye | evaluation and safety | test set (70 questions), red-team set (28 cases) |
 | Nafissatou Ndiaye | product and demo | |
