@@ -93,16 +93,17 @@ def retrieve(question: str):
     return retriever()(question, question_fr)
 
 
-# Local models that think aloud (Qwen3) write a <think> block: kept by default, since reasoning helps
-# on conditions and company-dependent cases, but removed from what the user sees. think: false in the
-# model section of config.yaml (or eval --no-think) sends Qwen3's /no_think switch for speed.
-NO_THINK = {"qwen3": " /no_think"}
+# Thinking models (gpt-oss, Qwen3): reasoning kept by default, since it helps on conditions and
+# company-dependent cases; it never reaches the user (a <think> block in the text is removed).
+# think: false in the model section of config.yaml (or eval --no-think) switches it off with
+# reasoning_effort "none": Ollama ignores Qwen3's "/no_think" text switch (E17).
 THINK = re.compile(r"<think>.*?</think>", re.S)
 
-def _no_think() -> str:
-    if CFG["model"].get("think", True):
-        return ""
-    return NO_THINK.get(CFG["model"]["name"].split(":")[0], "")
+def _reasoning() -> dict:
+    if not CFG["model"].get("think", True):
+        return {"reasoning_effort": "none"}
+    effort = CFG["model"].get("reasoning_effort")
+    return {"reasoning_effort": effort} if effort else {}
 
 
 ANSWER_LANGUAGE = {
@@ -120,10 +121,10 @@ def generate(question: str, sources: list[dict], missing_ids: list[str] = (), la
     r = client.chat.completions.create(
         model=CFG["model"]["name"], temperature=CFG["model"]["temperature"],
         max_tokens=CFG["model"]["max_tokens"],
-        **({"reasoning_effort": CFG["model"]["reasoning_effort"]} if CFG["model"].get("reasoning_effort") else {}),
+        **_reasoning(),
         messages=[{"role": "system", "content": SYSTEM},
                   {"role": "user", "content": f"<sources>\n{ctx}\n</sources>{note}\n\nQuestion: {question}\n\n"
-                                              f"{ANSWER_LANGUAGE[lang]}{_no_think()}"}])
+                                              f"{ANSWER_LANGUAGE[lang]}"}])
     return THINK.sub("", r.choices[0].message.content or "").strip()
 
 
