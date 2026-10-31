@@ -134,10 +134,14 @@ INVISIBLE = re.compile(r"[\u200b-\u200f\u2060\ufeff\s]")
 def cited_ids(text: str) -> list[str]:
     """Ids cited in an answer, in order. Models write [F2918], [ F2918 ], 【F2918】, [F2918; L6222-1]
     or wrap ids in invisible characters: all read the same."""
+    from rag.retrieve import ARTICLE_RE, FICHE_RE, _norm
     out = []
     for group in CITATION.findall(text):
         for ref in re.split(r"[,;]|\]\s*\[", group):
-            ref = INVISIBLE.sub("", ref).upper()
+            ref = re.sub(r"[\u200b-\u200f\u2060\ufeff]", "", ref)
+            # "L911-7 III" (a paragraph) or "F2918, section 2" cite L911-7 and F2918
+            match = ARTICLE_RE.search(ref) or FICHE_RE.search(ref)
+            ref = _norm(match.group(1)) if match else INVISIBLE.sub("", ref).upper()
             if ref and ref not in out:
                 out.append(ref)
     return out

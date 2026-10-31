@@ -64,6 +64,7 @@ def test_cited_ids_read_every_citation_format_models_write():
     from app.pipeline import cited_ids
     text = "a [ F2918 ] b 【F33754】 c [F2918 ; D6222-1] d [​F21059​] e [L6222-1][R5221-7]"
     assert cited_ids(text) == ["F2918", "F33754", "D6222-1", "F21059", "L6222-1", "R5221-7"]
+    assert cited_ids("la portabilité [L911-7 III] et [L. 6222-35]") == ["L911-7", "L6222-35"]
 
 
 def test_diversify_caps_passages_per_document():
