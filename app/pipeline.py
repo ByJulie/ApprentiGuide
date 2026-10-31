@@ -93,6 +93,18 @@ def retrieve(question: str):
     return retriever()(question, question_fr)
 
 
+# Local models that think aloud (Qwen3) write a <think> block: kept by default, since reasoning helps
+# on conditions and company-dependent cases, but removed from what the user sees. think: false in the
+# model section of config.yaml (or eval --no-think) sends Qwen3's /no_think switch for speed.
+NO_THINK = {"qwen3": " /no_think"}
+THINK = re.compile(r"<think>.*?</think>", re.S)
+
+def _no_think() -> str:
+    if CFG["model"].get("think", True):
+        return ""
+    return NO_THINK.get(CFG["model"]["name"].split(":")[0], "")
+
+
 ANSWER_LANGUAGE = {
     "fr": "Réponds en français.",
     "en": "Answer in English. The sources are in French: translate what they say, keep the ids as they are.",
@@ -111,8 +123,8 @@ def generate(question: str, sources: list[dict], missing_ids: list[str] = (), la
         **({"reasoning_effort": CFG["model"]["reasoning_effort"]} if CFG["model"].get("reasoning_effort") else {}),
         messages=[{"role": "system", "content": SYSTEM},
                   {"role": "user", "content": f"<sources>\n{ctx}\n</sources>{note}\n\nQuestion: {question}\n\n"
-                                              f"{ANSWER_LANGUAGE[lang]}"}])
-    return (r.choices[0].message.content or "").strip()
+                                              f"{ANSWER_LANGUAGE[lang]}{_no_think()}"}])
+    return THINK.sub("", r.choices[0].message.content or "").strip()
 
 
 CITATION = re.compile(r"[\[【]([^\[\]【】]+)[\]】]")

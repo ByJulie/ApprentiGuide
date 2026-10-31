@@ -82,3 +82,8 @@ def test_public_sector_texts_go_last_unless_the_question_asks_about_it():
     priv = ({"citation_id": "F2918", "title": "Contrat d'apprentissage : congés", "section_path": ""}, .7)
     assert [r["citation_id"] for r, _ in sector_priority("Combien de congés ?", [pub, pen, priv])] == ["R6227-7", "F2918", "F3059"]
     assert sector_priority("Et dans une mairie ?", [pub, priv])[0][0]["citation_id"] == "F3059"
+
+
+def test_think_blocks_never_reach_the_user():
+    from app.pipeline import THINK
+    assert THINK.sub("", "<think>\nlet me see\n</think>\nTu as 5 jours [L6222-35].").strip() == "Tu as 5 jours [L6222-35]."

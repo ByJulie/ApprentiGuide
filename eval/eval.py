@@ -165,6 +165,7 @@ def main():
                     help="override a retrieval setting for this run, e.g. --set top_k=10 --set rerank_candidates=60")
     ap.add_argument("--model", help="answer model for this run: openai/gpt-oss-120b (endpoint of config.yaml), "
                                     "or ollama:llama3.2 for a local model")
+    ap.add_argument("--no-think", action="store_true", help="ask a thinking local model (Qwen3) not to think")
     ap.add_argument("--prompt", help="system prompt file for this run, e.g. prompts/system_v2.txt")
     args = ap.parse_args()
     global USE_ADDED_GOLD
@@ -176,6 +177,8 @@ def main():
         CFG["model"]["reasoning_effort"] = None  # not a reasoning model
     elif args.model:
         CFG["model"]["name"] = args.model
+    if args.no_think:
+        CFG["model"]["think"] = False
     if args.prompt:
         pipeline.SYSTEM = open(args.prompt, encoding="utf-8").read()
         CFG["prompt_file"] = args.prompt
