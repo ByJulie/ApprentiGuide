@@ -163,12 +163,22 @@ def main():
     ap.add_argument("--lead-gold-only", action="store_true", help="ignore gold_added (sources added after review)")
     ap.add_argument("--set", action="append", default=[], metavar="KEY=VALUE",
                     help="override a retrieval setting for this run, e.g. --set top_k=10 --set rerank_candidates=60")
-    ap.add_argument("--model", help="answer model for this run, e.g. openai/gpt-oss-120b (same endpoint as config.yaml)")
+    ap.add_argument("--model", help="answer model for this run: openai/gpt-oss-120b (endpoint of config.yaml), "
+                                    "or ollama:llama3.2 for a local model")
+    ap.add_argument("--prompt", help="system prompt file for this run, e.g. prompts/system_v2.txt")
     args = ap.parse_args()
     global USE_ADDED_GOLD
     USE_ADDED_GOLD = not args.lead_gold_only
-    if args.model:
+    if args.model and args.model.startswith("ollama:"):
+        from openai import OpenAI
+        pipeline.client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+        CFG["model"]["name"] = args.model.split(":", 1)[1]
+        CFG["model"]["reasoning_effort"] = None  # not a reasoning model
+    elif args.model:
         CFG["model"]["name"] = args.model
+    if args.prompt:
+        pipeline.SYSTEM = open(args.prompt, encoding="utf-8").read()
+        CFG["prompt_file"] = args.prompt
     for item in args.set:
         key, value = item.split("=", 1)
         CFG["retrieval"][key] = yaml.safe_load(value)
