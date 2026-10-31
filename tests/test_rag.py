@@ -88,3 +88,47 @@ def test_public_sector_texts_go_last_unless_the_question_asks_about_it():
 def test_think_blocks_never_reach_the_user():
     from app.pipeline import THINK
     assert THINK.sub("", "<think>\nlet me see\n</think>\nTu as 5 jours [L6222-35].").strip() == "Tu as 5 jours [L6222-35]."
+
+
+def test_api_openai_compatible_with_tasks_history_and_streaming(monkeypatch):
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "app"))
+    from fastapi.testclient import TestClient
+    import api, pipeline
+    seen = {}
+    def fake_standalone(q, history):
+        seen["history"] = history
+        return q + " (complete)"
+    def fake_answer(q):
+        seen["question"] = q
+        return {"answer": "Tu as 5 jours [L6222-35].", "citations": {
+            "cited": [{"id": "L6222-35", "url": "https://legifrance/x", "source_label": "Code du travail, Legifrance",
+                       "version_date": "2009-11-26", "passages": [{"title": "t", "text": "cinq jours"}]}],
+            "consulted": [], "invented": []}}
+    monkeypatch.setattr(pipeline, "standalone", fake_standalone)
+    monkeypatch.setattr(pipeline, "answer", fake_answer)
+    client = TestClient(api.app)
+    assert client.get("/v1/models").json()["data"][0]["id"] == "apprentiguide"
+    # an interface task never reaches the pipeline
+    r = client.post("/v1/chat/completions", json={"messages": [{"role": "user", "content": "### Task: Generate a title"}]})
+    assert "title" in r.json()["choices"][0]["message"]["content"] and "question" not in seen
+    # a follow-up gets the previous turns, without the sources block of the previous answer
+    msgs = [{"role": "user", "content": "Congés pour examens ?"},
+            {"role": "assistant", "content": "5 jours.\n**Sources**\n- [L6222-35](x)"},
+            {"role": "user", "content": [{"type": "text", "text": "Et si je suis mineur ?"}]}]
+    out = client.post("/v1/chat/completions", json={"messages": msgs}).json()["choices"][0]["message"]["content"]
+    assert seen["question"] == "Et si je suis mineur ? (complete)"
+    assert seen["history"][1]["content"] == "5 jours."
+    assert "[L6222-35](https://legifrance/x)" in out and "Licence Ouverte" in out
+    stream = client.post("/v1/chat/completions", json={"messages": msgs, "stream": True}).text
+    assert stream.strip().endswith("data: [DONE]") and "chat.completion.chunk" in stream
+
+
+def test_model_sources_line_is_replaced_by_the_database_block():
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "app"))
+    import api
+    out = {"answer": "43 % du Smic [F2918].\n\nSources :  \n[F2918]  \n[D6222-26]",
+           "citations": {"cited": [], "consulted": [], "invented": []}}
+    text = api.render(out)
+    assert text.startswith("43 % du Smic [F2918].") and "[D6222-26]" not in text

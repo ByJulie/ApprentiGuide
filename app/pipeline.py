@@ -23,6 +23,22 @@ REWRITE_CFG = CFG.get("rewrite") or CFG["model"]
 rewrite_client = _client(REWRITE_CFG)
 SYSTEM = open(os.path.join(ROOT, CFG["prompt_file"])).read()
 NOT_FOUND = "NOT FOUND"
+
+
+def use_model(name: str) -> None:
+    """Answer model for this process: "openai/gpt-oss-120b" (endpoint of config.yaml) or "ollama:qwen3:8b"
+    for a local model. Set from eval.py --model or the ANSWER_MODEL environment variable (api.py)."""
+    global client
+    if name.startswith("ollama:"):
+        client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+        CFG["model"]["name"] = name.split(":", 1)[1]
+        CFG["model"]["reasoning_effort"] = None  # local thinking models reason by default
+    else:
+        CFG["model"]["name"] = name
+
+
+if os.environ.get("ANSWER_MODEL"):
+    use_model(os.environ["ANSWER_MODEL"])
 _retriever = None
 
 
@@ -83,6 +99,32 @@ def _rewrite(question: str) -> str | None:
     # A number the user did not write would send retrieval to the wrong article: removed in code.
     from rag.retrieve import strip_unasked_ids
     return strip_unasked_ids(question, text) or None
+
+
+STANDALONE = ("Rewrite the user's last question so it can be understood without the conversation: add what it "
+              "refers to (age, year of contract, topic) from the previous messages. Keep its language. If it "
+              "is already complete, return it unchanged. Return the question only.")
+
+
+def standalone(question: str, history: list[dict]) -> str:
+    """Follow-up questions ("et en 2e année ?") made complete from the conversation, before retrieval.
+
+    history: previous {"role", "content"} messages. Only the last turns are sent; on failure, or with
+    no history, the question is returned as is.
+    """
+    if not history:
+        return question
+    turns = "\n".join(f"{m['role']}: {m['content'][:600]}" for m in history[-4:])
+    try:
+        r = rewrite_client.chat.completions.create(
+            model=REWRITE_CFG["name"], temperature=0, max_tokens=400,
+            **({"reasoning_effort": "low"} if "gpt-oss" in REWRITE_CFG["name"] else {}),
+            messages=[{"role": "system", "content": STANDALONE},
+                      {"role": "user", "content": f"Conversation:\n{turns}\n\nLast question: {question}"}])
+        text = clean(r.choices[0].message.content or "").strip().strip('"«»“”').strip()
+    except Exception:
+        return question
+    return text if text and not REFUSAL.search(text) else question
 
 
 def retrieve(question: str):

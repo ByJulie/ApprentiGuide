@@ -12,3 +12,8 @@ requests==2.32.5
 psycopg[binary]==3.3.6
 lxml==6.0.3
 pytest==9.1.1
+# Chat interface and spoken questions (app/api.py, app/voice.py)
+fastapi==0.162.0
+uvicorn==0.54.0
+faster-whisper==1.2.1
+httpx==0.28.1
