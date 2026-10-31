@@ -192,3 +192,12 @@ def test_passage_cleaned_of_heading_and_entry_into_force_note():
     assert title == "" and body == "L'étudiant étranger peut conclure."
     title, _ = api.clean_passage("Contrat d'apprentissage : Quels sont les congés ?\nTexte.", "F2918")
     assert title == "Contrat d'apprentissage : Quels sont les congés ?"
+
+
+def test_chat_title_is_the_start_of_the_first_question():
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "app"))
+    import api
+    task = "### Task:\nGenerate a concise title\n### Chat History:\n<chat_history>\nUSER: combien de jours de congés pour mes examens en tant qu'apprenti ?\nASSISTANT: 5 jours\n</chat_history>"
+    assert api.chat_title(task) == "Combien de jours de congés pour mes examens en…"
+    assert api.chat_title("### Task: title") == "ApprentiGuide"

@@ -29,6 +29,18 @@ def text_of(content) -> str:
     return content or ""
 
 
+def chat_title(task: str, limit: int = 50) -> str:
+    """Title of a conversation in the sidebar: the start of the user's first question, cut on a word.
+    No model call: titles must not use the answer quota."""
+    match = re.search(r"USER:\s*(.+)", task)
+    first = re.sub(r"\s+", " ", match.group(1)).strip().rstrip("?").strip() if match else ""
+    if not first:
+        return "ApprentiGuide"
+    if len(first) > limit:
+        first = first[:limit].rsplit(" ", 1)[0] + "…"
+    return first[0].upper() + first[1:]
+
+
 def interface_task(question: str) -> str | None:
     """Open WebUI also asks the model for a chat title, tags or follow-up suggestions ("### Task:").
     Those must not go through retrieval and the answer model: answered here, at no cost."""
@@ -36,7 +48,7 @@ def interface_task(question: str) -> str | None:
         return None
     lower = question.lower()
     if "title" in lower:
-        return json.dumps({"title": "ApprentiGuide"})
+        return json.dumps({"title": chat_title(question)}, ensure_ascii=False)
     if "follow" in lower:
         return json.dumps({"follow_ups": []})
     if "tags" in lower:
