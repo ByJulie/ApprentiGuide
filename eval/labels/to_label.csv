@@ -1,0 +1,162 @@
+﻿run,id,family,question,reference_answer,gold_sources,answer,human_correct,human_note
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q01,in_corpus,Quel est l'âge maximum pour signer un contrat d'apprentissage ?,"29 ans révolus au début de l'apprentissage (exceptions possibles, voir article).",L6222-1,"L'âge maximum pour signer un contrat d'apprentissage est de 29 ans révolus (30 ans moins 1 jour). Ce seuil peut être porté à 35 ans révolus (36 ans moins 1 jour) dans les cas suivants :  
+- L'apprenti signe un nouveau contrat pour accéder à un niveau de diplôme supérieur à celui déjà obtenu.  
+- Le précédent contrat a été rompu pour des raisons indépendantes de sa volonté (ex. licenciement, faute de l'employeur) ou pour inaptitude physique temporaire.  
+- Il ne doit pas s'écouler plus d'1 an entre les deux contrats.  
+
+Sources : [F2918], [L6222-1], [F31704], [D6222-1].",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q36,in_corpus,Je peux travailler combien d'heures par semaine au maximum en apprentissage ?,"Moins de 18 ans : 8 h par jour et 35 h par semaine (L3162-1). À partir de 18 ans : 10 h par jour et 48 h au cours d'une même semaine au maximum (L3121-18, L3121-20). La question porte sur le maximum, pas sur la durée légale de 35 h.",L3121-18;L3121-20;F1911;F2216;L3162-1,"En apprentissage, le maximum d'heures de travail par semaine dépend de votre âge :  
+- **Si vous êtes majeur** : 35 heures par semaine [F2918].  
+- **Si vous êtes mineur** : 35 heures par semaine, sauf dans les secteurs du bâtiment, travaux publics ou paysager, où la durée peut être portée à **40 heures** avec des conditions spécifiques [F2918][F2216].  
+
+Sources : [F2918], [F2216], [L3162-1]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q04,in_corpus,Combien de jours de congés payés ai-je par mois travaillé ?,"2,5 jours ouvrables par mois de travail effectif.",L3141-3;F2258,"Vous acquérez **2,5 jours ouvrables de congés payés** pour chaque mois de travail effectif chez le même employeur【F2258】.  
+
+Sources:
+[F2258]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q59,company_dependent,Mon entreprise est-elle obligée de me donner des tickets resto ?,"Non, l'employeur n'est pas obligé d'attribuer des titres-restaurant (F21059). Demander aux RH s'il en existe dans l'entreprise.",F21059,"Non, l’employeur n’est pas tenu de remettre des titres‑restaurant à ses salariés ; il peut choisir de proposer une cantine, une salle de restauration ou une prime de déjeuner à la place【F21059】.  
+
+Sources:
+[F21059]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q10,in_corpus,C'est quoi la durée minimale de formation en CFA pendant mon contrat ?,"Au moins 25 % de la durée totale du contrat, sous réserve des règles de l'organisme certificateur (L6211-2).",L6211-2,"La durée minimale de formation en CFA pendant votre contrat d'apprentissage correspond à **25 % de la durée totale du contrat** [F2918]. Cette règle s'applique également aux contrats d'apprentissage généraux, sauf pour les cas spécifiques mentionnés dans les sources (comme les contrats de professionnalisation ou les dérogations pour les travailleurs handicapés) [F31704].  
+
+Sources : [F2918], [F31704]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q31,in_corpus,Can my employer make me work at night or on Sundays as an apprentice?,"Règles sur le travail de nuit et du dimanche, plus strictes pour les mineurs (à vérifier). Answer in English.",L3163-1;L3132-1;L6222-26;F2216;L3164-5;F13887,"Oui, votre employeur ne peut pas vous imposer le travail de nuit ni le travail le dimanche, sauf cas très limités :
+
+- **Travail de nuit** : il est interdit pour tout apprenti de moins de 18 ans (article L6222‑26) et ne peut être dérogé que dans les conditions très précises de l’article L. 3163‑2 [ L6222-26 ].  
+- **Travail le dimanche** : il est interdit sauf si votre secteur justifie cette exception (hôtellerie‑restauration, cafés, boulangerie‑pâtisserie, commerces de fleurs, etc.) ; dans ce cas, vous devez bénéficier d’au moins deux jours de repos consécutifs chaque semaine [F2216].
+
+Sources : [L6222-26] ; [F2216]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,A10,company_dependent,"Mes titres-restaurant sont plus bas que d'habitude ce mois-ci, pourquoi ?","Règle générale : un titre par repas compris dans l'horaire de travail, donc pas de titre les jours non travaillés (absences, congés). Le calcul exact (mois de référence, jours comptés) est propre à l'entreprise : demander aux RH.",R3262-7;F21059,"Les sources ne mentionnent pas de raison spécifique liée à la quantité ou au montant des titres-restaurant perçus mensuellement. Le cadre réglementaire décrit principalement les conditions d'émission, de validité et d'utilisation (période civile et deux mois après l'année de référence) [R3262-5]. Pour une explication précise sur la baisse observée, il est nécessaire de consulter votre employeur ou le service RH, qui pourra préciser les modalités de calcul ou les ajustements spécifiques à votre contrat.  
+
+Sources : [R3262-5], [L3262-1]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q20,company_dependent,Mon employeur peut-il m'imposer mes horaires de travail ?,"L'apprenti travaille dans la limite de l'horaire de travail applicable dans l'entreprise, fixé par l'employeur (L6222-24), et des durées maximales (10 h par jour et 48 h par semaine ; 8 h et 35 h avant 18 ans). Demander aux RH ses horaires et l'organisation du temps de travail.",L6222-24;F2918;F1911;L3162-1;L3121-18,"Oui, votre employeur peut vous imposer des horaires de travail : il peut mettre en place des horaires collectifs applicables à tous les salariés et les afficher (heures de début, de fin et de pause). S’il modifie ces horaires, il doit afficher les changements au moins 7 jours avant leur mise en place【F1911】.  
+Sources: F1911",,
+2026-10-30_answers37_120b_prompt-v1.json,Q08,in_corpus,Quelle est la rémunération minimale d'un apprenti de 19 ans en première année ?,43 % du SMIC en première année pour un apprenti de 18 à 20 ans (D6222-26).,L6222-27;D6222-26;F2918,"Un apprenti de 19 ans en première année perçoit au minimum 43 % du SMIC, soit 802,82 € brut mensuel. [F2918]  
+
+Sources: F2918",,
+2026-10-30_answers37_120b_prompt-v1.json,A08,in_corpus,Combien mon employeur doit-il payer au minimum sur la mutuelle d'entreprise ?,Au moins 50 % de la cotisation.,F20739;L911-7;F33754,"L’employeur doit financer au moins la moitié du coût de la mutuelle : sa participation financière doit être **au moins égale à 50 % de la cotisation** (le reste étant à la charge du salarié)【F33754】.  
+Sources: F33754",,
+2026-10-30_answers37_120b_prompt-v1.json,Q67,company_dependent,I am on a student residence permit. Does my employer have to apply for a work permit for me?,General rule with source; no definitive promise; ask HR and prefecture. Answer in English.,F2728,"L’employeur n’a pas à demander d’autorisation de travail tant que votre emploi ne dépasse pas 60 % de la durée annuelle de travail (964 heures) et qu’il est compatible avec votre cursus d’étudiant ; dans ce cas le titre de séjour « étudiant » vous autorise à travailler sans autorisation supplémentaire. En revanche, si l’activité salariée devait excéder ce plafond de 60 % ou ne correspondait pas à votre formation, l’employeur devrait alors solliciter une autorisation de travail. [ F2728 ] [ R5221-3 ]
+
+Sources: F2728, R5221-3",,
+2026-10-30_answers37_120b_prompt-v1.json,A04,in_corpus,How many hours a year can a non-EU student work in France without a work permit?,964 heures par an maximum (60 % de la durée annuelle légale) sans autorisation de travail.,F2713,"Un étudiant étranger non‑européen peut travailler jusqu’à 964 heures par an (soit 60 % de la durée légale annuelle du travail) sans devoir obtenir d’autorisation de travail [ F2713 ].  
+Sources: [F2713]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q10,in_corpus,C'est quoi la durée minimale de formation en CFA pendant mon contrat ?,"Au moins 25 % de la durée totale du contrat, sous réserve des règles de l'organisme certificateur (L6211-2).",L6211-2,"La formation en centre de formation d’apprentis (CFA) doit représenter au moins 25 % de la durée totale du contrat d’apprentissage ; c’est le minimum requis quel que soit le type de contrat. [ F2918 ] [ F3059 ]
+
+Sources:
+[F2918]
+[F3059]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q29,in_corpus,Quel est le salaire minimum d'un apprenti de 22 ans en deuxième année ?,"61 % du SMIC, ou du salaire minimum conventionnel s'il est plus élevé, pour un apprenti de 21 à 25 ans en deuxième année (D6222-26).",L6222-27;D6222-26,"Le salaire minimum d’un apprenti de 22 ans en deuxième année correspond à 61 % du SMIC, soit 1 138,88 € brut par mois. [ F2918 ][ D6222-26 ]
+
+Sources:  
+[F2918]  
+[D6222-26]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q05,in_corpus,Mon employeur doit-il rembourser mon abonnement de transport en commun ?,Prise en charge de 50 % du prix des titres d'abonnement.,L3261-2,"Oui, votre employeur doit rembourser au moins 50 % du coût de votre abonnement de transport en commun, dans la limite des frais pour les déplacements entre votre résidence habituelle et votre lieu de travail [L3261-2][R3261-1]. Le remboursement s'effectue mensuellement, même pour les abonnements annuels, et doit être versé à la fin du mois suivant l'achat du titre [F37900]. Si un accord collectif existe, il peut modifier les modalités (montant, justificatifs, délais), mais le seuil minimal reste de 50 % [F37900].  
+
+Sources : [F37900][L3261-2][R3261-1]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q67,company_dependent,I am on a student residence permit. Does my employer have to apply for a work permit for me?,General rule with source; no definitive promise; ask HR and prefecture. Answer in English.,F2728,,,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q64,company_dependent,Puis-je faire mon alternance dans une entreprise publique ou une mairie ?,"Possible dans le secteur public non industriel et commercial, règles spécifiques ; demander à l'employeur et à l'école.",L6227-1;F3059,"Oui, vous pouvez faire votre alternance dans une entreprise publique ou une mairie. Le contrat d'apprentissage permet d’alternier entre des périodes de formation en entreprise (y compris dans la fonction publique) et en centre de formation d’apprentis [F3059]. Les mêmes règles s’appliquent que pour les contrats en entreprise privée.  
+
+Sources : [F3059]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q66,company_dependent,I am a second-year international student. What do I need to sign an apprenticeship contract?,"Residence permit / work authorization rules, sources cited, then ask school, HR and prefecture. Answer in English.",F2713;R5221-7,"Pour signer un contrat d’apprentissage, vous devez :
+
+1. Être titulaire d’un visa de long séjour valant titre de séjour (VLS‑TS) étudiant ou d’une carte de séjour étudiant ;  
+2. Résider en France depuis plus d’un an (votre deuxième année de séjour satisfait cette condition) ;  
+3. Faire déclarer votre embauche par l’employeur auprès de la préfecture au moins 2 jours ouvrables avant la date d’effet du contrat ;  
+4. Signer le contrat écrit (cerfa n°10103) avec votre employeur (et, si vous êtes mineur, votre représentant légal) ; le contrat doit contenir les mentions obligatoires (nom de l’employeur, effectif, diplôme préparé, salaire, maître d’apprentissage, etc.) ;  
+5. L’employeur transmet le contrat à l’OPCO (ou à la DDETS pour le secteur public) dans les 5 jours ouvrables suivant le début du contrat.
+
+Sources : [F2713] ; [R5221-7] ; [F2918] .",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q39,in_corpus,Quelles aides financières existent pour l'entreprise qui recrute un apprenti ?,Aides à l'embauche selon la date du contrat (à vérifier dans la fiche).,F23556,"Les aides financières pour l'entreprise recrutant un apprenti incluent :  
+- **Aide unique** : 5 000 € maximum pour la première année du contrat, conditionnelle à la transmission du contrat à l'opérateur de compétences et à l'absence d'aide antérieure pour le même apprenti et certification [D6243-2].  
+- **Aide exceptionnelle** : Disponible pour les entreprises de moins de 250 salariés (conditions sur le niveau du diplôme, pas de précédent bénéfice) ou pour celles de plus de 250 salariés (atteinte de 5 % ou 3 % d'alternants en 2027) [F23556].  
+- **Aide forfaitaire** : 1 000 € pour les entreprises de moins de 250 salariés recrutant un apprenti pour un diplôme jusqu'au bac [D6243-1].  
+
+Sources : [F23556], [D6243-2], [D6243-1]",,
+2026-10-30_answers37_120b_prompt-v1.json,A10,company_dependent,"Mes titres-restaurant sont plus bas que d'habitude ce mois-ci, pourquoi ?","Règle générale : un titre par repas compris dans l'horaire de travail, donc pas de titre les jours non travaillés (absences, congés). Le calcul exact (mois de référence, jours comptés) est propre à l'entreprise : demander aux RH.",R3262-7;F21059,"Les titres‑restaurant ne sont pas obligatoires ; c’est à l’employeur de décider s’il les attribue et de fixer leur valeur [​F21059​]. De plus, le salarié ne peut les utiliser que les jours ouvrables (sauf travail le dimanche ou jours fériés) et dans la limite de 25 € par jour [F21059]. Enfin, les titres émis pour l’année en cours ne sont utilisables qu’après épuisement de tous ceux de l’année précédente [R3262-5]; s’ils n’ont pas été utilisés, ils sont récupérés par l’employeur et remplacés, ce qui peut réduire le nombre disponible [R3262-5].  
+
+Sources: [F21059] ; [R3262-5]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q58,company_dependent,Y a-t-il une prime ou un 13e mois pour les apprentis ?,"La loi ne prévoit pas de prime ou de 13e mois propre aux apprentis ; l'apprenti a les mêmes droits que les autres salariés, donc il bénéficie d'une prime si la convention collective ou l'entreprise en prévoit une (F2918). Demander aux RH.",F2918,"NOT FOUND
+
+Sources:",,
+2026-10-30_answers37_120b_prompt-v1.json,Q39,in_corpus,Quelles aides financières existent pour l'entreprise qui recrute un apprenti ?,Aides à l'embauche selon la date du contrat (à vérifier dans la fiche).,F23556,"L’entreprise qui embauche un apprenti peut bénéficier d’une **aide à l’embauche** :
+
+* **Aide unique** – ouverte à toutes les entreprises, sans condition de date de signature ou de début du contrat ; le contrat doit être un contrat d’apprentissage et l’apprenti doit préparer un diplôme ou titre jusqu’au niveau master (Bac + 5) [F23556].
+
+* **Aide exceptionnelle** – valable uniquement pour les contrats conclus à partir du 8 mars 2026 et débutant avant le 1 janvier 2027 [F23556].  
+  * Pour les entreprises de **moins de 250 salariés**, les seules conditions sont : contrat d’apprentissage, dates ci‑dessus, diplôme visé (niveau master maximum) et absence d’une aide déjà perçue pour le même apprenti et la même certification [F23556].  
+  * Pour les entreprises de **250 salariés et plus**, en plus des conditions précédentes, l’entreprise doit atteindre **au moins 5 %** de contrats d’insertion professionnelle dans son effectif total annuel au 31 / 12 2027, **ou** au moins **3 %** d’alternants avec une progression de **10 %** d’un an sur l’autre (comparaison 31 / 12 2026 vs 31 / 12 2027) [F23556].
+
+Ces aides sont destinées à l’employeur et sont conditionnées par la taille de l’entreprise et les dates de signature/début du contrat.  
+
+**Sources:** [F23556]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q36,in_corpus,Je peux travailler combien d'heures par semaine au maximum en apprentissage ?,"Moins de 18 ans : 8 h par jour et 35 h par semaine (L3162-1). À partir de 18 ans : 10 h par jour et 48 h au cours d'une même semaine au maximum (L3121-18, L3121-20). La question porte sur le maximum, pas sur la durée légale de 35 h.",L3121-18;L3121-20;F1911;F2216;L3162-1,"Pour un apprenti :
+
+- **Majeur** : le temps de travail effectif est identique à celui des autres salariés, soit **35 heures par semaine** ; il peut réaliser des heures supplémentaires [F2918].  
+- **Mineur** : la durée légale reste **35 heures par semaine**, mais il peut exceptionnellement effectuer **jusqu’à 5 heures supplémentaires** par semaine après accord de l’inspecteur du travail et avis du médecin du travail [F2918].
+
+Sources : [F2918]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q69,company_dependent,"Mon maître d'apprentissage est absent tout le mois, qui doit me suivre ?",La fonction tutorale peut être partagée entre plusieurs salariés (L6223-6). Demander aux RH qui suit l'apprenti pendant l'absence.,L6223-5;L6223-6,"En l’absence du maître d’apprentissage, c’est l’employeur qui doit veiller à ce que l’apprenti continue d’être suivi ; il peut désigner un autre maître d’apprentissage ou un référent au sein de l’entreprise pour assurer la continuité de la formation [L6223-8].  
+
+Sources: L6223-8",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,A01,in_corpus,Can my apprenticeship end early if I already got my diploma?,"Oui, le contrat peut prendre fin avant le terme à l'initiative de l'apprenti s'il a obtenu le diplôme, à condition d'en informer l'employeur.",L6222-19;F2918,"Yes, your apprenticeship can end early if you already obtained your diploma. According to [L6222-19], the contract may terminate at your initiative before the initial term if you inform the employer. [F2918] specifies that after 45 days, you must notify the employer in writing **1 month in advance** of the desired end date, and the rupture cannot occur before the day after the diploma results are published.  
+
+Sources: [L6222-19], [F2918]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q20,company_dependent,Mon employeur peut-il m'imposer mes horaires de travail ?,"L'apprenti travaille dans la limite de l'horaire de travail applicable dans l'entreprise, fixé par l'employeur (L6222-24), et des durées maximales (10 h par jour et 48 h par semaine ; 8 h et 35 h avant 18 ans). Demander aux RH ses horaires et l'organisation du temps de travail.",L6222-24;F2918;F1911;L3162-1;L3121-18,"Oui, votre employeur peut vous imposer des horaires de travail, soit en mettant en place des horaires collectifs (appliqués à tous les salariés) ou en proposant des horaires individualisés (avec une plage horaire fixe). En cas d'horaires collectifs, les changements doivent être communiqués au moins 7 jours avant leur mise en place [F1911]. Si vous êtes apprenti, les règles spécifiques s'appliquent (ex. : 35 heures hebdomadaires, plages horaires définies) [F2918].  
+
+Sources : [F1911], [F2918]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q31,in_corpus,Can my employer make me work at night or on Sundays as an apprentice?,"Règles sur le travail de nuit et du dimanche, plus strictes pour les mineurs (à vérifier). Answer in English.",L3163-1;L3132-1;L6222-26;F2216;L3164-5;F13887,"As an apprentice, your employer can require you to work at night or on Sundays **only if** you are in specific sectors and meet certain conditions:  
+
+- **Night work**: For apprentices under 18, night work (defined as 22h–6h for 16–18-year-olds or 20h–6h for under 16) is generally prohibited **unless** your employer obtains a derogation under specific collective agreements (e.g., construction, public works, or landscaping sectors) [L6222-26].  
+- **Sunday work**: You can work Sundays **only** if you are in sectors like hospitality, retail, or flower shops, and you must have **2 consecutive days of rest weekly** [F13887].  
+
+If your employer wants to schedule night or Sunday shifts, they must ensure compliance with these rules.  
+
+Sources: [F13887], [F2918], [L3164-5], [L6222-26]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q09,in_corpus,What is the maximum age to start an apprenticeship contract in France?,29 years old at the start (with exceptions). Answer should be in English.,L6222-1,"The maximum age to start an apprenticeship contract in France is **29 years** (30 years minus one day) [F2918]. However, exceptions apply:  
+- **35 years** (36 years minus one day) if the apprentice is pursuing a higher diploma, their previous contract ended due to reasons beyond their control, or they have temporary physical inaptitude, with no more than 1 year between contracts [D6222-1].  
+- **No age limit** for recognized disabled workers, those creating/restarting a business requiring a diploma, high-level athletes, or those not obtaining their diploma and renewing the contract [F2918].  
+
+Sources: [F2918], [D6222-1]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,A03,in_corpus,Que dit l'article L6222-35 ?,"Congé supplémentaire de 5 jours ouvrables pour la préparation directe des épreuves, avec maintien du salaire.",L6222-35,"L'article L6222-35 accorde à l'apprenti un congé supplémentaire de **cinq jours ouvrables** pour la préparation des épreuves, à verser dans le mois précédent celles-ci. Ce congé, qui maintient le salaire, s'ajoute au congé payé (L. 3141-1) et au congé annuel pour les moins de 21 ans (L. 3164-9). L'apprenti doit suivre les enseignements spécifiques du centre de formation d'apprentis si la convention le prévoit [L6222-35].  
+
+Sources : [L6222-35]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q58,company_dependent,Y a-t-il une prime ou un 13e mois pour les apprentis ?,"La loi ne prévoit pas de prime ou de 13e mois propre aux apprentis ; l'apprenti a les mêmes droits que les autres salariés, donc il bénéficie d'une prime si la convention collective ou l'entreprise en prévoit une (F2918). Demander aux RH.",F2918,"Les sources ne mentionnent pas explicitement une prime ou un 13e mois spécifique aux apprentis. La prime d'activité [F33375] et les aides pour équipement [F38630] concernent des aides distinctes. Le calcul des indemnités de congés payés [F33359] indique que le 13e mois n’est pas pris en compte dans ce calcul, mais cela ne confirme pas son existence pour les apprentis. Les règles de rémunération des apprentis [D6222-31] ne mentionnent pas non plus de prime ou de 13e mois.  
+
+Sources : [F33375], [F38630], [F33359], [D6222-31]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q16,company_dependent,"Ai-je droit à une mutuelle en tant qu'apprenti, et laquelle ?","Règle générale + demander aux RH le contrat collectif, le niveau de garantie, la dispense possible.",L911-7,"NOT FOUND  
+Sources:",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q03,in_corpus,Y a-t-il une période d'essai pour un apprenti ?,"Pas de période d'essai classique : pendant les 45 premiers jours, consécutifs ou non, de formation pratique en entreprise, l'apprenti ou l'employeur peut rompre le contrat librement (L6222-18).",L6222-18,"Non, il n'y a pas de période d'essai pour un apprenti lorsqu'il poursuit son activité dans l'entreprise après la fin de son contrat d'apprentissage. L'article L6222-12 précise que *« aucune période d'essai ne peut être imposée (sauf clause conventionnelle contraire) »* [F2918]. 
+
+Sources : [F2918]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q05,in_corpus,Mon employeur doit-il rembourser mon abonnement de transport en commun ?,Prise en charge de 50 % du prix des titres d'abonnement.,L3261-2,"Oui, votre employeur doit prendre en charge une partie de votre abonnement de transport en commun. La prise en charge est obligatoire et doit être d’au moins 50 % du coût de l’abonnement, remboursée mensuellement au plus tard à la fin du mois suivant la validation du titre [ F37900 ]. Le salarié doit fournir le titre d’abonnement (ou une attestation sur l’honneur si le titre ne porte pas son nom) pour ouvrir droit à la prise en charge [ F37900 ]. En l’absence d’accord collectif, l’employeur fixe le montant mais il ne peut pas être inférieur à 50 % du coût de l’abonnement [ F37900 ].  
+
+Sources: [F37900] , [F19846]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q60,company_dependent,Is my company required to pay for my commute to work?,50% of public transport pass; ask HR about other modes. Answer in English.,L3261-2;F37900;F19846,"L’employeur doit obligatoirement prendre en charge une partie des frais de transports publics de ses salariés ; il doit couvrir au moins 50 % du coût de l’abonnement (sur la base tarif 2e classe) pour les salariés à temps plein, avec possibilité d’aller au-delà selon sa politique RSE [F37900].  
+En revanche, la prise en charge des frais liés à un moyen de transport personnel (voiture, vélo, covoiturage, etc.) n’est pas obligatoire ; elle ne s’applique que si un accord collectif ou une décision de l’employeur le prévoit, et alors elle doit être offerte à l’ensemble des salariés dans les mêmes conditions [F19846].  
+
+Donc, si vous utilisez les transports publics, votre entreprise est tenue de financer au moins 50 % de votre abonnement ; si vous utilisez un véhicule personnel, le remboursement dépend d’un accord ou d’une décision interne.  
+
+Sources: [F37900] ; [F19846]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q59,company_dependent,Mon entreprise est-elle obligée de me donner des tickets resto ?,"Non, l'employeur n'est pas obligé d'attribuer des titres-restaurant (F21059). Demander aux RH s'il en existe dans l'entreprise.",F21059,"Non, votre entreprise n’est pas obligée de vous fournir des titres-restaurant. La remise de ces titres n’est pas une obligation légale pour l’employeur [F21059]. Cependant, si votre entreprise les propose, ils vous permettent de payer un repas en dehors d’une cantine ou d’un restaurant d’entreprise [L3262-1].  
+
+Sources : [F21059], [L3262-1]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q62,company_dependent,"L'entreprise veut me faire travailler le samedi, c'est légal ?",Règles sur le repos hebdomadaire ; demander aux RH l'organisation prévue.,L3132-1;L3132-3;F2327,"Travailler le samedi n'est pas interdit par la loi en général, sauf dans des cas spécifiques. Les sources ne mentionnent pas de restriction légale pour le samedi, contrairement au dimanche ou aux jours fériés. Cependant, si votre contrat ou une convention collective prévoit des règles particulières (ex. : jours de travail ou de repos), elles s'appliquent. En cas de doute, vérifiez vos conditions de travail avec votre employeur ou le service des ressources humaines.  
+
+Sources : [F2327], [F2405], [F13887], [L3164-5]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,Q66,company_dependent,I am a second-year international student. What do I need to sign an apprenticeship contract?,"Residence permit / work authorization rules, sources cited, then ask school, HR and prefecture. Answer in English.",F2713;R5221-7,"As a second-year international student, you can sign an apprenticeship contract **if** you have been in France for **more than 1 year** (unless enrolled in a master’s-level program, which waives this requirement) [F2713]. You must hold a **visa de long séjour valant titre de séjour (VLS-TS)** or **carte de séjour étudiant** [F2713]. The employer must submit a **nomination declaration** to the prefecture at least 2 days before hiring, with documents specified by the prefecture [F2713]. The apprenticeship contract must be in writing, include mandatory details (employer info, diploma, salary, master trainer credentials, etc.), and be signed by you and the employer [F2918]. The **Opco** (or Dreets for public sector) must validate the contract to authorize work beyond 964 hours [F2713].  
+
+Sources: [F2713], [F2918]",,
+2026-10-31_answers37_qwen3-8b-think_prompt-v2.json,A07,in_corpus,What share of a meal voucher does the employer have to pay?,Entre 50 % et 60 % de la valeur du titre.,F21059,"The employer must cover between 50% and 60% of the meal voucher's value [F21059]. For 2026, the maximum employer contribution per voucher is 7.32 €, beyond which excess amounts are added to the company's social security contributions [F21059]. The employee covers the remaining 40% to 50% of the voucher's value. Employers must ensure their contribution meets the 50–60% range to qualify for social security exemption [F21059]. If the employer pays more than 7.32 € per voucher, the surplus is reintegrated into the company's social contribution base [F21059].  
+
+Sources: [F21059]",,
+2026-10-30_answers37_120b_prompt-v1.json,Q03,in_corpus,Y a-t-il une période d'essai pour un apprenti ?,"Pas de période d'essai classique : pendant les 45 premiers jours, consécutifs ou non, de formation pratique en entreprise, l'apprenti ou l'employeur peut rompre le contrat librement (L6222-18).",L6222-18,"Il n’y a généralement aucune période d’essai : lorsqu’un apprenti est embauché à l’issue de son contrat d’apprentissage (CDI, CDD ou contrat de travail temporaire), aucune période d’essai ne peut être imposée, sauf si une clause conventionnelle le prévoit autrement【F2918】.  
+Sources: F2918",,
+2026-10-30_answers37_120b_prompt-v1.json,Q09,in_corpus,What is the maximum age to start an apprenticeship contract in France?,29 years old at the start (with exceptions). Answer should be in English.,L6222-1,"Le apprenti doit normalement être âgé au maximum de 29 ans révolus (30 ans moins 1 jour) au moment de la signature du contrat [ F2918 ][ L6222-1 ].
+
+Cette limite peut être portée à 35 ans révolus (36 ans moins 1 jour) lorsqu’il signe un nouveau contrat pour obtenir un diplôme supérieur, que son précédent contrat a été rompu pour des raisons indépendantes de sa volonté ou pour inaptitude physique, à condition que l’intervalle entre les deux contrats ne dépasse pas un an [ F2918 ][ D6222-1 ].
+
+Il n’y a aucune limite d’âge dans les cas suivants : reconnu travailleur handicapé, projet de création ou reprise d’entreprise nécessitant un diplôme, sportif de haut niveau, ou apprenti n’ayant pas obtenu son diplôme et concluant un nouveau contrat avec un autre employeur pour repasser l’examen [ F2918 ].
+
+**Sources:** F2918, L6222-1, D6222-1",,

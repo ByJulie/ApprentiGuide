@@ -19,6 +19,12 @@ rewrite:              # French version of the question (app/pipeline.py), about 
   base_url: https://api.groq.com/openai/v1
   name: openai/gpt-oss-120b
   api_key_env: GROQ_API_KEY
+judge:                # eval/judge.py: grades the answers (replaces contains_reference), calibrated on human labels.
+  # Not the answer model (gpt-oss): an LLM tends to prefer its own answers. Check the name on
+  # console.groq.com/docs/models; JUDGE_MODEL=ollama:qwen3:8b judges locally instead.
+  base_url: https://api.groq.com/openai/v1
+  name: llama-3.3-70b-versatile
+  api_key_env: GROQ_API_KEY
 retrieval:            # rag/retrieve.py
   enabled: true
   signals: [exact, fulltext, dense]   # remove one to measure what it brings

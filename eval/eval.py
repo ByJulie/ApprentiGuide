@@ -167,6 +167,8 @@ def main():
                                     "or ollama:llama3.2 for a local model")
     ap.add_argument("--no-think", action="store_true", help="ask a thinking local model (Qwen3) not to think")
     ap.add_argument("--prompt", help="system prompt file for this run, e.g. prompts/system_v2.txt")
+    ap.add_argument("--judge", action="store_true",
+                    help="grade every answer with the LLM judge (eval/judge.py): judge_correct, correct_and_cited")
     args = ap.parse_args()
     global USE_ADDED_GOLD
     USE_ADDED_GOLD = not args.lead_gold_only
@@ -191,6 +193,12 @@ def main():
     tests = [json.loads(l) for l in open(args.testset or CFG["evaluation"]["testset"], encoding="utf-8") if l.strip()]
     tests, gaps = split_by_corpus(tests)
     result = run_retrieval(tests) if args.retrieval_only else run_answers(tests)
+    if args.judge and not args.retrieval_only:
+        from eval import judge
+        judge.judge_rows(result["rows"], {t["id"]: t for t in tests})
+        # Main metric of the project: correct (judge) and citing a gold source (code). Target 0.8.
+        for key in ("judge_correct", "correct_and_cited"):
+            result["report"][key] = rate([r.get(key) for r in result["rows"]])
     result["report"]["by_tag"] = by_tag(result["rows"])
     result["report"]["corpus_gaps"] = len(gaps)
     result.update(n=len(tests), corpus_gaps=gaps, mode="retrieval" if args.retrieval_only else "baseline" if args.baseline else "system",

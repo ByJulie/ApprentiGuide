@@ -263,6 +263,15 @@ def not_found_message(lang: str, missing_ids: list[str] = ()) -> str:
 
 def answer(question: str) -> dict:
     t0 = time.time()
+    # Input guardrail first: personal data masked before any cloud call, injection and distress answered
+    # with a fixed message (app/guardrail.py).
+    from app import guardrail
+    check = guardrail.check(question)
+    if check.blocked:
+        return {"answer": check.message, "not_found": True, "not_found_reason": f"guardrail:{check.blocked}",
+                "sources": [], "seconds": round(time.time() - t0, 2), "best_score": None,
+                "citations": citations("", []), "pii_masked": check.pii}
+    question = check.question
     found = retrieve(question)
     lang = language(question, found.question_fr if found else None)
     if found is not None and found.abstain:

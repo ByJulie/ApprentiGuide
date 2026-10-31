@@ -16,6 +16,7 @@ import uuid
 from fastapi import FastAPI, Header, HTTPException
 from fastapi.responses import StreamingResponse
 
+import guardrail
 import pipeline
 
 MODEL_ID = "apprentiguide"
@@ -164,6 +165,12 @@ def status(text: str, done: bool = False) -> dict:
 def answer_events(question: str, history: list[dict]):
     """The pipeline step by step for a chat interface: status lines while searching, the model's reasoning
     and answer as they are written, then the sources as cards. Same decisions as pipeline.answer()."""
+    check = guardrail.check(question)
+    if check.blocked:
+        yield {"content": check.message}
+        yield status("Réponse fixe (garde-fou d'entrée)", done=True)
+        return
+    question = check.question
     if history:
         yield status("Je relis la conversation…")
         question = pipeline.standalone(question, history)
@@ -224,11 +231,13 @@ def chat(body: dict, authorization: str | None = Header(default=None)):
     users = [i for i, m in enumerate(messages) if m["role"] == "user"]
     if not users:
         raise HTTPException(400, "no user message")
-    question = messages[users[-1]]["content"]
+    question = guardrail.mask_pii(messages[users[-1]]["content"])[0]  # before any cloud call
     content = interface_task(question)
     history = [m for m in messages[:users[-1]] if m["role"] in ("user", "assistant")]
     # Previous answers carry sources and the licence line: only the answer text is useful as context.
     history = [{**m, "content": re.split(r"\n\*\*Sources\*\*|\n\n\*Textes :", m["content"])[0]} for m in history]
+    # The history goes to the cloud model too (follow-up rewrite): personal data masked first.
+    history = [{**m, "content": guardrail.mask_pii(m["content"])[0]} for m in history]
     reply_id, created = f"chatcmpl-{uuid.uuid4().hex[:12]}", int(time.time())
     if not body.get("stream"):
         if content is None:
