@@ -57,7 +57,9 @@ python eval/eval.py --model ollama:qwen3:8b # local answer model (ollama pull qw
 See `data/README.md`: Code du travail, CESEDA and Code de la sécurité sociale articles through the Legifrance API (PISTE), Service-Public.fr fact sheets (open data DILA, Licence Ouverte), how they were selected and cleaned. Fact sheets from the open data file of 25 Oct. 2026 (date shown under every answer); articles fetched on 25 and 30 Oct. 2026, each with its version date. No personal data in the corpus; user questions are not stored.
 
 ## 5. Evaluation (summary)
-The evaluation is led by Nafissatou Ndiaye: test set (`eval/testset.jsonl`, 70 questions in French and English: answer in the texts, depends on the employer, no answer), red-team set (`eval/redteam.jsonl`, 28 cases), final runs, report and system card. Results to come in `docs/evaluation_report.md`, `docs/red_team_log.md` and `docs/system_card.md`.
+The evaluation is led by Nafissatou Ndiaye: test set (`eval/testset.jsonl`, 81 questions in French and English: answer in the texts, depends on the employer, no answer; gold sources reviewed in `eval/testset_review.csv`), LLM judge calibrated on human labels (`eval/judge.py`, replaces `contains_reference`), input guardrail (`app/guardrail.py`), red-team set (`eval/redteam.jsonl`, 28 cases, `eval/redteam.py`), final runs, report and system card. Results to come in `docs/evaluation_report.md`, `docs/red_team_log.md` and `docs/system_card.md`.
+
+Main metric: share of answers that are correct (judge) **and** cite a gold source (code), target 0.8, with its 95 % interval; `python eval/eval.py --judge`.
 
 | System | Main metric | NOT FOUND rate | Median latency |
 |---|---|---|---|
@@ -70,6 +72,7 @@ The development measurements made while building the retrieval (to choose its se
 | Tool | Used for |
 |---|---|
 | Claude Code (Anthropic), by Johanna Fokui | Retrieval, interface and evaluation tooling code (`rag/`, `app/`, `eval/eval.py`, `eval/voice_eval.py`), development measurements, proposals for the test set (11 questions with ids A01 to A11 and `gold_added` sources, each with a quote from the text; to be accepted or removed by the evaluation lead), drafts of the documentation. Every result was checked by running it; the decisions are ours. |
+| Claude Code (Anthropic), by Nafissatou Ndiaye | Drafts of the test set and red-team set, review of the gold sources against the texts (`eval/review_testset.py`), judge and calibration code (`eval/judge.py`), input guardrail (`app/guardrail.py`), red-team runner (`eval/redteam.py`), drafts of the evaluation report, red-team log and system card. Gold sources and labels are decided by the evaluation lead. |
 | *(each member adds the tools they used)* | |
 
 ## 7. Team
