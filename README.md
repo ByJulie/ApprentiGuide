@@ -66,6 +66,7 @@ Test set: `eval/testset.jsonl`, 81 questions (70 by the evaluation lead, 11 adde
 | Baseline (prompt only) | to be run on 31 Oct. | | | |
 | gpt-oss-120b, prompt v1 (30 Oct.) | 0.70 (0.52 to 0.84) | 8/9 | 0/36 | 13 s |
 | Qwen3 8B local, prompt v2, with reasoning | 0.68 (0.49 to 0.82) | 7/9 | 0/37 | 49 s |
+| Qwen3 8B local, prompt v2, without reasoning | 0.64 (0.46 to 0.79) | 7/9 | 0/37 | 31 s |
 | llama3.2 3B local, prompt v2 | 0.64 (0.46 to 0.79) | 7/9 | 2/37 | 22 s |
 
 Full report: `docs/evaluation_report.md`. System card: `docs/system_card.md`. Every decision and experiment, including the ideas we measured and removed (labels per document, agent-like steps in a fixed pipeline): `docs/decisions_and_experiments.md`.

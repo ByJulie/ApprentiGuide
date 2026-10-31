@@ -41,6 +41,7 @@ question
 | D16 | NOT FOUND is shown as a fixed message written in code, in the language of the question: where we looked (the codes and Service-Public.fr) and what to do (rephrase, ask the school or HR), plus the missing article when one was named. NOT FOUND stays an internal flag (`not_found`, with its reason) for the evaluation. | A bare "NOT FOUND" tells the user nothing; a fixed text cannot be hallucinated. | Message written by the model. |
 | D18 | At most 1 passage per article or fiche among the 5 given to the model (`max_per_doc`). | E12: three sections of one fiche often took three of the five places; with the cap the model sees 5 distinct documents and Recall@5 goes from 0.80 to 0.85. To check when reading answers: a long fiche now contributes one section. | 2 per document (0.83). |
 | D19 | Public-sector texts (section title "secteur public", fiche F3059) go after the others unless the question is about the public sector (`sector_priority`). | E14: they took 36 of 400 places while one question of 81 is about the public sector; with the rule 6 questions improve, none gets worse. Same idea as a country priority in an HR assistant: the user's own rules first. Detected by section title, not by article number (R6227 is a chapter of penalties, not the public sector). | Removing them: kept, in case nothing else answers. |
+| D21 | Chat interface: Open WebUI in front of an OpenAI-compatible API (`app/api.py`); follow-up questions are made complete from the conversation before retrieval (one small call, only when there is history); the model's own "Sources:" line is replaced by the block built from the database; Open WebUI's interface tasks (title, tags, follow-ups) are answered without the pipeline. Streamlit kept as a fallback. | A real chat with history and voice input built in, for little code; the same API will serve the agent. Tested: "Et en deuxième année ?" after a question on a 19-year-old's pay answers 51 % of the Smic. | A hand-made front end: too risky before 3 Nov. |
 | D20 | Not kept: wider candidate pools (E12), and two agent-like steps done in code: following references between articles (E13) and a second search with other phrasings when the first is weak (E15). Their code is removed (kept in history at commit `571cc60`). | No measurable gain (section 3b). | |
 | D17 | Sources under each answer come from the database, never from the model: link (Legifrance article or Service-Public fiche), label, version date, passages; ids cited but not retrieved are flagged as unverified and counted. The page shows the Licence Ouverte attribution with the date of the data files. | Users must be able to check the text themselves; Licence Ouverte requires the source and its date. | Links written by the model. |
 
@@ -241,6 +242,19 @@ Remaining misses after E14 (in the 5 sources given): Q03, Q10, Q37 (F2918 probab
 Added after the gaps found in E9: 45 articles (maximum working time L3121-18 to 27, young workers L3161 to L3165 and R3162 to R3165, weekly rest and Sunday L3132-1 to 3, health check L4624-1, favour principle L2254-1, OPCO funding L6332-14) and 2 fiches (F2327 weekly rest, F13887 Sunday work). No question left outside the corpus.
 
 First run: R@1 0.525, R@5 0.852, lower than before, because the new texts answer questions without being listed as gold and push the listed gold down (Q26, Q31, A02 lost a rank). Read one by one, they answer directly: L3163-2 "Le travail de nuit est interdit pour les jeunes travailleurs" (A02), L3162-2 "Le temps consacré à la formation dans un établissement d'enseignement est considéré comme un temps de travail effectif" (Q26), F2327 for Saturday work (Q62), L3164-5 and F13887 for Sunday work (Q31). Added to `gold_added` with these quotes. With them, on 61 answerable questions: **R@1 0.574 (0.449 to 0.690), R@3 0.770, R@5 0.869 (0.762 to 0.932), MRR 0.684**. Misses in the 5 sources: Q03, Q10, Q16, Q57, Q58, Q65, Q68, Q69.
+
+### E17. Local answer models (37 questions, prompt v2, current retrieval, rewrites cached: no Groq tokens)
+
+| Model (Ollama, Mac M4 32 GB) | Gold source cited (95 % CI) | Invented citations | English answered in English | NOT FOUND when no answer | Median latency |
+|---|---|---|---|---|---|
+| llama3.2 3B | 0.64 (0.46 to 0.79) | **2/37** | 7/10 | 7/9 | 22 s |
+| Qwen3 8B, reasoning on | **0.68** (0.49 to 0.82) | 0/37 | 9/10 | 7/9 | 49 s |
+| Qwen3 8B, reasoning off | 0.64 (0.46 to 0.79) | 0/37 | 10/10 | 7/9 | 31 s (while other requests ran) |
+
+- llama3.2 cites texts it was not given (L6222-35 for a question on working hours) and attributes right figures to the wrong source: not usable, even as a fallback.
+- Qwen3 8B: no invented citation. Reasoning helps on traps: without it, Q58 (bonus, 13th month) answers "Oui, les apprentis peuvent bénéficier d'une prime d'activité", mixing up a state benefit with an employer bonus; with it, the answer says no source provides a bonus for apprentices. Kept: reasoning on by default for the local fallback.
+- Trap found on the way: Ollama ignores Qwen3's "/no_think" text switch (a first "no reasoning" run still reasoned: 1464 reasoning characters, 21 s on a test question); `reasoning_effort: "none"` works (3.5 s, no reasoning). That first run is kept as a second reasoning run (`think-again`): same cited-gold rate, 0 invented, which shows the measure is stable.
+- Choice for the demo: gpt-oss on Groq as main model (to be measured with prompt v2 and the current retrieval), Qwen3 8B with reasoning as local fallback (no question leaves the laptop).
 
 ## 5. Next steps
 

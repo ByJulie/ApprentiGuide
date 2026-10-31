@@ -1,0 +1,998 @@
+{
+  "report": {
+    "retrieved_gold": {
+      "rate": 0.786,
+      "n": 28,
+      "ci95": [
+        0.605,
+        0.898
+      ]
+    },
+    "cited_gold": {
+      "rate": 0.643,
+      "n": 28,
+      "ci95": [
+        0.458,
+        0.793
+      ]
+    },
+    "contains_reference": {
+      "rate": 0.0,
+      "n": 28,
+      "ci95": [
+        0.0,
+        0.121
+      ]
+    },
+    "answered_when_answerable": {
+      "rate": 1.0,
+      "n": 28,
+      "ci95": [
+        0.879,
+        1.0
+      ]
+    },
+    "not_found_ok": {
+      "rate": 0.778,
+      "n": 9,
+      "ci95": [
+        0.453,
+        0.937
+      ]
+    },
+    "median_seconds": 30.67,
+    "answers_with_invented_citation": {
+      "rate": 0.0,
+      "n": 37,
+      "ci95": [
+        0.0,
+        0.094
+      ]
+    },
+    "by_tag": {
+      "company_dependent": {
+        "rate": 0.636,
+        "n": 11,
+        "ci95": [
+          0.354,
+          0.848
+        ]
+      },
+      "en": {
+        "rate": 0.818,
+        "n": 11,
+        "ci95": [
+          0.523,
+          0.949
+        ]
+      },
+      "fr": {
+        "rate": 0.615,
+        "n": 26,
+        "ci95": [
+          0.425,
+          0.776
+        ]
+      },
+      "in_corpus": {
+        "rate": 0.647,
+        "n": 17,
+        "ci95": [
+          0.413,
+          0.827
+        ]
+      },
+      "no_answer": {
+        "rate": 0.778,
+        "n": 9,
+        "ci95": [
+          0.453,
+          0.937
+        ]
+      }
+    },
+    "corpus_gaps": 0
+  },
+  "rows": [
+    {
+      "id": "A03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L'article L6222-35 accorde à l'apprenti un congé supplémentaire de cinq jours ouvrables pour la préparation directe des épreuves. Ce congé, qui donne droit au maintien du salaire, est situé dans le mois qui précède les épreuves. Il s'ajoute au congé payé prévu à l'article L. 3141-1 et au congé annuel pour les salariés de moins de vingt-et-un ans prévu à l'article L. 3164-9, ainsi qu'à la durée de formation en centre de formation d'apprentis fixée par le contrat [L6222-35].",
+      "sources": [
+        "L6222-35",
+        "L6235-4",
+        "L6222-34",
+        "D6235-9",
+        "L6235-5"
+      ],
+      "best_score": 0.912,
+      "seconds": 45.01,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A10",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Les titres-restaurant peuvent varier en nombre selon la période et la politique de l'employeur. Si vous avez moins de titres-restaurant ce mois-ci, cela peut être dû à une réduction du nombre de titres émis par l'employeur ou à une modification de la politique interne. Vérifiez vos bulletins de paie ou contactez votre service RH pour obtenir des informations précises sur la raison de cette variation.\n\nSources : [L3262-1], [R3262-5], [F21059]",
+      "sources": [
+        "L3262-1",
+        "R3262-5",
+        "F21059",
+        "L3262-5",
+        "R3262-36"
+      ],
+      "best_score": 0.252,
+      "seconds": 26.39,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A11",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat. L'article L9999-1 ne fait pas partie de ces textes.",
+      "sources": [],
+      "best_score": 0.386,
+      "seconds": 14.28,
+      "not_found_reason": "missing_article",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q36",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Si vous êtes majeur, vous pouvez travailler au maximum 35 heures par semaine [F2918].  \nSi vous êtes mineur, la durée maximale hebdomadaire de travail est généralement de 35 heures, mais elle peut être portée à 40 heures dans les secteurs du bâtiment, travaux publics et paysager, sous certaines conditions [F2918].  \n\nSources : [F2918]",
+      "sources": [
+        "F2918",
+        "F2216",
+        "L3162-1",
+        "F1911",
+        "R6227-2"
+      ],
+      "best_score": 0.967,
+      "seconds": 27.34,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q04",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Vous avez droit à 2,5 jours ouvrables de congés payés par mois de travail effectif chez le même employeur [L3141-3]. \n\nSources : [L3141-3]",
+      "sources": [
+        "F2258",
+        "F37482",
+        "F33359",
+        "L3141-3",
+        "F18260"
+      ],
+      "best_score": 0.997,
+      "seconds": 31.33,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q01",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L'âge maximum pour signer un contrat d'apprentissage est de 29 ans révolus (30 ans moins 1 jour). Dans certains cas, il peut être porté à 35 ans révolus (36 ans moins 1 jour), notamment si l'apprenti signe un nouveau contrat pour accéder à un niveau de diplôme supérieur, si le précédent contrat a été rompu pour des raisons indépendantes de sa volonté ou pour inaptitude physique et temporaire, et si moins d'un an s'est écoulé entre les deux contrats [F2918]. \n\nSources : [F2918]",
+      "sources": [
+        "F2918",
+        "D6222-1",
+        "F31704",
+        "L6222-12-1",
+        "L6222-1"
+      ],
+      "best_score": 0.993,
+      "seconds": 36.17,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q39",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Les aides financières pour l'entreprise qui recrute un apprenti incluent l'aide forfaitaire pour les entreprises de moins de 250 salariés [F2918], et l'aide à l'embauche pour les contrats d'apprentissage, qui peut être unique ou exceptionnelle selon l'effectif de l'entreprise [F23556]. Pour l'aide unique, le montant maximum est de 5 000 euros, et pour les contrats avec un apprenti reconnu travailleur handicapé, le montant est de 6 000 euros [D6243-2]. \n\nSources : [F2918], [F23556], [D6243-2]",
+      "sources": [
+        "F38630",
+        "F23556",
+        "D6243-2",
+        "D6243-1",
+        "F2918"
+      ],
+      "best_score": 0.912,
+      "seconds": 43.05,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q10",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "La durée minimale de formation en CFA pendant votre contrat est de 25 % de la durée totale du contrat [F2918].  \n\nSources: [F2918]",
+      "sources": [
+        "F2918",
+        "F219",
+        "F15478",
+        "R6222-23-1",
+        "F31704"
+      ],
+      "best_score": 0.994,
+      "seconds": 35.32,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "La rémunération minimale d'un apprenti de 19 ans en première année est de 43 % du salaire minimum de croissance [D6222-26].  \n\nSources : [D6222-26]",
+      "sources": [
+        "F2918",
+        "D6222-26",
+        "F219",
+        "D6222-32",
+        "L6222-27"
+      ],
+      "best_score": 0.862,
+      "seconds": 32.94,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q40",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, vous pouvez faire une partie de votre apprentissage à l'étranger. La mobilité à l'étranger ne peut pas dépasser 1 an et ne doit pas être supérieure à la moitié de la durée totale du contrat [L6222-42].  \n\nSources : [F2918] [L6222-42]",
+      "sources": [
+        "F2918",
+        "L6222-42",
+        "F2713",
+        "R6222-66",
+        "L6235-3"
+      ],
+      "best_score": 0.999,
+      "seconds": 36.31,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q05",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, votre employeur doit rembourser au moins 50 % du coût de votre abonnement de transport en commun [R3261-1]. La prise en charge s'effectue mensuellement, au plus tard à la fin du mois suivant celui pour lequel les titres ont été validés [F37900]. Vous devez présenter votre titre d'abonnement ou une attestation sur l'honneur si le titre ne mentionne pas votre identité [F37900].  \n\nSources : [F19846] [F37900] [R3261-1]",
+      "sources": [
+        "F19846",
+        "F37900",
+        "L3261-2",
+        "R3261-1",
+        "F33754"
+      ],
+      "best_score": 0.991,
+      "seconds": 33.83,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Votre employeur doit payer au minimum 50 % de la cotisation de la mutuelle d'entreprise [F33754]. \n\nSources : [F33754]",
+      "sources": [
+        "F20739",
+        "F20744",
+        "F33754",
+        "L911-7",
+        "F20740"
+      ],
+      "best_score": 0.822,
+      "seconds": 86.04,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q29",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Le salaire minimum d'un apprenti de 22 ans en deuxième année est de 1 138,88 €, soit 61 % du Smic [F2918].  \n\nSources: [F2918]",
+      "sources": [
+        "F2918",
+        "D6222-26",
+        "F219",
+        "D6222-32",
+        "D6222-31"
+      ],
+      "best_score": 0.85,
+      "seconds": 33.5,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Non, il n'y a pas de période d'essai pour un apprenti lorsqu'il signe un contrat de travail (CDI, CDD ou contrat de travail temporaire) à la fin de son contrat d'apprentissage. Aucune période d'essai ne peut être imposée, sauf clause conventionnelle contraire [F2918]. \n\nSources : [F2918]",
+      "sources": [
+        "F2918",
+        "L6222-12",
+        "F23556",
+        "D6235-13",
+        "L6231-2"
+      ],
+      "best_score": 0.875,
+      "seconds": 66.43,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A04",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "A non-EU student can work up to 964 hours per year without a work permit [F2713]. This limit applies if they hold a visa de long séjour valant titre de séjour (VLS-TS) étudiant or a carte de séjour étudiant [F2713]. \n\nSources: [F2713]",
+      "sources": [
+        "F2713",
+        "F13519",
+        "R5221-26",
+        "F2728",
+        "F35796"
+      ],
+      "best_score": 0.999,
+      "seconds": 28.92,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q09",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "The maximum age to start an apprenticeship contract in France is 29 years old (30 years minus one day). However, there are exceptions: if the apprentice is seeking a higher-level diploma, the maximum age can be 35 years old (36 years minus one day), provided the previous contract was terminated for reasons independent of their will or due to temporary physical inaptitude, and no more than one year must pass between the two contracts. \n\nSources: [F2918], [L6222-1], [D6222-1]",
+      "sources": [
+        "F2918",
+        "L6222-1",
+        "L6222-12-1",
+        "D6222-1",
+        "F31704"
+      ],
+      "best_score": 0.981,
+      "seconds": 33.22,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A07",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "The employer must cover between 50% and 60% of the value of the meal voucher [F21059].  \n\nSources: [F21059]",
+      "sources": [
+        "F21059",
+        "L3262-1",
+        "R3262-11",
+        "F2728",
+        "R3261-13-2"
+      ],
+      "best_score": 0.988,
+      "seconds": 23.25,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A01",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "Yes, your apprenticeship can end early if you already obtained your diploma, at your initiative, provided you inform your employer in writing. This is allowed under Article L6222-19 [L6222-19]. \n\nSources:  \n[L6222-19]",
+      "sources": [
+        "L6222-19",
+        "F2918",
+        "D6222-30",
+        "F31704",
+        "L6222-22-1"
+      ],
+      "best_score": 0.948,
+      "seconds": 27.44,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q31",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "As an apprentice, your employer can make you work at night or on Sundays, but only under specific conditions.  \n\nIf you are a minor (under 18), working at night is generally prohibited, except in certain sectors and with specific derogations. Night work for apprentices under 18 is allowed only in establishments mentioned in Article L. 3163-2, and with the conditions set out in that article [L6222-26].  \n\nYou can work on Sundays only if you are in one of the specified sectors: hôtellerie, restauration, traiteur, café, tabac, boulangerie, poissonnerie, or flower, garden, and grain stores. In these cases, you must also have a minimum of 2 consecutive days off per week [F13887].  \n\nSources: [F13887] [L6222-26]",
+      "sources": [
+        "F13887",
+        "F2918",
+        "L3164-5",
+        "L6222-26",
+        "F2216"
+      ],
+      "best_score": 0.994,
+      "seconds": 30.67,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q58",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, les apprentis peuvent bénéficier d'une prime d'activité si ils sont de plus de 18 ans et remplissent les conditions [F33375]. Concernant le 13e mois, il est mentionné que les éléments de la rémunération brute n'entrent pas tous en compte, notamment la prime de fin d'année et la prime de participation, mais le 13e mois peut être versé selon les règles de rémunération de l'employeur [F33359].\n\nSources : [F33375], [F33359]",
+      "sources": [
+        "F33375",
+        "F38630",
+        "L6243-1",
+        "F33359",
+        "D6222-31"
+      ],
+      "best_score": 0.309,
+      "seconds": 27.94,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q59",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Non, votre entreprise n'est pas obligée de vous donner des tickets-resto. La remise de titres-restaurant n'est pas une obligation pour l'employeur [F21059].  \n\nSources : [F21059]",
+      "sources": [
+        "F21059",
+        "R3262-11",
+        "L3262-1",
+        "R3262-38",
+        "R3262-12"
+      ],
+      "best_score": 0.967,
+      "seconds": 17.69,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q62",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Le travail le samedi est légal pour un apprenti de moins de 18 ans, à condition qu'il appartienne à l'un des secteurs spécifiques mentionnés dans les sources [F13887] et [L3164-5]. Ces secteurs incluent notamment l'hôtellerie, la restauration, le café, la boulangerie, les magasins de fleurs, etc. Cependant, l'apprenti doit bénéficier d'un repos hebdomadaire minimal de 2 jours consécutifs [F13887].\n\nSources : [F13887], [L3164-5]",
+      "sources": [
+        "F13887",
+        "F2405",
+        "F2327",
+        "F682",
+        "L3164-5"
+      ],
+      "best_score": 0.868,
+      "seconds": 35.53,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q16",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, en tant qu'apprenti, vous bénéficiez des mêmes droits que les autres salariés, notamment en matière de mutuelle. L'employeur peut vous proposer une mutuelle ou un plan d'assurance santé complémentaire, conformément aux conventions collectives ou aux accords d'entreprise [F2918].  \n\nSources : [F2918]",
+      "sources": [
+        "L6222-32",
+        "L6243-3",
+        "L6243-2",
+        "F2918",
+        "L6222-42"
+      ],
+      "best_score": 0.319,
+      "seconds": 24.28,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q69",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Le maître d'apprentissage désigné doit assurer le suivi de votre formation tout au long de la durée du contrat. En cas d'absence prolongée, l'employeur doit désigner un autre maître d'apprentissage pour assurer cette mission [R6225-2]. Si l'employeur ne le fait pas, vous pouvez signaler cette absence aux services de l'inspection du travail.\n\nSources : [R6225-2]",
+      "sources": [
+        "F2918",
+        "R6226-5",
+        "L6223-8",
+        "L6223-8-1",
+        "R6225-2"
+      ],
+      "best_score": 0.336,
+      "seconds": 24.69,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q20",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, votre employeur peut vous imposer des horaires de travail, à condition qu'ils soient définis dans un cadre d'horaires collectifs ou individualisés. En cas d'horaires collectifs, l'employeur doit afficher les heures de début et de fin du travail ainsi que les périodes de repos. En cas d'horaires individualisés, un dispositif peut être mis en place, avec une plage horaire fixe pendant laquelle vous devez être présent.  \n\nSources : [F1911]",
+      "sources": [
+        "F1911",
+        "F2211",
+        "L3162-1",
+        "F2918",
+        "L3121-18"
+      ],
+      "best_score": 0.926,
+      "seconds": 28.3,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q64",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, vous pouvez faire votre alternance dans une entreprise publique ou une mairie. Le contrat d'apprentissage permet de suivre des périodes de formation en entreprise, y compris dans la fonction publique [F2918]. Les règles spécifiques à la fonction publique sont détaillées dans le document [F3059].  \n\nSources : [F2918], [F3059]",
+      "sources": [
+        "F3059",
+        "F34964",
+        "F2918",
+        "F23556",
+        "F31704"
+      ],
+      "best_score": 0.045,
+      "seconds": 21.92,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q66",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "As a second-year international student, you can sign an apprenticeship contract in France if you have been in the country for more than 1 year [F2713]. If you are enrolled in a master's program or a level I diploma recognized by the Conference of Grandes Écoles, the 1-year requirement does not apply [F2713]. You must have a long-stay student visa (VLS-TS) or a student residence permit [F2713]. The employer must declare the apprenticeship nominatively to the prefecture at least 2 days before the start date [F2713]. The contract must be in writing, include specific mandatory details, and be signed by the employer, the apprentice, and the apprentice's legal representative if under 18 [F2918]. Sources: [F2713], [F2918].",
+      "sources": [
+        "F2713",
+        "F2918",
+        "R6222-2",
+        "R5221-7",
+        "R6222-66-1"
+      ],
+      "best_score": 0.939,
+      "seconds": 36.82,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q60",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "In France, your employer is required to cover part of the cost of public transport subscriptions for your commute if you use public transport or bike-sharing services [L3261-2]. However, if you use a personal vehicle, the employer is not obligated to cover the costs, but they may choose to do so under certain conditions [F19846]. If your employer offers transport reimbursement, it must apply to all employees under the same conditions [F19846]. \n\nSources: [L3261-2], [F19846]",
+      "sources": [
+        "F37900",
+        "F19846",
+        "L3261-2",
+        "L3261-3-1",
+        "L3261-3"
+      ],
+      "best_score": 0.843,
+      "seconds": 35.49,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q67",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "If you are on a student residence permit, your employer does not have to apply for a work permit for you, provided that your employment is in line with your studies and the salary is above 2,800.53 €. However, the employment must correspond to your studies or research, and the limitation to 60% of the annual working time (964 hours) does not apply [F2728]. \n\nAdditionally, if you are an international student and have signed an apprenticeship contract validated by the OPCO (private sector) or the Dreets (public sector), your employer is exempt from applying for a work permit [F2728]. \n\nIf you are working beyond your studies, you may need to apply for a \"carte de séjour salarié\" or \"travailleur temporaire\" before the expiry of your student permit, within two months prior to its expiration [F2229]. \n\nSources: [F2728], [F2229]",
+      "sources": [
+        "F2728",
+        "R5221-3",
+        "R5221-26",
+        "F2229",
+        "R5221-45"
+      ],
+      "best_score": 0.904,
+      "seconds": 42.73,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q46",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.004,
+      "seconds": 9.97,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q41",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.003,
+      "seconds": 14.12,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q51",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.001,
+      "seconds": 19.12,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q11",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.002,
+      "seconds": 13.54,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q13",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.0,
+      "seconds": 14.26,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q53",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "The sources do not specifically mention whether your school offers housing for apprentices. However, they indicate that apprentices may benefit from certain advantages, such as access to restaurants and accommodations for students, which could include housing options. You should check with your school or the CFA (Centre de Formation d'Apprentis) to confirm if housing is available and what the specific conditions are.  \n\nSources: [F38630], [F2918]",
+      "sources": [
+        "F38630",
+        "L6232-1",
+        "R6232-2",
+        "R6223-11",
+        "F2918"
+      ],
+      "best_score": 0.14,
+      "seconds": 31.8,
+      "not_found_reason": null,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": false,
+      "invented_citations": []
+    },
+    {
+      "id": "Q49",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "I could not find the answer in the texts I search (French labour code, immigration code, social security code and Service-Public.fr fact sheets). Try asking differently, or ask your school or your HR team: they know the rules specific to your contract.",
+      "sources": [],
+      "best_score": 0.006,
+      "seconds": 14.14,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q50",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "The sources provided do not specify which French companies are most willing to sponsor international apprentices. They only outline the legal framework and conditions for international apprenticeships, such as the maximum duration of mobility (1 year), the requirement for a convention between the apprentice, the French employer, the CFA, and the foreign host structure, and the responsibilities of each party. \n\nSources: [F2918], [L6222-42], [R6222-66]",
+      "sources": [
+        "R6222-66",
+        "F2918",
+        "L6222-42",
+        "R6222-67",
+        "L6243-1-2"
+      ],
+      "best_score": 0.056,
+      "seconds": 37.47,
+      "not_found_reason": null,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": false,
+      "invented_citations": []
+    }
+  ],
+  "n": 37,
+  "corpus_gaps": [],
+  "mode": "system",
+  "config": {
+    "model": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "qwen3:8b",
+      "api_key_env": "GROQ_API_KEY",
+      "temperature": 0,
+      "max_tokens": 2000,
+      "reasoning_effort": null,
+      "think": false
+    },
+    "prompt_file": "prompts/system_v2.txt",
+    "corpus_snapshot": "2026-10-25",
+    "rewrite": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-120b",
+      "api_key_env": "GROQ_API_KEY"
+    },
+    "retrieval": {
+      "enabled": true,
+      "signals": [
+        "exact",
+        "fulltext",
+        "dense"
+      ],
+      "candidates_per_signal": 20,
+      "rerank": true,
+      "rerank_candidates": 30,
+      "top_k": 5,
+      "max_per_doc": 1,
+      "sector_priority": true,
+      "rewrite_fr": true,
+      "abstain_threshold": 0.015
+    },
+    "evaluation": {
+      "testset": "eval/testset.jsonl",
+      "report": "eval/report.json"
+    },
+    "database": {
+      "table": "chunks",
+      "schema_file": "db/schema.sql"
+    },
+    "legifrance": {
+      "oauth_url": "https://oauth.piste.gouv.fr/api/oauth/token",
+      "api_url": "https://api.piste.gouv.fr/dila/legifrance/lf-engine-app",
+      "request_delay_s": 0.2
+    },
+    "service_public": {
+      "particuliers_zip": "https://www.data.gouv.fr/api/1/datasets/r/0ed10f28-d197-4324-97b3-037f625095ac",
+      "entreprendre_zip": "https://www.data.gouv.fr/api/1/datasets/r/93c81767-6ae6-4b31-8dd7-2158e560d181"
+    }
+  }
+}
