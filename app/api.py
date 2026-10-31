@@ -78,12 +78,66 @@ def render(out: dict) -> str:
     return "\n".join(parts) + footer()
 
 
-def source_card(s: dict) -> dict:
-    """A source as Open WebUI shows it: a card under the answer, the passage in a panel, the link."""
+SENTENCE_END = re.compile(r"(?<=[.!?;])\s+")
+
+
+def clean_passage(text: str, citation_id: str) -> tuple[str, str]:
+    """(section title, text) of a stored passage: the "Article L6222-35" heading and the entry-into-force
+    note ("Nota : ...") removed, spaces normalised."""
+    title, _, body = text.partition("\n")
+    if not body:
+        title, body = "", title
+    body = re.split(r"\bNota\s*:", body)[0]
+    body = re.sub(r"\s+", " ", body).strip()
+    title = "" if title.strip().lower() == f"article {citation_id}".lower() else title.strip()
+    return title, body
+
+
+def excerpt(source: dict, answer: str, keep: int = 2) -> str:
+    """The sentences of the source closest to the sentences of the answer that cite it (bge-m3, local).
+    What the user needs to check the claim, not the whole section."""
+    from rag import models
+    title, body = clean_passage(" ".join(p["text"] for p in source["passages"]), source["id"])
+    sentences = [s for s in SENTENCE_END.split(body) if len(s) > 20]
+    claims = [s for s in SENTENCE_END.split(answer) if source["id"].upper() in s.upper()] or [answer]
+    if len(sentences) > keep:
+        vectors = models.embed([" ".join(claims)] + sentences)
+        scores = [sum(a * b for a, b in zip(vectors[0], v)) for v in vectors[1:]]
+        best = sorted(sorted(range(len(sentences)), key=lambda i: -scores[i])[:keep])
+        text = ("… " if best[0] > 0 else "") + " … ".join(sentences[i] for i in best)
+    else:
+        text = " ".join(sentences) or body
+    return f"{title}\n\n« {text} »" if title else f"« {text} »"
+
+
+def source_card(s: dict, answer: str) -> dict:
+    """A source as Open WebUI shows it: a numbered card under the answer; opened, the excerpt that supports
+    the answer, the label, version date and the link to the full text."""
     date = f", version du {s['version_date']}" if s.get("version_date") else ""
-    return {"source": {"id": s["url"], "name": s["id"], "url": s["url"]},
-            "document": [p["text"] for p in s["passages"]],
-            "metadata": [{"source": s["url"], "name": f"{s['id']} · {s['source_label']}{date}"} for _ in s["passages"]]}
+    return {"source": {"id": s["url"], "name": f"{s['id']} · {s['source_label']}", "url": s["url"]},
+            "document": [excerpt(s, answer)],
+            "metadata": [{"source": s["url"], "name": f"{s['id']} · {s['source_label']}{date}"}]}
+
+
+def numbered(text: str, known: set[str], final: bool = False) -> str:
+    """Citations as numbers, [L6222-35] -> [1], in order of first appearance (Open WebUI links [1] to the
+    first source card). Ids that were not retrieved stay as written. While streaming, an unclosed bracket
+    is held back: "[L62" may become a citation."""
+    if not final:
+        cut = max(text.rfind("["), text.rfind("【"))
+        if cut >= 0 and "]" not in text[cut:] and "】" not in text[cut:]:
+            text = text[:cut]
+    order: list[str] = []
+
+    def number(match):
+        ids = pipeline.cited_ids(match.group(0))
+        if not ids or any(i not in known for i in ids):
+            return match.group(0)
+        for i in ids:
+            if i not in order:
+                order.append(i)
+        return "".join(f"[{order.index(i) + 1}]" for i in ids)
+    return pipeline.CITATION.sub(number, text)
 
 
 def status(text: str, done: bool = False) -> dict:
@@ -104,7 +158,8 @@ def answer_events(question: str, history: list[dict]):
         yield status("Aucun texte ne répond à cette question", done=True)
         return
     sources = found.sources if found else []
-    yield status(f"{len({s['id'] for s in sources})} textes trouvés, je rédige la réponse…")
+    known = {s["id"].upper() for s in sources}
+    yield status(f"{len(known)} textes trouvés, je rédige la réponse…")
     text, shown, not_found = "", 0, False
     for kind, piece in pipeline.generate_stream(question, sources, found.missing_ids if found else [], lang):
         if kind == "reasoning":
@@ -118,7 +173,7 @@ def answer_events(question: str, history: list[dict]):
             not_found = True
             break
         end = SOURCES_START.search(text)
-        visible = text[:end.start()] if end else held_back(text)
+        visible = numbered(text[:end.start()] if end else held_back(text), known)
         visible = visible.rstrip("\n") + ("\n" if visible.endswith("\n") else "")  # no runs of blank lines
         if len(visible) > shown:
             yield {"content": visible[shown:]}
@@ -128,12 +183,13 @@ def answer_events(question: str, history: list[dict]):
         yield status("Les textes trouvés ne répondent pas à cette question", done=True)
         return
     end = SOURCES_START.search(text)
-    visible = (text[:end.start()] if end else text).rstrip()
+    answer_text = (text[:end.start()] if end else text).rstrip()
+    visible = numbered(answer_text, known, final=True)
     if len(visible) > shown:
         yield {"content": visible[shown:]}
-    refs = pipeline.citations(text, sources)
-    for s in refs["cited"]:
-        yield {"event": {"type": "source", "data": source_card(s)}}
+    refs = pipeline.citations(answer_text, sources)
+    for s in refs["cited"]:  # same order as the numbers: order of first citation
+        yield {"event": {"type": "source", "data": source_card(s, answer_text)}}
     if refs["invented"]:
         yield {"content": f"\n\n⚠️ Citation non vérifiée (absente des textes trouvés) : {', '.join(refs['invented'])}"}
     yield {"content": footer()}
