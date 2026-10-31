@@ -1,22 +1,27 @@
 # Retrieval: decisions and experiments
 
-Log of the retrieval and answer pipeline (`rag/`, `app/pipeline.py`, `eval/eval.py`): what we decided, what we tried, what we kept, what we removed and why. Every number comes from a run on the database built by `ingest.load` (1372 chunks, 850 documents, data files of 2026-10-25). Raw results of each run are in `eval/runs/`.
+Log of the retrieval and answer pipeline (`rag/`, `app/pipeline.py`, `eval/eval.py`): what we decided, what we tried, what we kept, what we removed and why. Every number comes from a run on the database built by `ingest.load` (1372 chunks until 30 Oct., 1434 since the data lead's additions of 30 Oct.; Service-Public.fr file of 2026-10-25). Raw results of each run are in `eval/runs/`.
 
-**Status, 30 Oct. 2026, 17:00.** On the full test set (81 questions, gold sources reviewed): Recall@1 0.55, Recall@5 0.80 (E10). Earlier, at 16:30: Pipeline built and unit tested (44 tests). On the draft test set (36 questions), retrieval reaches Recall@1 0.90 (95 % CI 0.74 to 0.97), Recall@3 0.97, MRR 0.92 (E7). The ablation (E8) showed that labels per document bring nothing here: they were removed (section 3). The evaluation lead's test set (70 questions, `eval/testset.jsonl`) is now the reference; its first run (E9) shows that gold sources must list every text that answers, not only the Code article, before its numbers mean anything.
+**Status, 31 Oct. 2026.** Retrieval on 61 answerable questions of the 81-question test set: Recall@1 0.57 (0.45 to 0.69), Recall@5 0.87 (0.76 to 0.93) (E16). Answers: gpt-oss-120b cites a gold source in 0.70 of answers with no invented citation (E11); local fallback Qwen3 8B with reasoning 0.68, no invented citation (E17). Spoken questions find the same sources as typed ones on 10/10 (E18). Interface: Open WebUI with streamed answers, numbered citations and source cards (D21, D22). Ideas measured and removed: labels per document (section 3), agent-like steps in a fixed pipeline (section 3b). Pending: prompt v2 against v1 and the baseline on gpt-oss (Groq quota), red-team set, validation of the gold sources by the evaluation lead.
 
 ## 1. The pipeline as it is
 
 ```
-question
+question (typed, or spoken: faster-whisper locally, language French or English)
+  -> follow-up made complete from the conversation (only when there is history)
   -> French rewrite (gpt-oss-120b, translation only; numbers the user did not write removed in code)
   -> 3 signals, 20 candidates each:
        exact     article or fiche number written in the question (L6222-35, F2918)
        fulltext  PostgreSQL French full text, any word may match, on the French rewrite
        dense     bge-m3 on the chunks, on the original question
   -> reciprocal rank fusion (k = 60), 30 candidates
-  -> reranker bge-reranker-v2-m3 on the French rewrite, top 5
-  -> abstention in code: best score < 0.015, or a named article missing from the corpus -> NOT FOUND
-  -> answer by gpt-oss-20b with system prompt v1 (every fact cited)
+  -> reranker bge-reranker-v2-m3 on the French rewrite; public-sector texts after the others;
+     top 5, at most 1 passage per article or fiche
+  -> abstention in code: best score < 0.015, or a named article missing from the corpus
+     -> fixed message (where we looked, what to do), in the language of the question
+  -> answer by gpt-oss on Groq (Qwen3 8B locally as fallback), every fact cited, language decided in code
+  -> sources built from the database: numbered citations [1], cards with the supporting excerpt,
+     the full cleaned text, label, version date and link; ids not retrieved flagged
 ```
 
 ## 2. Decisions
@@ -39,11 +44,13 @@ question
 | D14 | The answer language is decided in code (French if the French rewrite left the question unchanged, else English) and stated at the end of the request to the model. | E11: 9 of 9 English questions answered in French with French sources, despite the prompt rule. | Prompt rule only. |
 | D15 | Prompt v2 (`prompts/system_v2.txt`, v1 kept as measured): answer the exact question (a maximum is a maximum); for company-dependent questions give what the law sets or say it sets nothing, then what to ask HR or the school, never NOT FOUND if a source covers the topic; NOT FOUND only if no source is about the topic; ids in square brackets. | E11 reading. To be measured against v1 on the same questions before switching `prompt_file`. | |
 | D16 | NOT FOUND is shown as a fixed message written in code, in the language of the question: where we looked (the codes and Service-Public.fr) and what to do (rephrase, ask the school or HR), plus the missing article when one was named. NOT FOUND stays an internal flag (`not_found`, with its reason) for the evaluation. | A bare "NOT FOUND" tells the user nothing; a fixed text cannot be hallucinated. | Message written by the model. |
+| D17 | Sources under each answer come from the database, never from the model: link (Legifrance article or Service-Public fiche), label, version date, passages; ids cited but not retrieved are flagged as unverified and counted. The page shows the Licence Ouverte attribution with the date of the data files. | Users must be able to check the text themselves; Licence Ouverte requires the source and its date. | Links written by the model. |
 | D18 | At most 1 passage per article or fiche among the 5 given to the model (`max_per_doc`). | E12: three sections of one fiche often took three of the five places; with the cap the model sees 5 distinct documents and Recall@5 goes from 0.80 to 0.85. To check when reading answers: a long fiche now contributes one section. | 2 per document (0.83). |
 | D19 | Public-sector texts (section title "secteur public", fiche F3059) go after the others unless the question is about the public sector (`sector_priority`). | E14: they took 36 of 400 places while one question of 81 is about the public sector; with the rule 6 questions improve, none gets worse. Same idea as a country priority in an HR assistant: the user's own rules first. Detected by section title, not by article number (R6227 is a chapter of penalties, not the public sector). | Removing them: kept, in case nothing else answers. |
-| D21 | Chat interface: Open WebUI in front of an OpenAI-compatible API (`app/api.py`); follow-up questions are made complete from the conversation before retrieval (one small call, only when there is history); the model's own "Sources:" line is replaced by the block built from the database; Open WebUI's interface tasks (title, tags, follow-ups) are answered without the pipeline. Streamlit kept as a fallback. | A real chat with history and voice input built in, for little code; the same API will serve the agent. Tested: "Et en deuxième année ?" after a question on a 19-year-old's pay answers 51 % of the Smic. | A hand-made front end: too risky before 3 Nov. |
 | D20 | Not kept: wider candidate pools (E12), and two agent-like steps done in code: following references between articles (E13) and a second search with other phrasings when the first is weak (E15). Their code is removed (kept in history at commit `571cc60`). | No measurable gain (section 3b). | |
-| D17 | Sources under each answer come from the database, never from the model: link (Legifrance article or Service-Public fiche), label, version date, passages; ids cited but not retrieved are flagged as unverified and counted. The page shows the Licence Ouverte attribution with the date of the data files. | Users must be able to check the text themselves; Licence Ouverte requires the source and its date. | Links written by the model. |
+| D21 | Chat interface: Open WebUI in front of an OpenAI-compatible API (`app/api.py`); follow-up questions are made complete from the conversation before retrieval (one small call, only when there is history); the model's own "Sources:" line is replaced by the block built from the database; Open WebUI's interface tasks (title, tags, follow-ups) are answered without the pipeline. Streamlit kept as a fallback. | A real chat with history and voice input built in, for little code; the same API will serve the agent. Tested: "Et en deuxième année ?" after a question on a 19-year-old's pay answers 51 % of the Smic. | A hand-made front end: too risky before 3 Nov. |
+| D22 | In the chat interface, citations are numbers ([1], [2]) linked to source cards, in order of first citation; an opened card shows where the text comes from (article or fiche, label, version date), the sentences that answer (the passage sentences closest to the answer sentences citing it, bge-m3), then the full text without its heading and entry-into-force note. The answer is streamed, with status lines while searching and the model's reasoning in a folded block. | Ids such as [F2918] in the middle of a sentence break the reading; a whole fiche section hides the sentence that matters; a silent wait of several seconds feels broken. Warm, with gpt-oss on Groq: about 5 s per question. | Raw HTML details blocks (not rendered by Open WebUI 0.6.28). |
+| D23 | Spoken questions: faster-whisper `small` locally on the CPU, audio kept in memory, language chosen between French and English only, initial prompt with the domain's words. | E18: same sources as typed questions on 10/10; a robotic voice was first transcribed as Russian when Whisper could choose among all languages. | Cloud speech-to-text: the audio would leave the laptop. |
 
 Not in the 3 Nov. scope: an agent that chooses its own search tools (planned for the Agentic AI course), boosting by user profile (international, age, programme), the school regulations (written permission pending).
 
@@ -270,7 +277,8 @@ The only transcription errors are homophones ("est-je" for "ai-je", "travaillés
 
 ## 5. Next steps
 
-1. Answer runs when the Groq quota is back: v1 + language in code against v2 + language in code, same 37 questions, same model (gpt-oss-120b); then the baseline (no documents) and the red-team set.
-2. Gold sources of the evaluation lead's test set: list every article or fiche section that states the rule (candidates proposed with the passage as evidence, validated by the evaluation lead).
-3. Done on 31 Oct. (E16). Corpus gaps: either the data lead adds durée du travail, repos, travail de nuit and médecine du travail to `ingest/scope.yaml`, or those questions become "no answer" for 3 Nov.
-4. Rerun retrieval, then answers (system and baseline, same questions, 95 % intervals), then the red-team set (`eval/redteam.jsonl`, 28 cases).
+1. When the Groq quota is back: prompt v1 against v2 on gpt-oss-120b, same 37 questions and current retrieval; then the baseline (same model, no documents); then the red-team set (`eval/redteam.jsonl`, 28 cases), analysed by the evaluation lead in `docs/red_team_log.md`.
+2. Validation of the test set by the evaluation lead: questions A01 to A11, `gold_added` (each with its quote), `gold_issue`.
+3. Spoken questions with real recordings (`eval/voice_eval.py --audio-dir`), to compare with the synthetic voices of E18.
+4. Evaluation report and system card (`docs/`), with the numbers above and the snapshot date of the texts.
+5. For the agent (Agentic AI course): tools that compute (minimum wage from age and year, deadlines), questions back to the user on their situation, actions (draft the email to HR); compared with this pipeline on the same test set (section 3b).

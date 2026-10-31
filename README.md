@@ -11,7 +11,7 @@
 
 ## 2. What the system does
 - **Input:** a question in French or English, typed or spoken (local speech-to-text, the audio is not stored), with the conversation so far.
-- **Output:** a short answer in the language of the question, every fact followed by its source id (`[L6222-35]`, `[F2918]`), and under it the sources with their link (Legifrance article or Service-Public.fr fact sheet), version date and the exact passage. When the texts do not answer: a fixed message saying where we looked and what to do next (rephrase, ask the school or HR).
+- **Output:** a short answer in the language of the question, every fact followed by a numbered citation ([1], [2]); each number opens a source card: the article or fact sheet (Legifrance or Service-Public.fr), its version date and link, the sentences that answer the question, then the full text. The answer is written as it comes, with status lines while searching and the model's reasoning in a folded block. When the texts do not answer: a fixed message saying where we looked and what to do next (rephrase, ask the school or HR).
 - **Technique:** RAG with hybrid retrieval and abstention decided in code.
   - French rewrite of the question (gpt-oss-120b) for the full text search and the reranker.
   - Three retrieval signals fused by reciprocal rank fusion: article or fact sheet number written in the question, PostgreSQL French full text, dense search with **bge-m3** (multilingual, 1024 dimensions, pgvector).
@@ -63,11 +63,16 @@ Test set: `eval/testset.jsonl`, 81 questions (70 by the evaluation lead, 11 adde
 
 | System (37 questions drawn from the 81) | Gold source cited | NOT FOUND when no answer | Invented citations | Median latency |
 |---|---|---|---|---|
-| Baseline (prompt only) | to be run on 31 Oct. | | | |
+| Baseline (prompt only) | to be run (Groq quota) | | | |
 | gpt-oss-120b, prompt v1 (30 Oct.) | 0.70 (0.52 to 0.84) | 8/9 | 0/36 | 13 s |
 | Qwen3 8B local, prompt v2, with reasoning | 0.68 (0.49 to 0.82) | 7/9 | 0/37 | 49 s |
 | Qwen3 8B local, prompt v2, without reasoning | 0.64 (0.46 to 0.79) | 7/9 | 0/37 | 31 s |
 | llama3.2 3B local, prompt v2 | 0.64 (0.46 to 0.79) | 7/9 | 2/37 | 22 s |
+
+| Spoken questions (10, synthetic voices, `eval/voice_eval.py`) | Result |
+|---|---|
+| Median word error rate | 0.00 |
+| Same gold-source rank as the typed question | 10/10 (0.72 to 1.00) |
 
 Full report: `docs/evaluation_report.md`. System card: `docs/system_card.md`. Every decision and experiment, including the ideas we measured and removed (labels per document, agent-like steps in a fixed pipeline): `docs/decisions_and_experiments.md`.
 
