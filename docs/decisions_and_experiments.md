@@ -236,9 +236,15 @@ Remaining misses read one by one: public-sector texts (F3059, L6227) appeared in
 
 Remaining misses after E14 (in the 5 sources given): Q03, Q10, Q37 (F2918 probably states the rule: gold too narrow, to validate), Q16 (company health plan: the word "apprenti" still pulls apprenticeship texts), Q57, Q58, Q65, Q68, Q69.
 
+### E16. Corpus completed by the data lead (31 Oct., 1434 chunks; `2026-10-31_retrieval_julie-additions.json`)
+
+Added after the gaps found in E9: 45 articles (maximum working time L3121-18 to 27, young workers L3161 to L3165 and R3162 to R3165, weekly rest and Sunday L3132-1 to 3, health check L4624-1, favour principle L2254-1, OPCO funding L6332-14) and 2 fiches (F2327 weekly rest, F13887 Sunday work). No question left outside the corpus.
+
+First run: R@1 0.525, R@5 0.852, lower than before, because the new texts answer questions without being listed as gold and push the listed gold down (Q26, Q31, A02 lost a rank). Read one by one, they answer directly: L3163-2 "Le travail de nuit est interdit pour les jeunes travailleurs" (A02), L3162-2 "Le temps consacré à la formation dans un établissement d'enseignement est considéré comme un temps de travail effectif" (Q26), F2327 for Saturday work (Q62), L3164-5 and F13887 for Sunday work (Q31). Added to `gold_added` with these quotes. With them, on 61 answerable questions: **R@1 0.574 (0.449 to 0.690), R@3 0.770, R@5 0.869 (0.762 to 0.932), MRR 0.684**. Misses in the 5 sources: Q03, Q10, Q16, Q57, Q58, Q65, Q68, Q69.
+
 ## 5. Next steps
 
 1. Answer runs when the Groq quota is back: v1 + language in code against v2 + language in code, same 37 questions, same model (gpt-oss-120b); then the baseline (no documents) and the red-team set.
 2. Gold sources of the evaluation lead's test set: list every article or fiche section that states the rule (candidates proposed with the passage as evidence, validated by the evaluation lead).
-3. Corpus gaps: either the data lead adds durée du travail, repos, travail de nuit and médecine du travail to `ingest/scope.yaml`, or those questions become "no answer" for 3 Nov.
+3. Done on 31 Oct. (E16). Corpus gaps: either the data lead adds durée du travail, repos, travail de nuit and médecine du travail to `ingest/scope.yaml`, or those questions become "no answer" for 3 Nov.
 4. Rerun retrieval, then answers (system and baseline, same questions, 95 % intervals), then the red-team set (`eval/redteam.jsonl`, 28 cases).
