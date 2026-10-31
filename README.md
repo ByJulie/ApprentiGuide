@@ -31,13 +31,16 @@ docker compose --env-file .env -f db/docker-compose.yml up -d   # PostgreSQL wit
 python -m ingest.load           # chunks from data/raw (1434), no PISTE key needed
 python -m rag.index             # vectors (bge-m3, local, about 5 min the first time; then only what changed)
 ```
-Chat interface (Open WebUI, conversation history and voice input built in), in two terminals:
+Chat interface (Open WebUI 0.12.5, conversation history and voice input built in; settings in the command, so it starts the same everywhere), in two terminals:
 ```bash
 uvicorn api:app --app-dir app --host 0.0.0.0 --port 8001     # OpenAI-compatible API in front of the pipeline
 docker run -d --name apprentiguide-webui -p 127.0.0.1:3080:8080 --add-host=host.docker.internal:host-gateway \
   -e OPENAI_API_BASE_URL=http://host.docker.internal:8001/v1 -e OPENAI_API_KEY=local \
   -e ENABLE_OLLAMA_API=False -e WEBUI_AUTH=False -e WEBUI_NAME=ApprentiGuide \
-  -v apprentiguide-webui:/app/backend/data ghcr.io/open-webui/open-webui:main
+  -e ENABLE_PERSISTENT_CONFIG=False -e ENABLE_TITLE_GENERATION=True -e ENABLE_TAGS_GENERATION=False \
+  -e ENABLE_FOLLOW_UP_GENERATION=False -e ENABLE_AUTOCOMPLETE_GENERATION=False \
+  -e DEFAULT_PROMPT_SUGGESTIONS="$(cat app/webui_suggestions.json)" \
+  -v apprentiguide-webui:/app/backend/data ghcr.io/open-webui/open-webui:v0.12.5
 # open http://localhost:3080 and choose the model "apprentiguide"
 ```
 `ANSWER_MODEL=ollama:qwen3:8b uvicorn ...` answers with the local model instead of Groq. A simpler interface without Docker: `streamlit run app/ui.py`.
