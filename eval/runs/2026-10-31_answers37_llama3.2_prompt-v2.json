@@ -1,0 +1,1001 @@
+{
+  "report": {
+    "retrieved_gold": {
+      "rate": 0.786,
+      "n": 28,
+      "ci95": [
+        0.605,
+        0.898
+      ]
+    },
+    "cited_gold": {
+      "rate": 0.643,
+      "n": 28,
+      "ci95": [
+        0.458,
+        0.793
+      ]
+    },
+    "contains_reference": {
+      "rate": 0.036,
+      "n": 28,
+      "ci95": [
+        0.006,
+        0.177
+      ]
+    },
+    "answered_when_answerable": {
+      "rate": 1.0,
+      "n": 28,
+      "ci95": [
+        0.879,
+        1.0
+      ]
+    },
+    "not_found_ok": {
+      "rate": 0.778,
+      "n": 9,
+      "ci95": [
+        0.453,
+        0.937
+      ]
+    },
+    "median_seconds": 21.9,
+    "answers_with_invented_citation": {
+      "rate": 0.054,
+      "n": 37,
+      "ci95": [
+        0.015,
+        0.177
+      ]
+    },
+    "by_tag": {
+      "company_dependent": {
+        "rate": 0.364,
+        "n": 11,
+        "ci95": [
+          0.152,
+          0.646
+        ]
+      },
+      "en": {
+        "rate": 0.636,
+        "n": 11,
+        "ci95": [
+          0.354,
+          0.848
+        ]
+      },
+      "fr": {
+        "rate": 0.692,
+        "n": 26,
+        "ci95": [
+          0.5,
+          0.835
+        ]
+      },
+      "in_corpus": {
+        "rate": 0.824,
+        "n": 17,
+        "ci95": [
+          0.59,
+          0.938
+        ]
+      },
+      "no_answer": {
+        "rate": 0.778,
+        "n": 9,
+        "ci95": [
+          0.453,
+          0.937
+        ]
+      }
+    },
+    "corpus_gaps": 0
+  },
+  "rows": [
+    {
+      "id": "A03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L'article L6222-35 prévoit que pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Ce congé donne droit au maintien du salaire et est situé dans le mois qui précède les épreuves. Il s'ajoute au congé payé prévu à l'article L. 3141-1 et au congé annuel pour les salariés de moins de vingt-et-un ans prévu à l'article L. 3164-9, ainsi qu'à la durée de formation en centre de formation d'apprentis fixée par le contrat.\n\nSources : [L6222-35]",
+      "sources": [
+        "L6222-35",
+        "L6235-4",
+        "L6222-34",
+        "D6235-9",
+        "L6235-5"
+      ],
+      "best_score": 0.912,
+      "seconds": 31.58,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A10",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Selon l'article R3262-5, les titres-restaurant ne peuvent être utilisés en paiement d'un repas à un restaurateur ou à un détaillant en fruits et légumes que pendant l'année civile dont ils font mention et durant une période de deux mois à compter du 1er janvier de l'année suivante. \n\nSi vous avez des titres-restaurant qui ne sont pas émis pendant cette période, ils ne peuvent pas être utilisés. \n\nPour savoir si vos titres-restaurant sont périmés, vous devez vérifier si vous les avez utilisés avant la fin du deuxième mois suivant l'expiration de leur période d'utilisation. \n\nSi vous n'avez pas utilisé vos titres-restaurant, vous devez les rendre à votre employeur au plus tard au cours de la quinzaine suivante. \n\nSi vous n'avez pas utilisé vos titres-restaurant et que vous n'avez pas rendu les titres non utilisés à votre employeur, ils sont définitivement périmés. \n\nSources : [R3262-5]",
+      "sources": [
+        "L3262-1",
+        "R3262-5",
+        "F21059",
+        "L3262-5",
+        "R3262-36"
+      ],
+      "best_score": 0.252,
+      "seconds": 20.06,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A11",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat. L'article L9999-1 ne fait pas partie de ces textes.",
+      "sources": [],
+      "best_score": 0.386,
+      "seconds": 13.68,
+      "not_found_reason": "missing_article",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q36",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Selon les règles de travail pour les apprentis mineurs, la durée légale du travail effectif est fixée à 35 heures par semaine. Cependant, il est possible d'effectuer des heures supplémentaires, mais avec certaines conditions.\n\nPour les apprentis mineurs de 16 à 18 ans, il est possible d'effectuer 5 heures supplémentaires par semaine, après accord de l'inspecteur du travail et avis du médecin du travail.\n\nPour les apprentis mineurs de moins de 16 ans, il est possible d'effectuer 5 heures supplémentaires par semaine, mais avec des conditions spécifiques.\n\nIl est important de noter que les règles de travail peuvent varier en fonction du secteur d'activité et de l'organisation collective du travail.\n\nPour obtenir plus d'informations, il est recommandé de consulter le document de l'inspecteur du travail ou de discuter avec le médecin du travail.\n\nSources : [F2216], [L6222-35], [R6227-2].",
+      "sources": [
+        "F2918",
+        "F2216",
+        "L3162-1",
+        "F1911",
+        "R6227-2"
+      ],
+      "best_score": 0.967,
+      "seconds": 20.06,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": [
+        "L6222-35"
+      ]
+    },
+    {
+      "id": "Q04",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Selon l'article L3141-3 [L3141-3] et les informations fournies dans les sources, le salarié a droit à un congé de 2,5 jours ouvrables par mois de travail effectif. \n\nSources : [L3141-3], [F2258].",
+      "sources": [
+        "F2258",
+        "F37482",
+        "F33359",
+        "L3141-3",
+        "F18260"
+      ],
+      "best_score": 0.997,
+      "seconds": 20.06,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": true,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q01",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L'âge maximum pour signer un contrat d'apprentissage est de 29 ans révolus (30 ans moins 1 jour) [F2918]. Cependant, dans les cas suivants, l'âge maximum peut être porté à 35 ans révolus (36 ans moins 1 jour) :\n\n- Apprenti signe un nouveau contrat pour accéder à un niveau de diplôme supérieur à celui déjà obtenu\n- Précédent contrat de l'apprenti rompu pour des raisons indépendantes de sa volonté, ou pour inaptitude physique et temporaire.\n- Il ne doit pas s'écouler plus d'1 an entre les 2 contrats.\n\nIl n'y a pas d'âge maximum dans les cas suivants :\n\n- Apprenti reconnu travailleur handicapé\n- Apprenti envisage de créer ou reprendre une entreprise supposant l'obtention d'un diplôme\n- Apprenti inscrit en tant que sportif de haut niveau\n- Apprenti n'ayant pas obtenu son diplôme et concluant un nouveau contrat avec un autre employeur pour se présenter de nouveau à l'examen.\n\nSources : [F2918], [D6222-1], [L6222-1].",
+      "sources": [
+        "F2918",
+        "D6222-1",
+        "F31704",
+        "L6222-12-1",
+        "L6222-1"
+      ],
+      "best_score": 0.993,
+      "seconds": 24.39,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q39",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Selon l'article D6243-2 [D6243-2], les entreprises de moins de 250 salariés peuvent bénéficier d'une aide unique pour l'embauche d'un apprenti, tandis que les entreprises de plus de 250 salariés peuvent bénéficier d'une aide exceptionnelle, sous réserve de certaines conditions.\n\nPour les entreprises de moins de 250 salariés, il n'existe pas d'aide spécifique, mais il existe une aide forfaitaire de l'État pour la conclusion d'un contrat d'apprentissage visant un diplôme ou un titre à finalité professionnelle équivalent au plus au baccalauréat, selon l'article D6243-1 [D6243-1].\n\nPour les entreprises de plus de 250 salariés, il existe deux types d'aides :\n\n*   L'aide unique, qui est attribuée au titre de la première année d'exécution du contrat d'apprentissage, avec un montant maximum de 5 000 euros [D6243-2].\n*   L'aide exceptionnelle, qui est attribuée sous réserve de certaines conditions, notamment :\n    *   Le contrat doit être un contrat d'apprentissage.\n    *   Le contrat doit être conclu à partir du 8 mars 2026 et commencer avant le 1er janvier 2027.\n    *   L'apprenti doit préparer un diplôme ou un titre à finalité professionnelle équivalent, de tout niveau allant jusqu'au niveau master (Bac +5) maximum.\n    *   L'employeur ne doit pas avoir bénéficié précédemment d'une aide à l'embauche d'un apprenti pour le même apprenti et pour la même certification professionnelle.\n    *   Les entreprises de plus de 250 salariés doivent également respecter l'une des deux conditions suivantes :\n        *   Atteindre au moins 5 % de contrats favorisant l'insertion professionnelle dans l'effectif salarié total annuel, au 31 décembre de l'année suivant celle de la conclusion du contrat.\n        *   Atteindre au moins 3 % d'alternants et avoir connu une progression de 10 % d'alternants au 31 décembre de l'année suivant celle de la conclusion du contrat.\n\nSources : [D6243-2], [D6243-1], [F23556]",
+      "sources": [
+        "F38630",
+        "F23556",
+        "D6243-2",
+        "D6243-1",
+        "F2918"
+      ],
+      "best_score": 0.912,
+      "seconds": 30.78,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q10",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "La durée minimale de formation en CFA pendant ton contrat d'apprentissage est de 25 % de la durée totale du contrat. \n\nSources : [F2918]",
+      "sources": [
+        "F2918",
+        "F219",
+        "F15478",
+        "R6222-23-1",
+        "F31704"
+      ],
+      "best_score": 0.994,
+      "seconds": 18.75,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Selon l'article D6222-26, la rémunération minimale perçue par l'apprenti prévu à l'article L. 6222-29 pendant le contrat ou la période d'apprentissage est fixée à 27 % du salaire minimum de croissance pendant la première année d'exécution du contrat.\n\nAinsi, la rémunération minimale d'un apprenti de 19 ans en première année est de 27 % du salaire minimum de croissance.\n\nSources : [F2918], [D6222-26].",
+      "sources": [
+        "F2918",
+        "D6222-26",
+        "F219",
+        "D6222-32",
+        "L6222-27"
+      ],
+      "best_score": 0.862,
+      "seconds": 20.22,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q40",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, vous pouvez faire une partie de votre apprentissage à l'étranger, mais la durée de cette partie ne peut pas dépasser 1 an et ne peut pas être supérieure à la moitié de la durée totale de votre contrat d'apprentissage [L6222-42].\n\nPour ce faire, vous devez conclure une convention avec votre employeur, le centre de formation d'apprentis en France et la structure ou les structures d'accueil à l'étranger [L6222-42]. Cette convention précise les informations suivantes :\n\n*   La date de début et de fin de la période de mobilité\n*   L'objet de la formation et la nature des tâches confiées à l'apprenti en lien avec la certification visée\n*   Les lieux de travail et le cas échéant, de formation\n*   Les coordonnées et la qualité de la ou des personnes chargées d'en suivre le déroulement en France, au sein du centre de formation d'apprentis et dans le pays d'accueil ainsi que les modalités de suivi\n*   Les équipements et produits utilisés, ainsi que les engagements en matière de prévention des risques professionnels des entreprises d'accueil situées en dehors de l'Union européenne et des organismes de formation\n*   Le rythme de travail et les congés\n*   Le cas échéant, les modalités de prise en charge des frais générés par la mobilité et le montant des éventuels gratifications et avantages\n*   Le cas échéant, les modalités d'évaluation et de validation des compétences acquises à l'étranger\n*   Les dispositions applicables à l'apprenti dans la ou les structures d'accueil à l'étranger, en matière de santé et sécurité au travail\n*   L'information relative aux garanties prises en matière de responsabilité civile ou de couverture de risques équivalents dans le pays concerné, par l'apprenti, le centre de formation d'apprentis et la ou les structures d'accueil à l'étranger, employeur ou organisme de formation [R6222-66].\n\nIl est important de noter que la convention peut être conclue sans l'employeur du pays d'accueil, mais il faut que les engagements pris par ce dernier permettent à l'apprenti de bénéficier de certaines garanties équivalentes à celles prévues par la convention de mise en veille [L6222-42].\n\nSources : [L6222-42], [R6222-66], [F2918].",
+      "sources": [
+        "F2918",
+        "L6222-42",
+        "F2713",
+        "R6222-66",
+        "L6235-3"
+      ],
+      "best_score": 0.999,
+      "seconds": 47.89,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q05",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, votre employeur doit rembourser votre abonnement de transport en commun. \n\nSelon l'article L. 3261-2 du Code du travail [L3261-2], l'employeur prend en charge, dans une proportion et des conditions déterminées par voie réglementaire, le prix des titres d'abonnements souscrits par ses salariés pour leurs déplacements entre leur résidence habituelle et leur lieu de travail accomplis au moyen de transports publics de personnes ou de services publics de location de vélos.\n\nLe montant de la prise en charge des frais de transports doit être mentionné sur la fiche de paie [F37900].\n\nSources : [L3261-2], [F37900].",
+      "sources": [
+        "F19846",
+        "F37900",
+        "L3261-2",
+        "R3261-1",
+        "F33754"
+      ],
+      "best_score": 0.991,
+      "seconds": 22.87,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Selon l'article L. 911-7 du code de la sécurité sociale, l'employeur doit assurer au minimum la moitié du financement de la couverture collective à adhésion obligatoire des salariés en matière de remboursement complémentaire des frais occasionnés par une maladie, une maternité ou un accident.\n\nSources : [L911-7]",
+      "sources": [
+        "F20739",
+        "F20744",
+        "F33754",
+        "L911-7",
+        "F20740"
+      ],
+      "best_score": 0.822,
+      "seconds": 21.49,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q29",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Selon l'article D6222-26, le salaire minimum perçu par l'apprenti prévu à l'article L. 6222-29 pendant le contrat ou la période d'apprentissage est fixé comme suit :\n\n* Pour les jeunes âgés de dix-huit à vingt ans : a) A 51 % du salaire minimum de croissance pendant la deuxième année d'exécution du contrat.\n\nAinsi, le salaire minimum d'un apprenti de 22 ans en deuxième année est de 51 % du salaire minimum de croissance.\n\nPour calculer ce montant, on peut utiliser le salaire minimum de croissance actuel, qui est de 1 867,02 €. On multiplie donc ce montant par 51 % pour obtenir :\n\n1 867,02 € x 0,51 = 948,52 €\n\nAinsi, le salaire minimum d'un apprenti de 22 ans en deuxième année est de 948,52 €.\n\nSources : [D6222-26]",
+      "sources": [
+        "F2918",
+        "D6222-26",
+        "F219",
+        "D6222-32",
+        "D6222-31"
+      ],
+      "best_score": 0.85,
+      "seconds": 25.05,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, il y a une période d'essai pour un apprenti. Aucune période d'essai ne peut être imposée, sauf clause conventionnelle contraire [L6222-35].",
+      "sources": [
+        "F2918",
+        "L6222-12",
+        "F23556",
+        "D6235-13",
+        "L6231-2"
+      ],
+      "best_score": 0.875,
+      "seconds": 21.9,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": [
+        "L6222-35"
+      ]
+    },
+    {
+      "id": "A04",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "A non-EU student can work in France for a maximum of 964 hours per year without a work permit, which is equivalent to 60% of the annual working time [F2713]. \n\nThis duration starts from the date of the student's residence permit or the validation of their long-stay student visa [F2713]. \n\nIf the student exceeds this limit, they risk having their residence permit revoked and their work permit denied [F2713]. \n\nThe student must declare their employment to the prefecture at least 2 days before the start date of their employment [F2713]. \n\nSources:\n[F2713]",
+      "sources": [
+        "F2713",
+        "F13519",
+        "R5221-26",
+        "F2728",
+        "F35796"
+      ],
+      "best_score": 0.999,
+      "seconds": 20.62,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q09",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "The maximum age to start an apprenticeship contract in France is 29 years old, but there are some exceptions. \n\nIf the apprentice is recognized as a handicapped worker, they can start an apprenticeship contract at any age. \n\nIf the apprentice is a sportsman of high level, they can also start an apprenticeship contract at any age. \n\nIf the apprentice is in one of these situations, the maximum age limit does not apply. \n\nIn all other cases, the maximum age to start an apprenticeship contract is 29 years old. \n\nSources:\n[F2918]\n[D6222-1]",
+      "sources": [
+        "F2918",
+        "L6222-1",
+        "L6222-12-1",
+        "D6222-1",
+        "F31704"
+      ],
+      "best_score": 0.981,
+      "seconds": 23.53,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A07",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "According to the sources, the employer must pay between 50% and 60% of the value of the meal voucher [L3262-1]. The employee must pay between 40% and 50% of the value of the meal voucher [L3262-1].\n\nSources: [L3262-1]",
+      "sources": [
+        "F21059",
+        "L3262-1",
+        "R3262-11",
+        "F2728",
+        "R3261-13-2"
+      ],
+      "best_score": 0.988,
+      "seconds": 20.06,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "A01",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "According to Article L6222-19 [L6222-19], your apprenticeship can end early if you already obtained your diploma, at your initiative, before the initial term, provided you inform your employer.\n\nSources: [L6222-19]",
+      "sources": [
+        "L6222-19",
+        "F2918",
+        "D6222-30",
+        "F31704",
+        "L6222-22-1"
+      ],
+      "best_score": 0.948,
+      "seconds": 23.72,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q31",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "As an apprentice, you are not allowed to work at night or on Sundays, unless you are in one of the following sectors:\n\n- Hôtellerie, restauration, traiteur and organisator of reception\n- Café, tabac and débit de boisson\n- Boulangerie, pâtisserie, boucherie, charcuterie, fromagerie-crèmerie, poissonnerie\n- Magasin de vente de fleurs naturelles, jardinerie and graineterie\n\nHowever, for apprentices under 18 years old, the night work ban is more restrictive:\n\n- For apprentices under 16 years old, the night work ban is from 20h to 6h.\n- For apprentices between 16 and 18 years old, the night work ban is from 22h to 6h.\n\nYou must also have at least 2 consecutive days of rest per week.\n\nSources:\n[F13887] \n[F2918] \n[F2216]",
+      "sources": [
+        "F13887",
+        "F2918",
+        "L3164-5",
+        "L6222-26",
+        "F2216"
+      ],
+      "best_score": 0.994,
+      "seconds": 24.43,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q58",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, les apprentis peuvent bénéficier d'une prime d'activité et d'un 13e mois. \n\nLa prime d'activité remplace le RSA activité et la prime pour l'emploi. Les étudiants salariés, les stagiaires et les apprentis de plus de 18 ans peuvent en bénéficier sous certaines conditions [F33375]. \n\nConcernant le 13e mois, il s'agit d'une indemnité versée aux salariés qui prennent des congés payés. Cette indemnité peut être calculée de 2 façons : soit par la règle du 1/10e de la rémunération brute totale, soit par la règle du maintien de salaire [F33359]. \n\nPour les apprentis, le montant de la prime d'activité et du 13e mois dépend de leur âge et de leur statut. Selon l'article D6222-31, les montants des rémunérations prévues à la présente sous-section sont majorés à compter du premier jour du mois suivant le jour où l'apprenti atteint dix-huit ans ou vingt et un ans ou vingt-six ans [D6222-31]. \n\nIl est important de noter que les conditions de bénéfice de la prime d'activité et du 13e mois peuvent varier en fonction de l'employeur et de la région. Il est donc recommandé de vérifier les conditions spécifiques de l'employeur et de la région pour obtenir plus d'informations.\n\nSources : [F33375], [F33359], [D6222-31]",
+      "sources": [
+        "F33375",
+        "F38630",
+        "L6243-1",
+        "F33359",
+        "D6222-31"
+      ],
+      "best_score": 0.309,
+      "seconds": 35.66,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q59",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Non, l'employeur n'est pas obligé de vous donner des titres-restaurant [F21059]. Cependant, si vous n'avez pas de cantine ou de restaurant d'entreprise, vous pouvez demander à votre employeur de vous fournir des titres-restaurant [F21059].\n\nIl est important de noter que le salarié qui quitte l'entreprise remet à l'employeur, au moment de son départ, les titres-restaurant en sa possession [R3262-11]. \n\nPour obtenir des informations plus précises, vous devriez demander à votre employeur les documents suivants : \n- Le contrat de travail \n- Le règlement interne de l'entreprise \n- La politique de titres-restaurant de l'entreprise \n\nSources : [F21059], [R3262-11], [R3262-12], [R3262-38], [L3262-1]",
+      "sources": [
+        "F21059",
+        "R3262-11",
+        "L3262-1",
+        "R3262-38",
+        "R3262-12"
+      ],
+      "best_score": 0.967,
+      "seconds": 20.24,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q62",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Selon [F682], le décompte d'un jour férié pendant les congés du salarié est effectué de la façon suivante, selon que le jour férié est habituellement chômé ou travaillé dans l'entreprise.\n\nSi le jour férié est habituellement chômé, il ne sera pas décompté des congés payés. \n\nSi le jour férié est habituellement travaillé dans l'entreprise, il sera décompté des congés payés.\n\nDans votre cas, il n'est pas précisé si le samedi est habituellement chômé ou travaillé dans l'entreprise. \n\nPour savoir si vous pouvez travailler le samedi, vous devez demander à votre employeur si le samedi est un jour férié habituellement travaillé dans l'entreprise. \n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est un jour férié habituellement travaillé dans l'entreprise.\n\nSi vous ne savez pas, vous pouvez demander à votre employeur de vous indiquer si le samedi est",
+      "sources": [
+        "F13887",
+        "F2405",
+        "F2327",
+        "F682",
+        "L3164-5"
+      ],
+      "best_score": 0.868,
+      "seconds": 79.52,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q16",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "En tant qu'apprenti, vous bénéficiez des mêmes droits que les autres salariés de l'entreprise, notamment en ce qui concerne les avantages sociaux. Cependant, il n'est pas explicitement précisé dans les sources fournies si vous avez droit à une mutuelle en tant qu'apprenti.\n\nPour obtenir des informations sur votre situation spécifique, vous devriez contacter votre employeur ou votre centre de formation d'apprentis pour savoir si vous avez droit à une mutuelle et quelle est la mutuelle à laquelle vous êtes admissible.\n\nSources:\n[L6243-2] Article L6243-2\n[F2918] Contrat d'apprentissage : L'apprenti est-il un salarié comme les autres ?",
+      "sources": [
+        "L6222-32",
+        "L6243-3",
+        "L6243-2",
+        "F2918",
+        "L6222-42"
+      ],
+      "best_score": 0.319,
+      "seconds": 22.02,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q69",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Selon l'article R6226-5 [F2918], le maître d'apprentissage désigné au sein de l'entreprise de travail temporaire assure le suivi de l'apprenti tout au long de sa formation et veille à sa progression, en liaison avec le centre de formation des apprentis et les maîtres d'apprentissage nommés dans les entreprises utilisatrices.\n\nDans ce cas, c'est le centre de formation des apprentis qui doit vous suivre, car il est responsable de la formation professionnelle de l'apprenti et de la coordination avec les maîtres d'apprentissage.\n\nSources : [F2918], [R6226-5].",
+      "sources": [
+        "F2918",
+        "R6226-5",
+        "L6223-8",
+        "L6223-8-1",
+        "R6225-2"
+      ],
+      "best_score": 0.336,
+      "seconds": 18.78,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q20",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Selon l'article L3162-1 [L3162-1], les jeunes travailleurs ne peuvent être employés à un travail effectif excédant huit heures par jour et trente-cinq heures par semaine. Cependant, il est possible de dérogations dans certaines conditions.\n\nPour les salariés âgés d'au moins 18 ans, il n'est pas possible d'imposer des horaires de travail qui dépassent les 10 heures par jour, sauf en cas de dérogation accordée par l'inspecteur du travail dans des conditions déterminées par décret [L3121-18].\n\nPour les apprentis, il est possible d'imposer des horaires de travail qui dépassent les 10 heures par jour, mais il faut obtenir l'accord de l'inspecteur du travail et l'avis du médecin du travail pour les 5 heures supplémentaires [F2918].\n\nIl est donc possible que votre employeur vous imposse des horaires de travail, mais il faut vérifier si ces horaires sont dans les limites autorisées par la loi et si vous avez obtenu l'accord nécessaire.\n\nSources : [L3162-1], [L3121-18], [F2918].",
+      "sources": [
+        "F1911",
+        "F2211",
+        "L3162-1",
+        "F2918",
+        "L3121-18"
+      ],
+      "best_score": 0.926,
+      "seconds": 24.52,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q64",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, vous pouvez faire votre alternance dans une entreprise publique ou une mairie. Le contrat d'apprentissage est un contrat de travail qui permet de suivre par alternance des périodes de formation dans une administration et en centre de formation d'apprentis [F2918]. \n\nSources : [F2918]",
+      "sources": [
+        "F3059",
+        "F34964",
+        "F2918",
+        "F23556",
+        "F31704"
+      ],
+      "best_score": 0.045,
+      "seconds": 15.3,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q66",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "As a second-year international student, you can conclude an apprenticeship contract under certain conditions. \n\nFirstly, you must have a visa of long stay valuing as a residence permit (VLS-TS) student or a student residence permit. \n\nSecondly, you must have been in France for more than 1 year. \n\nThirdly, you must have signed a declaration nominative of the employer with the prefecture of the department where the establishment of the employer has its seat. \n\nLastly, you must have signed a contract of apprenticeship with the employer, which must be concluded in writing and must contain certain obligatory mentions, such as the name and surname of the employer, the effectif of the enterprise, the diploma or title prepared by the apprentice, the salary due for each year of the contract or the period of apprenticeship, the name, surname and date of birth of the master of apprenticeship, the attestation of the employer stating that the master of apprenticeship fulfills the conditions of professional competence, and the conditions of deduction of the advantages in nature. \n\nThe contract must be signed by the employer and the apprentice (and by his or her legal representative if the apprentice is a minor). \n\nSources:\n[F2713] Un étudiant non européen peut-il travailler en France ? : Cas général : Un étudiant étranger non européen peut conclure un contrat d'apprentissage.\n[F2918] Contrat d'apprentissage : Comment conclure le contrat d’apprentissage ?\n[R6222-2] Article R6222-2\n[R5221-7] Article R5221-7",
+      "sources": [
+        "F2713",
+        "F2918",
+        "R6222-2",
+        "R5221-7",
+        "R6222-66-1"
+      ],
+      "best_score": 0.939,
+      "seconds": 27.57,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q60",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "According to the sources, your company is required to pay for your commute to work in certain circumstances.\n\nArticle L3261-2 states that the employer must cover, in a proportion and under conditions determined by regulation, the cost of the tickets for public transportation or bike-sharing services used by employees for their daily commute between their home and workplace.\n\nHowever, this obligation is not automatic, and the employer is not required to pay for your commute. The employer can choose to take on this expense, and if they do, they must do so for all employees and under the same conditions.\n\nAdditionally, Article L3261-3-1 states that the employer can cover, under certain conditions, the costs of fuel, car maintenance, or other expenses related to commuting, including covoiturage, cycling, or using personal vehicles, as long as these expenses are not already covered by the employer under Article L3261-2.\n\nIt's worth noting that these provisions entered into force on January 1, 2022, and January 1, 2020, respectively.\n\nTo determine if your company is required to pay for your commute, you should ask your HR representative or your employer to check the following:\n\n* If your company has taken on the expense of commuting for all employees and under the same conditions.\n* If your company has a collective agreement or a company policy that covers commuting expenses.\n\nSources:\n[F37900]\n[F19846]\n[L3261-2]\n[L3261-3-1]\n[L3261-3]",
+      "sources": [
+        "F37900",
+        "F19846",
+        "L3261-2",
+        "L3261-3-1",
+        "L3261-3"
+      ],
+      "best_score": 0.843,
+      "seconds": 22.64,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q67",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "According to [F2229], you must obtain a carte de séjour salarié or travailleur temporaire if you have signed a contract of work (or a promise of employment) and your employer has obtained an autorisation de travail.\n\nHowever, [R5221-26] states that an étranger titulaire du titre de séjour ou du visa pour un séjour d'une durée supérieure à trois mois mentionné au 11° de l'article R. 5221-2 portant la mention étudiant est autorisé à exercer une activité salariée, à titre accessoire, dans la limite d'une durée annuelle de travail égale à 964 heures.\n\nThis means that as a student, you are not necessarily required to have your employer apply for a work permit for you. However, you must ensure that your employment complies with the conditions of your student residence permit.\n\nTo confirm, you should ask your HR department or school to verify the conditions of your employment and ensure that they comply with the regulations.\n\nSources:\n[F2229]\n[R5221-26]",
+      "sources": [
+        "F2728",
+        "R5221-3",
+        "R5221-26",
+        "F2229",
+        "R5221-45"
+      ],
+      "best_score": 0.904,
+      "seconds": 24.6,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "invented_citations": []
+    },
+    {
+      "id": "Q46",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.004,
+      "seconds": 11.97,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q41",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.003,
+      "seconds": 17.99,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q51",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.001,
+      "seconds": 117.42,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q11",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.002,
+      "seconds": 11.44,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q13",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.0,
+      "seconds": 13.59,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q53",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "According to the sources, the answer is yes, your school offers housing for apprentices. \n\n[F38630] mentions that \"elles varient selon que vous avez entre 15 et 17 ans ou au moins 18 ans\" and that \"une carte nationale des métiers est délivrée à l'apprenti par le CFA\" which includes \"accès aux restaurants et hébergements universitaires\". \n\nSources: [F38630], [F2918]",
+      "sources": [
+        "F38630",
+        "L6232-1",
+        "R6232-2",
+        "R6223-11",
+        "F2918"
+      ],
+      "best_score": 0.14,
+      "seconds": 22.01,
+      "not_found_reason": null,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": false,
+      "invented_citations": []
+    },
+    {
+      "id": "Q49",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "I could not find the answer in the texts I search (French labour code, immigration code, social security code and Service-Public.fr fact sheets). Try asking differently, or ask your school or your HR team: they know the rules specific to your contract.",
+      "sources": [],
+      "best_score": 0.006,
+      "seconds": 17.64,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "invented_citations": []
+    },
+    {
+      "id": "Q50",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "Unfortunately, NOT FOUND.\n\nYou should ask HR or the school which document, which figure, and which information to request from France compétences or the opérateur France Travail to find out which French companies are most willing to sponsor international apprentices.",
+      "sources": [
+        "R6222-66",
+        "F2918",
+        "L6222-42",
+        "R6222-67",
+        "L6243-1-2"
+      ],
+      "best_score": 0.056,
+      "seconds": 19.35,
+      "not_found_reason": null,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": false,
+      "invented_citations": []
+    }
+  ],
+  "n": 37,
+  "corpus_gaps": [],
+  "mode": "system",
+  "config": {
+    "model": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "llama3.2",
+      "api_key_env": "GROQ_API_KEY",
+      "temperature": 0,
+      "max_tokens": 2000,
+      "reasoning_effort": null
+    },
+    "prompt_file": "prompts/system_v2.txt",
+    "corpus_snapshot": "2026-10-25",
+    "rewrite": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-120b",
+      "api_key_env": "GROQ_API_KEY"
+    },
+    "retrieval": {
+      "enabled": true,
+      "signals": [
+        "exact",
+        "fulltext",
+        "dense"
+      ],
+      "candidates_per_signal": 20,
+      "rerank": true,
+      "rerank_candidates": 30,
+      "top_k": 5,
+      "max_per_doc": 1,
+      "sector_priority": true,
+      "rewrite_fr": true,
+      "abstain_threshold": 0.015
+    },
+    "evaluation": {
+      "testset": "eval/testset.jsonl",
+      "report": "eval/report.json"
+    },
+    "database": {
+      "table": "chunks",
+      "schema_file": "db/schema.sql"
+    },
+    "legifrance": {
+      "oauth_url": "https://oauth.piste.gouv.fr/api/oauth/token",
+      "api_url": "https://api.piste.gouv.fr/dila/legifrance/lf-engine-app",
+      "request_delay_s": 0.2
+    },
+    "service_public": {
+      "particuliers_zip": "https://www.data.gouv.fr/api/1/datasets/r/0ed10f28-d197-4324-97b3-037f625095ac",
+      "entreprendre_zip": "https://www.data.gouv.fr/api/1/datasets/r/93c81767-6ae6-4b31-8dd7-2158e560d181"
+    }
+  }
+}

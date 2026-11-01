@@ -1,0 +1,141 @@
+{
+  "report": {
+    "n": 10,
+    "voices": "synthetic",
+    "median_wer": 0.0,
+    "language_detected_right": {
+      "rate": 1.0,
+      "n": 10,
+      "ci95": [
+        0.722,
+        1.0
+      ]
+    },
+    "same_gold_rank_as_typed": {
+      "rate": 1.0,
+      "n": 10,
+      "ci95": [
+        0.722,
+        1.0
+      ]
+    },
+    "gold_in_top5_typed": {
+      "rate": 1.0,
+      "n": 10,
+      "ci95": [
+        0.722,
+        1.0
+      ]
+    },
+    "gold_in_top5_spoken": {
+      "rate": 1.0,
+      "n": 10,
+      "ci95": [
+        0.722,
+        1.0
+      ]
+    }
+  },
+  "rows": [
+    {
+      "id": "Q04",
+      "lang": "fr",
+      "question": "Combien de jours de congés payés ai-je par mois travaillé ?",
+      "transcript": "Combien de jours de congés payés est-je par mois travaillés ?",
+      "detected_language": "fr",
+      "wer": 0.2,
+      "rank_typed": 1,
+      "rank_spoken": 1
+    },
+    {
+      "id": "Q08",
+      "lang": "fr",
+      "question": "Quelle est la rémunération minimale d'un apprenti de 19 ans en première année ?",
+      "transcript": "Quelle est la rémunération minimale d'un apprenti de 19 ans en première année ?",
+      "detected_language": "fr",
+      "wer": 0.0,
+      "rank_typed": 1,
+      "rank_spoken": 1
+    },
+    {
+      "id": "Q21",
+      "lang": "fr",
+      "question": "Mon employeur peut-il arrêter mon contrat d'apprentissage pendant les 45 premiers jours ?",
+      "transcript": "Mon employeur peut-il arrêter mon contrat d'apprentissage pendant les 45 premiers jours ?",
+      "detected_language": "fr",
+      "wer": 0.0,
+      "rank_typed": 1,
+      "rank_spoken": 1
+    },
+    {
+      "id": "A06",
+      "lang": "fr",
+      "question": "Jusqu'à quand puis-je utiliser mes titres-restaurant de cette année ?",
+      "transcript": "Jusqu'à quand puis-je utiliser mes titres-restaurants de cette année ?",
+      "detected_language": "fr",
+      "wer": 0.111,
+      "rank_typed": 1,
+      "rank_spoken": 1
+    },
+    {
+      "id": "Q25",
+      "lang": "fr",
+      "question": "Est-ce que j'ai des jours de congés pour réviser mes examens ?",
+      "transcript": "Est-ce que j'ai des jours de congés pour réviser mes examens ?",
+      "detected_language": "fr",
+      "wer": 0.0,
+      "rank_typed": 4,
+      "rank_spoken": 4
+    },
+    {
+      "id": "Q09",
+      "lang": "en",
+      "question": "What is the maximum age to start an apprenticeship contract in France?",
+      "transcript": "What is the maximum age to start an apprenticeship contract in France?",
+      "detected_language": "en",
+      "wer": 0.0,
+      "rank_typed": 2,
+      "rank_spoken": 2
+    },
+    {
+      "id": "Q32",
+      "lang": "en",
+      "question": "How many days of paid leave do I earn each month as an apprentice?",
+      "transcript": "How many days of paid leave do I earn each month as an apprentice?",
+      "detected_language": "en",
+      "wer": 0.0,
+      "rank_typed": 2,
+      "rank_spoken": 2
+    },
+    {
+      "id": "A07",
+      "lang": "en",
+      "question": "What share of a meal voucher does the employer have to pay?",
+      "transcript": "What share of a meal voucher does the employer have to pay?",
+      "detected_language": "en",
+      "wer": 0.0,
+      "rank_typed": 1,
+      "rank_spoken": 1
+    },
+    {
+      "id": "Q60",
+      "lang": "en",
+      "question": "Is my company required to pay for my commute to work?",
+      "transcript": "Is my company required to pay for my commute to work?",
+      "detected_language": "en",
+      "wer": 0.0,
+      "rank_typed": 1,
+      "rank_spoken": 1
+    },
+    {
+      "id": "A01",
+      "lang": "en",
+      "question": "Can my apprenticeship end early if I already got my diploma?",
+      "transcript": "Can my apprenticeship end early if I already got my diploma?",
+      "detected_language": "en",
+      "wer": 0.0,
+      "rank_typed": 1,
+      "rank_spoken": 1
+    }
+  ]
+}

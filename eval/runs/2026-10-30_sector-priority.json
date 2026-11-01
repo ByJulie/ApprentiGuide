@@ -1,0 +1,1792 @@
+{
+  "report": {
+    "recall@1": {
+      "rate": 0.567,
+      "n": 60,
+      "ci95": [
+        0.441,
+        0.684
+      ]
+    },
+    "recall@3": {
+      "rate": 0.767,
+      "n": 60,
+      "ci95": [
+        0.646,
+        0.856
+      ]
+    },
+    "recall@5": {
+      "rate": 0.867,
+      "n": 60,
+      "ci95": [
+        0.758,
+        0.931
+      ]
+    },
+    "recall@8": {
+      "rate": 0.867,
+      "n": 60,
+      "ci95": [
+        0.758,
+        0.931
+      ]
+    },
+    "recall@10": {
+      "rate": 0.867,
+      "n": 60,
+      "ci95": [
+        0.758,
+        0.931
+      ]
+    },
+    "mrr": 0.682,
+    "threshold": {
+      "value": 0.007,
+      "answerable_kept": {
+        "rate": 0.983,
+        "n": 60,
+        "ci95": [
+          0.911,
+          0.997
+        ]
+      },
+      "unanswerable_abstained": {
+        "rate": 0.65,
+        "n": 20,
+        "ci95": [
+          0.433,
+          0.819
+        ]
+      }
+    },
+    "abstention": {
+      "answerable_kept": {
+        "rate": 0.95,
+        "n": 60,
+        "ci95": [
+          0.863,
+          0.983
+        ]
+      },
+      "unanswerable_abstained": {
+        "rate": 0.7,
+        "n": 20,
+        "ci95": [
+          0.481,
+          0.855
+        ]
+      }
+    },
+    "by_tag": {
+      "company_dependent": {
+        "rate": 0.571,
+        "n": 21,
+        "ci95": [
+          0.365,
+          0.755
+        ]
+      },
+      "en": {
+        "rate": 0.647,
+        "n": 17,
+        "ci95": [
+          0.413,
+          0.827
+        ]
+      },
+      "fr": {
+        "rate": 0.587,
+        "n": 63,
+        "ci95": [
+          0.464,
+          0.7
+        ]
+      },
+      "in_corpus": {
+        "rate": 0.564,
+        "n": 39,
+        "ci95": [
+          0.41,
+          0.707
+        ]
+      },
+      "no_answer": {
+        "rate": 0.7,
+        "n": 20,
+        "ci95": [
+          0.481,
+          0.855
+        ]
+      }
+    },
+    "corpus_gaps": 1
+  },
+  "rows": [
+    {
+      "id": "Q01",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Quel est l'âge maximum pour signer un contrat d'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "D6222-1",
+        "F31704",
+        "L6222-12-1",
+        "L6222-1"
+      ],
+      "best_score": 0.993,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 5
+    },
+    {
+      "id": "Q02",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Combien de temps peut durer un contrat d'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L6222-7-1",
+        "F219",
+        "F31704",
+        "R6222-6"
+      ],
+      "best_score": 1.0,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Y a-t-il une période d'essai pour un apprenti ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L6222-12",
+        "F23556",
+        "D6235-13",
+        "L6231-2"
+      ],
+      "best_score": 0.875,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q04",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Combien de jours de congés payés ai-je par mois travaillé ?",
+      "answerable": true,
+      "sources": [
+        "F2258",
+        "F37482",
+        "F33359",
+        "L3141-3",
+        "F18260"
+      ],
+      "best_score": 0.997,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q05",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Mon employeur doit-il rembourser mon abonnement de transport en commun ?",
+      "answerable": true,
+      "sources": [
+        "F19846",
+        "F37900",
+        "L3261-2",
+        "R3261-1",
+        "F33754"
+      ],
+      "best_score": 0.991,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 3
+    },
+    {
+      "id": "Q06",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Quel est le rôle du maître d'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L6223-5",
+        "R6226-5",
+        "L6223-8-1",
+        "R6226-6"
+      ],
+      "best_score": 1.0,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q07",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Un apprenti a-t-il droit aux titres-restaurant ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "L3262-1",
+        "R3262-6",
+        "R3262-5",
+        "R3262-9"
+      ],
+      "best_score": 0.994,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Quelle est la rémunération minimale d'un apprenti de 19 ans en première année ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "D6222-26",
+        "F219",
+        "D6222-32",
+        "L6222-27"
+      ],
+      "best_score": 0.862,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q09",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "question_fr": "Quel est l'âge maximum pour commencer un contrat d'apprentissage en France?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L6222-1",
+        "L6222-12-1",
+        "D6222-1",
+        "F31704"
+      ],
+      "best_score": 0.981,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "Q10",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "C'est quoi la durée minimale de formation en CFA pendant mon contrat ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "F219",
+        "F15478",
+        "R6222-23-1",
+        "F31704"
+      ],
+      "best_score": 0.994,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q11",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Quelle est la date limite de candidature pour l'alternance à l'école en septembre prochain ?",
+      "answerable": false,
+      "sources": [
+        "F23556",
+        "F38630",
+        "R6251-3",
+        "L422-7",
+        "F2405"
+      ],
+      "best_score": 0.002,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q12",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Quels sont les frais de scolarité du PGE en alternance ?",
+      "answerable": false,
+      "sources": [
+        "F35796",
+        "F23556",
+        "F38630",
+        "F31704",
+        "F2231"
+      ],
+      "best_score": 0.005,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q13",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Quelle entreprise me conseilles-tu pour une alternance en data science ?",
+      "answerable": false,
+      "sources": [
+        "F23556",
+        "F31704",
+        "F38630",
+        "F2733",
+        "F2728"
+      ],
+      "best_score": 0.0,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q14",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Combien touche un apprenti chez Sanofi ?",
+      "answerable": false,
+      "sources": [
+        "F2918",
+        "L6243-2",
+        "D6222-26",
+        "D6222-33",
+        "F23556"
+      ],
+      "best_score": 0.021,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q15",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "question_fr": "Quel est le nom du coordinateur d'apprentissage de mon école ?",
+      "answerable": false,
+      "sources": [
+        "R6223-23",
+        "F2918",
+        "L6223-5",
+        "R6223-11",
+        "R6226-5"
+      ],
+      "best_score": 0.208,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q16",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Ai‑je droit à une mutuelle en tant qu’apprenti, et laquelle ?",
+      "answerable": true,
+      "sources": [
+        "L6222-32",
+        "L6243-3",
+        "L6243-2",
+        "F2918",
+        "L6222-42"
+      ],
+      "best_score": 0.319,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q17",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Puis-je faire du télétravail 3 jours par semaine pendant mon alternance ?",
+      "answerable": true,
+      "sources": [
+        "F13851",
+        "L1222-9",
+        "L1222-10",
+        "L1222-11",
+        "F303"
+      ],
+      "best_score": 0.094,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q18",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Combien de jours de congés supplémentaires ai-je avec ma convention collective ?",
+      "answerable": true,
+      "sources": [
+        "F2258",
+        "L3142-4",
+        "F37482",
+        "F682",
+        "L3141-23"
+      ],
+      "best_score": 0.973,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q19",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "question_fr": "Je suis étudiant international en première année du PGE. Puis-je faire un apprentissage cette année ?",
+      "answerable": true,
+      "sources": [
+        "R5221-7",
+        "F2713",
+        "L422-5",
+        "L6222-42",
+        "F2863"
+      ],
+      "best_score": 0.1,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q20",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Mon employeur peut-il m'imposer mes horaires de travail ?",
+      "answerable": true,
+      "sources": [
+        "F1911",
+        "F2211",
+        "F2918",
+        "F15478",
+        "F2216"
+      ],
+      "best_score": 0.926,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q21",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Mon employeur peut-il arrêter mon contrat d'apprentissage pendant les 45 premiers jours ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "F31633",
+        "L6222-18",
+        "L6225-5",
+        "D6222-21-1"
+      ],
+      "best_score": 0.998,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q22",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Après la période d'essai, comment peut-on arrêter un contrat d'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "L6222-18",
+        "F2918",
+        "L6225-5",
+        "D6222-21-1",
+        "L6222-19"
+      ],
+      "best_score": 0.873,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q23",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Mon contrat doit être signé quand par rapport au début de ma formation à l'école ?",
+      "answerable": true,
+      "sources": [
+        "L6222-12-1",
+        "L6222-12",
+        "F2918",
+        "L6222-1",
+        "L6222-7"
+      ],
+      "best_score": 0.86,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "Q24",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "J'ai 31 ans, est-ce que je peux quand même faire de l'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "L6222-1",
+        "D6222-1-2",
+        "L6222-12-1",
+        "L6222-2",
+        "D6222-1"
+      ],
+      "best_score": 0.28,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 4
+    },
+    {
+      "id": "Q25",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Est-ce que j'ai des jours de congés pour réviser mes examens ?",
+      "answerable": true,
+      "sources": [
+        "F15478",
+        "F2918",
+        "D3142-32",
+        "L6222-35",
+        "R6227-7"
+      ],
+      "best_score": 0.289,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 4
+    },
+    {
+      "id": "Q26",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Mes heures de cours à l'école comptent-elles comme du temps de travail ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "F2216",
+        "L6222-24",
+        "F18260",
+        "F15478"
+      ],
+      "best_score": 0.101,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q27",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Combien d'apprentis un maître d'apprentissage peut-il encadrer en même temps ?",
+      "answerable": true,
+      "sources": [
+        "R6223-6",
+        "R6226-5",
+        "F2918",
+        "R6223-10",
+        "R6226-6"
+      ],
+      "best_score": 0.996,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q28",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Quelles conditions faut-il remplir pour être maître d'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L6223-8-1",
+        "R6223-22",
+        "R6226-5",
+        "F219"
+      ],
+      "best_score": 0.999,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "Q29",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Quel est le salaire minimum d'un apprenti de 22 ans en deuxième année ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "D6222-26",
+        "F219",
+        "D6222-32",
+        "D6222-31"
+      ],
+      "best_score": 0.85,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "Q30",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Est-ce que mon salaire d'apprenti est soumis à l'impôt et aux cotisations ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "F11249",
+        "L6243-2",
+        "L6241-1-1",
+        "L6243-3"
+      ],
+      "best_score": 0.983,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "Q31",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "question_fr": "Mon employeur peut-il m'obliger à travailler de nuit ou le dimanche en tant qu'apprenti ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L6222-26",
+        "F2216",
+        "R6222-24",
+        "R6223-10"
+      ],
+      "best_score": 0.949,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "Q32",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "question_fr": "Combien de jours de congés payés je gagne chaque mois en tant qu'apprenti ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "F2258",
+        "L6222-35",
+        "F18260",
+        "F24661"
+      ],
+      "best_score": 0.996,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "Q33",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "question_fr": "Y a-t-il une période d'essai dans un contrat d'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "L6222-16",
+        "F2918",
+        "L6222-12",
+        "R6222-6",
+        "L6222-12-1"
+      ],
+      "best_score": 0.998,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q34",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "question_fr": "Qui est mon maître d'apprentissage et que doit-il faire ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L6223-5",
+        "L6223-8-1",
+        "R6226-5",
+        "R6226-6"
+      ],
+      "best_score": 0.999,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q35",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "jpeu faire un contrat dapprentissage jusqua quel age",
+      "answerable": true,
+      "sources": [
+        "L6222-1",
+        "F2918",
+        "L6222-12-1",
+        "D6222-1",
+        "F219"
+      ],
+      "best_score": 0.833,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q36",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Je peux travailler combien d'heures par semaine au maximum en apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "F2216",
+        "F1911",
+        "R6227-2",
+        "F15478"
+      ],
+      "best_score": 0.967,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "Q37",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Est-ce que c'est moi qui paie ma formation à l'école quand je suis en apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "L6221-1",
+        "L6222-12-1",
+        "F2918",
+        "L6211-1",
+        "L6235-5"
+      ],
+      "best_score": 0.311,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 4
+    },
+    {
+      "id": "Q38",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Est-ce que je dois passer une visite médicale quand je commence mon contrat ?",
+      "answerable": true,
+      "sources": [
+        "F144",
+        "F15478",
+        "F2733",
+        "F2918",
+        "F2211"
+      ],
+      "best_score": 0.849,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 4
+    },
+    {
+      "id": "Q39",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Quelles aides financières existent pour l'entreprise qui recrute un apprenti ?",
+      "answerable": true,
+      "sources": [
+        "F38630",
+        "F23556",
+        "D6243-2",
+        "D6243-1",
+        "F2918"
+      ],
+      "best_score": 0.912,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 2
+    },
+    {
+      "id": "Q40",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Est-ce que je peux faire une partie de mon apprentissage à l'étranger ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L6222-42",
+        "F2713",
+        "R6222-66",
+        "L6235-3"
+      ],
+      "best_score": 0.999,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q41",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Quel est le rythme d'alternance de mon école en PGE (semaines école / entreprise) ?",
+      "answerable": false,
+      "sources": [
+        "L6211-2",
+        "L6226-1",
+        "F23556",
+        "F2728",
+        "F2918"
+      ],
+      "best_score": 0.003,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q42",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "À quelle date est le prochain forum alternance de l'école ?",
+      "answerable": false,
+      "sources": [
+        "F38630",
+        "R6241-22",
+        "F23556",
+        "R422-4",
+        "R6251-3"
+      ],
+      "best_score": 0.001,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q43",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Mon école va-t-elle m'aider à trouver une entreprise si je n'en ai pas à la rentrée ?",
+      "answerable": false,
+      "sources": [
+        "L6231-2",
+        "L6243-1-2",
+        "R6223-10",
+        "L6243-1",
+        "F23556"
+      ],
+      "best_score": 0.003,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q44",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Quels documents mon école me demande-t-elle pour valider mon dossier d'alternance ?",
+      "answerable": false,
+      "sources": [
+        "F35796",
+        "R6222-66-1",
+        "F22116",
+        "F2231",
+        "F23556"
+      ],
+      "best_score": 0.017,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q45",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Combien de places en alternance y a-t-il en PGE cette année ?",
+      "answerable": false,
+      "sources": [
+        "F23556",
+        "L6241-2",
+        "F38630",
+        "L6242-1",
+        "L422-5"
+      ],
+      "best_score": 0.001,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q46",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Quelles entreprises recrutent des alternants en finance en ce moment ?",
+      "answerable": false,
+      "sources": [
+        "F23556",
+        "F38630",
+        "F31704",
+        "L6241-2",
+        "D6243-1"
+      ],
+      "best_score": 0.004,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q47",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Est-ce que Danone propose des alternances en logistique ?",
+      "answerable": false,
+      "sources": [
+        "F34964",
+        "F23556",
+        "F31704",
+        "R5221-20",
+        "F37900"
+      ],
+      "best_score": 0.0,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q48",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Le recruteur m'a rappelé hier, qu'est-ce que je dois lui répondre pour avoir le poste ?",
+      "answerable": false,
+      "sources": [
+        "R5221-42",
+        "R5221-20",
+        "F23556",
+        "L3142-90",
+        "F15478"
+      ],
+      "best_score": 0.003,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q49",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "question_fr": "Combien de frais de scolarité dois-je payer à mon école pour la filière d'apprentissage ?",
+      "answerable": false,
+      "sources": [
+        "L6241-2",
+        "L6235-5",
+        "F34964",
+        "L6241-4",
+        "F2918"
+      ],
+      "best_score": 0.006,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q50",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "question_fr": "Quelles entreprises françaises sont les plus disposées à parrainer des apprentis internationaux ?",
+      "answerable": false,
+      "sources": [
+        "R6222-66",
+        "F2918",
+        "L6222-42",
+        "R6222-67",
+        "L6243-1-2"
+      ],
+      "best_score": 0.056,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q51",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Comment réussir mon entretien d'embauche chez L'Oréal ?",
+      "answerable": false,
+      "sources": [
+        "F23556",
+        "F2918",
+        "F2728",
+        "F2229",
+        "F31633"
+      ],
+      "best_score": 0.001,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q52",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Mon école accepte-t-elle que je change de rythme d'alternance en cours d'année ?",
+      "answerable": false,
+      "sources": [
+        "L6211-2",
+        "F2918",
+        "F2231",
+        "F23556",
+        "F2863"
+      ],
+      "best_score": 0.001,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q53",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "question_fr": "Mon école propose-t-elle un logement pour les apprentis ?",
+      "answerable": false,
+      "sources": [
+        "F38630",
+        "L6232-1",
+        "R6232-2",
+        "R6223-11",
+        "F2918"
+      ],
+      "best_score": 0.14,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q54",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "C'est quoi le numéro de mon contrat d'apprentissage ?",
+      "answerable": false,
+      "sources": [
+        "F2918",
+        "L6221-1",
+        "L6222-4",
+        "R6222-3",
+        "L6222-5-1"
+      ],
+      "best_score": 0.909,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q55",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Mon entreprise peut-elle refuser que je prenne mes jours de congés pendant mes révisions ?",
+      "answerable": true,
+      "sources": [
+        "F12803",
+        "L3142-63",
+        "L3142-45",
+        "L3142-51",
+        "L3142-113"
+      ],
+      "best_score": 0.95,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q56",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Mon entreprise peut-elle me payer plus que le minimum légal d'apprenti ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "D6241-8",
+        "D6235-4",
+        "D6222-31",
+        "L6222-27"
+      ],
+      "best_score": 0.641,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 5
+    },
+    {
+      "id": "Q57",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Mon tuteur me demande de rester après mes horaires, c'est autorisé ?",
+      "answerable": true,
+      "sources": [
+        "F15478",
+        "L6223-7",
+        "L6222-24",
+        "L6223-6",
+        "F2216"
+      ],
+      "best_score": 0.008,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q58",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Y a-t-il une prime ou un 13e mois pour les apprentis ?",
+      "answerable": true,
+      "sources": [
+        "F33375",
+        "F38630",
+        "L6243-1",
+        "F33359",
+        "D6222-31"
+      ],
+      "best_score": 0.309,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q59",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Mon entreprise est-elle obligée de me donner des tickets resto ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "R3262-11",
+        "L3262-1",
+        "R3262-38",
+        "R3262-12"
+      ],
+      "best_score": 0.967,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q60",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "question_fr": "Mon entreprise est‑elle obligée de payer mon trajet domicile‑travail ?",
+      "answerable": true,
+      "sources": [
+        "F37900",
+        "F19846",
+        "L3261-2",
+        "L3261-3-1",
+        "L3261-3"
+      ],
+      "best_score": 0.843,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q61",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "question_fr": "Mon employeur peut-il refuser une journée de télétravail ?",
+      "answerable": true,
+      "sources": [
+        "F13851",
+        "L1222-11",
+        "L1222-9",
+        "F12803",
+        "D3142-16"
+      ],
+      "best_score": 0.999,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q63",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Ma convention collective donne-t-elle des avantages en plus pour les apprentis ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "D6222-33",
+        "R6223-11",
+        "R6232-3",
+        "R6222-6"
+      ],
+      "best_score": 0.955,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q64",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Puis-je faire mon alternance dans une entreprise publique ou une mairie ?",
+      "answerable": true,
+      "sources": [
+        "F3059",
+        "F38630",
+        "F34964",
+        "F2918",
+        "F23556"
+      ],
+      "best_score": 0.045,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q65",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Puis-je cumuler mon alternance avec un autre job étudiant ?",
+      "answerable": true,
+      "sources": [
+        "D6235-9",
+        "F13519",
+        "R5221-26",
+        "D6224-2",
+        "F2713"
+      ],
+      "best_score": 0.007,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q66",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "question_fr": "Je suis étudiant international en deuxième année. De quoi ai-je besoin pour signer un contrat d'apprentissage ?",
+      "answerable": true,
+      "sources": [
+        "F2713",
+        "F2918",
+        "R6222-2",
+        "R5221-7",
+        "R6222-66-1"
+      ],
+      "best_score": 0.939,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q67",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "question_fr": "Je suis titulaire d'un titre de séjour étudiant. Mon employeur doit‑il demander un permis de travail pour moi ?",
+      "answerable": true,
+      "sources": [
+        "F2728",
+        "R5221-3",
+        "R5221-26",
+        "F2229",
+        "R5221-45"
+      ],
+      "best_score": 0.904,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "Q68",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Je suis en 1re année de PGE, puis-je commencer l'alternance en cours d'année ?",
+      "answerable": true,
+      "sources": [
+        "F2863",
+        "F23556",
+        "L6222-12-1",
+        "F38630",
+        "F31704"
+      ],
+      "best_score": 0.003,
+      "abstain": true,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q69",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Mon maître d'apprentissage est absent tout le mois, qui doit me suivre ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "R6226-5",
+        "L6223-8",
+        "L6223-8-1",
+        "R6225-2"
+      ],
+      "best_score": 0.336,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": null
+    },
+    {
+      "id": "Q70",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Que devient mon contrat si mon entreprise ferme ou est en liquidation ?",
+      "answerable": true,
+      "sources": [
+        "F2918",
+        "L3261-8",
+        "L6222-18",
+        "F20739",
+        "F20744"
+      ],
+      "best_score": 0.071,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 3
+    },
+    {
+      "id": "A01",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "question_fr": "Mon apprentissage peut-il se terminer plus tôt si j'ai déjà obtenu mon diplôme ?",
+      "answerable": true,
+      "sources": [
+        "L6222-19",
+        "F2918",
+        "D6222-30",
+        "F31704",
+        "L6222-22-1"
+      ],
+      "best_score": 0.948,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "A02",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "J'ai 17 ans, mon employeur peut-il me faire travailler la nuit ?",
+      "answerable": true,
+      "sources": [
+        "F2216",
+        "L6222-26",
+        "R6227-3",
+        "R6222-25",
+        "F2728"
+      ],
+      "best_score": 0.676,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "A03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Que dit l'article L6222-35 ?",
+      "answerable": true,
+      "sources": [
+        "L6222-35",
+        "L6235-4",
+        "L6222-34",
+        "D6235-9",
+        "L6235-5"
+      ],
+      "best_score": 0.912,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "A04",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "question_fr": "Combien d'heures par an un étudiant non-UE peut-il travailler en France sans permis de travail ?",
+      "answerable": true,
+      "sources": [
+        "F2713",
+        "F13519",
+        "R5221-26",
+        "F2728",
+        "F35796"
+      ],
+      "best_score": 0.999,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "A05",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Combien de titres-restaurant puis-je recevoir par jour de travail ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "R3262-7",
+        "R3262-10",
+        "L3262-1",
+        "R3262-5"
+      ],
+      "best_score": 0.989,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "A06",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Jusqu'à quand puis-je utiliser mes titres-restaurant de cette année ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "R3262-5",
+        "R3262-10",
+        "L3262-5",
+        "R3262-1-2"
+      ],
+      "best_score": 0.995,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "A07",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "question_fr": "Quelle part d'un ticket restaurant l'employeur doit-il payer ?",
+      "answerable": true,
+      "sources": [
+        "F21059",
+        "L3262-1",
+        "R3262-11",
+        "F2728",
+        "R3261-13-2"
+      ],
+      "best_score": 0.988,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "A08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "Combien mon employeur doit-il payer au minimum sur la mutuelle d'entreprise ?",
+      "answerable": true,
+      "sources": [
+        "F20739",
+        "F20744",
+        "F33754",
+        "L911-7",
+        "F20740"
+      ],
+      "best_score": 0.822,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "A09",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "question_fr": "J'ai déjà une mutuelle individuelle, suis-je obligée d'adhérer à celle de mon entreprise ?",
+      "answerable": true,
+      "sources": [
+        "F20740",
+        "F33754",
+        "F20739",
+        "F20744",
+        "D911-2"
+      ],
+      "best_score": 0.95,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 1
+    },
+    {
+      "id": "A10",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "question_fr": "Mes titres-restaurant sont plus bas que d'habitude ce mois-ci, pourquoi ?",
+      "answerable": true,
+      "sources": [
+        "L3262-1",
+        "R3262-5",
+        "F21059",
+        "L3262-5",
+        "R3262-36"
+      ],
+      "best_score": 0.252,
+      "abstain": false,
+      "missing_ids": [],
+      "gold_rank": 3
+    },
+    {
+      "id": "A11",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "question_fr": "Que dit l'article L9999-1 du Code du travail ?",
+      "answerable": false,
+      "sources": [
+        "L911-8",
+        "D911-4",
+        "D911-8",
+        "L911-7-1",
+        "D911-3"
+      ],
+      "best_score": 0.386,
+      "abstain": true,
+      "missing_ids": [
+        "L9999-1"
+      ],
+      "gold_rank": null
+    }
+  ],
+  "n": 80,
+  "corpus_gaps": [
+    {
+      "id": "Q62",
+      "question": "L'entreprise veut me faire travailler le samedi, c'est légal ?",
+      "gold_source": [
+        "L3132-1",
+        "L3132-3"
+      ]
+    }
+  ],
+  "mode": "retrieval",
+  "config": {
+    "model": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-20b",
+      "api_key_env": "GROQ_API_KEY",
+      "temperature": 0,
+      "max_tokens": 2000,
+      "reasoning_effort": "low"
+    },
+    "prompt_file": "prompts/system_v1.txt",
+    "corpus_snapshot": "2026-10-25",
+    "rewrite": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-120b",
+      "api_key_env": "GROQ_API_KEY"
+    },
+    "retrieval": {
+      "enabled": true,
+      "signals": [
+        "exact",
+        "fulltext",
+        "dense"
+      ],
+      "candidates_per_signal": 20,
+      "rerank": true,
+      "rerank_candidates": 30,
+      "top_k": 5,
+      "max_per_doc": 1,
+      "follow_references": 0,
+      "rewrite_fr": true,
+      "abstain_threshold": 0.015,
+      "sector_priority": true
+    },
+    "evaluation": {
+      "testset": "eval/testset.jsonl",
+      "report": "eval/report.json"
+    },
+    "database": {
+      "table": "chunks",
+      "schema_file": "db/schema.sql"
+    },
+    "legifrance": {
+      "oauth_url": "https://sandbox-oauth.piste.gouv.fr/api/oauth/token",
+      "api_url": "https://sandbox-api.piste.gouv.fr/dila/legifrance/lf-engine-app",
+      "request_delay_s": 0.2
+    },
+    "service_public": {
+      "particuliers_zip": "https://www.data.gouv.fr/api/1/datasets/r/0ed10f28-d197-4324-97b3-037f625095ac",
+      "entreprendre_zip": "https://www.data.gouv.fr/api/1/datasets/r/93c81767-6ae6-4b31-8dd7-2158e560d181"
+    }
+  }
+}
