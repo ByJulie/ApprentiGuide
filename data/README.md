@@ -8,7 +8,7 @@
 | data.gouv.fr, "Fiches pratiques et ressources de Service-Public.gouv.fr Particuliers" | 51 fiches chosen by theme in `ingest/scope.yaml` (zip of one XML per fiche, file date 2026-10-25) | Licence Ouverte (listed as `fr-lo`, version 1.0, on data.gouv.fr), source Service-Public.fr/DILA | No | Fiches read from the zip, text per chapter or situation (`ingest/service_public.py`), sections cut at 3000 characters (`ingest/clean.py`) |
 | data.gouv.fr, "Fiches pratiques et ressources Entreprendre" | 11 fiches (for example F2728, work authorisation of a foreign employee) | Licence Ouverte (`fr-lo`), source Service-Public.fr/DILA | No | Same as above; fiches identical to a Particuliers one are kept once |
 
-The database holds 1372 chunks: Code du travail 748, CESEDA 35, Code de la securite sociale 14, Particuliers 543, Entreprendre 32. Each chunk has the citation (`citation_id`: article number or fiche id), the source label, the date of the version in force, the section path, the URL and a structural `scope` (theme, and `audience: international` for foreign-worker topics). `scope` does not say that a chunk does not apply to someone when a value is missing. For Legifrance articles, the official `Nota` (limits on when the article applies) is appended to the text after "Nota :".
+The database holds 1434 chunks: Code du travail 793, CESEDA 35, Code de la securite sociale 14, Particuliers 560, Entreprendre 32. Each chunk has the citation (`citation_id`: article number or fiche id), the source label, the date of the version in force, the section path, the URL and a structural `scope` (theme, and `audience: international` for foreign-worker topics). `scope` does not say that a chunk does not apply to someone when a value is missing. For Legifrance articles, the official `Nota` (limits on when the article applies) is appended to the text after "Nota :".
 
 Not covered: the aivancity study regulations (written permission still pending), collective agreements, the rest of the Code de la securite sociale (only the mutuelle articles above).
 
@@ -42,7 +42,7 @@ cp .env.example .env                                 # Windows: copy .env.exampl
 Edit your own `.env`: choose any `POSTGRES_PASSWORD` (letters and digits only) and write the same value in `DATABASE_URL` in place of `<POSTGRES_PASSWORD>`. Never commit `.env` and never share your password: each person has an independent local database.
 ```bash
 docker compose --env-file .env -f db/docker-compose.yml up -d
-python -m ingest.load                                # from the repository root; prints "1372 chunks loaded"
+python -m ingest.load                                # from the repository root; prints "1434 chunks loaded"
 ```
 Check: `docker compose --env-file .env -f db/docker-compose.yml exec db psql -U apprentiguide -d apprentiguide -c "SELECT corpus, count(*) FROM chunks GROUP BY 1"` should list 5 corpora (ceseda 35, code_travail 748, securite_sociale 14, sp_entreprendre 32, sp_particuliers 543 rows).
 
