@@ -217,6 +217,11 @@ def cited_ids(text: str) -> list[str]:
     return out
 
 
+def source_link(s: dict) -> str:
+    """Markdown link to a source, or its bare id when it has no public page (school rules)."""
+    return f"[{s['id']}]({s['url']})" if s.get("url") else s["id"]
+
+
 def citations(text: str, sources: list[dict]) -> dict:
     """Sources shown under the answer, built from the database, never from the model's text.
 
@@ -239,10 +244,10 @@ def citations(text: str, sources: list[dict]) -> dict:
 ENGLISH = re.compile(r"\b(the|is|are|can|my|what|how|do|does|i am|should|which|who)\b", re.I)
 NOT_FOUND_MESSAGE = {
     "fr": ("Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, "
-           "Code de la sécurité sociale et fiches Service-Public.fr). Essaie de reformuler ta question, ou "
+           "Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Essaie de reformuler ta question, ou "
            "pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat."),
     "en": ("I could not find the answer in the texts I search (French labour code, immigration code, "
-           "social security code and Service-Public.fr fact sheets). Try asking differently, or ask your "
+           "social security code, Service-Public.fr fact sheets and the school regulations). Try asking differently, or ask your "
            "school or your HR team: they know the rules specific to your contract."),
 }
 MISSING_MESSAGE = {"fr": " L'article {ids} ne fait pas partie de ces textes.",

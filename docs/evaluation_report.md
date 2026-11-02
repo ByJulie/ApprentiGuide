@@ -77,6 +77,7 @@ Free Groq plan: about 3000 tokens per answered question, 200 000 tokens per day 
 - **The abstention threshold and the gold additions were tuned on this test set**, and gold sources were added after reading what the system retrieved: both make the scores optimistic. Answer: the **hold-out set**, collected from students and fixed before any run, and the `--lead-gold-only` option (gold sources set before seeing results).
 - **One annotator** for the calibration labels: a second labeller on 20 answers would measure human agreement too.
 - **Small sets**: differences inside the confidence intervals are not conclusions.
+- **The school regulations were added to the corpus on 2 Nov. (73 chunks, see `data/README.md`), after the `no_answer` questions were written.** Several of them are about the school and the regulations may now answer them in part: Q43 (help to find a company: pedagogical rules 3.3.1), Q44 (documents for the file: 3.3.2, 3.3.3), and possibly Q11, Q12, Q41, Q52. This is a prediction, not yet measured. If the expected NOT FOUND is kept, an answer from the regulations is counted as a failed abstention, so the NOT FOUND rate falls for a good reason and the report shows it as an error. Before the final runs, read these questions again against the regulation chunks and either change their expected behaviour (with a note in `review_note`) or run on a database built without the PDF files, and say which one in this report.
 - **Snapshot**: texts of 25 and 30 Oct. 2026; a faithful answer can become wrong when the law changes.
 
 ## 7. How to reproduce

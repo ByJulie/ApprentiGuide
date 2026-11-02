@@ -3,7 +3,7 @@ import os
 import streamlit as st
 import yaml
 
-from pipeline import answer
+from pipeline import answer, source_link
 
 CFG = yaml.safe_load(open(os.path.join(os.path.dirname(__file__), "..", "config.yaml")))
 SNAPSHOT = CFG.get("corpus_snapshot", "")
@@ -27,7 +27,9 @@ if q:
         st.subheader("Sources")
         for s in refs["cited"]:
             date = f", version du {s['version_date']}" if s.get("version_date") else ""
-            st.markdown(f"**[{s['id']}]({s['url']})** · {s['source_label']}{date}")
+            st.markdown(f"**{source_link(s)}** · {s['source_label']}{date}")
+            if not s.get("url"):
+                st.markdown(s["passages"][0]["title"])
             with st.expander("Voir le passage"):
                 for p in s["passages"]:
                     st.markdown(p["text"])
@@ -36,6 +38,6 @@ if q:
     if refs.get("consulted"):
         with st.expander("Autres textes consultés"):
             for s in refs["consulted"]:
-                st.markdown(f"[{s['id']}]({s['url']}) · {s['source_label']}")
-    st.caption(f"Textes : Légifrance et Service-Public.fr/DILA (Licence Ouverte), fichiers du {SNAPSHOT}. "
+                st.markdown(f"{source_link(s)} · {s['source_label']}")
+    st.caption(f"Textes : Légifrance et Service-Public.fr/DILA (Licence Ouverte), règlement de l'école, fichiers du {SNAPSHOT}. "
                f"Vérifie toujours avec ton école ou tes RH · {out['seconds']} s")

@@ -53,3 +53,22 @@ service_public:
     transport: [F19846, F37900]
     mutuelle: [F33754]
     etranger: [F2728, F2733]
+
+# School regulations: PDF files in data/private (not in the repository). One entry per school;
+# each document gives its file, corpus, citation prefix (RI, RP) and, for RI, the articles kept.
+regulations:
+  aivancity:
+    documents:
+      RI:
+        file: reglement_interieur.pdf
+        label: Règlement intérieur, article
+        source_label: Règlement intérieur 2025-2026
+        corpus: aivancity_ri
+        version_date: null   # the PDF says "adoptée le [o]"
+        articles: ['3', '5', '7', '9', '10', '17']
+      RP:
+        file: reglement_pedagogique.pdf
+        label: Règlement pédagogique, section
+        source_label: Règlement pédagogique 2025-2026
+        corpus: aivancity_rp
+        version_date: '2025-05-02'

@@ -10,10 +10,11 @@ import yaml
 from dotenv import load_dotenv
 from psycopg.types.json import Jsonb
 
-from ingest import clean
+from ingest import clean, regulations
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 RAW = os.path.join(ROOT, "data", "raw")
+PRIVATE = os.path.join(ROOT, "data", "private")
 CFG = yaml.safe_load(open(os.path.join(ROOT, "config.yaml"), encoding="utf-8"))["database"]
 SCOPE = yaml.safe_load(open(os.path.join(ROOT, "ingest", "scope.yaml"), encoding="utf-8"))
 COLUMNS = ["source", "corpus", "citation_id", "part", "title", "section_path", "text",
@@ -35,7 +36,23 @@ def build_chunks() -> list[clean.Chunk]:
     fiches = []
     for audience in SCOPE["service_public"]:
         fiches += read_jsonl(f"service_public_{audience}.jsonl")
-    return chunks + clean.service_public_chunks(fiches)
+    return chunks + clean.service_public_chunks(fiches) + regulation_chunks()
+
+
+def regulation_chunks() -> list[clean.Chunk]:
+    """Chunks of the school regulations whose PDF is in data/private (others are skipped)."""
+    chunks = []
+    for school, config in SCOPE["regulations"].items():
+        for kind, doc in config["documents"].items():
+            path = os.path.join(PRIVATE, doc["file"])
+            if not os.path.exists(path):
+                print(f"Warning: {path} not found, {school} {kind} chunks left out")
+                continue
+            chunks += regulations.regulation_chunks(
+                regulations.read_pdf(path), school=school, kind=kind, doc_label=doc["label"],
+                corpus=doc["corpus"], source_label=doc["source_label"],
+                version_date=doc["version_date"], articles=doc.get("articles"))
+    return chunks
 
 
 def load(chunks: list[clean.Chunk], database_url: str) -> None:

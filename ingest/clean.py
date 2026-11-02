@@ -36,11 +36,13 @@ class Chunk:
     lang: str = "fr"
 
 
-def build_scope(theme: str | None) -> dict:
+def build_scope(theme: str | None, school: str | None = None) -> dict:
     """Scope from structure only (the theme of the scope entry that selected the document)."""
     scope = {}
     if theme:
         scope["theme"] = theme
+    if school:
+        scope["school"] = school
     if theme == "etranger":
         scope["audience"] = "international"
     return scope

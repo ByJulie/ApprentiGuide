@@ -28,7 +28,7 @@ python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\act
 pip install -r requirements.txt
 cp .env.example .env            # Groq key (console.groq.com/keys), POSTGRES_PASSWORD and DATABASE_URL, DB_PORT if 5432 is taken
 docker compose --env-file .env -f db/docker-compose.yml up -d   # PostgreSQL with pgvector
-python -m ingest.load           # chunks from data/raw (1434), no PISTE key needed
+python -m ingest.load           # chunks from data/raw (1434) plus the regulations if their PDFs are in data/private (1507), no PISTE key needed
 python -m rag.index             # vectors (bge-m3, local, about 5 min the first time; then only what changed)
 ```
 Chat interface (Open WebUI 0.12.5, conversation history and voice input built in; settings in the command, so it starts the same everywhere), in two terminals:

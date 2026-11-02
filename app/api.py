@@ -18,6 +18,7 @@ from fastapi.responses import StreamingResponse
 
 import guardrail
 import pipeline
+from pipeline import source_link
 
 MODEL_ID = "apprentiguide"
 app = FastAPI(title="ApprentiGuide")
@@ -72,7 +73,7 @@ def held_back(text: str) -> str:
 
 
 def footer() -> str:
-    return (f"\n\n---\n*Textes : Légifrance et Service-Public.fr/DILA (Licence Ouverte), fichiers du "
+    return (f"\n\n---\n*Textes : Légifrance et Service-Public.fr/DILA (Licence Ouverte), règlement de l'école, fichiers du "
             f"{pipeline.CFG.get('corpus_snapshot', '')}. Vérifie toujours avec ton école ou tes RH.*")
 
 
@@ -85,7 +86,8 @@ def render(out: dict) -> str:
         parts.append("\n**Sources**")
         for s in refs["cited"]:
             date = f", version du {s['version_date']}" if s.get("version_date") else ""
-            parts.append(f"- [{s['id']}]({s['url']}) · {s['source_label']}{date}")
+            title = "" if s.get("url") else f"\n  {s['passages'][0]['title']}"
+            parts.append(f"- {source_link(s)} · {s['source_label']}{date}{title}")
     if refs.get("invented"):
         parts.append(f"\n⚠️ Citation non vérifiée (absente des textes trouvés) : {', '.join(refs['invented'])}")
     return "\n".join(parts) + footer()
@@ -120,7 +122,8 @@ def excerpt(source: dict, answer: str, keep: int = 2) -> str:
         key = ("… " if best[0] > 0 else "") + " … ".join(sentences[i] for i in best)
     else:
         key = " ".join(sentences) or body
-    kind = "Fiche" if source["id"].upper().startswith("F") else "Article"
+    kind = ("Fiche" if source["id"].upper().startswith("F")
+            else "Extrait" if not source.get("url") else "Article")
     date = f", version du {source['version_date']}" if source.get("version_date") else ""
     head = f"{kind} {source['id']} · {source['source_label']}{date}"
     if title:
@@ -132,9 +135,10 @@ def excerpt(source: dict, answer: str, keep: int = 2) -> str:
 def source_card(s: dict, answer: str) -> dict:
     """A source as Open WebUI shows it: a numbered card under the answer; opened, the excerpt that supports
     the answer, the label, version date and the link to the full text."""
-    return {"source": {"id": s["url"], "name": s["id"], "url": s["url"]},
+    link = s["url"] or s["id"]
+    return {"source": {"id": link, "name": s["id"], "url": s["url"]},
             "document": [excerpt(s, answer)],
-            "metadata": [{"source": s["url"], "name": s["id"]}]}
+            "metadata": [{"source": link, "name": s["id"]}]}
 
 
 def numbered(text: str, known: set[str], final: bool = False) -> str:
