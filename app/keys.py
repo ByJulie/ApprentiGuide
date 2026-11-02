@@ -3,7 +3,7 @@
 The Groq free plan allows 200 000 tokens per day per model and per key; a full evaluation run needs more.
 Keys are read from the environment: GROQ_API_KEY, then GROQ_API_KEY_2, GROQ_API_KEY_3... (empty ones
 skipped). Same model on every key, so the answers of one run stay comparable. Per-minute limits are
-retried by the OpenAI client itself; only daily limits switch keys.
+retried by the OpenAI client itself; only daily limits and refused keys switch keys.
 
     client = rotating_client("https://api.groq.com/openai/v1", "GROQ_API_KEY")
     client.chat.completions.create(model=..., messages=...)   # same call as an OpenAI client
@@ -11,7 +11,7 @@ retried by the OpenAI client itself; only daily limits switch keys.
 import os
 from types import SimpleNamespace
 
-from openai import OpenAI, RateLimitError
+from openai import AuthenticationError, OpenAI, RateLimitError
 
 
 def keys_from_env(env: str) -> list[str]:
@@ -38,10 +38,12 @@ class RotatingClient:
         while True:
             try:
                 return self._clients[self.index].chat.completions.create(**kwargs)
-            except RateLimitError as error:
-                if is_daily_limit(error) and self.index + 1 < len(self._clients):
+            except (RateLimitError, AuthenticationError) as error:
+                # A refused key (revoked, badly copied) is skipped like an exhausted one.
+                reason = "refused" if isinstance(error, AuthenticationError) else "daily limit reached"
+                if (reason == "refused" or is_daily_limit(error)) and self.index + 1 < len(self._clients):
                     self.index += 1
-                    print(f"[keys] daily limit reached, switching to key {self.index + 1} of {len(self._clients)}")
+                    print(f"[keys] key {self.index} {reason}, switching to key {self.index + 1} of {len(self._clients)}")
                     continue
                 raise
 

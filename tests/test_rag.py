@@ -229,3 +229,16 @@ def test_rotating_client_switches_key_on_daily_limit_only(monkeypatch):
         assert False, "a per-minute limit must not switch keys"
     except RateLimitError:
         assert minute.index == 0
+
+
+def test_rotating_client_skips_a_refused_key():
+    import httpx
+    from openai import AuthenticationError
+    from app.keys import RotatingClient
+    response = httpx.Response(401, request=httpx.Request("POST", "https://x"))
+    client = RotatingClient("https://x", ["bad", "good"])
+    def refused(**kwargs):
+        raise AuthenticationError("Invalid API Key", response=response, body=None)
+    client._clients[0].chat.completions.create = refused
+    client._clients[1].chat.completions.create = lambda **kwargs: "ok"
+    assert client.chat.completions.create(model="m") == "ok" and client.index == 1
