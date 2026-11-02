@@ -86,10 +86,10 @@ def footer(lang: str = "fr") -> str:
     """Licence attribution (Licence Ouverte asks for the source and its date) and the usual caution."""
     date = french_date(str(pipeline.CFG.get("corpus_snapshot", "")))
     if lang == "en":
-        return (f"\n\n---\n*Texts: Légifrance and Service-Public.fr/DILA (Licence Ouverte), school regulations, "
-                f"files of {date}. Always check with your school or HR.*")
-    return (f"\n\n---\n*Textes : Légifrance et Service-Public.fr/DILA (Licence Ouverte), règlement de l'école, "
-            f"fichiers du {date}. Vérifie toujours avec ton école ou tes RH.*")
+        return (f"\n\n---\n*Information, not legal advice: always check with your school or HR. Official texts "
+                f"from Légifrance and Service-Public.fr (Licence Ouverte), as of {date}.*")
+    return (f"\n\n---\n*Information, pas un conseil juridique : vérifie toujours avec ton école ou tes RH. Textes "
+            f"officiels de Légifrance et Service-Public.fr (Licence Ouverte), à jour au {date}.*")
 
 
 WORDS = {"fr": {"sources": "**Sources** :", "school": "Extrait", "fiche": "Fiche", "article": "Article",
@@ -326,7 +326,7 @@ def chat(body: dict, authorization: str | None = Header(default=None)):
     content = interface_task(question)
     history = [m for m in messages[:users[-1]] if m["role"] in ("user", "assistant")]
     # Previous answers carry sources and the licence line: only the answer text is useful as context.
-    history = [{**m, "content": re.split(r"\n\*\*Sources(\*\*|:)|\n\n---\n\*Text(es :|s:)|\n\n\*Textes :", m["content"])[0].strip()}
+    history = [{**m, "content": re.split(r"\n\*\*Sources(\*\*|:)|\n\n---\n\*(Text(es :|s:)|Information)|\n\n\*Textes :", m["content"])[0].strip()}
                for m in history]
     # The history goes to the cloud model too (follow-up rewrite): personal data masked first.
     history = [{**m, "content": guardrail.mask_pii(m["content"])[0]} for m in history]

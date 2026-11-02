@@ -39,5 +39,5 @@ if q:
         with st.expander("Autres textes consultés"):
             for s in refs["consulted"]:
                 st.markdown(f"{source_link(s)} · {s['source_label']}")
-    st.caption(f"Textes : Légifrance et Service-Public.fr/DILA (Licence Ouverte), règlement de l'école, fichiers du {SNAPSHOT}. "
-               f"Vérifie toujours avec ton école ou tes RH · {out['seconds']} s")
+    st.caption(f"Information, pas un conseil juridique : vérifie toujours avec ton école ou tes RH. Textes officiels de "
+               f"Légifrance et Service-Public.fr (Licence Ouverte), à jour au {SNAPSHOT} · {out['seconds']} s")
