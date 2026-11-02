@@ -119,7 +119,7 @@ def test_api_openai_compatible_with_tasks_history_and_streaming(monkeypatch):
     out = client.post("/v1/chat/completions", json={"messages": msgs}).json()["choices"][0]["message"]["content"]
     assert seen["question"] == "Et si je suis mineur ? (complete)"
     assert seen["history"][1]["content"] == "5 jours."
-    assert "[L6222-35](https://legifrance/x)" in out and "Licence Ouverte" in out
+    assert "[L6222-35](https://legifrance/x)" in out and "textes officiels" in out
 
 
 def _stream_client(monkeypatch, pieces, abstain=False):
@@ -147,7 +147,7 @@ def test_stream_shows_status_reasoning_answer_and_source_cards(monkeypatch):
               ("content", "ces\n[L6222-35]")]
     raw, text, reasoning, events = _stream_client(monkeypatch, pieces)
     assert raw.strip().endswith("data: [DONE]")
-    assert text.startswith("Tu as 5 jours [1].") and "[L6222-35]" not in text and "Licence Ouverte" in text
+    assert text.startswith("Tu as 5 jours [1].") and "[L6222-35]" not in text and "textes officiels" in text
     assert "[1] Article L6222-35 · Code du travail, Legifrance · version en vigueur depuis le 26/11/2009" in text
     assert reasoning == "Je lis L6222-35."
     assert [e["type"] for e in events][0] == "status" and events[-1]["data"]["done"] is True
@@ -347,7 +347,7 @@ def test_answer_display_in_english_without_em_dashes():
     assert api.held_back("Answer.\n\n**") == "Answer.\n"
     s = {"id": "F2918", "url": "https://x", "source_label": "Service-Public.fr/DILA", "version_date": "2026-09-08"}
     assert "Fact sheet F2918" in api.versions_line([s], lang="en") and "updated on 08/09/2026" in api.versions_line([s], lang="en")
-    assert "not legal advice" in api.footer("en") and "pas un conseil juridique" in api.footer("fr")
+    assert "check with your school or HR" in api.footer("en") and "vérifie avec ton école ou tes RH" in api.footer("fr")
 
 
 def test_cited_id_with_another_letter_is_the_retrieved_one():

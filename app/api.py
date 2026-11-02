@@ -83,13 +83,14 @@ def no_dashes(text: str) -> str:
 
 
 def footer(lang: str = "fr") -> str:
-    """Licence attribution (Licence Ouverte asks for the source and its date) and the usual caution."""
+    """Source and date of the texts (the attribution the Licence Ouverte asks for; the licence itself is named in
+    the README) and what to do before deciding, in words a student understands."""
     date = french_date(str(pipeline.CFG.get("corpus_snapshot", "")))
     if lang == "en":
-        return (f"\n\n---\n*Information, not legal advice: always check with your school or HR. Official texts "
-                f"from Légifrance and Service-Public.fr (Licence Ouverte), as of {date}.*")
-    return (f"\n\n---\n*Information, pas un conseil juridique : vérifie toujours avec ton école ou tes RH. Textes "
-            f"officiels de Légifrance et Service-Public.fr (Licence Ouverte), à jour au {date}.*")
+        return (f"\n\n---\n*From the official texts (French Labour Code, Service-Public.fr), up to date as of {date}. "
+                f"Before you decide, check with your school or HR.*")
+    return (f"\n\n---\n*Tiré des textes officiels (Code du travail, Service-Public.fr), à jour au {date}. "
+            f"Avant de décider, vérifie avec ton école ou tes RH.*")
 
 
 WORDS = {"fr": {"sources": "**Sources** :", "school": "Extrait", "fiche": "Fiche", "article": "Article",
@@ -326,7 +327,7 @@ def chat(body: dict, authorization: str | None = Header(default=None)):
     content = interface_task(question)
     history = [m for m in messages[:users[-1]] if m["role"] in ("user", "assistant")]
     # Previous answers carry sources and the licence line: only the answer text is useful as context.
-    history = [{**m, "content": re.split(r"\n\*\*Sources(\*\*|:)|\n\n---\n\*(Text(es :|s:)|Information)|\n\n\*Textes :", m["content"])[0].strip()}
+    history = [{**m, "content": re.split(r"\n\*\*Sources(\*\*|:)|\n\n---\n\*(Text(es :|s:)|Information|Tiré des textes|From the official)|\n\n\*Textes :", m["content"])[0].strip()}
                for m in history]
     # The history goes to the cloud model too (follow-up rewrite): personal data masked first.
     history = [{**m, "content": guardrail.mask_pii(m["content"])[0]} for m in history]
