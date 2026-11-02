@@ -91,11 +91,11 @@ def footer(lang: str = "fr", cited: list[dict] = ()) -> str:
         return ""
     if lang == "en":
         origin = ("From the school regulations" if school and all(school) else
-                  f"From the official texts (French Labour Code, Service-Public.fr, up to date as of {date})"
+                  f"From the official texts (Légifrance, Service-Public.fr, up to date as of {date})"
                   + (" and the school regulations" if any(school) else ""))
         return f"\n\n---\n*{origin}. Before you decide, check with your school or HR.*"
     origin = ("Tiré du règlement de l'école" if school and all(school) else
-              f"Tiré des textes officiels (Code du travail, Service-Public.fr, à jour au {date})"
+              f"Tiré des textes officiels (Légifrance, Service-Public.fr, à jour au {date})"
               + (" et du règlement de l'école" if any(school) else ""))
     return f"\n\n---\n*{origin}. Avant de décider, vérifie avec ton école ou tes RH.*"
 

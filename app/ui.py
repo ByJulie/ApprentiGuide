@@ -39,5 +39,5 @@ if q:
         with st.expander("Autres textes consultés"):
             for s in refs["consulted"]:
                 st.markdown(f"{source_link(s)} · {s['source_label']}")
-    st.caption(f"Tiré des textes officiels (Code du travail, Service-Public.fr), à jour au {SNAPSHOT}. "
+    st.caption(f"Tiré des textes officiels (Légifrance, Service-Public.fr), à jour au {SNAPSHOT}. "
                f"Avant de décider, vérifie avec ton école ou tes RH · {out['seconds']} s")
