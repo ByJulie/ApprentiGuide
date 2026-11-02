@@ -147,7 +147,8 @@ def test_stream_shows_status_reasoning_answer_and_source_cards(monkeypatch):
               ("content", "ces\n[L6222-35]")]
     raw, text, reasoning, events = _stream_client(monkeypatch, pieces)
     assert raw.strip().endswith("data: [DONE]")
-    assert text.startswith("Tu as 5 jours [1].") and "Sources" not in text and "Licence Ouverte" in text
+    assert text.startswith("Tu as 5 jours [1].") and "[L6222-35]" not in text and "Licence Ouverte" in text
+    assert "[1] Article L6222-35 · Code du travail, Legifrance · version en vigueur depuis le 26/11/2009" in text
     assert reasoning == "Je lis L6222-35."
     assert [e["type"] for e in events][0] == "status" and events[-1]["data"]["done"] is True
     cards = [e["data"] for e in events if e["type"] == "source"]

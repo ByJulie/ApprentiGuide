@@ -77,17 +77,37 @@ def footer() -> str:
             f"{pipeline.CFG.get('corpus_snapshot', '')}. Vérifie toujours avec ton école ou tes RH.*")
 
 
+def french_date(iso: str | None) -> str:
+    return "-".join(reversed(iso.split("-"))).replace("-", "/") if iso else ""
+
+
+def versions_line(cited: list[dict], links: bool = False) -> str:
+    """Under the answer, every cited text with its version (asked by the course): the date the article's
+    version came into force (Legifrance), the last update of the fact sheet (Service-Public.fr)."""
+    if not cited:
+        return ""
+    items = []
+    for n, s in enumerate(cited, 1):
+        fiche = s["id"].upper().startswith("F")
+        school = not s.get("url")  # school regulations: private, no public page
+        kind = "Extrait" if school else "Fiche" if fiche else "Article"
+        when = ""
+        if s.get("version_date"):
+            prefix = " · version du " if school else " · mise à jour le " if fiche else " · version en vigueur depuis le "
+            when = prefix + french_date(s["version_date"])
+        name = pipeline.source_link(s) if links else s["id"]
+        section = f" · {s['passages'][0]['title']}" if school and s.get("passages") and s["passages"][0].get("title") else ""
+        items.append(f"[{n}] {kind} {name} · {s['source_label']}{when}{section}")
+    return "\n\n**Sources** :  \n" + "  \n".join(items)
+
+
 def render(out: dict) -> str:
     """Plain Markdown answer for clients that do not stream: the answer, then its sources from the
     database. The model's own "Sources:" line is dropped: the block built from the database replaces it."""
     parts = [MODEL_SOURCES_LINE.sub("", out["answer"]).rstrip()]
     refs = out.get("citations", {})
     if refs.get("cited"):
-        parts.append("\n**Sources**")
-        for s in refs["cited"]:
-            date = f", version du {s['version_date']}" if s.get("version_date") else ""
-            title = "" if s.get("url") else f"\n  {s['passages'][0]['title']}"
-            parts.append(f"- {source_link(s)} · {s['source_label']}{date}{title}")
+        parts.append(versions_line(refs["cited"], links=True))  # no source cards outside a chat interface
     if refs.get("invented"):
         parts.append(f"\n⚠️ Citation non vérifiée (absente des textes trouvés) : {', '.join(refs['invented'])}")
     return "\n".join(parts) + footer()
@@ -222,7 +242,7 @@ def answer_events(question: str, history: list[dict]):
         yield {"content": referral}
     if refs["invented"]:
         yield {"content": f"\n\n⚠️ Citation non vérifiée (absente des textes trouvés) : {', '.join(refs['invented'])}"}
-    yield {"content": footer()}
+    yield {"content": versions_line(refs["cited"]) + footer()}
     yield status(f"Réponse fondée sur {len(refs['cited'])} texte(s)", done=True)
 
 
