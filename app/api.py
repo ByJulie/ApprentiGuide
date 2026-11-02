@@ -189,7 +189,7 @@ def answer_events(question: str, history: list[dict]):
     known = {s["id"].upper() for s in sources}
     yield status(f"{len(known)} textes trouvés, je rédige la réponse…")
     text, shown, not_found = "", 0, False
-    for kind, piece in pipeline.generate_stream(question, sources, found.missing_ids if found else [], lang):
+    for kind, piece in pipeline.generate_stream(question, sources, found.missing_ids if found else [], lang, history):
         if kind == "reasoning":
             yield {"reasoning": piece}
             continue
@@ -241,13 +241,14 @@ def chat(body: dict, authorization: str | None = Header(default=None)):
     content = interface_task(question)
     history = [m for m in messages[:users[-1]] if m["role"] in ("user", "assistant")]
     # Previous answers carry sources and the licence line: only the answer text is useful as context.
-    history = [{**m, "content": re.split(r"\n\*\*Sources\*\*|\n\n\*Textes :", m["content"])[0]} for m in history]
+    history = [{**m, "content": re.split(r"\n\*\*Sources\*\*|\n\n---\n\*Textes :|\n\n\*Textes :", m["content"])[0].strip()}
+               for m in history]
     # The history goes to the cloud model too (follow-up rewrite): personal data masked first.
     history = [{**m, "content": guardrail.mask_pii(m["content"])[0]} for m in history]
     reply_id, created = f"chatcmpl-{uuid.uuid4().hex[:12]}", int(time.time())
     if not body.get("stream"):
         if content is None:
-            content = render(pipeline.answer(pipeline.standalone(question, history)))
+            content = render(pipeline.answer(pipeline.standalone(question, history), history))
         return {"id": reply_id, "object": "chat.completion", "created": created, "model": MODEL_ID,
                 "choices": [{"index": 0, "message": {"role": "assistant", "content": content},
                              "finish_reason": "stop"}]}

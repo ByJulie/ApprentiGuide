@@ -99,7 +99,7 @@ def test_api_openai_compatible_with_tasks_history_and_streaming(monkeypatch):
     def fake_standalone(q, history):
         seen["history"] = history
         return q + " (complete)"
-    def fake_answer(q):
+    def fake_answer(q, history=()):
         seen["question"] = q
         return {"answer": "Tu as 5 jours [L6222-35].", "citations": {
             "cited": [{"id": "L6222-35", "url": "https://legifrance/x", "source_label": "Code du travail, Legifrance",
@@ -242,3 +242,33 @@ def test_rotating_client_skips_a_refused_key():
     client._clients[0].chat.completions.create = refused
     client._clients[1].chat.completions.create = lambda **kwargs: "ok"
     assert client.chat.completions.create(model="m") == "ok" and client.index == 1
+
+
+def test_answer_model_sees_the_conversation_only_when_there_is_one():
+    from app import pipeline
+    src = [{"id": "D6222-26", "text": "55 % du Smic en 3e année"}]
+    alone = pipeline._messages("Combien ?", src, [], "fr")
+    assert [m["role"] for m in alone] == ["system", "user"]  # evaluation runs: unchanged
+    history = [{"role": "user", "content": "Apprenti de 17 ans en dernière année de Master, combien ?"},
+               {"role": "assistant", "content": "55 % du Smic [1]."}]
+    msgs = pipeline._messages("Pourquoi la 3e année ?", src, [], "fr", history)
+    assert [m["role"] for m in msgs] == ["system", "user", "assistant", "user"]
+    assert msgs[2]["content"] == "55 % du Smic [1]." and "Pourquoi la 3e année ?" in msgs[-1]["content"]
+
+
+def test_previous_answers_lose_their_licence_line_before_going_back_to_the_model(monkeypatch):
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "app"))
+    from fastapi.testclient import TestClient
+    import api, pipeline
+    seen = {}
+    monkeypatch.setattr(pipeline, "standalone", lambda q, h: q)
+    def fake_answer(q, history=()):
+        seen["history"] = history
+        return {"answer": "ok", "citations": {"cited": [], "consulted": [], "invented": []}}
+    monkeypatch.setattr(pipeline, "answer", fake_answer)
+    msgs = [{"role": "user", "content": "Combien ?"},
+            {"role": "assistant", "content": "55 % du Smic [1].\n\n---\n*Textes : Légifrance ... RH.*"},
+            {"role": "user", "content": "Pourquoi ?"}]
+    TestClient(api.app).post("/v1/chat/completions", json={"messages": msgs})
+    assert seen["history"][1]["content"] == "55 % du Smic [1]."

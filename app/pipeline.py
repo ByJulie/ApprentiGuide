@@ -159,13 +159,22 @@ ANSWER_LANGUAGE = {
 }
 
 
-def _messages(question: str, sources: list[dict], missing_ids: list[str], lang: str) -> list[dict]:
+HISTORY_TURNS = 4          # previous messages given to the answer model
+HISTORY_CHARS = 1500       # per message
+
+
+def _messages(question: str, sources: list[dict], missing_ids: list[str], lang: str,
+              history: list[dict] = ()) -> list[dict]:
+    """System prompt, the last turns of the conversation (so the model knows what it already said and can
+    explain it), then the sources and the question. Without history (evaluation runs), exactly as before."""
     ctx = "\n\n".join(f"[{s['id']}] {s['text']}" for s in sources) or "(no sources)"
     note = ""
     if missing_ids:
         note = (f"\n\nNote: {', '.join(missing_ids)} is not in the sources. Say so; do not answer "
                 "from another article as if it were this one.")
-    return [{"role": "system", "content": SYSTEM},
+    turns = [{"role": m["role"], "content": m["content"][:HISTORY_CHARS]}
+             for m in list(history)[-HISTORY_TURNS:] if m.get("role") in ("user", "assistant") and m.get("content")]
+    return [{"role": "system", "content": SYSTEM}, *turns,
             {"role": "user", "content": f"<sources>\n{ctx}\n</sources>{note}\n\nQuestion: {question}\n\n"
                                         f"{ANSWER_LANGUAGE[lang]}"}]
 
@@ -175,15 +184,18 @@ def _params() -> dict:
             "max_tokens": CFG["model"]["max_tokens"], **_reasoning()}
 
 
-def generate(question: str, sources: list[dict], missing_ids: list[str] = (), lang: str = "fr") -> str:
-    r = client.chat.completions.create(messages=_messages(question, sources, list(missing_ids), lang), **_params())
+def generate(question: str, sources: list[dict], missing_ids: list[str] = (), lang: str = "fr",
+             history: list[dict] = ()) -> str:
+    r = client.chat.completions.create(messages=_messages(question, sources, list(missing_ids), lang, history),
+                                       **_params())
     return THINK.sub("", r.choices[0].message.content or "").strip()
 
 
-def generate_stream(question: str, sources: list[dict], missing_ids: list[str] = (), lang: str = "fr"):
+def generate_stream(question: str, sources: list[dict], missing_ids: list[str] = (), lang: str = "fr",
+                    history: list[dict] = ()):
     """Same answer as generate(), as ("reasoning" | "content", text) pieces while the model writes, for
     an interface that shows the text (and the model's reasoning) as it comes."""
-    stream = client.chat.completions.create(messages=_messages(question, sources, list(missing_ids), lang),
+    stream = client.chat.completions.create(messages=_messages(question, sources, list(missing_ids), lang, history),
                                             stream=True, **_params())
     for chunk in stream:
         if not chunk.choices:
@@ -245,11 +257,15 @@ def citations(text: str, sources: list[dict]) -> dict:
 ENGLISH = re.compile(r"\b(the|is|are|can|my|what|how|do|does|i am|should|which|who)\b", re.I)
 NOT_FOUND_MESSAGE = {
     "fr": ("Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, "
-           "Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Essaie de reformuler ta question, ou "
-           "pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat."),
+           "Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux "
+           "questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte "
+           "là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent "
+           "les règles propres à ton contrat."),
     "en": ("I could not find the answer in the texts I search (French labour code, immigration code, "
-           "social security code, Service-Public.fr fact sheets and the school regulations). Try asking differently, or ask your "
-           "school or your HR team: they know the rules specific to your contract."),
+           "social security code, Service-Public.fr fact sheets and the school regulations). I answer questions "
+           "about apprenticeship, work and residence rights of students in France. If your question is about "
+           "that, try asking differently, or ask your school or your HR team: they know the rules specific to "
+           "your contract."),
 }
 MISSING_MESSAGE = {"fr": " L'article {ids} ne fait pas partie de ces textes.",
                    "en": " Article {ids} is not among these texts."}
@@ -285,7 +301,7 @@ def not_found_message(lang: str, missing_ids: list[str] = ()) -> str:
     return text
 
 
-def answer(question: str) -> dict:
+def answer(question: str, history: list[dict] = ()) -> dict:
     t0 = time.time()
     # Input guardrail first: personal data masked before any cloud call, injection and distress answered
     # with a fixed message (app/guardrail.py).
@@ -307,7 +323,7 @@ def answer(question: str) -> dict:
     sources = found.sources if found else []
     # The answer language is decided in code: with French sources the model answered English questions
     # in French 9 times out of 9 although the prompt asked for the language of the question.
-    text = generate(question, sources, found.missing_ids if found else [], lang)
+    text = generate(question, sources, found.missing_ids if found else [], lang, history)
     if text.strip().upper().startswith(NOT_FOUND):
         # The model judged the sources insufficient (rule 6 of the prompt): same fixed message.
         return {"answer": not_found_message(lang, found.missing_ids if found else []), "not_found": True,
