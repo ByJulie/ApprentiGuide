@@ -29,9 +29,15 @@ def test_kappa():
 
 def test_judge_messages_contain_texts_and_answer():
     t = {"question": "Q ?", "expected_behaviour": "answer_with_citation", "answer": "ref", "gold_source": ["L1"]}
-    msgs = judge.judge_messages(t, "the answer", {"L1": "texte officiel"})
+    msgs = judge.judge_messages(t, "the answer", {"L1": ["texte officiel"]})
     assert "texte officiel" in msgs[1]["content"] and "the answer" in msgs[1]["content"]
     assert "not in corpus" in judge.judge_messages({**t, "gold_source": ["X9"]}, "a", {})[1]["content"]
+
+
+def test_judge_gets_the_relevant_part_of_a_long_source():
+    chunks = ["intro " * 600, "autre sujet " * 400, "aucune tolérance d'absence pour les alternants"]
+    text = judge.relevant_text(chunks, "tolérance d'absence alternants")
+    assert "aucune tolérance" in text and len(text) <= judge.MAX_SOURCE_CHARS + 20
 
 
 def row(**kw):

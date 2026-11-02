@@ -17,7 +17,7 @@ import argparse, csv, json, os, random, re, sys
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 sys.path.insert(0, ROOT)
 TESTSET = os.path.join(ROOT, "eval", "testset.jsonl")
-MAX_SOURCE_CHARS = 2500
+MAX_SOURCE_CHARS = 6000  # per gold source, chosen chunk by chunk (relevant_text)
 
 JUDGE_PROMPT = """You grade the answers of ApprentiGuide, an assistant for apprentices in France that answers
 from the French labour code and Service-Public.fr. You get the question, the expected behaviour, a reference
@@ -48,20 +48,41 @@ def gold_ids(t: dict) -> list[str]:
 _TEXTS = None
 
 
-def source_texts() -> dict[str, str]:
-    """Citation id -> cleaned text, built from data/raw exactly as ingest.load does (no database)."""
+def source_texts() -> dict[str, list[str]]:
+    """Citation id -> its chunks in document order, built from data/raw exactly as ingest.load does (no database)."""
     global _TEXTS
     if _TEXTS is None:
         from ingest.load import build_chunks
         _TEXTS = {}
         for c in build_chunks():
-            _TEXTS[c.citation_id.upper()] = (_TEXTS.get(c.citation_id.upper(), "") + "\n" + c.text).strip()
+            _TEXTS.setdefault(c.citation_id.upper(), []).append(c.text)
     return _TEXTS
 
 
-def judge_messages(t: dict, answer: str, texts: dict[str, str]) -> list[dict]:
-    sources = "\n\n".join(f"[{g}] {texts.get(g.upper(), '(text not in corpus)')[:MAX_SOURCE_CHARS]}"
-                          for g in gold_ids(t)) or "(none)"
+def words(text: str) -> set[str]:
+    return {w for w in re.findall(r"\w+", text.lower()) if len(w) > 3 or w.isdigit()}
+
+
+def relevant_text(chunks: list[str], query: str) -> str:
+    """The chunks of one source that share the most words with the question, reference and answer, in
+    document order, up to MAX_SOURCE_CHARS. Long pages (F2918 is 32 000 characters) do not fit whole, and
+    their first characters often miss the rule: cut at 2500, F2918 lost the salary table and S01 lost
+    "aucune tolérance" for apprentices, and the judge marked right answers wrong."""
+    q = words(query)
+    ranked = sorted(range(len(chunks)), key=lambda i: -len(q & words(chunks[i])))
+    keep, size = [], 0
+    for i in ranked:
+        if size + len(chunks[i]) > MAX_SOURCE_CHARS and keep:
+            continue
+        keep.append(i)
+        size += len(chunks[i])
+    return "\n[...]\n".join(chunks[i][:MAX_SOURCE_CHARS] for i in sorted(keep))
+
+
+def judge_messages(t: dict, answer: str, texts: dict[str, list[str]]) -> list[dict]:
+    query = f"{t['question']} {t.get('answer') or ''} {answer}"
+    sources = "\n\n".join(f"[{g}] " + (relevant_text(texts[g.upper()], query) if g.upper() in texts
+                                       else "(text not in corpus)") for g in gold_ids(t)) or "(none)"
     user = (f"Question: {t['question']}\nExpected behaviour: {t.get('expected_behaviour')}\n"
             f"Reference answer: {t.get('answer')}\n\nOfficial texts:\n{sources}\n\n"
             f"Assistant's answer:\n{answer}")
@@ -105,7 +126,8 @@ def judge(t: dict, answer: str, client=None, model: str | None = None) -> dict:
     """Verdict on one answer. Only for questions with an answer (NOT FOUND is checked in code)."""
     if client is None:
         client, model = client_and_model()
-    r = client.chat.completions.create(model=model, temperature=0, max_tokens=1500,
+    # 1000: output tokens per minute allowed for the judge model on Groq (D30); a verdict is 50 to 100 tokens
+    r = client.chat.completions.create(model=model, temperature=0, max_tokens=1000,
                                        messages=judge_messages(t, answer, source_texts()))
     return parse_verdict(r.choices[0].message.content)
 
@@ -141,8 +163,14 @@ def cohen_kappa(a: list[bool], b: list[bool]) -> float:
 
 def cmd_rejudge(args):
     from eval.eval import rate
-    run = json.load(open(args.run, encoding="utf-8"))
-    judge_rows(run["rows"], load_tests())
+    from app.pipeline import cited_ids
+    run, tests = json.load(open(args.run, encoding="utf-8")), load_tests()
+    for r in run["rows"]:  # gold sources may have changed since the run (testset_review.csv): cited_gold again
+        gold = {g.upper() for g in gold_ids(tests[r["id"]])} if r["id"] in tests else set()
+        if gold and r.get("cited_gold") is not None:
+            r["cited_gold"] = bool(gold & set(cited_ids(r["answer"])))
+    run["report"]["cited_gold"] = rate([r.get("cited_gold") for r in run["rows"]])
+    judge_rows(run["rows"], tests)
     for key in ("judge_correct", "correct_and_cited"):
         run["report"][key] = rate([r.get(key) for r in run["rows"]])
     out = args.out or args.run.replace(".json", "_judged.json")

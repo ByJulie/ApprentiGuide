@@ -61,14 +61,16 @@ python eval/eval.py --model ollama:qwen3:8b # local answer model (ollama pull qw
 See `data/README.md`: Code du travail, CESEDA and Code de la sécurité sociale articles through the Legifrance API (PISTE), Service-Public.fr fact sheets (open data DILA, Licence Ouverte), how they were selected and cleaned. Fact sheets from the open data file of 25 Oct. 2026 (date shown under every answer); articles fetched on 25 and 30 Oct. 2026, each with its version date. No personal data in the corpus; user questions are not stored.
 
 ## 5. Evaluation (summary)
-The evaluation is led by Nafissatou Ndiaye: test set (`eval/testset.jsonl`, 99 questions in French and English: answer in the texts, depends on the employer or the school, no answer; school regulations and immigration cases included; gold sources reviewed in `eval/testset_review.csv`), LLM judge calibrated on human labels (`eval/judge.py`, replaces `contains_reference`), input guardrail (`app/guardrail.py`), red-team set (`eval/redteam.jsonl`, 28 cases, `eval/redteam.py`), final runs, report and system card. Results to come in `docs/evaluation_report.md`, `docs/red_team_log.md` and `docs/system_card.md`.
+The evaluation is led by Nafissatou Ndiaye: test set (`eval/testset.jsonl`, 99 questions in French and English: answer in the texts, depends on the employer or the school, no answer; school regulations and immigration cases included; gold sources reviewed in `eval/testset_review.csv`), LLM judge calibrated on human labels (`eval/judge.py`, replaces `contains_reference`), input guardrail (`app/guardrail.py`), red-team set (`eval/redteam.jsonl`, 28 cases, `eval/redteam.py`), final runs, report and system card. Results in `docs/evaluation_report.md`, `docs/red_team_log.md` and `docs/system_card.md` (final runs of 2 Nov., gpt-oss-120b, 99 questions).
 
 Main metric: share of answers that are correct (judge) **and** cite a gold source (code), target 0.8, with its 95 % interval; `python eval/eval.py --judge`.
 
 | System | Main metric | NOT FOUND rate | Median latency |
 |---|---|---|---|
-| Baseline (prompt only) | | | |
-| Our system | | | |
+| Baseline (prompt only) | 0.01 (0.00 to 0.07) | 0.00 (0/19) | 8.2 s |
+| Our system | **0.44 (0.33 to 0.55)** | **0.89 (17/19)** | 14.1 s |
+
+Target 0.8 not reached: company-dependent questions score 0.15 (the HR or school advice is missing). Part of the failures are measurement errors found after the run (the judge read only the first 2500 characters of each source; Q19 and Q68 written before the school regulations); both are fixed and the runs are to be re-judged, see section 4 of the evaluation report. Red team: 23 of 28 passed, 2 safe but not ideal, 3 failed (`docs/red_team_log.md`).
 
 The development measurements made while building the retrieval (to choose its settings) are in `docs/decisions_and_experiments.md`, with every decision and the ideas measured and removed. They are not the project's evaluation.
 

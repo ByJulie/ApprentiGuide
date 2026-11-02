@@ -1,6 +1,6 @@
 # Evaluation report
 
-Evaluation lead: Nafissatou Ndiaye. Values marked **TBD** are filled from the final runs (commands in section 7).
+Evaluation lead: Nafissatou Ndiaye. Scores from the final runs of 2 Nov. (commands in section 7).
 
 ## 1. Test set
 - **Main set** (`eval/testset.jsonl`): 99 questions, 78 in French and 21 in English, in three families:
@@ -12,7 +12,7 @@ Evaluation lead: Nafissatou Ndiaye. Values marked **TBD** are filled from the fi
   - **Immigration** (Q71 to Q73, CESEDA: working too many hours on a student card, staying to look for a job after a master's degree, a card that expires during the contract). For these and Q19, Q66, Q67, A04 (`refer_international` in the file), the answer must give the rule **and** send the student to the school's international office. The referral is added in code when the answer cites a source about foreign students (`international_referral` in `app/pipeline.py`) and is checked in code (`referred_international` in the report).
 - **How it was built.** 70 questions written by the evaluation lead from the point of view of apprentices, job seekers and international students (paraphrases, SMS spelling, English), plus 11 proposed by the retrieval lead (A01 to A11) and accepted. Key case: Q19, *"I am a first-year international student in the PGE. Can I do an apprenticeship this year?"*.
 - **Review of the gold sources** (`eval/testset_review.csv`, applied by `eval/review_testset.py`). Every gold source was checked against the corpus: 21 of the lead's sources were wrong or too narrow (for example Q26 cited L6222-34, about sitting the exams, instead of L6222-24) and were corrected; 38 sources proposed by the retrieval lead were accepted after checking their quote word for word in the official text; placeholders were replaced; reference answers were rewritten from the texts (figures, durations, conditions). One proposal was refused (Q20 keeps L6222-24, which does answer the question).
-- **Hold-out set** (`eval/testset_holdout.jsonl`, **TBD**): questions collected from students through an anonymous form, written down before any run and never used to tune the system. See section 6.
+- **Hold-out set** (`eval/testset_holdout.jsonl`): planned, **not collected** before the demo (questions from students through an anonymous form, written down before any run and never used to tune the system). Without it, every score of this report is on a set used during development; see section 6.
 
 ## 2. Metrics
 | Metric | Definition | Target |
@@ -54,27 +54,49 @@ The 5 disagreements left were kept as labelled:
 The judge is a little stricter on invented details and a little more lenient on incomplete answers. Some of its reasons are wrong even when its verdict agrees (it called L6223-8 "non-existent" when the article was only absent from the texts it was given), which is why its verdicts are counted but its reasons are not used as proof. Limits: one annotator; 20 of the 40 answers come from a Qwen model, the judge's family (the final answer model is gpt-oss).
 
 ## 3. Baseline vs system
-Same answer model (gpt-oss-120b on Groq), same questions, same judge.
+Final runs of 2 Nov. (`eval/runs/final_system.json`, `eval/runs/final_baseline.json`): same answer model (gpt-oss-120b on Groq, temperature 0), same 99 questions, same judge. The baseline is the model with a prompt and no documents (`prompts/baseline_no_documents.txt`, D30). 80 questions have an answer, 19 do not; no question was left out (`corpus_gaps` empty: the regulation files were loaded).
 
 | System | Correct and cited (95 % CI) | Correct, judge only | NOT FOUND when no answer | Answered when answerable | Invented citations | Median latency |
 |---|---|---|---|---|---|---|
-| Baseline: model alone, no documents | TBD (no citation possible) | TBD | TBD | TBD | n/a | TBD |
-| ApprentiGuide (hybrid retrieval + reranker + abstention, prompt v2) | **TBD** | TBD | TBD | TBD | TBD | TBD |
-| Same, hold-out set | TBD | TBD | TBD | TBD | TBD | TBD |
+| Baseline: model alone, no documents | 0.01 (0.00 to 0.07), 1/80 | 0.19 (0.12 to 0.29) | 0.00 (0 to 0.17), 0/19 | 1.00 | n/a (no sources to cite) | 8.2 s |
+| ApprentiGuide (hybrid retrieval + reranker + abstention, prompt v2) | **0.44 (0.33 to 0.55), 35/80** | 0.55 (0.44 to 0.65) | **0.89 (0.69 to 0.97), 17/19** | 0.96 (0.90 to 0.99) | 1/99 (Q62) | 14.1 s |
+| Same, hold-out set | not run (no hold-out set collected) | | | | | |
 
-Per family and per language: **TBD** (`by_tag` in the report).
+Retrieval and citations of the same run, checked in code: a gold source among the 5 passages **0.86** (0.77 to 0.92); a gold source cited 0.69 (0.58 to 0.78). Immigration questions: the referral to the school's international service is in 6 of 7 answers (Q19 missing, see section 4).
 
-Development measurements by the retrieval lead (`docs/decisions_and_experiments.md`), for context only (made on this test set while tuning, with gold sources not yet validated): Recall@5 0.87 (0.76 to 0.93) on 61 questions; cited gold 0.70 (0.52 to 0.84) and 0 invented citations on 37 answers; NOT FOUND 8/9.
+| Subset (system) | n | Correct and cited | Correct, judge only | Baseline, judge only |
+|---|---|---|---|---|
+| in_corpus | 54 | 0.57 (0.44 to 0.70) | 0.72 (0.59 to 0.82) | 0.09 |
+| company_dependent | 26 | 0.15 (0.06 to 0.34) | 0.19 (0.09 to 0.38) | 0.38 |
+| French | 64 | 0.45 (0.34 to 0.57) | 0.58 | 0.20 |
+| English | 16 | 0.38 (0.19 to 0.61) | 0.44 | 0.13 |
+| School regulations (S) | 13 | 0.46 (0.23 to 0.71) | 0.54 | 0.00 |
+
+**What this says.** Against the model alone, the documents make the difference on everything that can be checked: 0.44 against 0.01 correct and cited, 0.55 against 0.19 correct for the judge (the intervals do not overlap), and 17 of 19 abstentions against none (the model alone answers every question about the school calendar, fees or a company's salary, often with an invented figure). The target of 0.8 is **not reached**. The weak point is the `company_dependent` family (0.15): the rule is often right, the "ask your HR / school" part is missing, and the model alone, which says "ask your HR" by default, does better than the system on this family (0.38 against 0.19 for the judge). Read the scores with section 4: part of the failures are measurement errors (the judge did not see the whole text, a correct source that is not in the gold list).
+
+Development measurements by the retrieval lead (`docs/decisions_and_experiments.md`), for context only (made on this test set while tuning, with gold sources not yet validated): Recall@5 0.87 (0.76 to 0.93) on 61 questions; cited gold 0.70 (0.52 to 0.84) and 0 invented citations on 37 answers; NOT FOUND 8/9. The final run gives the same retrieval figure on 80 questions (0.86).
 
 ## 4. Error analysis
-**TBD** from the final run: count per type, one example each. Types already seen in development:
-- **Company-dependent answered NOT FOUND** (Q58 bonus, Q16 company health plan): the source that states "same rights as the other employees" is not retrieved.
-- **Different question answered** (Q36: legal 35 h given when the maximum was asked).
-- **Language** (English questions answered in French): fixed in code (D14), to be checked.
-- **Wrong abstention** (a question about the user's own contract number found F2918 with a high score).
+The 45 system answers that are not "correct and cited", read one by one against the texts, each counted once under its main type:
+
+| Type | Count | Example |
+|---|---|---|
+| **Wrong, unsupported or incomplete content** | 16 | Q61 (an invented 15-day period, D3142-16), Q62 (cites "L2327", the only invented citation), Q72 (L422-14 and "within four years"), S04 (a "48 hours" deadline from F303 that the school rules do not set), Q31 (night-work hours of minors missing). Some of these verdicts may also come from the cut text below; the re-judging will tell. |
+| **Correct, but cites a valid source that is not in the gold list** | 9 | Q01: right ages and exceptions, cites F2918 (the Service-Public page on the apprentice contract) and not L6222-1. Gold lists were kept as written before the run: adding sources after reading the answers would raise the score without a new measurement. |
+| **Rule without the HR / school advice** (company_dependent) | 6 | Q60 (commute): right rule, cites L3261-2, no "ask HR about other modes"; also Q44, Q59, Q64, Q69, Q70. The prompt does not ask for this part, and it is why the family scores 0.15. |
+| **Judge did not see the text that proves the answer** | 6, confirmed by reading | S01: the answer "no tolerance of absence for apprentices" is right (aivancity-RP-4.1.4), but the judge cut each source at 2500 characters and the sentence is at character 2806; same for S12 (deduction from pay, character 2938), Q39 (aid amounts at character 3487 of F23556), Q02, Q29, A01 (F2918 is 32 000 characters). 48 of the 80 answers have a gold source longer than 2500 characters. Fixed after the run, see below. |
+| **Different question answered, gold not retrieved** | 3 | Q03 and Q33 (trial period: L6222-18 not among the 5 passages, the answer gives the period after the contract), Q36 (35 h legal duration when the maximum 48 h was asked). |
+| **NOT FOUND on an answerable question** | 3 | Q16 (company health plan), Q41, Q57. The other way, Q14 and Q53 were answered when no answer was expected (the 2 of 19 in section 3). |
+| **Test set written before the school regulations** | 2 | Q19 (the key case) and Q68: the system answers "not in first year, the PGE has apprenticeship in years 4 and 5" (aivancity-RP-3.3.9), which is right for aivancity; the reference answers did not know this rule. Found on reading the final run; both now have RP-3.3.9 as gold source and a rewritten reference (`testset_review.csv`, note in `review_note`). Q19 also lacks the referral, because the referral follows the cited source and RP-3.3.9 is not an immigration text. |
+
+**Changes after the run, to be measured again.** Two of these are measurement errors, not system errors, and were fixed in the evaluation (not in the system):
+- **The judge** now gets, for each gold source, the chunks that share the most words with the question, the reference and the answer, up to 6000 characters, instead of the first 2500 characters (`relevant_text` in `eval/judge.py`, test in `tests/test_eval_tools.py`). Because the judge changed, it must be **calibrated again** on the 40 labels before its verdicts are used (`python eval/judge.py calibrate`), then the two runs re-judged (`python eval/judge.py rejudge`, which also recomputes `cited_gold` with the current gold lists). Scores above are those of the run as it was made; re-judged scores: **pending** (the judge's daily quota on Groq was used by the final runs).
+- **Q19 and Q68**, as said in the table.
+
+What would raise the score, not done before the demo: a prompt rule "for a question that depends on the employer or the school, end with what to ask them"; retrieval of L6222-18 for trial-period questions.
 
 ## 5. Cost and latency
-Free Groq plan: about 3000 tokens per answered question, 200 000 tokens per day and per model, so about 60 full answers per day and per key. Judge: about 2000 tokens per answer. **TBD**: median latency of the final run, cost at expected volume.
+Median **14.1 s** per answer for the system (90th percentile 23 s), 8.2 s for the model alone: retrieval, reranking on the CPU and the rewrite of the question (an extra model call) cost about 6 s. Free Groq plan: about 3000 tokens per answered question, 200 000 tokens per day and per model, so about 60 full answers per day and per key; the final run of 99 questions needed several keys (key rotation, `app/keys.py`). Judge: about 2000 to 4000 tokens per answer (longer since it reads more of each source). At the expected volume of a school (a few hundred questions a day), the free plan is not enough: a paid plan, or a smaller model served locally for the answer step.
 
 ## 6. Limits of this evaluation and how we handled them
 - **The abstention threshold and the gold additions were tuned on this test set**, and gold sources were added after reading what the system retrieved: both make the scores optimistic. Answer: the **hold-out set**, collected from students and fixed before any run, and the `--lead-gold-only` option (gold sources set before seeing results).
@@ -88,7 +110,9 @@ Free Groq plan: about 3000 tokens per answered question, 200 000 tokens per day 
 python eval/review_testset.py --check                                  # quotes of the gold sources still in the texts
 python eval/judge.py calibrate eval/labels/labels.csv                  # judge vs human labels
 python eval/eval.py --model openai/gpt-oss-120b --prompt prompts/system_v2.txt --judge --out eval/runs/final_system.json
-python eval/eval.py --model openai/gpt-oss-120b --baseline --judge --out eval/runs/final_baseline.json
+python eval/eval.py --model openai/gpt-oss-120b --prompt prompts/baseline_no_documents.txt --baseline --judge --out eval/runs/final_baseline.json
+python eval/judge.py rejudge eval/runs/final_system.json      # after a new calibration: verdicts with the fixed judge
+python eval/judge.py rejudge eval/runs/final_baseline.json
 python eval/eval.py --model openai/gpt-oss-120b --prompt prompts/system_v2.txt --judge --testset eval/testset_holdout.jsonl --out eval/runs/final_holdout.json
 python eval/redteam.py --model openai/gpt-oss-120b
 ```
