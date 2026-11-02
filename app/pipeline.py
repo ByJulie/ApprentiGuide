@@ -316,7 +316,7 @@ REFERRAL = {
 
 
 def international_referral(refs: dict, lang: str) -> str:
-    """Referral to the international office when the answer cites an immigration source, else ""."""
+    """Referral to the school's service for international students when the answer cites an immigration source, else ""."""
     return "\n\n" + REFERRAL[lang] if any(s.get("international") for s in refs.get("cited", [])) else ""
 
 
