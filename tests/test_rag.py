@@ -288,3 +288,10 @@ def test_retriever_reopens_a_closed_database_connection(monkeypatch):
     monkeypatch.setattr(r, "_retrieve", fake_retrieve)
     monkeypatch.setattr(r, "connect", lambda: calls.__setitem__("connect", calls["connect"] + 1))
     assert r("question") == "found" and calls == {"connect": 1, "retrieve": 2}
+
+
+def test_sources_listed_only_in_the_models_final_line_still_give_cards(monkeypatch):
+    _, text, _, events = _stream_client(monkeypatch, [("content", "Oui, sous conditions.\n\nSources :\n[L6222-35]")])
+    assert text.startswith("Oui, sous conditions.") and "[L6222-35]" not in text.split("**Sources**")[0]
+    assert [e["data"]["source"]["name"] for e in events if e["type"] == "source"] == ["L6222-35"]
+    assert "[1] Article L6222-35" in text

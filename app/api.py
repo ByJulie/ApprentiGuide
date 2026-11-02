@@ -236,6 +236,10 @@ def answer_events(question: str, history: list[dict]):
     if len(visible) > shown:
         yield {"content": visible[shown:]}
     refs = pipeline.citations(answer_text, sources)
+    if not refs["cited"]:
+        # The model sometimes cites only in its own final "Sources:" line, which is not shown: its ids are
+        # still checked against the retrieved texts, so the cards, versions and referral are not lost.
+        refs = pipeline.citations(text, sources)
     for s in refs["cited"]:  # same order as the numbers: order of first citation
         yield {"event": {"type": "source", "data": source_card(s, answer_text)}}
     if referral := pipeline.international_referral(refs, lang):
