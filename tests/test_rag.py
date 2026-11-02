@@ -348,3 +348,13 @@ def test_answer_display_in_english_without_em_dashes():
     s = {"id": "F2918", "url": "https://x", "source_label": "Service-Public.fr/DILA", "version_date": "2026-09-08"}
     assert "Fact sheet F2918" in api.versions_line([s], lang="en") and "updated on 08/09/2026" in api.versions_line([s], lang="en")
     assert "Always check with your school or HR" in api.footer("en") and "Vérifie" in api.footer("fr")
+
+
+def test_cited_id_with_another_letter_is_the_retrieved_one():
+    from app import pipeline
+    src = lambda i: {"id": i, "source_label": "x", "url": "u", "version_date": None, "text": "t"}
+    refs = pipeline.citations("Yes [L5221-7]. Leave [L2327].", [src("R5221-7"), src("F2327"), src("F2713")])
+    assert [c["id"] for c in refs["cited"]] == ["R5221-7", "F2327"] and refs["invented"] == []
+    # two candidates, or no candidate: not guessed
+    refs = pipeline.citations("[L100-1] [L999-9]", [src("R100-1"), src("D100-1")])
+    assert refs["cited"] == [] and refs["invented"] == ["L100-1", "L999-9"]

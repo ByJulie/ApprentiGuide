@@ -231,6 +231,16 @@ def cited_ids(text: str) -> list[str]:
     return out
 
 
+def matched_id(ref: str, known) -> str | None:
+    """The retrieved id a citation means. Models sometimes change the letter of an id they were given
+    ([L5221-7] for R5221-7, [L2327] for F2327): when exactly one retrieved id has the same number with
+    another of the letters L, R, D or F, it is that one. Otherwise None (the citation stays unverified)."""
+    if ref in known:
+        return ref
+    near = [k for k in known if k[:1] in "LRDF" and ref[:1] in "LRDF" and k[1:] == ref[1:]]
+    return near[0] if len(near) == 1 else None
+
+
 def _title(s: dict) -> str:
     return ((s.get("passages") or [{}])[0].get("title") or s.get("title") or "") if not s.get("url") else ""
 
@@ -272,7 +282,7 @@ def citations(text: str, sources: list[dict]) -> dict:
                                                     "international": s.get("international", False),
                                                     "passages": []})
         entry["passages"].append({"title": s.get("title"), "text": s["text"]})
-    ids = cited_ids(text)
+    ids = list(dict.fromkeys(matched_id(i, by_id) or i for i in cited_ids(text)))
     return {"cited": [by_id[i] for i in ids if i in by_id],
             "consulted": [e for i, e in by_id.items() if i not in ids],
             "invented": [i for i in ids if i not in by_id]}

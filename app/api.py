@@ -135,7 +135,7 @@ def render(out: dict) -> str:
     if refs.get("cited"):
         parts.append(versions_line(refs["cited"], links=True, lang=lang))  # no source cards outside a chat interface
     if refs.get("invented"):
-        parts.append(f"\n⚠️ Citation non vérifiée (absente des textes trouvés) : {', '.join(refs['invented'])}")
+        parts.append(UNVERIFIED.get(lang, UNVERIFIED["fr"]).format(ids=", ".join(refs["invented"])))
     return "\n".join(parts) + footer(lang)
 
 
@@ -202,8 +202,8 @@ def numbered(text: str, known: set[str], final: bool = False) -> str:
     order: list[str] = []
 
     def number(match):
-        ids = pipeline.cited_ids(match.group(0))
-        if not ids or any(i not in known for i in ids):
+        ids = [pipeline.matched_id(i, known) for i in pipeline.cited_ids(match.group(0))]
+        if not ids or None in ids:
             return match.group(0)
         for i in ids:
             if i not in order:
@@ -222,6 +222,10 @@ STATUS = {
            "none": "No text answers this question", "writing": "{n} texts found, writing the answer…",
            "weak": "The texts found do not answer this question", "done": "Answer based on {n} text(s)"},
 }
+
+
+UNVERIFIED = {"fr": "\n\n⚠️ Citation non vérifiée (absente des textes trouvés) : {ids}",
+              "en": "\n\n⚠️ Unverified citation (not among the texts found): {ids}"}
 
 
 def say(key: str, lang: str) -> str:
@@ -292,7 +296,7 @@ def answer_events(question: str, history: list[dict]):
     if referral := pipeline.international_referral(refs, lang):
         yield {"content": referral}
     if refs["invented"]:
-        yield {"content": f"\n\n⚠️ Citation non vérifiée (absente des textes trouvés) : {', '.join(refs['invented'])}"}
+        yield {"content": UNVERIFIED.get(lang, UNVERIFIED["fr"]).format(ids=", ".join(refs["invented"]))}
     yield {"content": versions_line(refs["cited"], lang=lang) + footer(lang)}
     yield status(say("done", lang).format(n=len(refs["cited"])), done=True)
 
