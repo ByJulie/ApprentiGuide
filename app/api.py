@@ -13,7 +13,7 @@ import re
 import time
 import uuid
 
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.responses import StreamingResponse
 
 import guardrail
@@ -255,6 +255,16 @@ def answer_events(question: str, history: list[dict]):
         yield {"content": f"\n\n⚠️ Citation non vérifiée (absente des textes trouvés) : {', '.join(refs['invented'])}"}
     yield {"content": versions_line(refs["cited"]) + footer()}
     yield status(f"Réponse fondée sur {len(refs['cited'])} texte(s)", done=True)
+
+
+@app.post("/v1/audio/transcriptions")
+def transcriptions(file: UploadFile = File(...), model: str = Form(""), language: str | None = Form(None)):
+    """Speech-to-text for the chat interface (Open WebUI microphone), OpenAI format: our local Whisper
+    (app/voice.py: small model, voice activity detection, French or English, domain words), instead of
+    Open WebUI's default (base model, no VAD, any language). The audio is read in memory, never stored."""
+    from voice import transcribe
+    heard = transcribe(file.file.read(), (language or "").lower() or None)
+    return {"text": heard["text"], "language": heard["language"]}
 
 
 @app.get("/v1/models")

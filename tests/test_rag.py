@@ -313,3 +313,24 @@ def test_school_regulations_are_shown_by_readable_name_not_internal_id():
     assert card["source"]["name"] == "Règlement pédagogique 2025-2026, section 3.3.9"
     assert "aivancity-RP" not in api.versions_line([s]) and "version du 02/05/2025" in api.versions_line([s])
     assert card["document"][0].startswith("Règlement pédagogique 2025-2026, section 3.3.9, version du 02/05/2025")
+
+
+def test_transcription_endpoint_uses_our_voice_module(monkeypatch):
+    import sys, os, types
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "app"))
+    from fastapi.testclient import TestClient
+    import api
+    fake = types.SimpleNamespace(transcribe=lambda audio, language=None: {"text": f"{len(audio)} octets {language}", "language": "fr"})
+    monkeypatch.setitem(sys.modules, "voice", fake)
+    r = TestClient(api.app).post("/v1/audio/transcriptions", files={"file": ("q.webm", b"abc", "audio/webm")},
+                                 data={"model": "whisper", "language": "FR"})
+    assert r.json() == {"text": "3 octets fr", "language": "fr"}
+
+
+def test_segments_whisper_judges_without_speech_are_dropped():
+    import sys, os, types
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "app"))
+    from voice import speech_segments
+    seg = lambda p, lp, t: types.SimpleNamespace(no_speech_prob=p, avg_logprob=lp, text=t)
+    kept = speech_segments([seg(0.1, -0.3, "Combien de jours ?"), seg(0.9, -1.5, "Merci d'avoir regardé"), seg(0.9, -0.2, "oui")])
+    assert [s.text for s in kept] == ["Combien de jours ?", "oui"]

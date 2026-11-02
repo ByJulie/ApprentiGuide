@@ -12,7 +12,7 @@ model:
   # gpt-oss is a reasoning model: its reasoning tokens count in max_tokens, 400 cut answers short
   max_tokens: 2000
   reasoning_effort: low
-prompt_file: prompts/system_v1.txt
+prompt_file: prompts/system_v2.txt   # the prompt evaluated for 3 Nov. (v1 kept for comparison)
 corpus_snapshot: 2026-10-25   # date of the data files (Licence Ouverte: cite the source and its date)
 rewrite:              # French version of the question (app/pipeline.py), about 200 tokens per call.
   # Not llama3.2: it answered instead of translating (E6). gpt-oss-120b has its own Groq quota.

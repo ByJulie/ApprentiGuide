@@ -18,4 +18,5 @@ uvicorn==0.54.0
 faster-whisper==1.2.1
 av==15.1.0   # faster-whisper 1.2.1 fails with av 19 (open() got an unexpected keyword argument metadata_errors)
 httpx==0.28.1
+python-multipart==0.0.32   # audio upload (app/api.py /v1/audio/transcriptions)
 pypdf==6.7.1   # school regulations (ingest/regulations.py)
