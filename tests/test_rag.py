@@ -368,4 +368,4 @@ def test_footer_names_what_the_answer_used():
     assert "Service-Public.fr, à jour au" in api.footer("fr", [law]) and "règlement" not in api.footer("fr", [law])
     assert "et du règlement de l'école" in api.footer("fr", [law, school])
     assert "From the school regulations." in api.footer("en", [school])
-    assert "Textes consultés" in api.footer("fr") and "Texts searched" in api.footer("en")
+    assert api.footer("fr") == "" and api.footer("en") == ""  # NOT FOUND: the message names the texts searched

@@ -87,12 +87,8 @@ def footer(lang: str = "fr", cited: list[dict] = ()) -> str:
     the README) and what to do before deciding, in words a student understands."""
     date = french_date(str(pipeline.CFG.get("corpus_snapshot", "")))
     school = [bool(not c.get("url")) for c in cited]  # the school regulations have no public page
-    if not cited:  # NOT FOUND or a fixed answer: nothing was used, say what was searched
-        if lang == "en":
-            return (f"\n\n---\n*Texts searched: French Labour Code, Service-Public.fr (up to date as of {date}) "
-                    f"and the school regulations.*")
-        return (f"\n\n---\n*Textes consultés : Code du travail, Service-Public.fr (à jour au {date}) "
-                f"et règlement de l'école.*")
+    if not cited:  # NOT FOUND: no text was used, and the message already says which texts were searched
+        return ""
     if lang == "en":
         origin = ("From the school regulations" if school and all(school) else
                   f"From the official texts (French Labour Code, Service-Public.fr, up to date as of {date})"
