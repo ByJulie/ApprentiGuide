@@ -7,15 +7,20 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 sys.path.insert(0, ROOT)
 CFG = yaml.safe_load(open(os.path.join(ROOT, "config.yaml")))
 load_dotenv(os.path.join(ROOT, ".env"))
-key_env = CFG["model"].get("api_key_env", "none")
-# Ollama ignores the key; cloud endpoints need the one named in config.yaml (checked on first call)
-client = OpenAI(base_url=CFG["model"]["base_url"],
-                api_key="ollama" if key_env == "none" else os.environ.get(key_env) or "missing",
-                max_retries=6)  # the free plan answers 429 when calls come in a burst (evaluation runs)
-def _client(cfg: dict) -> OpenAI:
+
+
+def _client(cfg: dict):
+    """Client of a config.yaml section. Ollama ignores the key; a cloud endpoint uses the key named in
+    config.yaml and its numbered spares (GROQ_API_KEY_2...) when a daily limit is reached (app/keys.py).
+    max_retries: the free plan answers 429 when calls come in a burst (evaluation runs)."""
     env = cfg.get("api_key_env", "none")
-    return OpenAI(base_url=cfg["base_url"], max_retries=6,
-                  api_key="ollama" if env == "none" else os.environ.get(env) or "missing")
+    if env == "none":
+        return OpenAI(base_url=cfg["base_url"], api_key="ollama", max_retries=6)
+    from app.keys import rotating_client
+    return rotating_client(cfg["base_url"], env, max_retries=6)
+
+
+client = _client(CFG["model"])
 
 
 # The rewrite can use its own (local) model: section rewrite of config.yaml, else the answer model.

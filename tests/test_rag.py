@@ -201,3 +201,31 @@ def test_chat_title_is_the_start_of_the_first_question():
     task = "### Task:\nGenerate a concise title\n### Chat History:\n<chat_history>\nUSER: combien de jours de congés pour mes examens en tant qu'apprenti ?\nASSISTANT: 5 jours\n</chat_history>"
     assert api.chat_title(task) == "Combien de jours de congés pour mes examens en…"
     assert api.chat_title("### Task: title") == "ApprentiGuide"
+
+
+def test_rotating_client_switches_key_on_daily_limit_only(monkeypatch):
+    import httpx
+    from openai import RateLimitError
+    from app.keys import RotatingClient, keys_from_env
+    monkeypatch.setenv("TEST_KEY", "a"); monkeypatch.setenv("TEST_KEY_2", ""); monkeypatch.setenv("TEST_KEY_3", "c")
+    assert keys_from_env("TEST_KEY") == ["a", "c"]
+    response = httpx.Response(429, request=httpx.Request("POST", "https://x"))
+    calls = []
+    def fake_create(key, message):
+        def create(**kwargs):
+            calls.append(key)
+            if message:
+                raise RateLimitError(message, response=response, body=None)
+            return "ok"
+        return create
+    client = RotatingClient("https://x", ["a", "c"])
+    client._clients[0].chat.completions.create = fake_create("a", "Rate limit reached on tokens per day (TPD): Limit 200000")
+    client._clients[1].chat.completions.create = fake_create("c", None)
+    assert client.chat.completions.create(model="m") == "ok" and calls == ["a", "c"] and client.index == 1
+    minute = RotatingClient("https://x", ["a", "c"])
+    minute._clients[0].chat.completions.create = fake_create("a", "Rate limit reached on tokens per minute (TPM)")
+    try:
+        minute.chat.completions.create(model="m")
+        assert False, "a per-minute limit must not switch keys"
+    except RateLimitError:
+        assert minute.index == 0
