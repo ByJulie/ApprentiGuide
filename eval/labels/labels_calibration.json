@@ -1,0 +1,47 @@
+{
+  "judge_model": "qwen/qwen3.8-27b",
+  "n": 40,
+  "agreement": 0.875,
+  "kappa": 0.742,
+  "human_correct_rate": 0.4,
+  "judge_correct_rate": 0.425,
+  "judge_too_lenient": 3,
+  "judge_too_strict": 2,
+  "disagreements": [
+    {
+      "id": "Q08",
+      "run": "2026-10-30_answers37_120b_prompt-v1.json",
+      "human": false,
+      "judge": true,
+      "reason": "The assistant provides the correct percentage (43% of SMIC) for a 19-year-old apprentice in their first year, which aligns with the official text D6222-26 and the reference answer. Although the citation [F2918] is not the specific article defining the percentage (D6222-26 is), the factual content is correct and consistent with the law."
+    },
+    {
+      "id": "Q29",
+      "run": "2026-10-30_answers37_120b_prompt-v1.json",
+      "human": false,
+      "judge": true,
+      "reason": "The assistant correctly identifies the percentage (61% of SMIC) for a 22-year-old in the second year, which matches the official text D6222-26. Although it omits the condition regarding the conventional minimum wage ('ou, s'il est supérieur, du salaire minimum conventionnel'), it provides the key legal figure and does not contradict the texts. The specific euro amount is extra detail that does not invalidate the core legal fact."
+    },
+    {
+      "id": "Q05",
+      "run": "2026-10-31_answers37_qwen3-8b-think_prompt-v2.json",
+      "human": false,
+      "judge": true,
+      "reason": "The assistant correctly states the key fact that the employer must cover at least 50% of the transport subscription cost, which aligns with the reference answer and the official texts (specifically R3261-1 which sets the 50% rule, even though only L3261-2 was provided in the prompt, the assistant's citation of R3261-1 is legally accurate and supports the 50% figure). The additional details about monthly reimbursement and collective agreements are correct and do not contradict the law."
+    },
+    {
+      "id": "Q39",
+      "run": "2026-10-31_answers37_qwen3-8b-think_prompt-v2.json",
+      "human": true,
+      "judge": false,
+      "reason": "The assistant's answer is incorrect because it cites specific financial amounts (5,000 € for 'aide unique', 1,000 € for 'aide forfaitaire') and conditions that are not present in the provided official text [F23556]. The provided text only outlines the eligibility conditions (dates, employee count, diploma level) and does not specify the monetary values or the existence of a 'aide forfaitaire' distinct from the 'aide unique'. Furthermore, the assistant mentions a '3%' threshold for large companies, whereas the text only specifies a '5%' threshold. Since the answer contains facts not supported by the provided texts and potentially contradicts the scope of the provided reference, it is judged incorrect."
+    },
+    {
+      "id": "Q31",
+      "run": "2026-10-31_answers37_qwen3-8b-think_prompt-v2.json",
+      "human": true,
+      "judge": false,
+      "reason": "The assistant's answer is incorrect because it misattributes the derogations for night work. It claims derogations exist for 'construction, public works, or landscaping sectors' based on [L6222-26], but these sectors are actually listed in [F2216] regarding maximum daily/weekly working hours (10h/40h), not night work. The official text [L6222-26] refers to derogations under [L3163-2] for specific establishments (typically hospitality/food service), not construction. Additionally, the assistant cites [F13887] for the specific list of sectors allowing Sunday work for minors, whereas [F2216] provides the specific list (hospitality, bakery, etc.) and the 2-day rest rule; [F13887] is a general guide on Sunday work for adults."
+    }
+  ]
+}

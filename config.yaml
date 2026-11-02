@@ -23,7 +23,7 @@ judge:                # eval/judge.py: grades the answers (replaces contains_ref
   # Not the answer model (gpt-oss): an LLM tends to prefer its own answers. Check the name on
   # console.groq.com/docs/models; JUDGE_MODEL=ollama:qwen3:8b judges locally instead.
   base_url: https://api.groq.com/openai/v1
-  name: llama-3.3-70b-versatile
+  name: qwen/qwen3.8-27b   # llama-3.3-70b-versatile was removed from Groq; the only non-gpt-oss chat model left
   api_key_env: GROQ_API_KEY
 retrieval:            # rag/retrieve.py
   enabled: true

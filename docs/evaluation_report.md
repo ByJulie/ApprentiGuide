@@ -25,9 +25,30 @@ Every rate is given with its **95 % Wilson interval**: 16/20 is "between 58 % an
 
 **Why a judge.** The starter metric `contains_reference` checks whether the reference answer appears word for word in the answer: on the two development answer runs it scored **0/27 and 0/28** (95 % CI 0 to 0.13), while the same answers cited a gold source 0.70 and 0.68 of the time; A03, which gives the right "cinq jours ouvrables", is marked wrong. It measures wording, not correctness, and is kept in the report only for comparison.
 
-**The judge** (`eval/judge.py`). An LLM that is not the answer model (`llama-3.3-70b-versatile` on Groq; an LLM tends to prefer its own answers) reads the question, the reference answer, **the official text of the gold sources** and the answer, and returns `{"reason", "correct"}` at temperature 0. The rubric differs by family (key figure and condition for in_corpus; rule *and* HR advice for company_dependent). It does not judge citations (done in code) or NOT FOUND (done in code): the judge is used only where a rule cannot decide.
+**The judge** (`eval/judge.py`). An LLM that is not the answer model (`qwen/qwen3.8-27b` on Groq; an LLM tends to prefer its own answers; `llama-3.3-70b-versatile`, planned first, is no longer served by Groq, and the only other chat models left are gpt-oss) reads the question, the reference answer, **the official text of the gold sources** and the answer, and returns `{"reason", "correct"}` at temperature 0. The rubric differs by family (key figure and condition for in_corpus; rule *and* HR advice for company_dependent). It does not judge citations (done in code) or NOT FOUND (done in code): the judge is used only where a rule cannot decide.
 
-**Calibration.** 40 answers from earlier runs (two models), shuffled, labelled by hand by the evaluation lead without seeing the judge's verdict (`eval/labels/to_label.csv`). Agreement judge vs human: **TBD** (Cohen's kappa; ≥ 0.6 required before using the judge). Disagreements read one by one: **TBD**.
+**Calibration.** 40 answers from earlier runs (20 from gpt-oss-120b with prompt v1, 20 from Qwen3 8B with prompt v2), shuffled, labelled by hand by the evaluation lead without seeing the judge's verdict (`eval/labels/to_label.csv` → `eval/labels/labels.csv`; result in `eval/labels/labels_calibration.json`). Cohen's kappa, ≥ 0.6 required before using the judge:
+
+| Step | Agreement | Kappa |
+|---|---|---|
+| First run | 26/40 (0.65) | 0.33 |
+| After the two changes below | 35/40 (0.875) | **0.74** |
+
+Reading the 14 first disagreements one by one showed two problems on our side, not the judge's:
+- **The rule for company_dependent questions was not applied in the labels.** The test set requires the general rule *and* what to ask HR or the school; 8 answers without the HR advice had been labelled correct (Q20, Q59 twice, Q60, Q64, Q66 twice, Q69). The evaluation lead confirmed the rule and relabelled them 0 (`human_note` in the file). Labels were changed only where the rule written before the calibration decided; no label was changed to follow the judge.
+- **A gold source was missing:** for Q01 the judge did not have D6222-1, the article with the exceptions up to 35 years, and marked a correct answer wrong. D6222-1 was added to the gold sources (`eval/testset_review.csv`).
+
+The 5 disagreements left were kept as labelled:
+
+| Id | Human | Judge | What the judge says |
+|---|---|---|---|
+| Q08 | incorrect | correct | right percentage (43 %), the human found the answer incomplete |
+| Q29 | incorrect | correct | right percentage (61 %), the "or the conventional minimum wage" condition is missing |
+| Q05 (Qwen) | incorrect | correct | at least 50 % of the pass, stated right |
+| Q39 (Qwen) | correct | incorrect | an "aide forfaitaire de 1 000 €" that is in none of the texts (checked) |
+| Q31 | correct | incorrect | night-work derogations mixed with the working-time derogations of F2216 (checked) |
+
+The judge is a little stricter on invented details and a little more lenient on incomplete answers. Some of its reasons are wrong even when its verdict agrees (it called L6223-8 "non-existent" when the article was only absent from the texts it was given), which is why its verdicts are counted but its reasons are not used as proof. Limits: one annotator; 20 of the 40 answers come from a Qwen model, the judge's family (the final answer model is gpt-oss).
 
 ## 3. Baseline vs system
 Same answer model (gpt-oss-120b on Groq), same questions, same judge.
