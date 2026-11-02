@@ -334,3 +334,17 @@ def test_segments_whisper_judges_without_speech_are_dropped():
     seg = lambda p, lp, t: types.SimpleNamespace(no_speech_prob=p, avg_logprob=lp, text=t)
     kept = speech_segments([seg(0.1, -0.3, "Combien de jours ?"), seg(0.9, -1.5, "Merci d'avoir regardé"), seg(0.9, -0.2, "oui")])
     assert [s.text for s in kept] == ["Combien de jours ?", "oui"]
+
+
+def test_answer_display_in_english_without_em_dashes():
+    from app import api
+    # Em dashes read as commas, and the result only grows while streaming (no character taken back).
+    for full in ("5 weeks — the employer decides — and 30 days.", "5 weeks\u202f—\u202fthe employer\u00a0— decides."):
+        shown = [api.no_dashes(full[:i]) for i in range(len(full) + 1)]
+        assert all(b.startswith(a) for a, b in zip(shown, shown[1:]))
+        assert "—" not in shown[-1] and "  " not in shown[-1] and shown[-1].startswith("5 weeks, the employer")
+    # "**" alone on the last line may become "**Sources**": it waits.
+    assert api.held_back("Answer.\n\n**") == "Answer.\n"
+    s = {"id": "F2918", "url": "https://x", "source_label": "Service-Public.fr/DILA", "version_date": "2026-09-08"}
+    assert "Fact sheet F2918" in api.versions_line([s], lang="en") and "updated on 08/09/2026" in api.versions_line([s], lang="en")
+    assert "Always check with your school or HR" in api.footer("en") and "Vérifie" in api.footer("fr")

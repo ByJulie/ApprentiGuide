@@ -357,6 +357,6 @@ def answer(question: str, history: list[dict] = ()) -> dict:
                 "seconds": round(time.time() - t0, 2), "best_score": found.best_score if found else None,
                 "citations": citations("", sources)}
     refs = citations(text, sources)
-    return {"answer": text + international_referral(refs, lang), "not_found": False,
+    return {"answer": text + international_referral(refs, lang), "not_found": False, "lang": lang,
             "sources": [s["id"] for s in sources], "seconds": round(time.time() - t0, 2),
             "best_score": found.best_score if found else None, "citations": refs}

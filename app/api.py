@@ -67,33 +67,55 @@ def held_back(text: str) -> str:
     """Text safe to show while the model writes: a last line that may still become "Sources" waits."""
     last = text[text.rfind("\n") + 1:]
     word = last.strip().strip("*").lower()
-    if "\n" in text and word and "sources".startswith(word[:7]):
-        return text[:text.rfind("\n")]
+    if "\n" in text and (last.strip() and not word or word and "sources".startswith(word[:7])):
+        return text[:text.rfind("\n")]  # "**" alone may be the start of "**Sources**"
     return text
 
 
-def footer() -> str:
-    return (f"\n\n---\n*Textes : Légifrance et Service-Public.fr/DILA (Licence Ouverte), règlement de l'école, fichiers du "
-            f"{pipeline.CFG.get('corpus_snapshot', '')}. Vérifie toujours avec ton école ou tes RH.*")
+# Em dashes in the model's answer read as ", " (display only: the evaluated text is unchanged).
+DASH = re.compile(r"\s*\u2014\s*")
+
+
+def no_dashes(text: str) -> str:
+    """Prefix-stable while streaming: trailing spaces (also no-break ones, which models put before a dash)
+    wait, so "X —" then "X — Y" give "X," then "X, Y"."""
+    return DASH.sub(", ", re.sub(r"[^\S\n]+\Z", "", text))
+
+
+def footer(lang: str = "fr") -> str:
+    """Licence attribution (Licence Ouverte asks for the source and its date) and the usual caution."""
+    date = french_date(str(pipeline.CFG.get("corpus_snapshot", "")))
+    if lang == "en":
+        return (f"\n\n---\n*Texts: Légifrance and Service-Public.fr/DILA (Licence Ouverte), school regulations, "
+                f"files of {date}. Always check with your school or HR.*")
+    return (f"\n\n---\n*Textes : Légifrance et Service-Public.fr/DILA (Licence Ouverte), règlement de l'école, "
+            f"fichiers du {date}. Vérifie toujours avec ton école ou tes RH.*")
+
+
+WORDS = {"fr": {"sources": "**Sources** :", "school": "Extrait", "fiche": "Fiche", "article": "Article",
+                "school_date": " · version du ", "fiche_date": " · mise à jour le ",
+                "article_date": " · version en vigueur depuis le "},
+         "en": {"sources": "**Sources:**", "school": "Extract", "fiche": "Fact sheet", "article": "Article",
+                "school_date": " · version of ", "fiche_date": " · updated on ", "article_date": " · in force since "}}
 
 
 def french_date(iso: str | None) -> str:
     return "-".join(reversed(iso.split("-"))).replace("-", "/") if iso else ""
 
 
-def versions_line(cited: list[dict], links: bool = False) -> str:
+def versions_line(cited: list[dict], links: bool = False, lang: str = "fr") -> str:
     """Under the answer, every cited text with its version (asked by the course): the date the article's
     version came into force (Legifrance), the last update of the fact sheet (Service-Public.fr)."""
     if not cited:
         return ""
-    items = []
+    w, items = WORDS.get(lang, WORDS["fr"]), []
     for n, s in enumerate(cited, 1):
         fiche = s["id"].upper().startswith("F")
         school = not s.get("url")  # school regulations: private, no public page
-        kind = "Extrait" if school else "Fiche" if fiche else "Article"
+        kind = w["school"] if school else w["fiche"] if fiche else w["article"]
         when = ""
         if s.get("version_date"):
-            prefix = " · version du " if school else " · mise à jour le " if fiche else " · version en vigueur depuis le "
+            prefix = w["school_date"] if school else w["fiche_date"] if fiche else w["article_date"]
             when = prefix + french_date(s["version_date"])
         if school:  # "[1] Règlement pédagogique 2025-2026, section 3.3.9 · version du ... · heading"
             heading = f" · {display_heading(s)}" if display_heading(s) else ""
@@ -101,19 +123,20 @@ def versions_line(cited: list[dict], links: bool = False) -> str:
             continue
         name = source_link(s) if links else s["id"]
         items.append(f"[{n}] {kind} {name} · {s['source_label']}{when}")
-    return "\n\n**Sources** :  \n" + "  \n".join(items)
+    return f"\n\n{w['sources']}  \n" + "  \n".join(items)
 
 
 def render(out: dict) -> str:
     """Plain Markdown answer for clients that do not stream: the answer, then its sources from the
     database. The model's own "Sources:" line is dropped: the block built from the database replaces it."""
-    parts = [MODEL_SOURCES_LINE.sub("", out["answer"]).rstrip()]
+    lang = out.get("lang", "fr")
+    parts = [no_dashes(MODEL_SOURCES_LINE.sub("", out["answer"]).rstrip())]
     refs = out.get("citations", {})
     if refs.get("cited"):
-        parts.append(versions_line(refs["cited"], links=True))  # no source cards outside a chat interface
+        parts.append(versions_line(refs["cited"], links=True, lang=lang))  # no source cards outside a chat interface
     if refs.get("invented"):
         parts.append(f"\n⚠️ Citation non vérifiée (absente des textes trouvés) : {', '.join(refs['invented'])}")
-    return "\n".join(parts) + footer()
+    return "\n".join(parts) + footer(lang)
 
 
 SENTENCE_END = re.compile(r"(?<=[.!?;])\s+")
@@ -189,6 +212,22 @@ def numbered(text: str, known: set[str], final: bool = False) -> str:
     return pipeline.CITATION.sub(number, text)
 
 
+STATUS = {
+    "fr": {"guard": "Réponse fixe (garde-fou d'entrée)", "history": "Je relis la conversation…",
+           "search": "Je cherche dans le Code du travail, le CESEDA et les fiches Service-Public…",
+           "none": "Aucun texte ne répond à cette question", "writing": "{n} textes trouvés, je rédige la réponse…",
+           "weak": "Les textes trouvés ne répondent pas à cette question", "done": "Réponse fondée sur {n} texte(s)"},
+    "en": {"guard": "Fixed answer (input guardrail)", "history": "Reading the conversation…",
+           "search": "Searching the Labour Code, the CESEDA and the Service-Public fact sheets…",
+           "none": "No text answers this question", "writing": "{n} texts found, writing the answer…",
+           "weak": "The texts found do not answer this question", "done": "Answer based on {n} text(s)"},
+}
+
+
+def say(key: str, lang: str) -> str:
+    return STATUS.get(lang, STATUS["fr"])[key]
+
+
 def status(text: str, done: bool = False) -> dict:
     return {"event": {"type": "status", "data": {"description": text, "done": done}}}
 
@@ -196,25 +235,26 @@ def status(text: str, done: bool = False) -> dict:
 def answer_events(question: str, history: list[dict]):
     """The pipeline step by step for a chat interface: status lines while searching, the model's reasoning
     and answer as they are written, then the sources as cards. Same decisions as pipeline.answer()."""
+    lang = pipeline.language(question, None)  # first guess for the status lines; set again after the rewrite
     check = guardrail.check(question)
     if check.blocked:
         yield {"content": check.message}
-        yield status("Réponse fixe (garde-fou d'entrée)", done=True)
+        yield status(say("guard", lang), done=True)
         return
     question = check.question
     if history:
-        yield status("Je relis la conversation…")
+        yield status(say("history", lang))
         question = pipeline.standalone(question, history)
-    yield status("Je cherche dans le Code du travail, le CESEDA et les fiches Service-Public…")
+    yield status(say("search", lang))
     found = pipeline.retrieve(question)
     lang = pipeline.language(question, found.question_fr if found else None)
     if found is not None and found.abstain:
-        yield {"content": pipeline.not_found_message(lang, found.missing_ids) + footer()}
-        yield status("Aucun texte ne répond à cette question", done=True)
+        yield {"content": pipeline.not_found_message(lang, found.missing_ids) + footer(lang)}
+        yield status(say("none", lang), done=True)
         return
     sources = found.sources if found else []
     known = {s["id"].upper() for s in sources}
-    yield status(f"{len(known)} textes trouvés, je rédige la réponse…")
+    yield status(say("writing", lang).format(n=len(known)))
     text, shown, not_found = "", 0, False
     for kind, piece in pipeline.generate_stream(question, sources, found.missing_ids if found else [], lang, history):
         if kind == "reasoning":
@@ -228,18 +268,18 @@ def answer_events(question: str, history: list[dict]):
             not_found = True
             break
         end = SOURCES_START.search(text)
-        visible = numbered(text[:end.start()] if end else held_back(text), known)
+        visible = no_dashes(numbered(text[:end.start()] if end else held_back(text), known))
         visible = visible.rstrip("\n") + ("\n" if visible.endswith("\n") else "")  # no runs of blank lines
         if len(visible) > shown:
             yield {"content": visible[shown:]}
             shown = len(visible)
     if not_found or text.strip().upper().startswith(pipeline.NOT_FOUND):  # also when the stream ends on it
-        yield {"content": pipeline.not_found_message(lang, found.missing_ids if found else []) + footer()}
-        yield status("Les textes trouvés ne répondent pas à cette question", done=True)
+        yield {"content": pipeline.not_found_message(lang, found.missing_ids if found else []) + footer(lang)}
+        yield status(say("weak", lang), done=True)
         return
     end = SOURCES_START.search(text)
     answer_text = (text[:end.start()] if end else text).rstrip()
-    visible = numbered(answer_text, known, final=True)
+    visible = no_dashes(numbered(answer_text, known, final=True))
     if len(visible) > shown:
         yield {"content": visible[shown:]}
     refs = pipeline.citations(answer_text, sources)
@@ -253,8 +293,8 @@ def answer_events(question: str, history: list[dict]):
         yield {"content": referral}
     if refs["invented"]:
         yield {"content": f"\n\n⚠️ Citation non vérifiée (absente des textes trouvés) : {', '.join(refs['invented'])}"}
-    yield {"content": versions_line(refs["cited"]) + footer()}
-    yield status(f"Réponse fondée sur {len(refs['cited'])} texte(s)", done=True)
+    yield {"content": versions_line(refs["cited"], lang=lang) + footer(lang)}
+    yield status(say("done", lang).format(n=len(refs["cited"])), done=True)
 
 
 @app.post("/v1/audio/transcriptions")
@@ -282,7 +322,7 @@ def chat(body: dict, authorization: str | None = Header(default=None)):
     content = interface_task(question)
     history = [m for m in messages[:users[-1]] if m["role"] in ("user", "assistant")]
     # Previous answers carry sources and the licence line: only the answer text is useful as context.
-    history = [{**m, "content": re.split(r"\n\*\*Sources\*\*|\n\n---\n\*Textes :|\n\n\*Textes :", m["content"])[0].strip()}
+    history = [{**m, "content": re.split(r"\n\*\*Sources(\*\*|:)|\n\n---\n\*Text(es :|s:)|\n\n\*Textes :", m["content"])[0].strip()}
                for m in history]
     # The history goes to the cloud model too (follow-up rewrite): personal data masked first.
     history = [{**m, "content": guardrail.mask_pii(m["content"])[0]} for m in history]

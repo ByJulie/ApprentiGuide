@@ -1,4 +1,5 @@
-/* ApprentiGuide: hide the Open WebUI voice features we did not set up (voice call, read aloud).
+/* ApprentiGuide: hide the Open WebUI voice features we did not set up (voice call, read aloud) and "continue response" (our answers are complete).
    Only the microphone (dictation, our Whisper) stays. Labels in English and French. */
 button[aria-label="Voice mode"], button[aria-label="Mode vocal"],
-button[aria-label="Read Aloud"], button[aria-label="Lire à haute voix"] { display: none !important; }
+button[aria-label="Read Aloud"], button[aria-label="Lire à haute voix"],
+#continue-response-button { display: none !important; }
