@@ -153,6 +153,9 @@ def passage(row: dict) -> str:
 class Retriever:
     def __init__(self, cfg: dict):
         self.cfg = cfg
+        self.connect()
+
+    def connect(self) -> None:
         self.conn = psycopg.connect(os.environ["DATABASE_URL"], row_factory=psycopg.rows.dict_row,
                                     autocommit=True)
         register_vector(self.conn)
@@ -174,7 +177,17 @@ class Retriever:
 
     def __call__(self, question: str, question_fr: str | None = None) -> Retrieval:
         """question_fr: the question rewritten in French. The corpus is French and the cross-encoder
-        scores an English question against French text far too low, so it reranks with this version."""
+        scores an English question against French text far too low, so it reranks with this version.
+
+        A connection closed by the database (Docker restarted, laptop asleep) is reopened once: otherwise
+        every following question would fail until the process is restarted."""
+        try:
+            return self._retrieve(question, question_fr)
+        except psycopg.OperationalError:
+            self.connect()
+            return self._retrieve(question, question_fr)
+
+    def _retrieve(self, question: str, question_fr: str | None) -> Retrieval:
         ids = cited_ids(question)
         sig = self.signals(question, question_fr)
         fused = rrf([r for r in sig.values() if r])[: self.cfg.get("rerank_candidates", 30)]

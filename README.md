@@ -34,7 +34,7 @@ python -m rag.index             # vectors (bge-m3, local, about 5 min the first 
 Chat interface (Open WebUI 0.12.5, conversation history and voice input built in; settings in the command, so it starts the same everywhere), in two terminals:
 ```bash
 uvicorn api:app --app-dir app --host 0.0.0.0 --port 8001     # OpenAI-compatible API in front of the pipeline
-docker run -d --name apprentiguide-webui -p 127.0.0.1:3080:8080 --add-host=host.docker.internal:host-gateway \
+docker run -d --name apprentiguide-webui --restart unless-stopped -p 127.0.0.1:3080:8080 --add-host=host.docker.internal:host-gateway \
   -e OPENAI_API_BASE_URL=http://host.docker.internal:8001/v1 -e OPENAI_API_KEY=local \
   -e ENABLE_OLLAMA_API=False -e WEBUI_AUTH=False -e WEBUI_NAME=ApprentiGuide \
   -e ENABLE_PERSISTENT_CONFIG=False -e ENABLE_TITLE_GENERATION=True -e ENABLE_TAGS_GENERATION=False \

@@ -1,6 +1,7 @@
 services:
   db:
     image: pgvector/pgvector:0.8.1-pg16
+    restart: unless-stopped   # back by itself when Docker Desktop restarts
     environment:
       POSTGRES_USER: apprentiguide
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}

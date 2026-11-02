@@ -272,3 +272,18 @@ def test_previous_answers_lose_their_licence_line_before_going_back_to_the_model
             {"role": "user", "content": "Pourquoi ?"}]
     TestClient(api.app).post("/v1/chat/completions", json={"messages": msgs})
     assert seen["history"][1]["content"] == "55 % du Smic [1]."
+
+
+def test_retriever_reopens_a_closed_database_connection(monkeypatch):
+    import psycopg
+    from rag.retrieve import Retriever
+    r = Retriever.__new__(Retriever)
+    calls = {"connect": 0, "retrieve": 0}
+    def fake_retrieve(q, qfr):
+        calls["retrieve"] += 1
+        if calls["retrieve"] == 1:
+            raise psycopg.OperationalError("server closed the connection unexpectedly")
+        return "found"
+    monkeypatch.setattr(r, "_retrieve", fake_retrieve)
+    monkeypatch.setattr(r, "connect", lambda: calls.__setitem__("connect", calls["connect"] + 1))
+    assert r("question") == "found" and calls == {"connect": 1, "retrieve": 2}
