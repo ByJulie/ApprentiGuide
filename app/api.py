@@ -298,7 +298,7 @@ def answer_events(question: str, history: list[dict]):
         yield {"content": referral}
     if refs["invented"]:
         yield {"content": UNVERIFIED.get(lang, UNVERIFIED["fr"]).format(ids=", ".join(refs["invented"]))}
-    yield {"content": versions_line(refs["cited"], lang=lang) + footer(lang)}
+    yield {"content": versions_line(refs["cited"], links=True, lang=lang) + footer(lang)}
     yield status(say("done", lang).format(n=len(refs["cited"])), done=True)
 
 
