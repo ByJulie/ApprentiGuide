@@ -297,9 +297,11 @@ MISSING_MESSAGE = {"fr": " L'article {ids} ne fait pas partie de ces textes.",
 # who handle their file. Added in code when a cited source is about foreign students (scope audience).
 REFERRAL = {
     "fr": ("Pour ton titre de séjour ou ton autorisation de travail, fais vérifier ta situation par le "
-           "bureau international de l'école : il connaît les démarches et les délais de la préfecture."),
+           "service de l'école qui accompagne les étudiants internationaux dans leurs démarches : il connaît "
+           "les procédures et les délais de la préfecture."),
     "en": ("For your residence permit or work authorisation, have your situation checked by the school's "
-           "international office: they know the prefecture's procedures and delays."),
+           "service that supports international students with their procedures: they know the prefecture's "
+           "requirements and delays."),
 }
 
 

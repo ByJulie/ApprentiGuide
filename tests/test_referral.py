@@ -18,8 +18,8 @@ def source(cid: str, international: bool) -> dict:
 
 def test_referral_when_an_immigration_source_is_cited():
     refs = pipeline.citations("La carte permet de travailler [L422-1].", [source("L422-1", True)])
-    assert "bureau international" in pipeline.international_referral(refs, "fr")
-    assert "international office" in pipeline.international_referral(refs, "en")
+    assert "accompagne les étudiants internationaux" in pipeline.international_referral(refs, "fr")
+    assert "supports international students" in pipeline.international_referral(refs, "en")
 
 
 def test_no_referral_for_other_sources_or_uncited_ones():
