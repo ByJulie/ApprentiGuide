@@ -311,7 +311,7 @@ def test_school_regulations_are_shown_by_readable_name_not_internal_id():
                                                      "text": "Règlement pédagogique, section 3.3.9 : L'Alternance\nLes deux dernières années."}]}
     card = api.source_card(s, "Non [aivancity-RP-3.3.9].")
     assert card["source"]["name"] == "Règlement pédagogique 2025-2026, section 3.3.9"
-    assert "aivancity-RP" not in api.versions_line([s]) and "version du 02/05/2025" in api.versions_line([s])
+    assert "aivancity-RP" not in api.versions_line([s]) and "version du 02/05/2025" in api.versions_line([s]) and "à demander à la scolarité" in api.versions_line([s])
     assert card["document"][0].startswith("Règlement pédagogique 2025-2026, section 3.3.9, version du 02/05/2025")
 
 
@@ -358,3 +358,12 @@ def test_cited_id_with_another_letter_is_the_retrieved_one():
     # two candidates, or no candidate: not guessed
     refs = pipeline.citations("[L100-1] [L999-9]", [src("R100-1"), src("D100-1")])
     assert refs["cited"] == [] and refs["invented"] == ["L100-1", "L999-9"]
+
+
+def test_footer_names_what_the_answer_used():
+    from app import api
+    law, school = {"id": "F2918", "url": "https://x"}, {"id": "aivancity-RP-3.3.9", "url": ""}
+    assert "Tiré du règlement de l'école." in api.footer("fr", [school])
+    assert "Service-Public.fr, à jour au" in api.footer("fr", [law]) and "règlement" not in api.footer("fr", [law])
+    assert "et du règlement de l'école" in api.footer("fr", [law, school])
+    assert "From the school regulations." in api.footer("en", [school])

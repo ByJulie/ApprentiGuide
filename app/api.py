@@ -82,22 +82,29 @@ def no_dashes(text: str) -> str:
     return DASH.sub(", ", re.sub(r"[^\S\n]+\Z", "", text))
 
 
-def footer(lang: str = "fr") -> str:
+def footer(lang: str = "fr", cited: list[dict] = ()) -> str:
     """Source and date of the texts (the attribution the Licence Ouverte asks for; the licence itself is named in
     the README) and what to do before deciding, in words a student understands."""
     date = french_date(str(pipeline.CFG.get("corpus_snapshot", "")))
+    school = [bool(not c.get("url")) for c in cited]  # the school regulations have no public page
     if lang == "en":
-        return (f"\n\n---\n*From the official texts (French Labour Code, Service-Public.fr), up to date as of {date}. "
-                f"Before you decide, check with your school or HR.*")
-    return (f"\n\n---\n*Tiré des textes officiels (Code du travail, Service-Public.fr), à jour au {date}. "
-            f"Avant de décider, vérifie avec ton école ou tes RH.*")
+        origin = ("From the school regulations" if school and all(school) else
+                  f"From the official texts (French Labour Code, Service-Public.fr, up to date as of {date})"
+                  + (" and the school regulations" if any(school) else ""))
+        return f"\n\n---\n*{origin}. Before you decide, check with your school or HR.*"
+    origin = ("Tiré du règlement de l'école" if school and all(school) else
+              f"Tiré des textes officiels (Code du travail, Service-Public.fr, à jour au {date})"
+              + (" et du règlement de l'école" if any(school) else ""))
+    return f"\n\n---\n*{origin}. Avant de décider, vérifie avec ton école ou tes RH.*"
 
 
 WORDS = {"fr": {"sources": "**Sources** :", "school": "Extrait", "fiche": "Fiche", "article": "Article",
                 "school_date": " · version du ", "fiche_date": " · mise à jour le ",
-                "article_date": " · version en vigueur depuis le "},
+                "article_date": " · version en vigueur depuis le ",
+                "where": " · document de l'école, à demander à la scolarité"},
          "en": {"sources": "**Sources:**", "school": "Extract", "fiche": "Fact sheet", "article": "Article",
-                "school_date": " · version of ", "fiche_date": " · updated on ", "article_date": " · in force since "}}
+                "school_date": " · version of ", "fiche_date": " · updated on ", "article_date": " · in force since ",
+                "where": " · school document, ask the student office for it"}}
 
 
 def french_date(iso: str | None) -> str:
@@ -120,7 +127,7 @@ def versions_line(cited: list[dict], links: bool = False, lang: str = "fr") -> s
             when = prefix + french_date(s["version_date"])
         if school:  # "[1] Règlement pédagogique 2025-2026, section 3.3.9 · version du ... · heading"
             heading = f" · {display_heading(s)}" if display_heading(s) else ""
-            items.append(f"[{n}] {display_name(s)}{when}{heading}")
+            items.append(f"[{n}] {display_name(s)}{when}{heading}{w['where']}")  # no public page
             continue
         name = source_link(s) if links else s["id"]
         items.append(f"[{n}] {kind} {name} · {s['source_label']}{when}")
@@ -137,7 +144,7 @@ def render(out: dict) -> str:
         parts.append(versions_line(refs["cited"], links=True, lang=lang))  # no source cards outside a chat interface
     if refs.get("invented"):
         parts.append(UNVERIFIED.get(lang, UNVERIFIED["fr"]).format(ids=", ".join(refs["invented"])))
-    return "\n".join(parts) + footer(lang)
+    return "\n".join(parts) + footer(lang, refs.get("cited", []))
 
 
 SENTENCE_END = re.compile(r"(?<=[.!?;])\s+")
@@ -298,7 +305,7 @@ def answer_events(question: str, history: list[dict]):
         yield {"content": referral}
     if refs["invented"]:
         yield {"content": UNVERIFIED.get(lang, UNVERIFIED["fr"]).format(ids=", ".join(refs["invented"]))}
-    yield {"content": versions_line(refs["cited"], links=True, lang=lang) + footer(lang)}
+    yield {"content": versions_line(refs["cited"], links=True, lang=lang) + footer(lang, refs["cited"])}
     yield status(say("done", lang).format(n=len(refs["cited"])), done=True)
 
 
@@ -327,7 +334,7 @@ def chat(body: dict, authorization: str | None = Header(default=None)):
     content = interface_task(question)
     history = [m for m in messages[:users[-1]] if m["role"] in ("user", "assistant")]
     # Previous answers carry sources and the licence line: only the answer text is useful as context.
-    history = [{**m, "content": re.split(r"\n\*\*Sources(\*\*|:)|\n\n---\n\*(Text(es :|s:)|Information|Tiré des textes|From the official)|\n\n\*Textes :", m["content"])[0].strip()}
+    history = [{**m, "content": re.split(r"\n\*\*Sources(\*\*|:)|\n\n---\n\*(Text(es :|s:)|Information|Tiré d|From the)|\n\n\*Textes :", m["content"])[0].strip()}
                for m in history]
     # The history goes to the cloud model too (follow-up rewrite): personal data masked first.
     history = [{**m, "content": guardrail.mask_pii(m["content"])[0]} for m in history]
