@@ -18,7 +18,7 @@ from fastapi.responses import StreamingResponse
 
 import guardrail
 import pipeline
-from pipeline import source_link
+from pipeline import display_heading, display_name, source_link
 
 MODEL_ID = "apprentiguide"
 app = FastAPI(title="ApprentiGuide")
@@ -95,9 +95,12 @@ def versions_line(cited: list[dict], links: bool = False) -> str:
         if s.get("version_date"):
             prefix = " · version du " if school else " · mise à jour le " if fiche else " · version en vigueur depuis le "
             when = prefix + french_date(s["version_date"])
+        if school:  # "[1] Règlement pédagogique 2025-2026, section 3.3.9 · version du ... · heading"
+            heading = f" · {display_heading(s)}" if display_heading(s) else ""
+            items.append(f"[{n}] {display_name(s)}{when}{heading}")
+            continue
         name = source_link(s) if links else s["id"]
-        section = f" · {s['passages'][0]['title']}" if school and s.get("passages") and s["passages"][0].get("title") else ""
-        items.append(f"[{n}] {kind} {name} · {s['source_label']}{when}{section}")
+        items.append(f"[{n}] {kind} {name} · {s['source_label']}{when}")
     return "\n\n**Sources** :  \n" + "  \n".join(items)
 
 
@@ -144,8 +147,11 @@ def excerpt(source: dict, answer: str, keep: int = 2) -> str:
         key = " ".join(sentences) or body
     kind = ("Fiche" if source["id"].upper().startswith("F")
             else "Extrait" if not source.get("url") else "Article")
-    date = f", version du {source['version_date']}" if source.get("version_date") else ""
-    head = f"{kind} {source['id']} · {source['source_label']}{date}"
+    date = f", version du {french_date(source['version_date'])}" if source.get("version_date") else ""
+    if not source.get("url"):  # school regulations: readable name, the heading follows as title
+        kind, head = "Extrait", f"{display_name(source)}{date}"
+    else:
+        head = f"{kind} {source['id']} · {source['source_label']}{date}"
     if title:
         head += f"\n{title}"
     full = f"\n\nTexte complet :\n{body}" if key != body else ""
@@ -156,9 +162,10 @@ def source_card(s: dict, answer: str) -> dict:
     """A source as Open WebUI shows it: a numbered card under the answer; opened, the excerpt that supports
     the answer, the label, version date and the link to the full text."""
     link = s["url"] or s["id"]
-    return {"source": {"id": link, "name": s["id"], "url": s["url"]},
+    name = display_name(s)
+    return {"source": {"id": link, "name": name, "url": s["url"]},
             "document": [excerpt(s, answer)],
-            "metadata": [{"source": link, "name": s["id"]}]}
+            "metadata": [{"source": link, "name": name}]}
 
 
 def numbered(text: str, known: set[str], final: bool = False) -> str:

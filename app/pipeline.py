@@ -231,9 +231,31 @@ def cited_ids(text: str) -> list[str]:
     return out
 
 
+def _title(s: dict) -> str:
+    return ((s.get("passages") or [{}])[0].get("title") or s.get("title") or "") if not s.get("url") else ""
+
+
+def display_name(s: dict) -> str:
+    """Name shown to the user: the article or fiche id, or for the school regulations (no public page)
+    the document, its year and the section, "Règlement pédagogique 2025-2026, section 3.3.9", instead of
+    the internal id aivancity-RP-3.3.9."""
+    title = _title(s)
+    if not title:
+        return s["id"]
+    label = title.partition(" : ")[0]               # "Règlement pédagogique, section 3.3.9"
+    part = label.partition(", ")[2]                 # "section 3.3.9"
+    document = s.get("source_label") or label.partition(", ")[0]
+    return f"{document}, {part}" if part else document
+
+
+def display_heading(s: dict) -> str:
+    """Heading of a school regulation section ("L'Alternance en Années 4 et/ou 5"), empty otherwise."""
+    return _title(s).partition(" : ")[2]
+
+
 def source_link(s: dict) -> str:
-    """Markdown link to a source, or its bare id when it has no public page (school rules)."""
-    return f"[{s['id']}]({s['url']})" if s.get("url") else s["id"]
+    """Markdown link to a source, or its readable name when it has no public page (school rules)."""
+    return f"[{s['id']}]({s['url']})" if s.get("url") else display_name(s)
 
 
 def citations(text: str, sources: list[dict]) -> dict:

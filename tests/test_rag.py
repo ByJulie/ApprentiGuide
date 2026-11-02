@@ -154,7 +154,7 @@ def test_stream_shows_status_reasoning_answer_and_source_cards(monkeypatch):
     cards = [e["data"] for e in events if e["type"] == "source"]
     assert cards[0]["source"]["name"] == "L6222-35" and cards[0]["metadata"][0]["name"] == "L6222-35"
     doc = cards[0]["document"][0]
-    assert doc.startswith("Article L6222-35 · Code du travail, Legifrance, version du 2009-11-26")
+    assert doc.startswith("Article L6222-35 · Code du travail, Legifrance, version du 26/11/2009")
     assert "Ce qui répond à ta question :\n« cinq jours »" in doc
 
 
@@ -300,3 +300,16 @@ def test_sources_listed_only_in_the_models_final_line_still_give_cards(monkeypat
 def test_cited_ids_read_typographic_hyphens():
     from app.pipeline import cited_ids
     assert cited_ids("[ aivancity\u2011RP\u20113.3.9 ] et [L6222\u201135]") == ["AIVANCITY-RP-3.3.9", "L6222-35"]
+
+
+def test_school_regulations_are_shown_by_readable_name_not_internal_id():
+    import sys, os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "app"))
+    import api
+    s = {"id": "aivancity-RP-3.3.9", "url": None, "source_label": "Règlement pédagogique 2025-2026",
+         "version_date": "2025-05-02", "passages": [{"title": "Règlement pédagogique, section 3.3.9 : L'Alternance en Années 4 et/ou 5",
+                                                     "text": "Règlement pédagogique, section 3.3.9 : L'Alternance\nLes deux dernières années."}]}
+    card = api.source_card(s, "Non [aivancity-RP-3.3.9].")
+    assert card["source"]["name"] == "Règlement pédagogique 2025-2026, section 3.3.9"
+    assert "aivancity-RP" not in api.versions_line([s]) and "version du 02/05/2025" in api.versions_line([s])
+    assert card["document"][0].startswith("Règlement pédagogique 2025-2026, section 3.3.9, version du 02/05/2025")
