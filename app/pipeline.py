@@ -233,6 +233,7 @@ def citations(text: str, sources: list[dict]) -> dict:
     for s in sources:
         entry = by_id.setdefault(s["id"].upper(), {"id": s["id"], "source_label": s["source_label"],
                                                     "url": s["url"], "version_date": s["version_date"],
+                                                    "international": s.get("international", False),
                                                     "passages": []})
         entry["passages"].append({"title": s.get("title"), "text": s["text"]})
     ids = cited_ids(text)
@@ -252,6 +253,19 @@ NOT_FOUND_MESSAGE = {
 }
 MISSING_MESSAGE = {"fr": " L'article {ids} ne fait pas partie de ces textes.",
                    "en": " Article {ids} is not among these texts."}
+# Residence permit and work authorisation: the answer gives the rule, then sends the student to the people
+# who handle their file. Added in code when a cited source is about foreign students (scope audience).
+REFERRAL = {
+    "fr": ("Pour ton titre de séjour ou ton autorisation de travail, fais vérifier ta situation par le "
+           "bureau international de l'école : il connaît les démarches et les délais de la préfecture."),
+    "en": ("For your residence permit or work authorisation, have your situation checked by the school's "
+           "international office: they know the prefecture's procedures and delays."),
+}
+
+
+def international_referral(refs: dict, lang: str) -> str:
+    """Referral to the international office when the answer cites an immigration source, else ""."""
+    return "\n\n" + REFERRAL[lang] if any(s.get("international") for s in refs.get("cited", [])) else ""
 
 
 def language(question: str, question_fr: str | None) -> str:
@@ -300,6 +314,7 @@ def answer(question: str) -> dict:
                 "not_found_reason": "model", "sources": [s["id"] for s in sources],
                 "seconds": round(time.time() - t0, 2), "best_score": found.best_score if found else None,
                 "citations": citations("", sources)}
-    return {"answer": text, "not_found": False, "sources": [s["id"] for s in sources],
-            "seconds": round(time.time() - t0, 2), "best_score": found.best_score if found else None,
-            "citations": citations(text, sources)}
+    refs = citations(text, sources)
+    return {"answer": text + international_referral(refs, lang), "not_found": False,
+            "sources": [s["id"] for s in sources], "seconds": round(time.time() - t0, 2),
+            "best_score": found.best_score if found else None, "citations": refs}

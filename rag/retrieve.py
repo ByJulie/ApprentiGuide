@@ -195,7 +195,8 @@ class Retriever:
         found = {r["citation_id"].upper() for r in rows}
         sources = [{"id": r["citation_id"], "text": passage(r), "score": round(s, 3),
                     "title": r["title"], "url": r["url"], "source_label": r["source_label"],
-                    "version_date": str(r["version_date"]) if r["version_date"] else None}
+                    "version_date": str(r["version_date"]) if r["version_date"] else None,
+                    "international": (r.get("scope") or {}).get("audience") == "international"}
                    for r, s in chosen]
         missing = [i for i in ids if i not in found]
         # The user asked about an article we do not have, and none they named was found: answering

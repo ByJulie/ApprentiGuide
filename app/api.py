@@ -218,6 +218,8 @@ def answer_events(question: str, history: list[dict]):
     refs = pipeline.citations(answer_text, sources)
     for s in refs["cited"]:  # same order as the numbers: order of first citation
         yield {"event": {"type": "source", "data": source_card(s, answer_text)}}
+    if referral := pipeline.international_referral(refs, lang):
+        yield {"content": referral}
     if refs["invented"]:
         yield {"content": f"\n\n⚠️ Citation non vérifiée (absente des textes trouvés) : {', '.join(refs['invented'])}"}
     yield {"content": footer()}

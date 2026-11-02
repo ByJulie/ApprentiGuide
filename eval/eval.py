@@ -130,10 +130,14 @@ def run_answers(tests: list[dict]) -> dict:
             "contains_reference": (t["answer"].lower() in out["answer"].lower()) if gold else None,
             "answered_when_answerable": (not said_nf) if gold else None,
             "not_found_ok": said_nf if not gold else None,
+            # immigration questions: the answer must also send the student to the international office
+            "referred_international": (any(m in out["answer"] for m in pipeline.REFERRAL.values())
+                                       if t.get("refer_international") else None),
             # ids cited by the model that were not among the retrieved sources: must stay at 0
             "invented_citations": out.get("citations", {}).get("invented", [])})
     report = {k: rate([r[k] for r in rows]) for k in
-              ("retrieved_gold", "cited_gold", "contains_reference", "answered_when_answerable", "not_found_ok")}
+              ("retrieved_gold", "cited_gold", "contains_reference", "answered_when_answerable", "not_found_ok",
+               "referred_international")}
     report["median_seconds"] = statistics.median(r["seconds"] for r in rows) if rows else None
     report["answers_with_invented_citation"] = rate([bool(r["invented_citations"]) for r in rows])
     return {"report": report, "rows": rows}

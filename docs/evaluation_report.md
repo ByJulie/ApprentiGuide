@@ -3,10 +3,13 @@
 Evaluation lead: Nafissatou Ndiaye. Values marked **TBD** are filled from the final runs (commands in section 7).
 
 ## 1. Test set
-- **Main set** (`eval/testset.jsonl`): 81 questions, 64 in French and 17 in English, in three families:
-  - **in_corpus** (39): the answer is in the texts; expected an answer with a citation of a gold source.
-  - **company_dependent** (22): the law gives a general rule, the rest depends on the employer or the school; expected the rule with its source **and** what to ask HR or the school.
-  - **no_answer** (20): school calendar, a given company's salary, the user's own contract number; expected NOT FOUND.
+- **Main set** (`eval/testset.jsonl`): 99 questions, 78 in French and 21 in English, in three families:
+  - **in_corpus** (54): the answer is in the texts; expected an answer with a citation of a gold source.
+  - **company_dependent** (26): the law gives a general rule, the rest depends on the employer or the school; expected the rule with its source **and** what to ask HR or the school.
+  - **no_answer** (19): school calendar and fees, a given company's salary, the user's own contract number; expected NOT FOUND.
+- **Added on 2 Nov.** (after the professor's review and the school regulations):
+  - **School regulations** (S01 to S15): 11 answered by the aivancity rules (absences of apprentices, exams, resits, approval of the apprenticeship, months in a company, gap year), 2 school and employer (absences deducted from pay, a working day on a class day), 2 still without an answer (date of the resit session, name of the tutor). Q41, Q43 and Q44, written as `no_answer` before the regulations were in the corpus, are now answered by them (pedagogical rules 3.3.1, 3.3.2, 3.3.8) and were moved to the matching family. Every quote was checked word for word in the PDF text (`python eval/review_testset.py --check`, needs the PDF files in `data/private/`).
+  - **Immigration** (Q71 to Q73, CESEDA: working too many hours on a student card, staying to look for a job after a master's degree, a card that expires during the contract). For these and Q19, Q66, Q67, A04 (`refer_international` in the file), the answer must give the rule **and** send the student to the school's international office. The referral is added in code when the answer cites a source about foreign students (`international_referral` in `app/pipeline.py`) and is checked in code (`referred_international` in the report).
 - **How it was built.** 70 questions written by the evaluation lead from the point of view of apprentices, job seekers and international students (paraphrases, SMS spelling, English), plus 11 proposed by the retrieval lead (A01 to A11) and accepted. Key case: Q19, *"I am a first-year international student in the PGE. Can I do an apprenticeship this year?"*.
 - **Review of the gold sources** (`eval/testset_review.csv`, applied by `eval/review_testset.py`). Every gold source was checked against the corpus: 21 of the lead's sources were wrong or too narrow (for example Q26 cited L6222-34, about sitting the exams, instead of L6222-24) and were corrected; 38 sources proposed by the retrieval lead were accepted after checking their quote word for word in the official text; placeholders were replaced; reference answers were rewritten from the texts (figures, durations, conditions). One proposal was refused (Q20 keeps L6222-24, which does answer the question).
 - **Hold-out set** (`eval/testset_holdout.jsonl`, **TBD**): questions collected from students through an anonymous form, written down before any run and never used to tune the system. See section 6.
@@ -21,7 +24,7 @@ Evaluation lead: Nafissatou Ndiaye. Values marked **TBD** are filled from the fi
 | Recall@5 | A gold source is among the 5 passages given to the model (retrieval, no LLM). | |
 | Median latency | Seconds per answer. | |
 
-Every rate is given with its **95 % Wilson interval**: 16/20 is "between 58 % and 92 %", not "80 %". This is why the set has 81 questions and not 20.
+Every rate is given with its **95 % Wilson interval**: 16/20 is "between 58 % and 92 %", not "80 %". This is why the set has 99 questions and not 20.
 
 **Why a judge.** The starter metric `contains_reference` checks whether the reference answer appears word for word in the answer: on the two development answer runs it scored **0/27 and 0/28** (95 % CI 0 to 0.13), while the same answers cited a gold source 0.70 and 0.68 of the time; A03, which gives the right "cinq jours ouvrables", is marked wrong. It measures wording, not correctness, and is kept in the report only for comparison.
 
@@ -77,7 +80,7 @@ Free Groq plan: about 3000 tokens per answered question, 200 000 tokens per day 
 - **The abstention threshold and the gold additions were tuned on this test set**, and gold sources were added after reading what the system retrieved: both make the scores optimistic. Answer: the **hold-out set**, collected from students and fixed before any run, and the `--lead-gold-only` option (gold sources set before seeing results).
 - **One annotator** for the calibration labels: a second labeller on 20 answers would measure human agreement too.
 - **Small sets**: differences inside the confidence intervals are not conclusions.
-- **The school regulations were added to the corpus on 2 Nov. (73 chunks, see `data/README.md`), after the `no_answer` questions were written.** Several of them are about the school and the regulations may now answer them in part: Q43 (help to find a company: pedagogical rules 3.3.1), Q44 (documents for the file: 3.3.2, 3.3.3), and possibly Q11, Q12, Q41, Q52. This is a prediction, not yet measured. If the expected NOT FOUND is kept, an answer from the regulations is counted as a failed abstention, so the NOT FOUND rate falls for a good reason and the report shows it as an error. Before the final runs, read these questions again against the regulation chunks and either change their expected behaviour (with a note in `review_note`) or run on a database built without the PDF files, and say which one in this report.
+- **The school regulations were added to the corpus on 2 Nov. (73 chunks, see `data/README.md`), after the `no_answer` questions were written.** They were read again against the regulation chunks: Q41, Q43 and Q44 are now answered by the rules and changed family (note in `review_note`); Q11, Q12 and Q52 stay `no_answer` (no deadline, fees or change of rhythm in the rules). Runs need the PDF files in `data/private/`: without them the S questions and Q41, Q43, Q44 have no gold source in the database and are listed in `corpus_gaps`, not scored.
 - **Snapshot**: texts of 25 and 30 Oct. 2026; a faithful answer can become wrong when the law changes.
 
 ## 7. How to reproduce

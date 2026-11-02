@@ -35,6 +35,11 @@ def corpus_texts() -> dict[str, str]:
             else:
                 key, body = r["id"], " ".join(s["title"] + " " + s["text"] for s in r["sections"])
             texts[key.upper()] = texts.get(key.upper(), "") + " " + norm(body)
+    # School regulations: private PDF files in data/private (skipped when absent, see data/README.md).
+    sys.path.insert(0, ROOT)
+    from ingest import load
+    for c in load.regulation_chunks():
+        texts[c.citation_id.upper()] = texts.get(c.citation_id.upper(), "") + " " + norm(c.text)
     return texts
 
 
