@@ -95,7 +95,7 @@ def versions_line(cited: list[dict], links: bool = False) -> str:
         if s.get("version_date"):
             prefix = " · version du " if school else " · mise à jour le " if fiche else " · version en vigueur depuis le "
             when = prefix + french_date(s["version_date"])
-        name = pipeline.source_link(s) if links else s["id"]
+        name = source_link(s) if links else s["id"]
         section = f" · {s['passages'][0]['title']}" if school and s.get("passages") and s["passages"][0].get("title") else ""
         items.append(f"[{n}] {kind} {name} · {s['source_label']}{when}{section}")
     return "\n\n**Sources** :  \n" + "  \n".join(items)
