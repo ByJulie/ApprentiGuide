@@ -39,6 +39,8 @@ docker run -d --name apprentiguide-webui --restart unless-stopped -p 127.0.0.1:3
   -e ENABLE_OLLAMA_API=False -e WEBUI_AUTH=False -e WEBUI_NAME=ApprentiGuide \
   -e ENABLE_PERSISTENT_CONFIG=False -e ENABLE_TITLE_GENERATION=True -e ENABLE_TAGS_GENERATION=False \
   -e ENABLE_FOLLOW_UP_GENERATION=False -e ENABLE_AUTOCOMPLETE_GENERATION=False \
+  -e AUDIO_STT_ENGINE=openai -e AUDIO_STT_OPENAI_API_BASE_URL=http://host.docker.internal:8001/v1 \
+  -e AUDIO_STT_OPENAI_API_KEY=local -e AUDIO_STT_MODEL=whisper-medium \
   -e DEFAULT_PROMPT_SUGGESTIONS="$(cat app/webui_suggestions.json)" \
   -v apprentiguide-webui:/app/backend/data ghcr.io/open-webui/open-webui:v0.12.5
 # open http://localhost:3080 and choose the model "apprentiguide"
