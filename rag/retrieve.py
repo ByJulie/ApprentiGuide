@@ -129,6 +129,11 @@ def sector_priority(question: str, ranked: list[tuple]) -> list[tuple]:
     return [x for x in ranked if not is_public_sector(x[0])] + [x for x in ranked if is_public_sector(x[0])]
 
 
+def is_school(row: dict) -> bool:
+    """Passages of a school's regulations (scope school, set by ingest/regulations.py)."""
+    return bool((row.get("scope") or {}).get("school"))
+
+
 def diversify(ranked: list[tuple], top_k: int, max_per_doc: int | None) -> list[tuple]:
     """Best passages first, at most max_per_doc per article or fiche: five places for one fiche's
     sections would hide the other documents from the model."""
@@ -192,6 +197,8 @@ class Retriever:
         sig = self.signals(question, question_fr)
         fused = rrf([r for r in sig.values() if r])[: self.cfg.get("rerank_candidates", 30)]
         rows = fetch(self.conn, fused)
+        if self.cfg.get("exclude_school"):  # measurement only: the corpus without the school regulations
+            rows = [r for r in rows if not is_school(r)]
         top_k, threshold = self.cfg.get("top_k", 5), self.cfg.get("abstain_threshold", 0.0)
         if self.cfg.get("rerank", True):
             scores = models.rerank(question_fr or question, [passage(r) for r in rows])
