@@ -45,6 +45,7 @@ docker run -d --name apprentiguide-webui --restart unless-stopped -p 127.0.0.1:3
   -v apprentiguide-webui:/app/backend/data ghcr.io/open-webui/open-webui:v0.12.5
 # open http://localhost:3080 and choose the model "apprentiguide"
 ```
+Voice input: the microphone of Open WebUI goes to our API (`POST /v1/audio/transcriptions` in the API terminal; Admin > Settings > Audio shows the engine "OpenAI" with `http://host.docker.internal:8001/v1`). The first question spoken downloads Whisper `medium` (1.5 GB, about one minute), then about 9 s per question. The `AUDIO_STT_*` settings are read when the container is created: after changing them, `docker rm -f apprentiguide-webui` and run the command again (conversations are kept in the volume).
 `ANSWER_MODEL=ollama:qwen3:8b uvicorn ...` answers with the local model instead of Groq. A simpler interface without Docker: `streamlit run app/ui.py`.
 Evaluation (writes a JSON report; see `eval/eval.py --help`):
 ```bash
