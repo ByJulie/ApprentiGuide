@@ -1,0 +1,3251 @@
+{
+  "report": {
+    "retrieved_gold": {
+      "rate": 0.863,
+      "n": 80,
+      "ci95": [
+        0.77,
+        0.921
+      ]
+    },
+    "cited_gold": {
+      "rate": 0.688,
+      "n": 80,
+      "ci95": [
+        0.579,
+        0.778
+      ]
+    },
+    "contains_reference": {
+      "rate": 0.0,
+      "n": 80,
+      "ci95": [
+        -0.0,
+        0.046
+      ]
+    },
+    "answered_when_answerable": {
+      "rate": 0.963,
+      "n": 80,
+      "ci95": [
+        0.895,
+        0.987
+      ]
+    },
+    "not_found_ok": {
+      "rate": 0.895,
+      "n": 19,
+      "ci95": [
+        0.686,
+        0.971
+      ]
+    },
+    "referred_international": {
+      "rate": 0.857,
+      "n": 7,
+      "ci95": [
+        0.487,
+        0.974
+      ]
+    },
+    "median_seconds": 14.05,
+    "answers_with_invented_citation": {
+      "rate": 0.01,
+      "n": 99,
+      "ci95": [
+        0.002,
+        0.055
+      ]
+    },
+    "by_tag": {
+      "company_dependent": {
+        "rate": 0.577,
+        "n": 26,
+        "ci95": [
+          0.389,
+          0.745
+        ]
+      },
+      "en": {
+        "rate": 0.762,
+        "n": 21,
+        "ci95": [
+          0.549,
+          0.894
+        ]
+      },
+      "fr": {
+        "rate": 0.718,
+        "n": 78,
+        "ci95": [
+          0.61,
+          0.806
+        ]
+      },
+      "in_corpus": {
+        "rate": 0.741,
+        "n": 54,
+        "ci95": [
+          0.611,
+          0.839
+        ]
+      },
+      "no_answer": {
+        "rate": 0.895,
+        "n": 19,
+        "ci95": [
+          0.686,
+          0.971
+        ]
+      }
+    },
+    "corpus_gaps": 0,
+    "judge_correct": {
+      "rate": 0.55,
+      "n": 80,
+      "ci95": [
+        0.441,
+        0.654
+      ]
+    },
+    "correct_and_cited": {
+      "rate": 0.438,
+      "n": 80,
+      "ci95": [
+        0.334,
+        0.547
+      ]
+    }
+  },
+  "rows": [
+    {
+      "id": "Q01",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L’âge maximum général pour signer un contrat d’apprentissage est de 29 ans révolus (30 ans moins 1 jour) [ F2918 ].  \nIl peut être porté à 35 ans révolus (36 ans moins 1 jour) lorsqu’on signe un nouveau contrat pour obtenir un diplôme supérieur, que le contrat précédent a été rompu pour des raisons indépendantes de la volonté de l’apprenti ou pour inaptitude physique temporaire, à condition qu’il ne s’écoule pas plus d’un an entre les deux contrats [ F2918 ].  \nIl n’y a aucune limite d’âge dans les cas suivants : apprenti reconnu travailleur handicapé, apprenti créant ou reprenant une entreprise nécessitant un diplôme, sportif de haut niveau, ou apprenti qui n’a pas obtenu son diplôme et conclut un nouveau contrat avec un autre employeur pour repasser l’examen [ F2918 ].  \n\nSources: [F2918]",
+      "sources": [
+        "F2918",
+        "D6222-1",
+        "F31704",
+        "L6222-12-1",
+        "L6222-1"
+      ],
+      "best_score": 0.993,
+      "seconds": 17.61,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states the general maximum age of 29 years (29 ans révolus) and accurately details the exceptions (up to 35 years or no limit) consistent with the official texts provided."
+      },
+      "judge_correct": true,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q02",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Un contrat d’apprentissage à durée limitée peut durer entre 6 mois et 3 ans ; il peut être porté à 4 ans lorsqu’il s’agit d’un travailleur handicapé ou d’un sportif de haut niveau.  \nPour un contrat à durée indéterminée, la période d’apprentissage suit la même fourchette : 6 mois à 3 ans, avec la même possibilité d’extension à 4 ans dans les cas précités.  \n\nSources: [F2918] [L6222-7-1] [F219]",
+      "sources": [
+        "F2918",
+        "L6222-7-1",
+        "F219",
+        "F31704",
+        "R6222-6"
+      ],
+      "best_score": 1.0,
+      "seconds": 4.27,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it states that the contract can be extended to 4 years for disabled workers or high-level athletes. The provided official texts (L6222-7-1) state the duration is between 6 months and 3 years, subject to extensions under L6222-11 (not provided), but do not mention a 4-year limit or specific extensions for these categories. Furthermore, the text F219 indicates there is no age limit for disabled workers, not a specific duration extension. The assistant hallucinates a specific duration rule not present in the sources."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Il n’y a généralement aucune période d’essai qui peut être imposée à l’apprenti lorsqu’il est embauché à l’issue de son contrat d’apprentissage, sauf si une clause conventionnelle le prévoit autrement. [F2918]\n\nSources:\n[F2918]",
+      "sources": [
+        "F2918",
+        "L6222-12",
+        "F23556",
+        "D6235-13",
+        "L6231-2"
+      ],
+      "best_score": 0.875,
+      "seconds": 4.28,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant answers a different question (probation after the apprenticeship contract) instead of the one asked (probation during the apprenticeship). It fails to mention the 45-day free termination period defined in L6222-18."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q04",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Vous acquérez **2,5 jours ouvrables de congés payés** pour chaque mois de travail effectif chez le même employeur【F2258】.  \n\nSources:\n[F2258]",
+      "sources": [
+        "F2258",
+        "F37482",
+        "F33359",
+        "L3141-3",
+        "F18260"
+      ],
+      "best_score": 0.997,
+      "seconds": 7.87,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states the key figure of 2.5 working days per month of effective work, which matches the reference answer and the official texts provided."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q05",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, votre employeur doit prendre en charge votre abonnement de transport en commun.  \nLa prise en charge est obligatoire et doit être d’au moins 50 % du coût de l’abonnement, le remboursement étant effectué au plus tard à la fin du mois suivant la période pour laquelle le titre a été validé ; les abonnements annuels sont remboursés mensuellement pendant leur période d’utilisation [F37900].  \nLe salarié doit fournir le titre d’abonnement (ou une attestation sur l’honneur si le titre ne porte pas son nom) pour ouvrir droit à la prise en charge, et le montant remboursé doit apparaître sur la fiche de paie [F37900][R3261-1].  \n\n**Sources :** [F37900] [R3261-1]",
+      "sources": [
+        "F19846",
+        "F37900",
+        "L3261-2",
+        "R3261-1",
+        "F33754"
+      ],
+      "best_score": 0.991,
+      "seconds": 15.3,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states the mandatory 50% reimbursement rate required by the reference answer and official texts, and provides accurate additional details regarding the timing and conditions without contradicting the law."
+      },
+      "judge_correct": true,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q06",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Le maître d’apprentissage est la personne directement responsable de la formation de l’apprenti et agit comme son tuteur ; il doit accompagner l’apprenti dans son travail afin qu’il obtienne le titre ou le diplôme préparé, en liaison avec le centre de formation d’apprentis (CFA) [F2918][L6223-5]. Il contribue à l’acquisition, au sein de l’entreprise, des compétences correspondant à la qualification recherchée, en coordination avec le CFA [R6226-6]. Il veille à ce que les formations dispensées restent à jour, assure le suivi de la progression de l’apprenti et garantit le respect des exigences de moralité et de compétence professionnelle [L6223-8-1]. L’employeur doit également s’assurer que le maître d’apprentissage bénéficie de formations lui permettant d’exercer sa mission [F2918].  \n\nSources: [F2918] [L6223-5] [R6226-6] [L6223-8-1]",
+      "sources": [
+        "F2918",
+        "L6223-5",
+        "R6226-5",
+        "L6223-8-1",
+        "R6226-6"
+      ],
+      "best_score": 1.0,
+      "seconds": 10.74,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies the role of the 'maître d'apprentissage' as contributing to the acquisition of skills corresponding to the targeted qualification, consistent with the official text L6223-5. It also correctly mentions the coordination with the CFA and the tutor role, which are part of the legal definition and mission."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q07",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, l’apprenti fait partie des salariés qui peuvent bénéficier des titres‑restaurant lorsque l’employeur décide de les attribuer ; le texte précise que le bénéfice s’applique « au salarié en CDI ou en CDD, à temps plein ou à temps partiel, au salarié intérimaire, à l’apprenti, stagiaire et au télétravailleur »【F21059】.  \nSources:\n[F21059]",
+      "sources": [
+        "F21059",
+        "L3262-1",
+        "R3262-6",
+        "R3262-5",
+        "R3262-9"
+      ],
+      "best_score": 0.994,
+      "seconds": 14.74,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that apprentices are entitled to meal vouchers if the employer provides them, citing the specific text that lists apprentices among eligible employees. It accurately reflects the condition that the employer is not obligated to provide them but must include apprentices if they do."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Pour un apprenti de 19 ans en première année, le salaire minimum légal est fixé à **43 % du salaire minimum de croissance (SMIC)** [​D6222-26​].\n\nSources:\n[D6222-26]",
+      "sources": [
+        "F2918",
+        "D6222-26",
+        "F219",
+        "D6222-32",
+        "L6222-27"
+      ],
+      "best_score": 0.862,
+      "seconds": 18.44,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies the minimum wage as 43% of the SMIC for a 19-year-old apprentice in their first year, which aligns with the official text D6222-26 and the reference answer."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q09",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "The usual maximum age to start an apprenticeship contract is 29 years (30 years minus one day) [F2918].  \nIt can be extended up to 35 years (36 years minus one day) when the apprentice ‑  a) signs a new contract to obtain a higher‑level diploma, b) had a previous contract terminated for reasons beyond his/her control, or c) had a previous contract terminated for a temporary physical in‑capacity, provided the new contract is concluded within one year of the previous one [F2918][D6222-1].  \nThere is **no age limit** for apprentices who are recognized as disabled workers, who are high‑level athletes, who are creating or taking over a business that requires a diploma, or who have not obtained the diploma and sign a new contract with another employer to retake the exam [F2918].  \n\nSources: [F2918] [D6222-1]",
+      "sources": [
+        "F2918",
+        "L6222-1",
+        "L6222-12-1",
+        "D6222-1",
+        "F31704"
+      ],
+      "best_score": 0.981,
+      "seconds": 16.65,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies the general maximum age as 29 years (specifically '29 ans révolus') and provides accurate details regarding exceptions and extensions, consistent with the official text and reference answer."
+      },
+      "judge_correct": true,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q10",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "La formation en centre de formation d’apprentis (CFA) doit représenter au minimum **25 % de la durée totale du contrat d’apprentissage**【F2918】.  \nSources:  \n[F2918]",
+      "sources": [
+        "F2918",
+        "F219",
+        "F15478",
+        "R6222-23-1",
+        "F31704"
+      ],
+      "best_score": 0.994,
+      "seconds": 17.27,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states the minimum duration of 25% of the total contract duration as required by the official text L6211-2. Although it omits the specific mention of the 'certifying body's rules' (sous réserve des règles de l'organisme certificateur), it provides the key figure and condition requested in the reference answer without contradiction."
+      },
+      "judge_correct": true,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q11",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.3.1",
+        "aivancity-RP-2.1.2",
+        "F23556",
+        "aivancity-RP-3.3.8"
+      ],
+      "best_score": 0.035,
+      "seconds": 23.3,
+      "not_found_reason": "model",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q12",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.1",
+        "aivancity-RP-3.4.4",
+        "aivancity-RP-3.4.1",
+        "aivancity-RP-5.1"
+      ],
+      "best_score": 0.447,
+      "seconds": 23.68,
+      "not_found_reason": "model",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q13",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.007,
+      "seconds": 3.16,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q14",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Le salaire d’un apprenti dépend de son âge et de son année de formation :  \n\n- 16‑17 ans : 27 % du SMIC (≈ 504 €) la 1ᵉ année, 39 % (≈ 728 €) la 2ᵉ, 55 % (≈ 1 027 €) la 3ᵉ.  \n- 18‑20 ans : 43 % du SMIC (≈ 803 €) la 1ᵉ, 51 % (≈ 952 €) la 2ᵉ, 67 % (≈ 1 251 €) la 3ᵉ.  \n- 21‑25 ans : 53 % du SMIC (≈ 990 €) la 1ᵉ, 61 % (≈ 1 139 €) la 2ᵉ, 78 % (≈ 1 456 €) la 3ᵉ.  \n- 26 ans et plus : 100 % du SMIC (≈ 1 867 €) chaque année.  \n\nCes montants sont les minima légaux ; ils peuvent être majorés par une convention collective ou un accord d’entreprise (par exemple chez Sanofi).  \n\n**Conseil :** pour connaître le salaire exact appliqué chez Sanofi, consultez la convention collective de l’entreprise ou le contrat de travail de l’apprenti, qui préciseront le pourcentage ou le montant retenu.  \n\nSources: [F2918] [D6222-26]",
+      "sources": [
+        "F2918",
+        "L6243-2",
+        "D6222-26",
+        "D6222-33",
+        "F23556"
+      ],
+      "best_score": 0.021,
+      "seconds": 13.75,
+      "not_found_reason": null,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": false,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q15",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "I could not find the answer in the texts I search (French labour code, immigration code, social security code, Service-Public.fr fact sheets and the school regulations). I answer questions about apprenticeship, work and residence rights of students in France. If your question is about that, try asking differently, or ask your school or your HR team: they know the rules specific to your contract.",
+      "sources": [
+        "R6223-23",
+        "F2918",
+        "L6223-5",
+        "R6223-11",
+        "aivancity-RP-3.3.9"
+      ],
+      "best_score": 0.208,
+      "seconds": 17.05,
+      "not_found_reason": "model",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q16",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [
+        "L6222-32",
+        "L6243-3",
+        "L6243-2",
+        "F2918",
+        "L6222-42"
+      ],
+      "best_score": 0.319,
+      "seconds": 14.68,
+      "not_found_reason": "model",
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": false,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "NOT FOUND on a question with an answer"
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q17",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, le nombre de jours de télétravail pendant votre alternance dépend de ce qui est prévu dans l’accord collectif de votre entreprise ou, à défaut, dans la charte élaborée par l’employeur ; c’est cet accord qui fixe la fréquence du télétravail (régulier ou occasionnel) [ F13851][L1222‑9].  \nEn l’absence de ces documents, la fréquence doit être définie d’un commun accord entre vous et votre employeur, par exemple dans votre contrat ou un avenant [L1222‑9].  \nAinsi, vous ne pouvez pas imposer 3 jours par semaine de façon unilatérale ; il faut que l’accord collectif, la charte ou un accord individuel le prévoie.  \nSi votre entreprise n’a pas de règle précise, demandez à votre responsable RH ou à votre maître d’alternance de formaliser un accord écrit précisant les 3 jours de télétravail.  \n\nSources:  \n[F13851]  \n[L1222-9]",
+      "sources": [
+        "F13851",
+        "aivancity-RP-3.3.9",
+        "L1222-9",
+        "L1222-10",
+        "L1222-11"
+      ],
+      "best_score": 0.094,
+      "seconds": 17.58,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The answer correctly states the legal framework (collective agreement, charter, or individual agreement) and advises the user to ask HR or the employer to formalize the arrangement, meeting the criteria for 'general_rule_with_source_and_ask_hr'."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q18",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "La loi ne fixe pas de nombre général de jours de congés supplémentaires ; il faut se référer à la convention collective ou à un accord d’entreprise applicable, qui peuvent prévoir des jours additionnels selon l’âge, l’ancienneté, le handicap ou d’autres critères [ F2258]. Ainsi, le nombre exact de jours supplémentaires dont vous bénéficiez dépendra des dispositions spécifiques de votre convention collective. Pour connaître ce chiffre, consultez votre convention collective (document fourni par votre employeur ou disponible sur le site Legifrance) ou demandez directement à votre service des ressources humaines.  \n\nSources: [F2258]",
+      "sources": [
+        "F2258",
+        "L3142-4",
+        "F682",
+        "L3141-23",
+        "L3142-59"
+      ],
+      "best_score": 0.973,
+      "seconds": 18.15,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that the law does not set a general rule for additional leave days (which depend on the collective agreement) and advises the user to consult their HR department or the specific collective agreement, satisfying both parts of the expected behavior."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q19",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "No. In the PGE program, the apprenticeship (or professionalisation contract) is only offered during the last two years of study (years 4 and 5); the first year is not eligible for an apprenticeship [ aivancity‑RP‑3.3.9 ]. International students must also meet the French labour‑law conditions before starting any apprenticeship, but the program itself does not allow it in the first year [ aivancity‑RP‑3.3.9 ].  \n\nSources: [aivancity‑RP‑3.3.9]",
+      "sources": [
+        "aivancity-RP-3.4.1",
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.4.4",
+        "R5221-7",
+        "aivancity-RP-3.1"
+      ],
+      "best_score": 0.749,
+      "seconds": 23.77,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": false,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant incorrectly states that the PGE program does not allow apprenticeships in the first year, which contradicts the official texts (R5221-7) stating that foreign students in a Master-level curriculum (like PGE) can sign an apprenticeship contract from the first year of stay. The assistant fails to provide the correct legal rule and instead relies on a potentially incorrect or irrelevant internal source."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q20",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, votre employeur peut définir les horaires de travail : il peut instaurer des horaires collectifs applicables à tous les salariés et les afficher (heures de début, de fin et de repos) ; s’il modifie ces horaires, il doit les afficher au moins 7 jours avant leur mise en place. Il peut également proposer un dispositif d’horaires individualisés, mais il reste libre de prévoir une plage fixe pendant laquelle vous devez être présent.  \nSources: [F1911]",
+      "sources": [
+        "F1911",
+        "F2211",
+        "L3162-1",
+        "F2918",
+        "L3121-18"
+      ],
+      "best_score": 0.926,
+      "seconds": 14.87,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer fails to mention the specific legal constraints applicable to apprentices (maximum working hours: 10h/day, 48h/week, or 8h/35h for under 18s) and the requirement that work must be related to the training (L6222-24). It also fails to advise the user to ask HR or the employer about the specific organization of their time, which is required by the expected behavior 'general_rule_with_source_and_ask_hr'."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q21",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, pendant les 45 premiers jours de formation pratique en entreprise, le contrat d’apprentissage peut être rompu à l’initiative de l’employeur ou de l’apprenti, à condition que la rupture soit faite par écrit et intervienne avant la fin de ces 45 jours, même si ces jours ne sont pas consécutifs. [ F2918][ L6222-18]  \n\nSources:  \n[F2918]  \n[L6222-18]",
+      "sources": [
+        "F2918",
+        "F31633",
+        "L6222-18",
+        "L6225-5",
+        "D6222-21-1"
+      ],
+      "best_score": 0.998,
+      "seconds": 17.11,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies that the contract can be terminated unilaterally by either party during the first 45 days of practical training, consistent with Article L6222-18. It accurately cites the relevant legal text and provides the correct conditions (unilateral right, 45-day limit)."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q22",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Après les quarante‑cinq premiers jours de formation pratique, la rupture du contrat d’apprentissage doit se faire par accord écrit des deux parties ou, à l’initiative de l’apprenti, après respect d’un préavis : l’apprenti doit informer l’employeur de son intention de rompre le contrat par tout moyen conférant date certaine, puis le contrat ne peut être rompu avant un délai d’au moins sept jours calendaires suivant cette information [ D6222-21-1 ]. Si l’employeur accepte, la rupture s’effectue selon les modalités prévues par le code du travail [ L6222-18 ].  \n\nSources: [L6222-18] [D6222-21-1]",
+      "sources": [
+        "L6222-18",
+        "F2918",
+        "L6225-5",
+        "D6222-21-1",
+        "L6222-19"
+      ],
+      "best_score": 0.873,
+      "seconds": 13.15,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incomplete and misleading. It omits the critical legal grounds for termination by the employer (or without mutual agreement) such as 'faute grave' (gross misconduct), 'force majeure', or 'inaptitude' (unfitness), which are explicitly required by the reference answer and the official text L6222-18. By only mentioning mutual agreement and the apprentice's specific procedure, it fails to provide the key facts for the general situation of stopping the contract after the trial period."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q23",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Le contrat d’apprentissage doit être signé **avant le début de la formation en centre de formation d’apprentis** ; en effet, la date de début de la période de formation en centre ne peut pas être postérieure de plus de trois mois au début d’exécution du contrat, ce qui implique que le contrat doit être conclu au plus tard quelques jours avant le premier jour de cours [L6222-12].  \n\nSources:  \n[L6222-12]",
+      "sources": [
+        "L6222-12-1",
+        "L6222-12",
+        "F2918",
+        "L6222-1",
+        "L6222-7"
+      ],
+      "best_score": 0.86,
+      "seconds": 12.54,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it misinterprets the legal text. Article L6222-12 states that the start of training (in the CFA or company) cannot be more than 3 months *after* the start of the contract execution. It does not require the contract to be signed 'a few days before' the first day of class, nor does it explicitly state it must be signed 'before' the training starts in a way that contradicts the 3-month window (the contract start date is the reference point). The reference answer correctly identifies that the training must start within 3 months of the contract's start date, whereas the assistant invents a stricter and unsupported condition ('a few days before')."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q24",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, vous pouvez encore conclure un contrat d’apprentissage à 31 ans uniquement si vous relevez d’une des dérogations prévues à l’article L. 6222‑2 : par exemple, si le nouveau contrat fait suite à un précédent contrat menant à un diplôme supérieur, si vous avez connu une rupture indépendante de votre volonté, si vous êtes reconnu travailleur handicapé, si vous avez un projet de création ou de reprise d’entreprise lié à l’obtention du diplôme, ou si vous êtes sportif de haut niveau inscrit sur la liste prévue à l’article L. 221‑2 du code du sport. Dans ces cas, l’âge maximal autorisé est de trente‑cinq ans et le contrat doit être signé dans un délai d’un an après l’expiration du précédent contrat [ L6222‑2 ][ D6222‑1 ].  \nSi aucune de ces conditions ne s’applique, la limite d’âge de vingt‑neuf ans s’applique et vous ne pouvez pas commencer d’apprentissage.  \n\nSources:\n[L6222-2]  \n[D6222-1]",
+      "sources": [
+        "L6222-1",
+        "D6222-1-2",
+        "L6222-12-1",
+        "L6222-2",
+        "D6222-1"
+      ],
+      "best_score": 0.28,
+      "seconds": 14.78,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies that the 29-year limit does not apply in specific cases listed in L6222-2 (such as following a previous apprenticeship, disability, etc.) and accurately cites the 35-year maximum age and 1-year deadline from D6222-1 for the relevant derogations. It provides the key facts and conditions required by the reference answer and official texts."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q25",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, en tant qu’apprenti vous avez droit à un congé supplémentaire de cinq jours ouvrables pour préparer directement vos épreuves, qui doit être pris dans le mois qui précède les examens et est maintenu payé [ L6222-35 ]. Ce congé s’ajoute aux congés payés légaux de cinq semaines par an prévus pour les apprentis [ F2918 ].  \n\nSources: [L6222-35] [F2918]",
+      "sources": [
+        "F15478",
+        "F2918",
+        "D3142-32",
+        "L6222-35",
+        "R6227-7"
+      ],
+      "best_score": 0.289,
+      "seconds": 15.16,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies the 5 working days of paid leave for exam preparation in the month preceding the exams, citing the correct legal article (L6222-35). The additional information about general paid leave is correct and does not contradict the official texts."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q26",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, le temps que vous passez en cours dans le centre de formation d’apprentis (CFA) est considéré comme du temps de travail effectif et est intégré à votre horaire de travail. [ L3162-2] [ F2918] [ L6222-24]\n\nSources:\n[L3162-2]\n[F2918]\n[L6222-24]",
+      "sources": [
+        "L3162-2",
+        "F2918",
+        "aivancity-RI-10.2",
+        "F2216",
+        "L6222-24"
+      ],
+      "best_score": 0.446,
+      "seconds": 8.64,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that training time at a CFA counts as effective working time and is included in the working hours, citing the relevant legal articles (L6222-24 and L3162-2) which support this conclusion."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q27",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "En règle générale, un maître d’apprentissage ne peut encadrer que **deux apprentis simultanément** (et éventuellement un redoublant) ; ce plafond peut être dérogé par la commission départementale de l’emploi et de l’insertion [ F2918][R6223-6].  \nDans une entreprise de travail temporaire, le nombre maximal passe à **cinq apprentis par maître d’apprentissage** [R6226-5].  \n\nSources:  \n[F2918][R6223-6][R6226-5]",
+      "sources": [
+        "R6223-6",
+        "R6226-5",
+        "F2918",
+        "R6223-10",
+        "R6226-6"
+      ],
+      "best_score": 0.996,
+      "seconds": 13.05,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states the general limit of 2 apprentices plus 1 for a repeat year, citing R6223-6. It also correctly mentions the specific exception for temporary work agencies (5 apprentices) from R6226-5, which is consistent with the official texts and adds relevant detail without contradiction."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q28",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Le maître d’apprentissage doit :\n\n1. être salarié de l’entreprise, volontaire, majeur et présenter les garanties de moralité ; l’employeur ou son conjoint collaborateur peuvent également exercer cette fonction【F2918】【L6223-8-1】.  \n2. justifier d’une compétence professionnelle :  \n   - soit être titulaire d’un diplôme ou d’un titre professionnel dans le même domaine que la formation de l’apprenti et justifier d’au moins 1 an d’expérience professionnelle en rapport avec la qualification préparée ;  \n   - soit, en l’absence de diplôme, justifier de 2 ans d’expérience professionnelle dans le même domaine ; les stages et périodes de professionnalisation ne comptent pas【F2918】【R6223-22】.  \n3. respecter le plafond d’accueil : un maître d’apprentissage peut encadrer au maximum 2 apprentis (et 1 redoublant) sauf dérogation de la commission départementale de l’emploi et de l’insertion【F2918】.  \n\nSources: 【F2918】【L6223-8-1】【R6223-22】",
+      "sources": [
+        "F2918",
+        "L6223-8-1",
+        "R6223-22",
+        "R6226-5",
+        "F219"
+      ],
+      "best_score": 0.999,
+      "seconds": 12.11,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly lists all the conditions required to be a 'maître d'apprentissage' as per the official texts (L6223-8-1 and R6223-22), including the status, moral guarantees, and the specific professional competence requirements (diploma + 1 year experience OR 2 years experience). The additional information about the cap on apprentices is correct and does not contradict the texts."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q29",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Le salaire minimum d’un apprenti de 22 ans en deuxième année est de 1 138,88 € (brut mensuel) [ F2918 ].  \n\nSources:  \n[F2918]",
+      "sources": [
+        "F2918",
+        "D6222-26",
+        "F219",
+        "D6222-32",
+        "D6222-31"
+      ],
+      "best_score": 0.85,
+      "seconds": 23.16,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant provides a specific monetary figure (1,138.88 €) which is not present in the provided official texts (which only specify percentages of the SMIC). Furthermore, it fails to state the key legal rule (61% of SMIC or minimum conventional salary) required by the reference answer and official text D6222-26."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q30",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, le salaire d’un apprenti bénéficie d’exonérations :\n\n* Impôt sur le revenu : les salaires perçus sont exonérés jusqu’à 21 622 € ; seule la partie supérieure à ce plafond doit être déclarée (et sera alors imposée) [F11249].\n\n* Cotisations sociales : la part du salaire mensuel brut qui ne dépasse pas 50 % du SMIC (soit 933,51 €) est totalement exonérée de cotisations salariales, de CSG/CRDS et d’impôt sur le revenu ; la partie excédant ce montant redevient soumise aux cotisations [F2918][L6243-2].\n\nEn résumé, tant que votre rémunération reste dans ces limites, elle n’est ni imposée ni soumise aux cotisations ; au‑delà, les montants excédentaires sont imposés et cotisés normalement.  \n\nSources: [F11249] [F2918] [L6243-2]",
+      "sources": [
+        "F2918",
+        "F11249",
+        "L6243-2",
+        "L6241-1-1",
+        "L6243-3"
+      ],
+      "best_score": 0.983,
+      "seconds": 4.58,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies the tax exemption threshold (21,622 €) and the social contribution exemption limit (50% of SMIC) based on the provided official texts. It accurately states that amounts exceeding these limits are subject to tax and contributions, aligning with the reference answer and legal provisions."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q31",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "Your employer can only require night work or Sunday work for you if you are **over 18 years old**; in that case you are treated like any other employee and may work at night and on Sundays.  \n\nIf you are **under 18**, the law forbids you to work on Sundays except in the sectors that justify it (hospitality, restaurants, cafés, bakeries, flower shops, etc.) and you must receive at least two consecutive days of weekly rest [​F13887][​L3164-5]. Night work is also prohibited for apprentices under 18, unless a specific derogation is granted under the conditions of article L. 3163‑2 [​L6222-26].  \n\nSo, the possibility depends on your age and the sector of activity.  \n\nSources: [F13887] [L3164-5] [L6222-26]",
+      "sources": [
+        "F13887",
+        "F2918",
+        "L3164-5",
+        "L6222-26",
+        "F2216"
+      ],
+      "best_score": 0.994,
+      "seconds": 12.89,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it omits the specific legal definition of night work for minors (22:00-06:00 for 16-17 year olds, 20:00-06:00 for under 16s) as required by the reference answer and official texts (L3163-1). It also fails to mention the absolute prohibition of working more than 6 days a week (L3132-1) and incorrectly implies that Sunday work is generally forbidden for under-18s without clearly stating the specific sectors where it is allowed as a primary exception, whereas the reference highlights the sector-based exceptions as the main rule for minors."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q32",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "An apprentice acquires 2.5 working days of paid leave for each month of effective work [​F18260]. This corresponds to the legal entitlement of 5 weeks (30 working days) of paid leave per year, which also averages 2.5 days per month [F2918][F2258].\n\nSources:\n[F18260], [F2918], [F2258]",
+      "sources": [
+        "F2918",
+        "F2258",
+        "L6222-35",
+        "F18260",
+        "F24661"
+      ],
+      "best_score": 0.996,
+      "seconds": 21.14,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that an apprentice earns 2.5 working days of paid leave per month, which matches the reference answer and the official texts provided."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q33",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "A trial period cannot be imposed in an apprenticeship contract when it is followed by a permanent, fixed‑term or temporary contract in the same company, unless a collective agreement provides otherwise; the apprenticeship period is taken into account for pay and seniority. [L6222-16]\n\nSources:\n[L6222-16]",
+      "sources": [
+        "L6222-16",
+        "F2918",
+        "L6222-12",
+        "R6222-6",
+        "L6222-12-1"
+      ],
+      "best_score": 0.998,
+      "seconds": 9.23,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it cites the wrong legal article (L6222-16 instead of L6222-18) and fails to provide the key factual information requested: the specific duration of the trial period (45 days of practical training) and the conditions for termination. It answers a different aspect of the law (prohibition of a subsequent trial period) rather than defining the trial period within the apprenticeship contract itself."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q34",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "Your apprenticeship master (maître d’apprentissage) is the person in the company who is directly responsible for your training and acts as your tutor. They must be a salaried, adult, trustworthy employee (or the employer or a collaborating spouse) and, if required, meet the professional competence criteria set by regulation. Their duties are to accompany you in the workplace, ensure you acquire the skills required for the qualification or diploma you are preparing, and coordinate with the centre de formation d’apprentis (CFA). They must also keep the training content up‑to‑date, monitor your progress throughout the contract, and guarantee that the training leads to the intended diploma. The employer must ensure the master receives the necessary training to fulfil this role.  \n\nSources: [F2918] [L6223-5] [L6223-8-1]",
+      "sources": [
+        "F2918",
+        "L6223-5",
+        "L6223-8-1",
+        "R6226-5",
+        "R6226-6"
+      ],
+      "best_score": 0.999,
+      "seconds": 10.2,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies the apprenticeship master as the person directly responsible for training and accurately states their mission to contribute to the acquisition of skills corresponding to the qualification, in liaison with the CFA, consistent with the official text L6223-5."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q35",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "En principe, un apprenti ne peut pas dépasser 29 ans révolus au moment de la signature du contrat (soit 30 ans moins 1 jour) [ F2918 ].  \nIl peut toutefois signer un nouveau contrat jusqu’à 35 ans révolus (36 ans moins 1 jour) dans les cas suivants : \n\n* il passe à un niveau de diplôme supérieur,  \n* son précédent contrat a été rompu pour une cause indépendante de sa volonté, ou  \n* il a été déclaré inapte physiquement de façon temporaire,  \n\nà condition que le nouveau contrat soit conclu dans l’année qui suit la rupture [ F2918 ; D6222-1 ].  \n\nIl n’y a aucune limite d’âge pour les apprentis reconnus travailleurs handicapés [ F219 ].  \n\n**Sources :** [F2918] ; [D6222-1] ; [F219]",
+      "sources": [
+        "L6222-1",
+        "F2918",
+        "L6222-12-1",
+        "D6222-1",
+        "F219"
+      ],
+      "best_score": 0.833,
+      "seconds": 12.29,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant's answer correctly states the general maximum age of 29 years (29 ans révolus) as required by the reference and official text L6222-1. Although it includes additional details about renewals (up to 35) and disabled workers which are not in the provided official text snippet, these do not contradict the core fact requested (the general limit) and are generally consistent with French labor law context, thus satisfying the 'answer_with_citation' criteria for the key fact."
+      },
+      "judge_correct": true,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q36",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Pour un apprenti majeur, le temps de travail hebdomadaire est le même que celui des salariés : 35 heures effectives par semaine (les heures supplémentaires sont possibles) [F2918].  \nPour un apprenti mineur, la durée légale maximale est également de 35 heures par semaine, mais il peut exceptionnellement effectuer jusqu’à 5 heures supplémentaires (soit 40 heures) après accord de l’inspecteur du travail et avis du médecin du travail [F2918].  \nDans les secteurs du bâtiment, des travaux publics et des travaux paysagers, la durée peut être portée à 40 heures par semaine et à 10 heures par jour, si l’organisation collective du travail le justifie [F2918].\n\n**Sources :** [F2918]",
+      "sources": [
+        "F2918",
+        "F2216",
+        "L3162-1",
+        "F1911",
+        "R6227-2"
+      ],
+      "best_score": 0.967,
+      "seconds": 15.46,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant answers with the legal duration (35h) instead of the maximum duration (48h) for adults, which is explicitly forbidden by the evaluation criteria ('answering a different question (the legal duration when the maximum is asked) ... is incorrect'). It also fails to cite the correct articles for the maximum duration (L3121-18, L3121-20)."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q37",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Non, la formation est gratuite pour l’apprenti et pour son représentant légal ; vous n’avez donc pas à la payer vous‑même. [ L6211-1 ]\n\nSources:\n[L6211-1]",
+      "sources": [
+        "L6221-1",
+        "L6222-12-1",
+        "F2918",
+        "L6211-1",
+        "L6235-5"
+      ],
+      "best_score": 0.311,
+      "seconds": 14.81,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that the apprentice does not pay for the training, which aligns with the reference answer and the official text L6332-14 (which states the OPCO covers the cost). Although the citation provided (L6211-1) is not the specific article cited in the reference (L6332-14), the factual answer is correct and does not contradict the official texts provided."
+      },
+      "judge_correct": true,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q38",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, dès votre embauche vous devez passer une visite médicale : vous bénéficiez d’une visite d’information et de prévention (VIP) qui doit être réalisée dans les 2 mois qui suivent votre date d’embauche (et avant l’embauche si vous êtes mineur ou travaillez de nuit) ; si vous êtes affecté à des travaux réglementés, un examen médical d’aptitude à l’embauche doit être effectué avant votre prise de poste. Vous bénéficierez ensuite des visites périodiques et de la visite de reprise après un arrêt de travail.   \nSources: [F2918] [F2211]",
+      "sources": [
+        "F144",
+        "F15478",
+        "F2733",
+        "F2918",
+        "F2211"
+      ],
+      "best_score": 0.849,
+      "seconds": 13.26,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant's answer is correct. It confirms the obligation to undergo a medical visit (specifically the 'visite d'information et de prévention') upon starting the contract, which aligns with the reference answer and Article L4624-1. The additional details regarding the 2-month deadline and specific cases (minors, night work, regulated work) are consistent with French labor regulations (Code du travail) and do not contradict the provided texts."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q39",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L’entreprise peut bénéficier de plusieurs aides :\n\n- **Aide unique** (ou « aide forfaitaire ») qui s’applique à tout contrat d’apprentissage, sans condition de date de conclusion ; elle est prévue pour les entreprises de moins de 250 salariés [F23556][D6243-1].  \n- **Aide exceptionnelle**, réservée aux contrats conclus à partir du 8 mars 2026 et débutant avant le 1 janvier 2027 ; les conditions varient selon la taille de l’entreprise (moins ou plus de 250 salariés) [F23556].  \n- **Aide financière de l’État** prévue à l’article D6243‑2 : montant maximal de 5 000 € pour la première année du contrat (ou 6 000 € si l’apprenti est reconnu travailleur handicapé) [D6243-2].  \n\nCes aides sont conditionnées au respect des formalités de transmission du contrat à l’opérateur de compétences dans les délais prévus [F2918][D6243-2].\n\nSources: [F23556] [D6243-1] [D6243-2] [F2918]",
+      "sources": [
+        "F38630",
+        "F23556",
+        "D6243-2",
+        "D6243-1",
+        "F2918"
+      ],
+      "best_score": 0.912,
+      "seconds": 20.83,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it fails to provide the specific financial amounts for the 'aide unique' (5,000 €) and 'aide exceptionnelle' (4,500 €, 2,000 €, etc.) required by the reference answer and official texts. Instead, it cites a different legal article (D6243-2) for a '5,000 €' aid which is not the primary aid described in the reference for the 'aide unique' context, and it completely omits the specific amounts for the 'aide exceptionnelle' and the conditions for companies with 250+ employees (5% target)."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q40",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, le contrat d’apprentissage peut être exécuté en partie à l’étranger, mais la période de mobilité ne peut pas dépasser un an ni la moitié de la durée totale du contrat ; elle doit être prévue par une convention entre l’apprenti, l’employeur en France, le CFA et la ou les structures d’accueil à l’étranger [F2918][L6222-42].  \n\nSources:\n[F2918]  \n[L6222-42]",
+      "sources": [
+        "F2918",
+        "L6222-42",
+        "F2713",
+        "R6222-66",
+        "L6235-3"
+      ],
+      "best_score": 0.999,
+      "seconds": 20.78,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that part of the apprenticeship can be done abroad, citing the maximum duration limits (1 year or half the total contract duration) and the requirement for a convention, which aligns with the official text L6222-42."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q41",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.1",
+        "aivancity-RP-3.3.8",
+        "aivancity-RP-3.3.1",
+        "aivancity-RP-3.4.1"
+      ],
+      "best_score": 0.806,
+      "seconds": 17.87,
+      "not_found_reason": "model",
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": false,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "NOT FOUND on a question with an answer"
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q42",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [
+        "aivancity-RP-3.3.1",
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-2.1.2",
+        "F38630",
+        "F23556"
+      ],
+      "best_score": 0.019,
+      "seconds": 24.07,
+      "not_found_reason": "model",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q43",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L’école doit vous accompagner et vous conseiller dans votre recherche d’alternance (par exemple via le service Carrières, des conseils personnalisés et une plateforme d’offres), mais elle ne peut pas se substituer à vous ni vous garantir un poste ; c’est à vous de postuler directement auprès des entreprises ou via votre réseau [ aivancity‑RP‑3.3.1 ].  \nSources: [aivancity‑RP‑3.3.1]",
+      "sources": [
+        "aivancity-RP-3.3.1",
+        "aivancity-RP-3.3.9",
+        "L6231-2",
+        "L6243-1-2",
+        "R6223-10"
+      ],
+      "best_score": 0.073,
+      "seconds": 15.21,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that the school provides support (Career Service, advice, platform) but does not replace the student or guarantee a position, citing the correct source. It accurately reflects the key facts from the reference and official text."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q44",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Pour que votre école valide votre dossier d’alternance, vous devez fournir :\n\n1. Une proposition de contrat d’alternance (ou de stage) contenant **tous les éléments obligatoires** : nom de l’entreprise, département, lieu, fonction, missions précises et identité du tuteur ; ce dossier doit être soumis à la direction du programme avant le début prévu de l’alternance [ aivancity‑RP‑3.3.2 ].  \n2. Tous les documents administratifs exigés par le **dossier administratif de l’étudiant** : justificatif d’adresse postale, adresse e‑mail, ainsi que tout certificat médical, attestation d’absence ou autre pièce justificative que l’école conserve dans votre dossier [ aivancity‑RI‑3 ].  \n\nEn résumé, l’école attend la convention complète de l’alternance (entreprise, missions, tuteur) et la mise à jour de votre dossier administratif (adresse, pièces justificatives).  \n\nSources: [aivancity‑RP‑3.3.2] [aivancity‑RI‑3]",
+      "sources": [
+        "aivancity-RP-3.3.2",
+        "aivancity-RI-3",
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.3.1",
+        "F35796"
+      ],
+      "best_score": 0.57,
+      "seconds": 18.67,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The answer fails to meet the 'ask_hr' requirement of the expected behavior. It does not explicitly advise the user to ask the school for the exact list of required documents, instead listing specific administrative details (like medical certificates) that are not present in the provided official text [aivancity-RP-3.3.2] and likely hallucinated from the unprovided [aivancity-RI-3]."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q45",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.4.4",
+        "aivancity-RP-3.1",
+        "aivancity-RP-3.4.1",
+        "aivancity-RP-5.1"
+      ],
+      "best_score": 0.38,
+      "seconds": 33.47,
+      "not_found_reason": "model",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q46",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.004,
+      "seconds": 3.59,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q47",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.001,
+      "seconds": 2.7,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q48",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.003,
+      "seconds": 2.87,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q49",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "I could not find the answer in the texts I search (French labour code, immigration code, social security code, Service-Public.fr fact sheets and the school regulations). I answer questions about apprenticeship, work and residence rights of students in France. If your question is about that, try asking differently, or ask your school or your HR team: they know the rules specific to your contract.",
+      "sources": [],
+      "best_score": 0.006,
+      "seconds": 3.68,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q50",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "I could not find the answer in the texts I search (French labour code, immigration code, social security code, Service-Public.fr fact sheets and the school regulations). I answer questions about apprenticeship, work and residence rights of students in France. If your question is about that, try asking differently, or ask your school or your HR team: they know the rules specific to your contract.",
+      "sources": [
+        "R6222-66",
+        "F2918",
+        "L6222-42",
+        "R6222-67",
+        "L6243-1-2"
+      ],
+      "best_score": 0.056,
+      "seconds": 3.99,
+      "not_found_reason": "model",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q51",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [],
+      "best_score": 0.001,
+      "seconds": 3.57,
+      "not_found_reason": "weak_sources",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q52",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-2.3",
+        "aivancity-RP-3.3.1",
+        "aivancity-RP-3.3.5",
+        "aivancity-RP-3.3.8"
+      ],
+      "best_score": 0.213,
+      "seconds": 8.02,
+      "not_found_reason": "model",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q53",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "The law does not set a general rule that a school must provide housing for apprentices; it only allows a centre of apprenticeship training to include accommodation in the training agreement if the parties decide so. The convention between the centre, the employer and the apprentice may specify the provision of housing, but this is decided case‑by‑case [R6232-2] and, when the apprentice is placed in another company, the tripartite agreement also has to detail any housing arrangements [R6223-11]. Therefore, you need to check the specific training contract or ask the CFA’s administration whether housing is included in your agreement.  \n\n**Sources:** [R6232-2] [R6223-11]",
+      "sources": [
+        "F38630",
+        "L6232-1",
+        "R6232-2",
+        "R6223-11",
+        "F2918"
+      ],
+      "best_score": 0.14,
+      "seconds": 9.08,
+      "not_found_reason": null,
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": false,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q54",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [
+        "F2918",
+        "L6221-1",
+        "L6222-4",
+        "R6222-3",
+        "L6222-5-1"
+      ],
+      "best_score": 0.909,
+      "seconds": 14.05,
+      "not_found_reason": "model",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q55",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, l’employeur peut refuser que vous preniez vos congés pendant vos révisions, à condition que le refus ne soit pas abusif et qu’il soit justifié par la continuité du service ou une forte activité de l’entreprise (ou d’autres circonstances exceptionnelles) ; il doit alors vous proposer d’autres dates [F12803]. Le refus doit être motivé, intervenir après avis du comité social et économique (CSE) le cas échéant, et respecter les dispositions conventionnelles applicables [L3142-63][L3142-45][L3142-51].  \n\nSi vous estimez que le refus est injustifié, vous pouvez le contester directement devant le conseil de prud’hommes, selon la procédure accélérée prévue [L3142-63][L3142-45][L3142-51].  \n\n**Conseil :** vérifiez d’abord les dates de prise de congés communiquées par votre entreprise (au moins 2 mois à l’avance) et les éventuels accords collectifs ou décisions du CSE ; si le refus vous paraît abusif, préparez une contestation auprès du conseil de prud’hommes.  \n\nSources: [F12803][L3142-63][L3142-45][L3142-51]",
+      "sources": [
+        "F12803",
+        "L3142-63",
+        "L3142-45",
+        "L3142-51",
+        "L3142-113"
+      ],
+      "best_score": 0.95,
+      "seconds": 13.27,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant fails to mention the specific 'congé examens' (5 days) guaranteed by Article L6222-35 for apprentices, which is the core of the user's situation. Furthermore, it incorrectly advises going to the 'conseil de prud'hommes' for a refusal of leave dates, whereas the official text (F12803) states the leave must simply be taken on another date, and the expected behavior requires asking HR/employer rather than suggesting immediate legal action."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q56",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, votre entreprise peut vous verser un salaire supérieur au minimum légal prévu pour les apprentis ; le texte indique que « sous réserve de dispositions contractuelles ou conventionnelles plus favorables, l’apprenti ne peut percevoir un salaire inférieur à… » ce qui implique que des dispositions plus favorables sont autorisées [ L6222-27 ]. Ainsi, si votre convention collective ou votre contrat prévoit une rémunération plus élevée, l’employeur peut la appliquer.  \n\nSources:\n[L6222-27]",
+      "sources": [
+        "F2918",
+        "D6241-8",
+        "D6235-4",
+        "D6222-31",
+        "L6222-27"
+      ],
+      "best_score": 0.641,
+      "seconds": 13.64,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The answer correctly states that the employer can pay more than the legal minimum, citing the relevant article (L6222-27) which allows for more favorable contractual or collective agreement provisions. It also advises checking the collective agreement or contract, satisfying the requirement to ask HR or refer to specific agreements."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q57",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [
+        "aivancity-RI-10.2",
+        "aivancity-RI-7.3",
+        "aivancity-RP-4.1.4",
+        "aivancity-RP-6.1",
+        "F15478"
+      ],
+      "best_score": 0.034,
+      "seconds": 17.08,
+      "not_found_reason": "model",
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": false,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "NOT FOUND on a question with an answer"
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q58",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "La législation ne prévoit pas de prime ou de 13ᵉ mois spécifique pour les apprentis ; il n’existe pas de dispositif général qui leur soit attribué. Toutefois, le 13ᵉ mois, lorsqu’il fait partie de la rémunération brute, est pris en compte dans le calcul de l’indemnité de congés payés (voir la liste des éléments inclus : « 13e mois (si la somme n’est pas versée pour l’année…) »)[F33359]. Ainsi, si votre employeur vous verse un 13ᵉ mois, il sera considéré comme un élément de salaire, mais il n’est pas obligatoire au niveau légal.  \n\n**Conseil :** vérifiez votre contrat de travail ou la convention collective de votre entreprise pour savoir si un 13ᵉ mois ou une prime est prévue, et demandez à votre service RH les modalités précises.  \n\nSources: [F33359]",
+      "sources": [
+        "F33375",
+        "F38630",
+        "L6243-1",
+        "F33359",
+        "D6222-31"
+      ],
+      "best_score": 0.309,
+      "seconds": 14.16,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The answer correctly states that there is no specific legal provision for a 13th month or bonus for apprentices, consistent with the official texts. It also advises the user to check their contract/collective agreement and ask HR, fulfilling the 'general_rule_with_source_and_ask_hr' requirement."
+      },
+      "judge_correct": true,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q59",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Non, l’employeur n’est pas tenu de remettre des titres‑restaurant à ses salariés ; la remise de ces titres est facultative. [ L3262-1]  \nEn revanche, si l’entreprise décide de les attribuer, elle doit respecter les règles de remise et de remboursement prévues par le Code du travail.  \nSources: [L3262-1]",
+      "sources": [
+        "F21059",
+        "R3262-11",
+        "L3262-1",
+        "R3262-38",
+        "R3262-12"
+      ],
+      "best_score": 0.967,
+      "seconds": 7.48,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The answer correctly states that the employer is not obligated to provide meal vouchers, consistent with the official texts. However, it fails to include the required instruction to ask HR or the employer about the specific company policy, which is mandatory for the 'general_rule_with_source_and_ask_hr' behavior."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q60",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "Yes, French law obliges an employer to contribute to the cost of public‑transport tickets (or public bike‑sharing services) that employees use for commuting between their home and workplace; the exact share and conditions are set by regulation. This mandatory contribution does not apply to personal‑vehicle expenses, which can only be reimbursed voluntarily and must then be offered to all staff under the same conditions.  \n\n**Sources:**  \n[F37900]  \n[L3261-2]",
+      "sources": [
+        "F37900",
+        "F19846",
+        "L3261-2",
+        "L3261-3-1",
+        "L3261-3"
+      ],
+      "best_score": 0.843,
+      "seconds": 10.29,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The answer correctly states the legal rule (50% of public transport costs) and cites the sources, but it fails to include the required instruction to ask HR, the employer, or the school about specific conditions or other modes of transport, which is mandatory for the 'general_rule_with_source_and_ask_hr' behavior."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q61",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "Yes, an employer may refuse a request for a remote‑work day, but the refusal must be justified. If there is no collective agreement or charter, the employer can refuse without having to give a reason, although he must explain the refusal when the request comes from a disabled worker or a caregiver [F13851]. When a collective agreement or a charter is in place, the employer must also give reasons for refusing a remote‑work request for a position that is eligible for teleworking [F13851]. In any case, the refusal must not be abusive (e.g., it cannot contradict the provisions of the applicable collective agreement or the charter) [F13851]. If the employer’s refusal is unjustified, the employee can contest it within fifteen days of the notification [D3142-16]. If you need to know the specific reasons your company must provide, check the collective agreement or the telework charter that applies to your workplace.  \n\nSources: [F13851] [D3142-16]",
+      "sources": [
+        "F13851",
+        "L1222-11",
+        "L1222-9",
+        "F12803",
+        "D3142-16"
+      ],
+      "best_score": 0.999,
+      "seconds": 15.74,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it cites a non-existent article [D3142-16] and invents a 15-day contestation period that is not present in the provided official texts. Additionally, it incorrectly states that the employer must give reasons for refusal when a collective agreement or charter is in place, whereas the law (L1222-9) only mandates a motivated refusal for disabled workers or caregivers, regardless of the framework."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q62",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Un salarié (et donc un apprenti) de moins de 18 ans a droit à deux jours de repos consécutifs chaque semaine, par exemple le samedi et le dimanche ; travailler le samedi ne respecte donc pas cette règle sauf s’il existe une dérogation prévue par la convention collective ou un accord d’entreprise et que l’apprenti bénéficie d’un repos compensateur équivalent [L2327].  \nEn l’absence de telle dérogation, l’employeur ne peut pas vous imposer de travailler le samedi, sous peine de violer le repos hebdomadaire obligatoire.  \n\n**Conseil :** vérifiez votre convention collective ou tout accord d’entreprise pour savoir s’il prévoit une dérogation au repos hebdomadaire des mineurs, et demandez à votre service RH le texte applicable ou le dispositif de repos compensateur.  \n\nSources: [F2327]",
+      "sources": [
+        "F13887",
+        "F2405",
+        "F2327",
+        "F682",
+        "L3164-5"
+      ],
+      "best_score": 0.868,
+      "seconds": 19.79,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [
+        "L2327"
+      ],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it imposes a condition (being under 18) that is not present in the user's question, potentially misinforming an adult apprentice. Furthermore, it cites a non-existent article [L2327] and incorrectly states that working Saturday is generally illegal without a specific derogation, whereas the law (L3132-3) simply states the weekly rest is given on Sunday 'in the interest of employees', allowing for other arrangements (like Saturday rest) or derogations without requiring the specific 'minor' framework described."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q63",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, votre convention collective s’applique aux apprentis : ils bénéficient des mêmes droits que les autres salariés et ne peuvent pas être exclus des dispositions générales de la convention, y compris des primes ou avantages prévus pour l’ensemble du personnel [F2918]. De plus, les avantages en nature accordés aux apprentis peuvent être déduits du salaire dans la même limite que pour les autres travailleurs (75 % du plafond autorisé, sans dépasser chaque mois les trois quarts du salaire) [D6222-33].\n\nSources:\n[F2918]  \n[D6222-33]",
+      "sources": [
+        "F2918",
+        "D6222-33",
+        "R6223-11",
+        "R6232-3",
+        "R6222-6"
+      ],
+      "best_score": 0.955,
+      "seconds": 11.33,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The answer fails to explicitly state the 'principle of favorability' (that the collective agreement can provide benefits *more favorable* than the law, which is the core of the reference answer and L2254-1). Instead, it focuses on the apprentice's status as an employee and includes irrelevant details about in-kind benefits (D6222-33) that do not address the question of additional advantages from the collective agreement. It also lacks the explicit instruction to ask HR which specific convention applies, which is required for the 'general_rule_with_source_and_ask_hr' behavior."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q64",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, le contrat d’apprentissage est un contrat de travail qui peut se dérouler dans une administration ; il est donc possible de réaliser votre alternance au sein d’une entreprise publique ou d’une mairie, à condition que l’organisme respecte les règles du contrat d’apprentissage. [F3059]\n\nSources:\n[F3059]",
+      "sources": [
+        "F3059",
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.3.1",
+        "F34964",
+        "F2918"
+      ],
+      "best_score": 0.045,
+      "seconds": 3.68,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The answer correctly states that apprenticeships are possible in public administrations (mairies) and cites the source, but it fails to advise the user to ask HR, the employer, or the school, which is required for the 'general_rule_with_source_and_ask_hr' behavior."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q65",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, vous pouvez cumuler votre contrat d’alternance avec un autre emploi étudiant, à condition de ne pas dépasser le plafond autorisé pour les étudiants : 964 heures de travail au maximum par an (soit environ 60 % du temps de travail légal). Si vous dépassez ce quota, vous ne serez plus considéré comme étudiant mais comme travailleur et devrez changer de statut de séjour.  \n\nSources: [F13519] [R5221-26]\n\nPour ton titre de séjour ou ton autorisation de travail, fais vérifier ta situation par le bureau international de l'école : il connaît les démarches et les délais de la préfecture.",
+      "sources": [
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.3.1",
+        "F13519",
+        "aivancity-RP-3.3.8",
+        "R5221-26"
+      ],
+      "best_score": 0.123,
+      "seconds": 3.97,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant provides incorrect legal information regarding the 964-hour limit (which applies to foreign students' residence permits, not the general right to work for all apprentices) and fails to mention the weekly maximum working hours (48h) or the specific prohibition for minors (35h limit) as required by the reference and official texts."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q66",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "To sign an apprenticeship contract you must:  \n\n1. Be an international student who has completed at least one year of stay in France **or** be enrolled in a master‑level programme (or a programme listed in the relevant codes) that allows a contract after the first year of stay【R5221-7】.  \n2. Have a written apprenticeship contract that includes all mandatory mentions (employer name, company size, diploma pursued, salary for each year, master‑apprentice’s name and birth date, employer’s certification of the master‑apprentice’s competence, and any conditions for in‑kind benefits) and be signed by the employer, the apprentice, and, if the apprentice is a minor, the legal representative【F2918】.  \n3. Sign the contract on the official Cerfa form n°10103; one copy is given to the apprentice and the other is kept by the employer【F2918】.  \n4. Ensure the employer transmits the signed contract (or declaration if the employer is a relative of a minor) to the OPCO within five working days of the start date【F2918】.  \n\n**Sources:**【R5221-7】【F2918】【R6222-2】\n\nFor your residence permit or work authorisation, have your situation checked by the school's international office: they know the prefecture's procedures and delays.",
+      "sources": [
+        "F2918",
+        "R6222-2",
+        "aivancity-RP-3.3.9",
+        "R5221-7",
+        "R6222-66-1"
+      ],
+      "best_score": 0.836,
+      "seconds": 4.92,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": true,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The answer correctly identifies the legal conditions for an international student (1 year of stay or Master's enrollment) and cites the relevant text. It also directs the user to the school's international office to check their specific situation regarding residence permits and work authorization, satisfying the 'ask HR/school' requirement."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q67",
+      "tags": [
+        "company_dependent",
+        "en"
+      ],
+      "answer": "Your employer does not have to request a work permit if you are a foreign student who has signed an apprenticeship contract that has been validated by the OPCO (private sector) or the DREETS (public sector) — the employer is exempt from the work‑permit requirement, but must still submit a nominative declaration to the prefecture at least two working days before your start date【F2728】.  \n\nSources:\n[F2728]\n\nFor your residence permit or work authorisation, have your situation checked by the school's international office: they know the prefecture's procedures and delays.",
+      "sources": [
+        "F2728",
+        "R5221-3",
+        "R5221-26",
+        "F2229",
+        "R5221-45"
+      ],
+      "best_score": 0.904,
+      "seconds": 4.72,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": true,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it cites a specific exemption for apprentices (OPCO/DREETS validation) that is not present in the provided official text [F2728]. The provided text only lists exemptions for 'vie privée et familiale', 'talent', and 'salarié/travailleur temporaire' cards, and does not mention student residence permits or apprenticeship-specific exemptions. Furthermore, the text states that for 'salarié' cards, a work permit is mandatory, and does not provide a general rule for 'student' permits in the excerpt, making the specific claim unsupported by the source."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q68",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Non, l’alternance n’est autorisée qu’à partir de la quatrième ou cinquième année du programme ; les deux dernières années peuvent se dérouler en contrat d’apprentissage ou de professionnalisation, mais pas en première année [aivancity-RP-3.3.9].  \nSources:\n[aivancity-RP-3.3.9]",
+      "sources": [
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.4.1",
+        "aivancity-RP-3.3.8",
+        "aivancity-RP-3.3.1",
+        "aivancity-RP-3.4.4"
+      ],
+      "best_score": 0.977,
+      "seconds": 24.5,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is factually incorrect regarding the PGE program structure (alternance is typically possible from the 2nd or 3rd year, not just the 4th/5th) and contradicts the general legal principle that apprenticeship contracts can be signed at the start of a training program. It fails to provide the correct general rule or advise asking the school/HR as required by the expected behavior."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q69",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "En principe, c’est le maître d’apprentissage qui assure le suivi de l’apprenti tout au long de sa formation ; si le maître d’apprentissage ne remplit plus ses obligations (par exemple, en étant absent pendant tout un mois), l’inspection du travail peut mettre l’employeur en demeure de désigner un autre maître d’apprentissage et de communiquer ses coordonnées et compétences professionnelles à l’organisme chargé du dépôt du contrat [R6225-2].  \n\nSources:\n[R6225-2]",
+      "sources": [
+        "F2918",
+        "R6226-5",
+        "L6223-8",
+        "L6223-8-1",
+        "R6225-2"
+      ],
+      "best_score": 0.336,
+      "seconds": 10.79,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant fails to mention the legal possibility of sharing the tutoring function (L6223-6) as the primary solution, instead focusing on labor inspection sanctions. It also fails to explicitly advise the user to ask HR or the employer who will follow them, which is required for the 'general_rule_with_source_and_ask_hr' behavior."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q70",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Si l’entreprise fait l’objet d’une liquidation judiciaire sans poursuite d’activité, le contrat d’apprentissage peut être rompu par le liquidateur ; l’apprenti bénéficie alors d’une indemnisation d’au moins le montant des rémunérations qu’il aurait perçues jusqu’à la fin du contrat [F2918].  \nLe liquidateur doit notifier la rupture du contrat à l’apprenti, et les dispositions de l’article L 1243‑4 du Code du travail s’appliquent, à l’exception de celles relatives à l’indemnité prévue à l’article L 1243‑8 [L6222-18].  \n\n**Sources :** [F2918] ; [L6222-18]",
+      "sources": [
+        "F2918",
+        "L3261-8",
+        "L6222-18",
+        "F20739",
+        "F20744"
+      ],
+      "best_score": 0.071,
+      "seconds": 14.53,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The answer correctly states the legal rule regarding the termination of the apprenticeship contract in case of judicial liquidation without continuation of activity, citing the relevant article (L6222-18). However, it fails to include the required instruction to ask HR, the employer, the school, or the OPCO for help finding a new employer, which is mandatory for the 'general_rule_with_source_and_ask_hr' behavior."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A01",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "Yes. If you obtain the diploma or title you were preparing, you may terminate the apprenticeship before the originally fixed end date, provided you inform the employer in writing one month in advance and the termination cannot occur before the day after the results are published【F2918】. This right is also confirmed by the general rule that the contract can end at the apprentice’s initiative after obtaining the qualification, as long as the employer is notified【L6222-19】.  \n\nSources: [F2918] [L6222-19]",
+      "sources": [
+        "L6222-19",
+        "F2918",
+        "D6222-30",
+        "F31704",
+        "L6222-22-1"
+      ],
+      "best_score": 0.948,
+      "seconds": 17.54,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it introduces specific conditions (one month written notice, termination not before the day after results are published) that are not present in the provided official texts. The official text L6222-19 only requires informing the employer, without specifying a notice period or timing relative to result publication. Adding these unsupported constraints contradicts the simplicity of the legal rule provided in the reference and texts."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A02",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Non, le travail de nuit est interdit pour un apprenti ou salarié de 17 ans, sauf dérogation exceptionnelle accordée par l’inspecteur du travail dans les cas prévus par la loi. En l’absence de telle dérogation, il ne peut pas être employé entre 22 h et 6 h. Sources: [L6222-26] [ L3163-1]",
+      "sources": [
+        "L3163-2",
+        "F2216",
+        "L6222-26",
+        "R6227-3",
+        "L3163-1"
+      ],
+      "best_score": 0.698,
+      "seconds": 9.45,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that night work is prohibited for a 17-year-old apprentice, citing the relevant legal articles (L6222-26 and L3163-1). It accurately defines the night work period for this age group (22h-6h) and mentions the possibility of exceptional derogations, which aligns with the reference answer and official texts."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L’article L 6222‑35 prévoit que l’apprenti bénéficie, pour la préparation directe des épreuves, d’un congé supplémentaire de cinq jours ouvrables, maintenu avec salaire, à prendre dans le mois précédant les épreuves, à condition que la convention de formation le prévoie. Ce congé s’ajoute aux congés payés prévus à l’article L 3141‑1, au congé annuel pour les salariés de moins de 21 ans prévu à l’article L 3164‑9, ainsi qu’à la durée de formation en centre de formation d’apprentis fixée par le contrat. [L6222-35]\n\nSources:\n[L6222-35]",
+      "sources": [
+        "L6222-35",
+        "L6235-4",
+        "L6222-34",
+        "D6235-9",
+        "L6235-5"
+      ],
+      "best_score": 0.912,
+      "seconds": 18.4,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies the key facts: a 5-working-day leave for exam preparation with salary maintenance, taken in the month preceding the exams. It accurately reflects the official text and includes the citation."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A04",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "A non‑EU student may work up to **964 hours per year** (which corresponds to 60 % of the legal annual working time) without needing a work permit.  \nSources: [F2713] , [R5221-26]\n\nFor your residence permit or work authorisation, have your situation checked by the school's international office: they know the prefecture's procedures and delays.",
+      "sources": [
+        "F2713",
+        "F13519",
+        "R5221-26",
+        "F2728",
+        "F35796"
+      ],
+      "best_score": 0.999,
+      "seconds": 16.31,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": true,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states the key figure of 964 hours per year (60% of legal annual working time) for non-EU students without a work permit, which matches the reference answer and official text [F2713]. It also appropriately advises checking with the school's international office regarding specific procedures."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A05",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Vous ne pouvez recevoir qu’un seul titre‑restaurant par repas compris dans votre horaire de travail quotidien, ce qui signifie généralement un titre‑restaurant par jour de travail.  \n\nSources: [R3262-7]",
+      "sources": [
+        "F21059",
+        "R3262-7",
+        "R3262-10",
+        "L3262-1",
+        "R3262-5"
+      ],
+      "best_score": 0.989,
+      "seconds": 9.76,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states the key fact from the official texts: one meal voucher per meal included in the daily working hours. It cites the relevant legal article [R3262-7] and does not contradict the provided texts."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A06",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Vous pouvez les utiliser pendant toute l’année civile de leur émission, puis pendant les deux mois de janvier et février de l’année suivante ; après cette période ils sont périmés sauf échange dans les quinze jours suivant la fin de la période d’utilisation. [ F21059 ][ R3262-5 ]  \n\nSources:  \n[F21059]  \n[R3262-5]",
+      "sources": [
+        "F21059",
+        "R3262-5",
+        "R3262-10",
+        "L3262-5",
+        "R3262-1-2"
+      ],
+      "best_score": 0.995,
+      "seconds": 13.47,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that meal vouchers are valid during the civil year of issuance and for two months (January and February) of the following year, which aligns with the official text R3262-5 and the reference answer. The additional detail about the exchange period is also consistent with the text."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A07",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "The employer must finance between 50 % and 60 % of the value of each meal voucher. [F21059]\n\nSources:\n[F21059]",
+      "sources": [
+        "F21059",
+        "L3262-1",
+        "R3262-11",
+        "F2728",
+        "R3261-13-2"
+      ],
+      "best_score": 0.988,
+      "seconds": 10.61,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant's answer correctly states the key fact (50% to 60% share) required by the reference answer and expected behavior, despite the provided official text snippet not explicitly containing this figure (which is a common issue in these evaluation tasks where the 'official text' provided is a summary or partial extract). The answer matches the reference exactly."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L’employeur doit financer au moins la moitié du coût de la mutuelle d’entreprise, soit ≥ 50 % de la cotisation, le reste restant à la charge du salarié. [ F20739][ L911-7]  \n\nSources:  \n[F20739]  \n[L911-7]",
+      "sources": [
+        "F20739",
+        "F20744",
+        "F33754",
+        "L911-7",
+        "F20740"
+      ],
+      "best_score": 0.822,
+      "seconds": 15.23,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that the employer must pay at least 50% of the contribution, which aligns with the reference answer and the official text L911-7 (Article III)."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A09",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, vous pouvez demander à être dispensé d’adhérer à la mutuelle collective de votre entreprise si vous êtes déjà couvert par une mutuelle individuelle ; la dispense d’adhésion s’applique uniquement jusqu’à l’échéance de votre contrat individuel et la demande doit être faite au moment de l’embauche ou à la mise en place de la couverture collective [F20740].  \n\nSources:\n[F20740]",
+      "sources": [
+        "F20740",
+        "F33754",
+        "F20739",
+        "F20744",
+        "F2211"
+      ],
+      "best_score": 0.95,
+      "seconds": 13.07,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that the employee is not obligated to join (can request a waiver) if already covered by an individual mutual, and accurately specifies the duration (until the individual contract's expiration) and the timing for the request (at hiring or implementation), consistent with the official texts and reference answer."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A10",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Les titres‑restaurant ont une durée d’utilisation limitée : ils ne peuvent être utilisés que pendant l’année civile indiquée et pendant les deux mois qui suivent le 1er janvier de l’année suivante ; les titres émis au cours de l’année en cours ne sont utilisables qu’après épuisement de tous ceux de l’année précédente. Ainsi, si les titres de l’année précédente n’ont pas été entièrement dépensés, ils expirent après ce délai et sont alors retirés du solde disponible, ce qui explique une baisse du nombre de titres disponibles ce mois‑ci [R3262-5][L3262-5].  \n\nSources:  \n[R3262-5]  \n[L3262-5]",
+      "sources": [
+        "L3262-1",
+        "R3262-5",
+        "F21059",
+        "L3262-5",
+        "R3262-36"
+      ],
+      "best_score": 0.252,
+      "seconds": 10.51,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it cites non-existent or irrelevant articles (R3262-5, L3262-5) and provides a false explanation regarding the expiration of meal vouchers (which are valid until December 31, 2026, according to the provided text). It fails to state the correct general rule (one voucher per meal within working hours, no vouchers for non-working days) and does not advise the user to ask HR for the specific calculation details."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "A11",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat. L'article L9999-1 ne fait pas partie de ces textes.",
+      "sources": [],
+      "best_score": 0.386,
+      "seconds": 3.79,
+      "not_found_reason": "missing_article",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q71",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Si vous dépassez la limite de 964 heures de travail par an (soit 60 % du temps de travail légal), vous vous exposez au retrait de votre titre de séjour étudiant et au refus de son renouvellement ; le dépassement constitue une violation des conditions de votre séjour [F2713].  \n\nSources:\n[F2713]\n\nPour ton titre de séjour ou ton autorisation de travail, fais vérifier ta situation par le bureau international de l'école : il connaît les démarches et les délais de la préfecture.",
+      "sources": [
+        "F2713",
+        "F35796",
+        "F13519",
+        "R5221-26",
+        "L422-1"
+      ],
+      "best_score": 0.817,
+      "seconds": 7.17,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": true,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant provides the correct legal limit (60% / 964 hours) and the correct consequence (withdrawal of the residence permit) based on the official texts. It also correctly advises contacting the international office, fulfilling the 'answer_with_citation' requirement."
+      },
+      "judge_correct": true,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q72",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "Yes. After obtaining a master‑level diploma (or an equivalent degree) you can apply for a temporary residence permit “search for employment or creation of a business” that allows you to stay in France to look for a job. The permit can be issued within four years of receiving the diploma and is valid for one year [F2229][L422-14].\n\nSources: F2229, L422-14\n\nFor your residence permit or work authorisation, have your situation checked by the school's international office: they know the prefecture's procedures and delays.",
+      "sources": [
+        "F2229",
+        "L422-14",
+        "F2728",
+        "L422-11",
+        "F3100"
+      ],
+      "best_score": 0.546,
+      "seconds": 19.3,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": true,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it cites a non-existent article (L422-14) and introduces a condition ('within four years') that is not present in the provided official texts (L422-10, L422-11, D422-13). The official texts do not mention a 4-year deadline for applying, and the correct legal basis is L422-10."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "Q73",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, vous pouvez poursuivre votre activité d’apprenti : tant que vous avez déposé votre demande de renouvellement, vous conservez le droit de travailler pendant trois mois à compter de la date d’expiration de votre carte de séjour, à condition que votre titre soit une carte de séjour pluriannuelle de quatre ans ou une carte de résident (ou tout titre d’une durée supérieure à un an prévu par une stipulation internationale) [F2728][L433-3].  \nSi votre préfecture vous a délivré un récépissé de demande de titre de séjour, ce récépissé prolonge les droits attachés à votre ancien titre et vous autorise également à travailler pendant la période de traitement de votre dossier [F15763].  \n\n**Sources :**  \n[F2728]  \n[L433-3]  \n[F15763]\n\nPour ton titre de séjour ou ton autorisation de travail, fais vérifier ta situation par le bureau international de l'école : il connaît les démarches et les délais de la préfecture.",
+      "sources": [
+        "F2728",
+        "F15763",
+        "F2733",
+        "L433-3",
+        "F2229"
+      ],
+      "best_score": 0.971,
+      "seconds": 15.21,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": true,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies the 3-month grace period and the right to work under L433-3 for the specified card types (4-year multi-year card, resident card). It also correctly advises contacting the international office, fulfilling the 'answer_with_citation' requirement with accurate legal details and no contradictions."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S01",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Non, en tant qu’alternant — signataire d’un contrat d’apprentissage ou de professionnalisation — aucune tolérance d’absence n’est prévue ; chaque absence doit être justifiée auprès de l’employeur et de l’école.  \nSources: [aivancity-RP-4.1.4]",
+      "sources": [
+        "aivancity-RP-4.1.4",
+        "aivancity-RP-3.3.4",
+        "aivancity-RI-9.2",
+        "aivancity-RP-3.3.9",
+        "F18260"
+      ],
+      "best_score": 0.899,
+      "seconds": 27.8,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer contradicts the official text [aivancity-RP-4.1.4], which explicitly states that a tolerance of 3 or 6 hours of absence is admitted without justification. The assistant incorrectly claims that no tolerance is provided and that every absence must be justified."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S02",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Vous pouvez être absent :  \n\n- jusqu’à **3 heures** pour les modules de **12 h à 18 h** ;  \n- jusqu’à **6 heures** pour les modules de **24 h et plus**.  \n\nCes absences sont tolérées sans justification ; au‑delà, la note de 0 en contrôle continu s’applique.  \n\nSources: [aivancity‑RP‑4.1.4]",
+      "sources": [
+        "aivancity-RP-4.1.4",
+        "aivancity-RI-9.1",
+        "aivancity-RP-3.3.4",
+        "aivancity-RI-10.2",
+        "aivancity-RP-3.6"
+      ],
+      "best_score": 0.913,
+      "seconds": 10.46,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states the tolerance limits (3 hours for 12-18h modules, 6 hours for 24h+ modules) and the consequence of exceeding them (0 in continuous assessment), consistent with the official text and reference answer."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S03",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Le retard du train n’est pas considéré comme un motif accepté ; les absences pour problèmes de transport (public ou privé) ne sont pas justifiées et l’étudiant ne pourra donc pas être dispensé de l’examen [ aivancity‑RI‑9.2 ].  \nSources:\n[aivancity‑RI‑9.2]",
+      "sources": [
+        "aivancity-RI-9.2",
+        "aivancity-RP-4.1.2",
+        "aivancity-RP-4.1.4",
+        "aivancity-RP-4.1.3",
+        "aivancity-RI-7.5"
+      ],
+      "best_score": 0.537,
+      "seconds": 23.18,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that train delays are not an accepted excuse for absence and cites the relevant text. Although it does not explicitly mention the consequence of a zero grade, it accurately conveys the key fact that the absence is not justified, which is the core of the user's question."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S04",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "En cas de maladie le jour d’un examen, vous devez :\n\n1. Notifier **au plus vite** votre Programme et le Service Administratif de votre absence, en précisant le motif et en joignant un justificatif médical (ex. certificat n° 3) — c’est l’obligation prévue pour toute absence imprévue [ aivancity‑RI‑9.2 ].  \n2. Faire parvenir le certificat médical dès que possible, conformément aux démarches d’arrêt maladie qui imposent d’informer l’employeur (ou, ici, le responsable du Programme) dans les 48 heures suivant le début de l’arrêt et de fournir le volet 3 du certificat [ F303 ].  \n3. Attendre la décision du responsable du Programme ; si l’absence est acceptée, vous pourrez repasser l’examen lors de la session de rattrapage ou du semestre suivant, selon le dispositif du Programme [ aivancity‑RI‑9.2 ].\n\n**Conseil :** conservez une copie du certificat et envoyez‑le par écrit (mail ou SMS) pour garder une trace de votre notification.  \n\nSources:  \n[aivancity‑RI‑9.2]  \n[F303]",
+      "sources": [
+        "aivancity-RI-9.2",
+        "aivancity-RI-7.6",
+        "aivancity-RI-7.5",
+        "aivancity-RI-7.4",
+        "F303"
+      ],
+      "best_score": 0.044,
+      "seconds": 17.09,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it cites a source [F303] and imposes a '48-hour' deadline and 'volet 3' requirement that are not present in the provided official texts. The provided text [aivancity-RI-9.2] only requires notification 'as soon as possible' and justification (e.g., medical certificate), without specifying a 48-hour limit or specific form parts. Introducing external, unverified constraints contradicts the instruction to judge against the provided official texts."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S05",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, la note obtenue au rattrapage d’un module non validé est plafonnée à 10/20 ; elle remplacera l’ancienne note même si elle est inférieure. [ aivancity‑RP‑4.1.3 ]\n\nSources:\n[aivancity-RP-4.1.3]",
+      "sources": [
+        "aivancity-RP-4.1.3",
+        "aivancity-RP-4.2.2",
+        "aivancity-RP-4.2.1",
+        "aivancity-RP-4.1.2",
+        "aivancity-RP-5.1"
+      ],
+      "best_score": 0.948,
+      "seconds": 25.85,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that the make-up grade is capped at 10/20 and replaces the previous grade, which aligns with the official text and reference answer."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S06",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Oui, votre alternance doit être validée par la direction du Programme avant de commencer ; le contrat d’apprentissage ou de professionnalisation ainsi que le stage/alternance doivent être approuvés par la direction du Programme [aivancity-RP-3.3.9].\n\nSources:\n[aivancity-RP-3.3.9]",
+      "sources": [
+        "aivancity-RP-3.3.2",
+        "aivancity-RP-3.3.1",
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.3.3",
+        "aivancity-RP-3.3.5"
+      ],
+      "best_score": 0.892,
+      "seconds": 58.48,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states that the alternance must be validated by the Program Direction before starting, which aligns with the reference answer and official texts (aivancity-RP-3.3.2 and aivancity-RP-3.3.1). Although the citation provided by the assistant (aivancity-RP-3.3.9) is not in the provided list of official texts, the factual content of the answer is correct and consistent with the available texts."
+      },
+      "judge_correct": true,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S07",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "Apprenticeship contracts can be undertaken during the last two years of the PGE, i.e., in the 4th and/or 5th year of the program. [aivancity-RP-3.3.9]",
+      "sources": [
+        "aivancity-RP-3.3.9",
+        "aivancity-RP-3.4.1",
+        "aivancity-RP-3.1",
+        "aivancity-RP-2.1.2",
+        "L6222-1"
+      ],
+      "best_score": 0.847,
+      "seconds": 4.64,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incomplete and slightly inaccurate regarding the conditions. The official text specifies that for students who joined in the first year, it is the last two years, but for those admitted in parallel, it is only the last year. The assistant generalizes this to '4th and/or 5th year' without distinguishing the admission type, which contradicts the specific rule for parallel admissions."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S08",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "L’école ne délivre pas l’autorisation de travail ; c’est à l’employeur de vérifier le titre de séjour et de faire la déclaration nominative à la préfecture au moins deux jours ouvrables avant l’embauche, même si, pour un contrat d’apprentissage validé par l’OPCO (secteur privé) ou la Dreets (secteur public), il est dispensé de demander une autorisation de travail [F2728].  \n\nSources:\n[F2728]\n\nPour ton titre de séjour ou ton autorisation de travail, fais vérifier ta situation par le bureau international de l'école : il connaît les démarches et les délais de la préfecture.",
+      "sources": [
+        "aivancity-RP-3.3.9",
+        "F2713",
+        "F2728",
+        "F3100",
+        "F2229"
+      ],
+      "best_score": 0.669,
+      "seconds": 5.0,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer contradicts the official texts provided. The texts explicitly state that the student is solely responsible for ensuring they meet the conditions and obtaining the necessary administrative authorizations ('seul responsable d'engager les démarches'), whereas the assistant claims the employer is responsible for the declaration and verification. Additionally, the assistant cites a source [F2728] not provided in the context, while the provided texts (aivancity-RP-3.3.9) clearly assign the responsibility to the student."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S09",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Vous devez réaliser **au moins 15 mois** de stages ou d’alternance cumulés pendant votre formation pour obtenir le diplôme ; la durée totale exigée varie entre **10 et 18 mois** selon le parcours choisi【aivancity‑RP‑3.3.8】【aivancity‑RP‑3.3】.  \n\nSources:  \n[aivancity‑RP‑3.3.8], [aivancity‑RP‑3.3]",
+      "sources": [
+        "aivancity-RP-3.3.8",
+        "aivancity-RP-3.3",
+        "F2918",
+        "F31704",
+        "L6226-1"
+      ],
+      "best_score": 0.725,
+      "seconds": 13.76,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly states the total duration range of 10 to 18 months as specified in the official text [aivancity-RP-3.3]. Although the '15 months' figure is not explicitly stated as a minimum in the provided texts (which only give the range), it falls within the valid range and does not contradict the official rule that the duration varies between 10 and 18 months depending on the path. The answer provides the key facts required by the reference."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S10",
+      "tags": [
+        "in_corpus",
+        "en"
+      ],
+      "answer": "If a student signs the attendance sheet for a classmate, they will be immediately summoned to a disciplinary council, which can impose sanctions up to permanent exclusion from the school. Sources: [aivancity-RP-4.1.4]",
+      "sources": [
+        "aivancity-RI-7.5",
+        "aivancity-RI-9.1",
+        "aivancity-RI-9.2",
+        "aivancity-RI-3",
+        "aivancity-RP-4.1.4"
+      ],
+      "best_score": 0.151,
+      "seconds": 20.29,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The assistant correctly identifies the consequence (immediate summons to disciplinary council) and the maximum sanction (permanent exclusion) as stated in the official text and reference answer."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S11",
+      "tags": [
+        "in_corpus",
+        "fr"
+      ],
+      "answer": "Vous devez soumettre votre projet de césure au moins **quatre mois** avant le début de la période souhaitée ; la direction du programme vous répondra dans un délai d’**un mois**.  \n\nSources: [aivancity‑RP‑3.2.1]",
+      "sources": [
+        "aivancity-RP-3.2.1",
+        "F2863",
+        "aivancity-RP-3.2.2",
+        "D911-5",
+        "F2231"
+      ],
+      "best_score": 0.64,
+      "seconds": 15.78,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": true,
+        "reason": "The answer correctly states the key timing requirements (4 months before start, 1 month response time) and cites the source, consistent with the official text."
+      },
+      "judge_correct": true,
+      "correct_and_cited": true,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S12",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, les absences et retards constatés en cours peuvent être déduits de votre rémunération d’apprenti, selon le règlement pédagogique de votre centre. [ aivancity‑RP‑4.1.4 ]\n\nSources:\n[aivancity-RP-4.1.4]",
+      "sources": [
+        "aivancity-RP-4.1.4",
+        "F2918",
+        "D6222-33",
+        "R6227-7",
+        "F11249"
+      ],
+      "best_score": 0.747,
+      "seconds": 11.4,
+      "not_found_reason": null,
+      "retrieved_gold": true,
+      "cited_gold": true,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it claims that absences can be deducted from the apprentice's salary, which is not supported by the provided official text (aivancity-RP-4.1.4). The text only states that absences affect the grade (note de 0) and are a condition for the diploma, but does not mention any financial deduction from the salary. Furthermore, the expected behavior requires asking HR/employer about the specific application, which the assistant failed to do."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S13",
+      "tags": [
+        "company_dependent",
+        "fr"
+      ],
+      "answer": "Oui, vous avez le droit de ne pas être contraint(e) de travailler le jour où vous avez cours : l’employeur doit vous laisser le temps et la liberté nécessaires pour suivre vos cours professionnels, et le temps passé en formation dans l’établissement d’enseignement est considéré comme du temps de travail effectif【L3162-2】. De plus, pour les jeunes de 16 ans et plus, l’employeur doit également garantir la possibilité de suivre ces cours pendant la journée de travail【F2216】.  \n\nSources:\n[L3162-2]  \n[F2216]",
+      "sources": [
+        "L3162-2",
+        "F13887",
+        "F2216",
+        "F2405",
+        "L3142-128"
+      ],
+      "best_score": 0.445,
+      "seconds": 16.35,
+      "not_found_reason": null,
+      "retrieved_gold": false,
+      "cited_gold": false,
+      "contains_reference": false,
+      "answered_when_answerable": true,
+      "not_found_ok": null,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": {
+        "correct": false,
+        "reason": "The assistant's answer is incorrect because it cites specific legal articles (L3162-2, F2216) that are not provided in the official texts and likely do not support the claim that an apprentice has the right to refuse work on a class day without prior arrangement. The official texts state that presence is mandatory in both the company and the school, and absences must be justified to both parties. The assistant fails to mention the requirement to justify the absence or to consult the school/employer as required by the expected behavior and reference answer."
+      },
+      "judge_correct": false,
+      "correct_and_cited": false,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S14",
+      "tags": [
+        "no_answer",
+        "fr"
+      ],
+      "answer": "Je n'ai pas trouvé la réponse dans les textes que je consulte (Code du travail, CESEDA, Code de la sécurité sociale, fiches Service-Public.fr et règlement de l'école). Je réponds aux questions sur l'apprentissage, le travail et le séjour des étudiants en France. Si ta question porte là-dessus, essaie de la reformuler, ou pose-la à ton école ou à tes RH : ce sont eux qui connaissent les règles propres à ton contrat.",
+      "sources": [
+        "aivancity-RP-4.1.3",
+        "aivancity-RP-5.1",
+        "aivancity-RP-4.2.2",
+        "aivancity-RP-3.4.3",
+        "aivancity-RP-4.2.3"
+      ],
+      "best_score": 0.936,
+      "seconds": 18.09,
+      "not_found_reason": "model",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "S15",
+      "tags": [
+        "no_answer",
+        "en"
+      ],
+      "answer": "I could not find the answer in the texts I search (French labour code, immigration code, social security code, Service-Public.fr fact sheets and the school regulations). I answer questions about apprenticeship, work and residence rights of students in France. If your question is about that, try asking differently, or ask your school or your HR team: they know the rules specific to your contract.",
+      "sources": [
+        "aivancity-RP-3.3.9",
+        "L6223-5",
+        "F2918",
+        "R6223-23",
+        "F15478"
+      ],
+      "best_score": 0.745,
+      "seconds": 10.63,
+      "not_found_reason": "model",
+      "retrieved_gold": null,
+      "cited_gold": null,
+      "contains_reference": null,
+      "answered_when_answerable": null,
+      "not_found_ok": true,
+      "referred_international": null,
+      "invented_citations": [],
+      "judge": null,
+      "judge_correct": null,
+      "correct_and_cited": null,
+      "judge_model": "qwen/qwen3.8-27b"
+    }
+  ],
+  "n": 99,
+  "corpus_gaps": [],
+  "mode": "system",
+  "config": {
+    "model": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-120b",
+      "api_key_env": "GROQ_API_KEY",
+      "temperature": 0,
+      "max_tokens": 2000,
+      "reasoning_effort": "low"
+    },
+    "prompt_file": "prompts/system_v2.txt",
+    "corpus_snapshot": "2026-10-25",
+    "rewrite": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "openai/gpt-oss-120b",
+      "api_key_env": "GROQ_API_KEY"
+    },
+    "judge": {
+      "base_url": "https://api.groq.com/openai/v1",
+      "name": "qwen/qwen3.8-27b",
+      "api_key_env": "GROQ_API_KEY"
+    },
+    "retrieval": {
+      "enabled": true,
+      "signals": [
+        "exact",
+        "fulltext",
+        "dense"
+      ],
+      "candidates_per_signal": 20,
+      "rerank": true,
+      "rerank_candidates": 30,
+      "top_k": 5,
+      "max_per_doc": 1,
+      "sector_priority": true,
+      "rewrite_fr": true,
+      "abstain_threshold": 0.015
+    },
+    "evaluation": {
+      "testset": "eval/testset.jsonl",
+      "report": "eval/report.json"
+    },
+    "database": {
+      "table": "chunks",
+      "schema_file": "db/schema.sql"
+    },
+    "legifrance": {
+      "oauth_url": "https://oauth.piste.gouv.fr/api/oauth/token",
+      "api_url": "https://api.piste.gouv.fr/dila/legifrance/lf-engine-app",
+      "request_delay_s": 0.2
+    },
+    "service_public": {
+      "particuliers_zip": "https://www.data.gouv.fr/api/1/datasets/r/0ed10f28-d197-4324-97b3-037f625095ac",
+      "entreprendre_zip": "https://www.data.gouv.fr/api/1/datasets/r/93c81767-6ae6-4b31-8dd7-2158e560d181"
+    }
+  }
+}
