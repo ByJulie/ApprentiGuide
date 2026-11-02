@@ -295,3 +295,8 @@ def test_sources_listed_only_in_the_models_final_line_still_give_cards(monkeypat
     assert text.startswith("Oui, sous conditions.") and "[L6222-35]" not in text.split("**Sources**")[0]
     assert [e["data"]["source"]["name"] for e in events if e["type"] == "source"] == ["L6222-35"]
     assert "[1] Article L6222-35" in text
+
+
+def test_cited_ids_read_typographic_hyphens():
+    from app.pipeline import cited_ids
+    assert cited_ids("[ aivancity\u2011RP\u20113.3.9 ] et [L6222\u201135]") == ["AIVANCITY-RP-3.3.9", "L6222-35"]

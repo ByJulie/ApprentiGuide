@@ -211,6 +211,8 @@ def generate_stream(question: str, sources: list[dict], missing_ids: list[str] =
 
 CITATION = re.compile(r"[\[【]([^\[\]【】]+)[\]】]")
 INVISIBLE = re.compile(r"[\u200b-\u200f\u2060\ufeff\s]")
+# Models write ids with typographic hyphens ("L6222‑35", "aivancity‑RP‑3.3.9": U+2011): read as "-".
+HYPHENS = re.compile(r"[\u2010-\u2015\u2212\ufe63\uff0d]")
 
 
 def cited_ids(text: str) -> list[str]:
@@ -220,7 +222,7 @@ def cited_ids(text: str) -> list[str]:
     out = []
     for group in CITATION.findall(text):
         for ref in re.split(r"[,;]|\]\s*\[", group):
-            ref = re.sub(r"[\u200b-\u200f\u2060\ufeff]", "", ref)
+            ref = HYPHENS.sub("-", re.sub(r"[\u200b-\u200f\u2060\ufeff]", "", ref))
             # "L911-7 III" (a paragraph) or "F2918, section 2" cite L911-7 and F2918
             match = ARTICLE_RE.search(ref) or FICHE_RE.search(ref)
             ref = _norm(match.group(1)) if match else INVISIBLE.sub("", ref).upper()
