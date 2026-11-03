@@ -1,6 +1,6 @@
 # Evaluation report
 
-Evaluation lead: Nafissatou Ndiaye. Final runs of 2 and 3 Nov. 2026, answer model gpt-oss-120b on Groq (temperature 0). Every section in full, with each failure, in `docs/evaluation_details.md`.
+Evaluation lead: Nafissatou Ndiaye. Final runs of 2 and 3 Nov. 2026, answer model gpt-oss-120b on Groq (temperature 0). Every section in full, with each failure and the commands to reproduce, in `docs/evaluation_details.md`; run files in `eval/runs/`.
 
 ## 1. Test set
 `eval/testset.jsonl`: **99 questions** (78 French, 21 English), written from the point of view of apprentices, students looking for an apprenticeship and international students (paraphrases, SMS spelling), plus 11 proposed by the retrieval lead and accepted after checking. Three families:
@@ -59,17 +59,5 @@ The judge variant that reads the relevant parts of long sources scored kappa **0
 Free Groq plan: about 3000 tokens per answered question (rewrite of the question included), 200 000 tokens per day and per model and key, so about 60 answers per day and per key; the final runs used several keys (`app/keys.py`). Judge: about 2000 tokens per answer. Retrieval, reranking and speech-to-text run locally on the CPU (no cost). At the volume of a school (a few hundred questions a day), the free plan is not enough: a paid plan, or a local model (Qwen3 8B, 49 s per answer on a laptop).
 
 ## 6. Limits
-- The test set was used during development (abstention threshold, gold additions, prompt v3): scores are optimistic. A hold-out set collected from students was planned and **not collected**.
-- One annotator for the calibration labels; 80 answerable questions (intervals of about ±11 points).
-- The judge reads the first 2500 characters of each source (its corrected variant failed calibration).
-- Snapshot of the texts of 25 and 30 Oct. 2026.
-
-## 7. Reproduce
-```bash
-python eval/review_testset.py --check
-python eval/judge.py calibrate eval/labels/labels.csv
-python eval/eval.py --model openai/gpt-oss-120b --prompt prompts/system_v2.txt --judge --out eval/runs/final_system.json
-python eval/eval.py --model openai/gpt-oss-120b --prompt prompts/system_v3.txt --judge --out eval/runs/<date>_system_prompt-v3.json
-python eval/eval.py --model openai/gpt-oss-120b --prompt prompts/baseline_no_documents.txt --baseline --judge --out eval/runs/final_baseline.json
-python eval/redteam.py --model openai/gpt-oss-120b
-```
+- The test set was used during development (threshold, gold additions, prompt v3): scores are optimistic; the planned hold-out set from students was **not collected**.
+- One annotator; 80 answerable questions (about ±11 points); the judge reads the first 2500 characters of each source; texts of 25 and 30 Oct. 2026.
