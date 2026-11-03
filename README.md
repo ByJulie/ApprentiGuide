@@ -10,15 +10,16 @@
 - **Value if it works:** an answer in seconds that the student can check (article and link), the right rule for their situation (age, year of contract, private employer), and, when the answer depends on the employer, exactly what to ask HR.
 
 ## 2. What the system does
-- **Input:** a question in French or English, typed or spoken (local speech-to-text, the audio is not stored), with the conversation so far.
-- **Output:** a short answer in the language of the question, every fact followed by a numbered citation ([1], [2]); each number opens a source card: the article or fact sheet (Legifrance or Service-Public.fr), its version date and link, the sentences that answer the question, then the full text. The answer is written as it comes, with status lines while searching and the model's reasoning in a folded block. When the texts do not answer: a fixed message saying where we looked and what to do next (rephrase, ask the school or HR).
+- **Input:** a question in French or English, typed or spoken, with the conversation so far (the last 4 messages, personal data masked). Spoken questions are transcribed on the laptop by **faster-whisper medium** (voice activity detection, French or English only, domain words as a prompt); the audio stays in memory and is never stored.
+- **Output:** a short answer in the language of the question, every fact followed by a numbered citation ([1], [2]); each number opens a source card: the article, fact sheet or section of the school regulations, its version date and link (the regulations have no public page), the sentences that answer the question, then the full text. Under the answer, every cited text with its version date. When the answer depends on the employer or the school, a last line says whom to ask and what (**À demander :** / **To ask:**). For a residence or work-permit question, a fixed sentence sends the student to the school's service for international students. The answer is written as it comes, with status lines while searching and the model's reasoning in a folded block. When the texts do not answer: a fixed message saying where we looked and what to do next (rephrase, ask the school or HR).
 - **Technique:** RAG with hybrid retrieval and abstention decided in code.
   - French rewrite of the question (gpt-oss-120b) for the full text search and the reranker.
   - Three retrieval signals fused by reciprocal rank fusion: article or fact sheet number written in the question, PostgreSQL French full text, dense search with **bge-m3** (multilingual, 1024 dimensions, pgvector).
   - Cross-encoder reranker **bge-reranker-v2-m3** on 30 candidates; 5 passages to the model, at most one per document; public-sector texts after the others unless the question is about the public sector.
   - Abstention in code: best reranker score under a threshold, or a named article that is not in the corpus.
   - Follow-up questions ("and in the second year?") are made complete from the conversation before retrieval.
-  - Answer: **gpt-oss** on Groq (reasoning model, low reasoning effort), system prompt `prompts/system_v1.txt`; **Qwen3 8B** through Ollama as the local fallback (nothing leaves the laptop).
+  - Answer: **gpt-oss-120b** on Groq (reasoning model, low reasoning effort, temperature 0), system prompt `prompts/system_v3.txt` (v1 and v2 kept as measured; v3 written after the error analysis, see section 5); the answer language and the label of the whom-to-ask line are decided in code. **Qwen3 8B** through Ollama as the local fallback (nothing leaves the laptop).
+  - Sources, links and dates are built from the database, never from the model; an id cited with one wrong letter is matched to the retrieved source, any other id not retrieved is flagged. Links, images and HTML written by the model are not displayed, so an injected image cannot send data out.
   - Why: most RAG failures are retrieval failures, and the reranker is the piece that matters most here (without it, Recall@1 falls from 0.90 to 0.43 on our draft set). Every choice and every rejected idea is measured in `docs/decisions_and_experiments.md`.
 
 ## 3. How to run it
@@ -87,5 +88,5 @@ The development measurements made while building the retrieval (to choose its se
 |---|---|---|
 | Julie Abouem | data (Legifrance API, Service-Public.fr open data, PostgreSQL) | corpus extensions requested from the test set |
 | Johanna Fokui | retrieval / model | chat interface and voice input, tooling to run the evaluation |
-| Nafissatou Ndiaye | evaluation and safety | test set (70 questions), red-team set (28 cases) |
+| Nafissatou Ndiaye | evaluation and safety | test set (99 questions), red-team set (28 cases) |
 | Nafissatou Ndiaye | product and demo | |
