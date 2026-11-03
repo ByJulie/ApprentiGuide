@@ -363,7 +363,7 @@ def answer_events(question: str, history: list[dict]):
 @app.post("/v1/audio/transcriptions")
 def transcriptions(file: UploadFile = File(...), model: str = Form(""), language: str | None = Form(None)):
     """Speech-to-text for the chat interface (Open WebUI microphone), OpenAI format: our local Whisper
-    (app/voice.py: small model, voice activity detection, French or English, domain words), instead of
+    (app/voice.py: medium model, voice activity detection, French or English, domain words), instead of
     Open WebUI's default (base model, no VAD, any language). The audio is read in memory, never stored."""
     from voice import transcribe
     heard = transcribe(file.file.read(), (language or "").lower() or None)
