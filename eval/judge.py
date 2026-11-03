@@ -17,7 +17,13 @@ import argparse, csv, json, os, random, re, sys
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 sys.path.insert(0, ROOT)
 TESTSET = os.path.join(ROOT, "eval", "testset.jsonl")
-MAX_SOURCE_CHARS = 6000  # per gold source, chosen chunk by chunk (relevant_text)
+# Calibrated judge (kappa 0.74, used for every official run): the first 2500 characters of each gold source.
+FIRST_CHARS = 2500
+# Variant written after the official run: the most relevant chunks of each source, up to 6000 characters
+# (relevant_text). Calibrated on the same 40 labels: kappa 0.54, under the 0.6 threshold, so NOT used.
+# JUDGE_RELEVANT_PARTS=1 to try it again (it must pass the calibration first).
+MAX_SOURCE_CHARS = 6000
+RELEVANT_PARTS = os.environ.get("JUDGE_RELEVANT_PARTS") == "1"
 
 JUDGE_PROMPT = """You grade the answers of ApprentiGuide, an assistant for apprentices in France that answers
 from the French labour code and Service-Public.fr. You get the question, the expected behaviour, a reference
@@ -81,8 +87,13 @@ def relevant_text(chunks: list[str], query: str) -> str:
 
 def judge_messages(t: dict, answer: str, texts: dict[str, list[str]]) -> list[dict]:
     query = f"{t['question']} {t.get('answer') or ''} {answer}"
-    sources = "\n\n".join(f"[{g}] " + (relevant_text(texts[g.upper()], query) if g.upper() in texts
-                                       else "(text not in corpus)") for g in gold_ids(t)) or "(none)"
+
+    def text_of(g: str) -> str:
+        if g.upper() not in texts:
+            return "(text not in corpus)"
+        chunks = texts[g.upper()]
+        return relevant_text(chunks, query) if RELEVANT_PARTS else "\n".join(chunks)[:FIRST_CHARS]
+    sources = "\n\n".join(f"[{g}] {text_of(g)}" for g in gold_ids(t)) or "(none)"
     user = (f"Question: {t['question']}\nExpected behaviour: {t.get('expected_behaviour')}\n"
             f"Reference answer: {t.get('answer')}\n\nOfficial texts:\n{sources}\n\n"
             f"Assistant's answer:\n{answer}")
