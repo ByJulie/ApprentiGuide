@@ -344,7 +344,7 @@ def test_answer_display_in_english_without_em_dashes():
         assert all(b.startswith(a) for a, b in zip(shown, shown[1:]))
         assert "—" not in shown[-1] and "  " not in shown[-1] and shown[-1].startswith("5 weeks, the employer")
     # "**" alone on the last line may become "**Sources**": it waits.
-    assert api.held_back("Answer.\n\n**") == "Answer.\n"
+    assert api.held_back("Answer.\n\n**") == "Answer.\n\n"
     s = {"id": "F2918", "url": "https://x", "source_label": "Service-Public.fr/DILA", "version_date": "2026-09-08"}
     assert "Fact sheet F2918" in api.versions_line([s], lang="en") and "updated on 08/09/2026" in api.versions_line([s], lang="en")
     law = [{"id": "F2918", "url": "https://x"}]
@@ -377,3 +377,14 @@ def test_ask_label_only_for_a_prompt_that_asks_for_it(monkeypatch):
     assert pipeline.ask_label("en").endswith('"To ask:".') and pipeline.ask_label("fr").endswith('"À demander :".')
     monkeypatch.setattr(pipeline, "SYSTEM", "prompt v2, no such line")
     assert pipeline.ask_label("en") == ""
+
+
+def test_whom_to_ask_label_in_bold_and_stable_while_streaming():
+    from app import api
+    for raw, label in (("Rule [1].\n\nTo ask: HR, the payslip.", "**To ask:** HR"),
+                       ("Règle [1].\n\n**À demander** : tes RH.", "**À demander :** tes RH"),
+                       ("Règle [1].\n\nÀ demander : tes RH.", "**À demander :** tes RH")):
+        shown = [api.bold_ask(api.held_back(raw[:i])) for i in range(len(raw) + 1)]
+        assert all(b.startswith(a) for a, b in zip(shown, shown[1:])), raw
+        assert label in shown[-1]
+    assert api.bold_ask("To sign a contract you need [1].") == "To sign a contract you need [1]."

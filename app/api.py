@@ -68,8 +68,19 @@ def held_back(text: str) -> str:
     last = text[text.rfind("\n") + 1:]
     word = last.strip().strip("*").lower()
     if "\n" in text and (last.strip() and not word or word and "sources".startswith(word[:7])):
-        return text[:text.rfind("\n")]  # "**" alone may be the start of "**Sources**"
+        return text[:text.rfind("\n") + 1]  # "**" alone may be the start of "**Sources**"
+    head = word.rstrip(" :")
+    if head and any(label.startswith(head) for label in ("à demander", "a demander", "to ask")):
+        return text[:text.rfind("\n") + 1]  # may become the "whom to ask" label, shown in bold once complete
     return text
+
+
+# The "whom to ask" line of prompt v3 (rule 6), shown with its label in bold on its own line (display only).
+ASK_LINE = re.compile(r"(?m)^[ \t]*\**[ \t]*(À demander|A demander|To ask)[ \t]*\**[ \t]*:[ \t]*\**[ \t]*")
+
+
+def bold_ask(text: str) -> str:
+    return ASK_LINE.sub(lambda m: "**To ask:** " if m.group(1) == "To ask" else "**À demander :** ", text)
 
 
 # Em dashes in the model's answer read as ", " (display only: the evaluated text is unchanged).
@@ -140,7 +151,7 @@ def render(out: dict) -> str:
     """Plain Markdown answer for clients that do not stream: the answer, then its sources from the
     database. The model's own "Sources:" line is dropped: the block built from the database replaces it."""
     lang = out.get("lang", "fr")
-    parts = [no_dashes(MODEL_SOURCES_LINE.sub("", out["answer"]).rstrip())]
+    parts = [bold_ask(no_dashes(MODEL_SOURCES_LINE.sub("", out["answer"]).rstrip()))]
     refs = out.get("citations", {})
     if refs.get("cited"):
         parts.append(versions_line(refs["cited"], links=True, lang=lang))  # no source cards outside a chat interface
@@ -282,7 +293,7 @@ def answer_events(question: str, history: list[dict]):
             not_found = True
             break
         end = SOURCES_START.search(text)
-        visible = no_dashes(numbered(text[:end.start()] if end else held_back(text), known))
+        visible = bold_ask(no_dashes(numbered(text[:end.start()] if end else held_back(text), known)))
         visible = visible.rstrip("\n") + ("\n" if visible.endswith("\n") else "")  # no runs of blank lines
         if len(visible) > shown:
             yield {"content": visible[shown:]}
@@ -293,7 +304,7 @@ def answer_events(question: str, history: list[dict]):
         return
     end = SOURCES_START.search(text)
     answer_text = (text[:end.start()] if end else text).rstrip()
-    visible = no_dashes(numbered(answer_text, known, final=True))
+    visible = bold_ask(no_dashes(numbered(answer_text, known, final=True)))
     if len(visible) > shown:
         yield {"content": visible[shown:]}
     refs = pipeline.citations(answer_text, sources)
