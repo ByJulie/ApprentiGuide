@@ -60,6 +60,7 @@ question (typed, or spoken: faster-whisper locally, language French or English)
 | D28 | No retrieval priority for the school regulations (tried, removed); `exclude_school` kept as a measurement option (`--set exclude_school=true`: the corpus without the regulations). | E19: moving the best 2 school passages first for school-like questions gained no question and pushed the law article L3162-2 from rank 1 to 3 on Q26 (time at school counted as working time). The reranker already ranks the school rules first when the question is about the programme. | A hierarchy school > law: a school rule never reduces an employee's rights. |
 | D29 | Spoken questions in the chat interface: Open WebUI sends the recording to our API (`/v1/audio/transcriptions`, `AUDIO_STT_*` settings in the launch command), transcribed by `app/voice.py` with faster-whisper `medium` (replaces `small` of D23): voice activity detection, segments without speech dropped (no-speech probability above 0.6 and average log-probability below -1), language French or English only, domain words as initial prompt. | E20: word error rate 3 % / 10 % / 23 % (clean / 10 dB / 0 dB of noise) against 12 % / 39 % / 81 % for the Open WebUI default (Whisper `base`, no filter, any language) and 10 % / 14 % / 55 % for `small`. 8 to 10 s per question on the CPU. | Open WebUI default: transcribed noise as words and switched language. `large-v3`: too slow on the CPU of a laptop. |
 | D30 | Baseline of the final runs: same model, prompt only, no documents (`prompts/baseline_no_documents.txt`, passed with `--prompt`). The judge (`eval/judge.py`, evaluation lead) run with `max_tokens` capped to 1000, through a launcher, without changing the file. | The first `--baseline` mode kept the RAG prompt ("only from the sources"): without sources the model answered NOT FOUND to all 99 questions, which measured nothing. The course kickoff asks for a prompt-only baseline. The judge model on Groq allows 1000 output tokens per minute: `max_tokens=1500` was refused at the first call ("Request too large"); a verdict is 50 to 100 tokens. | Keeping the RAG prompt for the baseline: 0 % everywhere, a protocol bug, not a measure. |
+| D31 | Prompt v3 (`prompts/system_v3.txt`), written after the error analysis of the official run: no figure computed by the model; never assume the user's age, year or nationality; law and school rules given together; before answering, decide whether the answer depends on the employer or the school (typical cases listed) and then end with a line that says whom to ask and what. The words that open that line ("À demander :" or "To ask:") are added in code, like the answer language (`ask_label` in `app/pipeline.py`), only for a prompt that asks for that line. Not the default of the app yet (`prompt_file` stays v2). | E21: correct and cited 0.56 (0.45 to 0.67) against 0.44 for v2, same 80 questions, same calibrated judge; 11 questions gained, 1 lost. With both labels in the prompt, the model wrote "À demander" in an English answer. | A stronger version of the v2 rule only: v2 already asked for the advice, the model did not notice when it applied. |
 
 Not in the 3 Nov. scope: an agent that chooses its own search tools (planned for the Agentic AI course), boosting by user profile (international, age, programme), the retrieval priority for the school regulations (their chunks are in the database since 2 Nov., see `data/README.md`).
 
@@ -305,6 +306,22 @@ The only transcription errors are homophones ("est-je" for "ai-je", "travaillés
 | faster-whisper `medium` (our settings) | **3 %** | **10 %** | **23 %** | 8 to 10 s |
 
 Mean word error rate (10 dB: speech clearly louder than the noise; 0 dB: as loud). Development measure on a few sentences, not a test set. The Open WebUI default was the cause of the bad transcriptions reported in the first tests of the interface: it wrote words for the noise and changed language within a question. Synthetic voices only; real recordings are still to measure (`eval/voice_eval.py --audio-dir`).
+
+### E21. Prompt v3 against v2 (99 questions, gpt-oss-120b, 3 Nov.; `2026-11-03_system_prompt-v3.json`, `2026-11-03_system_prompt-v3_judged.json`)
+
+Same retrieval, same model, same 99 questions. Both runs judged by the calibrated judge of 2 Nov. (kappa 0.74, commit `e88ca52`) with the test set of that run, so only the prompt changes. The evaluation lead's newer judge (relevant parts of long sources, up to 6000 characters) was calibrated first on her 40 labels: kappa 0.54, under the 0.6 threshold set beforehand, so it was not used.
+
+| Measure (80 answerable, 19 without an answer) | v2 (official run) | v3 |
+|---|---|---|
+| Correct and cited (95 % CI) | 0.44 (0.33 to 0.55) | **0.56 (0.45 to 0.67)** |
+| Correct, judge only | 0.55 (0.44 to 0.65) | 0.65 (0.54 to 0.75) |
+| Gold source cited | 0.69 | 0.75 |
+| NOT FOUND when no answer | 17/19 | 18/19 |
+| Company-dependent questions, correct and cited | 4/26 (0.15) | 9/26 (0.35) |
+| "Whom to ask" line on company-dependent questions | 0/26 | 23/26 |
+| Median latency | 14.1 s | 14.7 s |
+
+Paired on the same questions: 11 gained (Q01, Q02, Q09, Q19, Q23, Q59, Q63, Q64, Q70, S06, S07), 1 lost (Q32); exact McNemar test p ≈ 0.006. **Optimistic:** the v3 rules were written after reading the failures of these questions; the score must be confirmed on questions not seen during development. Still failing: Q36 gives the legal duration (35 h) for a question on the maximum (L3121-20, which sets 48 h, was not retrieved).
 
 ## 5. Next steps
 

@@ -157,6 +157,10 @@ ANSWER_LANGUAGE = {
     "fr": "Réponds en français.",
     "en": "Answer in English. The sources are in French: translate what they say, keep the ids as they are.",
 }
+# Label of the "whom to ask" line (prompt v3, rule 6), chosen in code like the language: the model wrote
+# "À demander" in an English answer when the prompt gave it both labels.
+ASK_LABEL = {"fr": "À demander :", "en": "To ask:"}
+ASK_RULE = "the label given at the end of the request"
 
 
 HISTORY_TURNS = 4          # previous messages given to the answer model
@@ -176,7 +180,12 @@ def _messages(question: str, sources: list[dict], missing_ids: list[str], lang: 
              for m in list(history)[-HISTORY_TURNS:] if m.get("role") in ("user", "assistant") and m.get("content")]
     return [{"role": "system", "content": SYSTEM}, *turns,
             {"role": "user", "content": f"<sources>\n{ctx}\n</sources>{note}\n\nQuestion: {question}\n\n"
-                                        f"{ANSWER_LANGUAGE[lang]}"}]
+                                        f"{ANSWER_LANGUAGE[lang]}{ask_label(lang)}"}]
+
+
+def ask_label(lang: str) -> str:
+    """The exact words that open the "whom to ask" line, only for a prompt that asks for that line."""
+    return f' Start the line about whom to ask with "{ASK_LABEL[lang]}".' if ASK_RULE in SYSTEM else ""
 
 
 def _params() -> dict:

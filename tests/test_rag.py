@@ -369,3 +369,11 @@ def test_footer_names_what_the_answer_used():
     assert "et du règlement de l'école" in api.footer("fr", [law, school])
     assert "From the school regulations." in api.footer("en", [school])
     assert api.footer("fr") == "" and api.footer("en") == ""  # NOT FOUND: the message names the texts searched
+
+
+def test_ask_label_only_for_a_prompt_that_asks_for_it(monkeypatch):
+    from app import pipeline
+    monkeypatch.setattr(pipeline, "SYSTEM", "... end with one line that starts with the label given at the end of the request ...")
+    assert pipeline.ask_label("en").endswith('"To ask:".') and pipeline.ask_label("fr").endswith('"À demander :".')
+    monkeypatch.setattr(pipeline, "SYSTEM", "prompt v2, no such line")
+    assert pipeline.ask_label("en") == ""
