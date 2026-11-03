@@ -2,7 +2,7 @@
 model:
   # Default: Groq (free plan, rate-limited). Key in .env as GROQ_API_KEY.
   base_url: https://api.groq.com/openai/v1
-  name: openai/gpt-oss-20b
+  name: openai/gpt-oss-120b   # the model of every final run and of the demo
   api_key_env: GROQ_API_KEY
   # Cerebras (trial credits, needs a payment method):
   #   base_url: https://api.cerebras.ai/v1   name: gpt-oss-120b      api_key_env: CEREBRAS_API_KEY
@@ -12,7 +12,7 @@ model:
   # gpt-oss is a reasoning model: its reasoning tokens count in max_tokens, 400 cut answers short
   max_tokens: 2000
   reasoning_effort: low
-prompt_file: prompts/system_v2.txt   # the prompt evaluated for 3 Nov. (v1 kept for comparison)
+prompt_file: prompts/system_v3.txt   # the prompt of the demo (E21: 0.56 against 0.44 for v2); v1 and v2 kept as measured
 corpus_snapshot: 2026-10-25   # date of the data files (Licence Ouverte: cite the source and its date)
 rewrite:              # French version of the question (app/pipeline.py), about 200 tokens per call.
   # Not llama3.2: it answered instead of translating (E6). gpt-oss-120b has its own Groq quota.
