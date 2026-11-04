@@ -16,118 +16,183 @@ A workflow follows steps fixed in code; an agent decides at each step which tool
 | 1 | « Combien de jours de congés j'ai pour réviser mes examens ? » | **Workflow** | One search and one cited answer: the steps are always the same, which is exactly our current RAG pipeline. |
 | 2 | « J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ? » | **Agent** | It needs today's date, the school rule and a deadline computation, and which tools to call next depends on what the rule says. |
 | 3 | « J'ai le droit à combien ? » | **Agent** | The request is vague, so the agent must first ask what the user means instead of guessing, which our RAG cannot do. |
-| 4 | « J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ? » | **Workflow** | The steps are fixed: find the pay rule, then compute the amount with a calculation tool, never by the model. |
+| 4 | « J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ? » | **Workflow** | The steps are fixed: one search, and the amount is read in the official pay table (Service-Public F2918), never computed by the model. |
 | 5 | « Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin. » | **Agent** | It combines the rule, the user's dates and a draft email, and sending it is a write action that must wait for the user's approval. |
+
 
 
 ## S2. The three main tools
 
 | Tool | Read or write | What it does |
 |---|---|---|
-| `search_texts` | **Read** | Our Generative AI retrieval as a tool: it always searches the law and the school regulations together, and returns the 5 best passages with their article id, or NOT FOUND. |
+| `search_texts` | **Read** | Our Generative AI retrieval as a tool: it always searches the law and the school regulations together, and returns the 5 best passages with their article id, or not_found. |
 | `deadline` | **Read** | From the date of an event and the delay written in the rule, returns the date limit and whether it has passed. The tool knows today's date, so the model never computes or compares dates. |
-| `send_email` | **Write** | Sends the email to HR or the school. It runs only after the user has read and approved the draft. |
+| `send_email` | **Write** | Prepares the email to HR or the school. It never sends: the draft waits for the user's approval in the interface. |
 
-### `search_texts`
+**Pydantic, in `app/tools.py`.** Each tool has a pydantic model for its arguments and one for its result. The schemas below are generated from these models (`python -m app.tools`), so the code and this sheet cannot drift. Before a tool runs, the model's arguments are parsed with `model_validate_json`; a validation error (an unknown unit, a missing `event_date`, an extra field, an invented article id) goes back to the model as the tool result, so it can correct the call. `"strict": true` is set: Groq checks each tool call against the schema and refuses one that does not match (400 "tool call validation failed"), and the call is then retried, as in the course lab (0 refusals in this check). Tests: `tests/test_tools.py`.
+
+**Rules written in code, not only in the description:**
+- `deadline` takes today from the code. The day of the event is not counted. `working_days_mon_sat` (jours ouvrables) and `working_days_mon_fri` (jours ouvrés) skip the 11 public holidays of metropolitan France. `hours` without `event_time` gives the same time of day as the event: a missed exam on Tuesday with 48 hours gives Thursday, at the time of the exam.
+- `send_email` only stores a draft and returns `pending_approval`. The email is written to the outbox (`data/private/outbox.json`, gitignored, no mailbox connected yet) only when the interface calls `approve()` after the user's click; the model has no tool to approve. This is the human approval asked in Session 7.
+- `cited_ids` is checked by a pydantic validator: an id that `search_texts` did not return in the conversation is refused.
+
+### `search_texts` (read)
+
+Arguments, the schema given to the model:
 
 ```json
 {
   "type": "function",
   "function": {
     "name": "search_texts",
-    "description": "Search the official texts (Labour Code, CESEDA, Service-Public.fr) and the school regulations together. Returns up to 5 passages, each with its article id, title, version date and link, or NOT FOUND when no passage is relevant enough. Use it for any question about a rule, a right, a deadline or a procedure, before answering.",
+    "description": "Search the official texts (Labour Code, CESEDA, Service-Public.fr) and the school regulations together. Returns up to 5 passages, each with its article id, title, version date and link, or not_found when no passage is relevant enough. Use it for any question about a rule, a right, a deadline or a procedure, before answering.",
     "parameters": {
-      "type": "object",
+      "additionalProperties": false,
       "properties": {
         "query": {
-          "type": "string",
-          "description": "The question or a few keywords, in French or English. Include an article id (for example L6222-35) if the user names one."
+          "description": "The question or a few keywords, in French or English. Include an article id (for example L6222-35) if the user names one.",
+          "maxLength": 500,
+          "minLength": 3,
+          "type": "string"
         }
       },
       "required": [
         "query"
       ],
-      "additionalProperties": false
-    }
+      "type": "object"
+    },
+    "strict": true
   }
 }
 ```
 
-### `deadline`
+Result (`SearchTextsResult`):
+
+| Field | Type | Meaning |
+|---|---|---|
+| `not_found` | bool | True when no passage is relevant enough (decided in code, reranker threshold) |
+| `passages` | list[Passage] | At most 5 passages, empty when not_found |
+| `passages[].id` | str | Article or fiche id, the only ids that may be cited |
+| `passages[].title` | str or None | Title of the article or fiche |
+| `passages[].source` | str | Labour Code, CESEDA, Service-Public.fr or school regulations |
+| `passages[].version_date` | str or None | Date of the version in the corpus, YYYY-MM-DD |
+| `passages[].url` | str or None | Link to the official page |
+| `passages[].text` | str | The passage, as indexed |
+| `missing_ids` | list[str] | Article ids named in the query that are not in the corpus |
+
+### `deadline` (read)
+
+Arguments, the schema given to the model:
 
 ```json
 {
   "type": "function",
   "function": {
     "name": "deadline",
-    "description": "Date limit of a delay written in a rule, counted from the date of an event, and whether it has passed today. The tool knows today's date. Use it for every deadline or delay (48 hours, 5 jours ouvrables, 2 months...). Never compute or compare dates yourself.",
+    "description": "Date limit of a delay written in a rule, counted from the date of an event, and whether it has passed today. The tool knows today's date. Use it for every deadline or delay (48 hours, 5 jours ouvrables, 2 months...). Never compute or compare dates yourself. The day of the event is not counted: counting starts the next day. calendar_days counts every day. working_days_mon_sat (jours ouvrables) counts Monday to Saturday, working_days_mon_fri (jours ouvrés) Monday to Friday, both without the 11 public holidays of metropolitan France. months gives the same day number n months later (the last day of the month if it does not exist). hours counts from event_time; without event_time, the limit is the same time of day as the event.",
     "parameters": {
-      "type": "object",
+      "additionalProperties": false,
       "properties": {
         "event_date": {
-          "type": "string",
-          "description": "Exact date of the event, YYYY-MM-DD, as given by the user or read in the calendar of the system prompt. If the user did not give it, ask for it, never guess."
+          "description": "Exact date of the event, YYYY-MM-DD, as given by the user or read in the calendar of the system prompt. If the user did not give it, ask for it, never guess.",
+          "format": "date",
+          "type": "string"
+        },
+        "event_time": {
+          "anyOf": [
+            {
+              "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Time of the event, HH:MM, only if the user gave it, else null. Used with hours."
         },
         "amount": {
-          "type": "number",
-          "description": "The number written in the rule, for example 48 for 48 hours."
+          "description": "The number written in the rule, for example 48 for 48 hours.",
+          "maximum": 400,
+          "minimum": 1,
+          "type": "integer"
         },
         "unit": {
-          "type": "string",
+          "description": "The unit written in the rule returned by search_texts: working_days_mon_sat for jours ouvrables, working_days_mon_fri for jours ouvrés.",
           "enum": [
             "hours",
             "calendar_days",
-            "jours_ouvrables",
-            "jours_ouvres",
+            "working_days_mon_sat",
+            "working_days_mon_fri",
             "months"
           ],
-          "description": "The unit written in the rule returned by search_texts."
+          "type": "string"
         }
       },
       "required": [
         "event_date",
+        "event_time",
         "amount",
         "unit"
       ],
-      "additionalProperties": false
-    }
+      "type": "object"
+    },
+    "strict": true
   }
 }
 ```
 
-### `send_email`
+Result (`DeadlineResult`):
+
+| Field | Type | Meaning |
+|---|---|---|
+| `deadline_date` | date | Date limit, YYYY-MM-DD |
+| `deadline_weekday` | str | Day of the week in French, to copy as it is |
+| `deadline_time` | str or None | HH:MM for hours with event_time; 'same time as the event' without it; null for days and months |
+| `today` | date | Today, from the code |
+| `passed` | bool | True when the date limit is before today |
+| `days_left` | int | Calendar days from today to the deadline, negative when passed |
+| `counting_rule` | str | How the days were counted |
+
+### `send_email` (write)
+
+Arguments, the schema given to the model:
 
 ```json
 {
   "type": "function",
   "function": {
     "name": "send_email",
-    "description": "Send an email written for the user to their employer's HR or to the school. WRITE action: it runs only after the user has read the draft and approved it. Use it only when the user asks to write to someone. The body must cite the article ids it relies on.",
+    "description": "Prepare an email for the user to their employer's HR or to the school. WRITE action: the email is shown to the user and is sent only after the user approves it in the interface. Use it only when the user asks to write to someone. cited_ids must come from search_texts.",
     "parameters": {
-      "type": "object",
+      "additionalProperties": false,
       "properties": {
         "to": {
-          "type": "string",
+          "description": "Who receives the email.",
           "enum": [
             "employer_hr",
             "school"
           ],
-          "description": "Who receives the email."
+          "type": "string"
         },
         "subject": {
-          "type": "string",
-          "description": "Short subject line."
+          "description": "Short subject line.",
+          "maxLength": 150,
+          "minLength": 3,
+          "type": "string"
         },
         "body": {
-          "type": "string",
-          "description": "The email text, in the language of the user, signed with the user's name."
+          "description": "The email text, in the language of the user, signed with the user's name.",
+          "maxLength": 5000,
+          "minLength": 20,
+          "type": "string"
         },
         "cited_ids": {
-          "type": "array",
+          "description": "Article ids returned by search_texts that the email relies on.",
           "items": {
             "type": "string"
           },
-          "description": "Article ids returned by search_texts that the email relies on."
+          "maxItems": 10,
+          "type": "array"
         }
       },
       "required": [
@@ -136,12 +201,30 @@ A workflow follows steps fixed in code; an agent decides at each step which tool
         "body",
         "cited_ids"
       ],
-      "additionalProperties": false
-    }
+      "type": "object"
+    },
+    "strict": true
   }
 }
 ```
 
-**Check (gpt-oss-120b, temperature 0, the five S1 requests, first response only):** requests 1, 2, 4 and 5 start with `search_texts`, request 3 (« J'ai le droit à combien ? ») gets a clarifying question and no tool call. A call with the three schemas, the system prompt and the request costs about 610 prompt tokens. A first version let the model choose one source: it restricted 3 searches out of 4 to the Labour Code and missed the school regulations, so the parameter was removed.
+Result (`SendEmailResult`):
 
-**Why `deadline` and not `days_between`:** with a `days_between(start, end)` tool, the model still had to turn « mardi » into a date and compare it with today. On the missed-exam request (5 runs at temperature 1, with a test passage giving a delay of 48 hours), it called the tool 2 times out of 5 and never stated the date limit. With `deadline`, a calendar of the last days in the system prompt and a check in code (an answer that states a delay without a `deadline` call is sent back once), it called `deadline` 5 times out of 5 and gave the right date limit, jeudi 5 novembre, 5 times out of 5. For the email request, it asked for the exam date 5 times out of 5 instead of guessing it (before: one draft dated « juin 2026 »).
+| Field | Type | Meaning |
+|---|---|---|
+| `status` | Literal['pending_approval'] | Always pending: the tool never sends |
+| `draft_id` | str | Id the interface uses to approve or refuse the draft |
+| `message` | str | What happens next, for the model |
+
+
+## S2 check
+
+Script `eval/agent_s2_check.py`, results `eval/runs/2026-11-04_s2_tools_check.json` (gpt-oss-120b, temperature 1, 5 runs, today fixed to Wednesday 4 November 2026). These are indications on a few requests, not a proof; the full evaluation of the agent comes later.
+
+- **First call on the five S1 requests:** in 5 runs, requests 1, 2, 4 and 5 started with `search_texts` in 20 of 20 first calls, and request 3 (« J'ai le droit à combien ? ») got a clarifying question with no tool call in 5 of 5 runs. With a `source` parameter (removed), 13 of 20 searches were restricted to one source.
+- **Deadline, missed-exam request** (search_texts replaced by a test passage giving 48 hours): with a `days_between` tool, the model called it 0 times in 5 runs and computed the date limit itself: its answers gave Thursday 5, Friday 6 or Saturday 7 November. With `deadline` and the calendar of the last days in the prompt, it called `deadline` in 4 of 5 runs and the date limit returned by the tool was always right for the date it received; but in 2 runs the model turned « mardi » into Monday 2 November. The error left is turning a weekday into a date, not counting. Next fix: let `deadline` take a weekday (« mardi ») and resolve it in code.
+- **Email request:** the exam date is not given. In 5 runs, 1 answer wrote « juin 2026 » (the session is in June 2027) before, and 1 after. After, the check sent an answer back once and 1 answer asked for the date instead of writing a draft. The check is not enough here: it runs once per answer and the model still drafts without the date. `send_email` never sent anything without approval.
+- **Real corpus, five S1 requests, one run each** (`real` in the results): the agent and the Generative AI pipeline agree on requests 1, 2 (transport is not an accepted reason in the school regulations, so there is no delay to compute) and 5, and both give 1 138,88 € for request 4 in this run. On request 3, the agent asks what the user means; the pipeline guesses and lists several rights.
+- The check in code (a conclusion about time without a `deadline` call, or a date the user and the tools did not give, sends the answer back once) lives in the test script for now; it moves to the agent loop in a later session.
+
+**Not in the S2 tools:** the pay table of F2918 was read in the wrong column by the Generative AI pipeline (952,18 € instead of 1 138,88 € at 22 in year 2). It is a data problem, fixed on the branch `fix-table-cells` (Julie), not a missing tool.

@@ -1,0 +1,983 @@
+{
+ "date": "2026-11-04",
+ "today_fixed": "2026-11-04",
+ "model": "openai/gpt-oss-120b",
+ "temperature": 1.0,
+ "runs": 5,
+ "first_call": {
+  "summary": {
+   "current": {
+    "search_first": 20,
+    "out_of": 20,
+    "request_3_no_tool": 5,
+    "searches_restricted": 0,
+    "searches": 20
+   },
+   "with_source": {
+    "search_first": 20,
+    "out_of": 20,
+    "request_3_no_tool": 5,
+    "searches_restricted": 13,
+    "searches": 20
+   }
+  },
+  "runs": {
+   "current": [
+    [
+     {
+      "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "jours de congés révision examens apprentissage"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "justification examen retard train article justification absence examen université"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai le droit à combien ?",
+      "calls": [],
+      "text": "Pour pouvoir vous répondre avec précision, pourriez‑vous préciser :\n\n* De quel droit ou de quelle prestation il s’agit ? (par exemple : indemnité de congés payés, allocation chômage, aide au logement, etc.)  \n* Si vous avez déjà une date ou un évènement lié (début de contrat, fin de contrat, demande"
+     },
+     {
+      "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "salaire apprenti 22 ans deuxième année"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé d'examen 5 jours apprentissage"
+        }
+       }
+      ],
+      "text": null
+     }
+    ],
+    [
+     {
+      "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "jours de congés révision examens apprentis"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "justifier absence examen retard train délai justification examen"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai le droit à combien ?",
+      "calls": [],
+      "text": "Pouvez‑vous préciser de quel droit il s’agit ?  \nPar exemple : souhaitez‑vous connaître le montant d’une indemnité (chômage, rupture, stage, etc.), le nombre de jours de congés auxquels vous avez droit, ou encore le délai pour faire une démarche administrative ?"
+     },
+     {
+      "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "salaire minimum apprentissage 22 ans deuxième année contrat d'apprentissage"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé d'examen apprentis 5 jours avant session juin"
+        }
+       }
+      ],
+      "text": null
+     }
+    ],
+    [
+     {
+      "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congés révision examens apprentis"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "justification examen absent retard transport délai justification étudiant"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai le droit à combien ?",
+      "calls": [],
+      "text": "Pour que je puisse vous répondre avec précision, pourriez‑vous préciser :\n\n- de quel droit ou de quelle prestation il s’agit ? (ex. : allocation chômage, indemnité de stage, congés payés, aide au logement, etc.)  \n- si vous avez déjà une date ou un événement déclencheur (début du stage, fin du contr"
+     },
+     {
+      "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "salaire apprentissage 22 ans deuxième année montant mensuel"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé d'examen 5 jours étudiants apprentis"
+        }
+       }
+      ],
+      "text": null
+     }
+    ],
+    [
+     {
+      "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "jours de congés révision examens apprentissage"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "justification absence examen retard train délai justification examen université"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai le droit à combien ?",
+      "calls": [],
+      "text": "Pouvez‑vous préciser de quel droit vous parlez ?  \nPar exemple : le nombre d’heures de congés payés, le montant d’une allocation, le délai de préavis, etc."
+     },
+     {
+      "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "apprentis 22 ans deuxième année salaire mensuel"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé d'examen 5 jours étudiant apprentissage"
+        }
+       }
+      ],
+      "text": null
+     }
+    ],
+    [
+     {
+      "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé révision examens apprentissage durée jours"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "justification examen retard train justificatif délai"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai le droit à combien ?",
+      "calls": [],
+      "text": "Pour pouvoir vous répondre précisément, pourriez‑vous préciser de quel droit ou de quelle aide vous parlez ? Par exemple :\n\n- Le droit à un congé (congé maternité/paternité, congé pour raisons familiales, etc.)  \n- Le droit à une allocation ou une aide financière (bourse, aide au logement, RSA, etc."
+     },
+     {
+      "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "salaire minimum apprentissage 22 ans deuxième année"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé d'examen 5 jours droit étudiant apprentissage"
+        }
+       }
+      ],
+      "text": null
+     }
+    ]
+   ],
+   "with_source": [
+    [
+     {
+      "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "jours de congés révision examens apprentissage",
+         "source": "all"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "justification absence examen retard train règle justificatif étudiant",
+         "source": "school_regulations"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai le droit à combien ?",
+      "calls": [],
+      "text": "Pouvez‑vous préciser de quel droit il s’agit ?  \nPar exemple : droit à l’allocation chômage, à un congé payé, à une aide au logement, à la bourse, etc. Cela me permettra de vous répondre avec les informations les plus exactes."
+     },
+     {
+      "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "salaire apprentissage 22 ans deuxième année salaire mensuel",
+         "source": "service_public"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé d'examen apprentissage 5 jours avant session juin",
+         "source": "all"
+        }
+       }
+      ],
+      "text": null
+     }
+    ],
+    [
+     {
+      "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "jours de congés révision examens apprentissage",
+         "source": "school_regulations"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "justifier absence examen retard train règle justification étudiant",
+         "source": "school_regulations"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai le droit à combien ?",
+      "calls": [],
+      "text": "Pouvez‑vous préciser :\n\n- De quel **droit** il s’agit (par exemple : congés payés, indemnité de rupture, aide au logement, etc.) ?  \n- La **date** ou la période concernée, si elle est importante pour le calcul (par exemple la date d’entrée en contrat, la date de fin de formation, etc.) ?  \n\nCela me "
+     },
+     {
+      "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "salaire apprentissage 22 ans deuxième année",
+         "source": "service_public"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé d'examen 5 jours avant session juin apprentissage",
+         "source": "all"
+        }
+       }
+      ],
+      "text": null
+     }
+    ],
+    [
+     {
+      "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "jours de congés révision examens apprentissage",
+         "source": "service_public"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "justifier absence examen retard train justificatif délai",
+         "source": "school_regulations"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai le droit à combien ?",
+      "calls": [],
+      "text": "Pouvez‑vous préciser de quel droit ou de quelle prestation il s’agit ?  \nPar exemple :  \n- Indemnité de congés payés, d’arrêt maladie ou de maternité ;  \n- Allocation chômage, aide au logement, bourse d’études ;  \n- Un délai ou une formalité à respecter (déclaration, inscription, etc.) ?  \n\nEn m’ind"
+     },
+     {
+      "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "salaires apprentis 22 ans deuxième année",
+         "source": "service_public"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé d'examen 5 jours apprenti",
+         "source": "all"
+        }
+       }
+      ],
+      "text": null
+     }
+    ],
+    [
+     {
+      "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "jours de congés révision examens apprentissage",
+         "source": "all"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "justifier absence examen retard train article école justificatif retard transport",
+         "source": "school_regulations"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai le droit à combien ?",
+      "calls": [],
+      "text": "Pouvez‑vous préciser : de quel droit ou de quelle aide vous parlez (par exemple, indemnité de chômage, allocation logement, bourse d’études, congés payés, etc.) ? Cela me permettra de vous donner la réponse la plus exacte."
+     },
+     {
+      "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "apprentissage salaire 22 ans deuxième année salaire mensuel",
+         "source": "service_public"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé d'examen apprentis 5 jours avant session juin",
+         "source": "all"
+        }
+       }
+      ],
+      "text": null
+     }
+    ],
+    [
+     {
+      "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "jours de congés révision examens étudiants apprentis",
+         "source": "school_regulations"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "justifier examen retard train délai justification examen absent",
+         "source": "school_regulations"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "J'ai le droit à combien ?",
+      "calls": [],
+      "text": "Pouvez‑vous préciser de quel droit ou quelle prestation il s’agit ? Par exemple : \n* droit à l’indemnité de fin de contrat, \n* allocation chômage, \n* aide au logement, \n* congé maladie, etc.  \n\nMerci de me donner le contexte (type de contrat, situation actuelle, etc.) afin que je puisse vous fournir"
+     },
+     {
+      "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "salaire apprentissage 22 ans deuxième année",
+         "source": "service_public"
+        }
+       }
+      ],
+      "text": null
+     },
+     {
+      "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+      "calls": [
+       {
+        "name": "search_texts",
+        "arguments": {
+         "query": "congé d'examen 5 jours apprentissage session juin article",
+         "source": "all"
+        }
+       }
+      ],
+      "text": null
+     }
+    ]
+   ]
+  }
+ },
+ "deadline": {
+  "summary": {
+   "before": {
+    "exam_date_tool_called": 0,
+    "exam_date_limit_stated": 3,
+    "exam_check_triggered": 0,
+    "email_asks_for_the_date": 0,
+    "email_june_2026": 1,
+    "email_check_triggered": 0,
+    "email_sent_without_approval": 0,
+    "out_of": 5
+   },
+   "after": {
+    "exam_date_tool_called": 4,
+    "exam_date_limit_stated": 2,
+    "exam_check_triggered": 0,
+    "email_asks_for_the_date": 1,
+    "email_june_2026": 1,
+    "email_check_triggered": 1,
+    "email_sent_without_approval": 0,
+    "out_of": 5
+   }
+  },
+  "runs": {
+   "before": {
+    "exam": [
+     {
+      "answer": "Oui, vous pouvez encore justifier votre absence à l’examen.\n\n**Comment faire ?**  \n- Vous devez transmettre votre justificatif (attestation de retard SNCF, certificat, etc.) à la **scolarité** de votre établissement.  \n- Le délai de justification est de **48 heures** à compter de la date de l’examen ; vous êtes donc encore dans les temps (l’examen était le mardi 3 novembre 2026, il vous reste jusqu’au jeudi 5 novembre 2026 inclus).\n\nCette règle est prévue dans le règlement interne de votre école : *« Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat médical, attestation de retard SNCF…). »*【TEST-ABS-48H】.  \n\n**À qui adresser le justificatif ?**  \nEnvoyez‑le directement à la scolarité (ou au service des examens) de votre établissement, généralement par courrier électronique ou via le portail étudiant, selon les procédures indiquées par votre école.  \n\n---\n\n**Modèle de mail à la scolarité**  \n\n*Objet :* Justification d’absence à l’examen du 3 novembre 2026  \n\n*Corps du mail*  \n```\nMadame, Monsieur,\n\nJe vous informe que je n’ai pas pu me présenter à l’examen prévu le mardi 3 novembre 2026 en raison d’un retard de train (attestation SNCF ci‑jointe). Conformément au règlement interne qui prévoit un délai de 48 heures pour justifier une absence, je vous adresse ce justificatif dans les temps.\n\nJe reste à votre disposition pour toute information complémentaire.\n\nCordialement,\n[Votre prénom et nom]\n[Numéro d’étudiant]\n```\n\nN’hésitez pas à joindre l’attestation de retard SNCF en pièce jointe.  \n\nSi vous avez besoin d’aide pour rédiger ou envoyer le mail, dites‑le‑moi !",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"justifier examen absent retard train justificatif délai\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"TEST-ABS-48H\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"(test passage) Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat méd"
+       }
+      ]
+     },
+     {
+      "answer": "Oui, vous pouvez encore justifier votre absence à l’examen.\n\n**Comment procéder ?**  \n- **Délai** : l’absence à un examen doit être justifiée **dans les 48 heures** qui suivent la date de l’épreuve.  \n- **À qui adresser la justification** : vous devez envoyer votre justificatif (attestation de retard SNCF, billet, etc.) à la **scolarité / le service des examens** de votre établissement.  \n\n**Ce qui vous reste à faire**  \n1. Rassemblez le document attestant le retard du train (billet, attestation SNCF, etc.).  \n2. Transmettez‑le à la scolarité par le canal indiqué (mail, plateforme interne ou dépôt physique) avant le **mercredi 6 novembre 2026** (48 h après l’examen du mardi 5 novembre).  \n\nSi vous avez besoin d’un modèle d’e‑mail à envoyer à la scolarité, dites‑le‑moi ; je le préparerai pour vous.",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"justifier absence examen retard train délai de justification\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"TEST-ABS-48H\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"(test passage) Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat méd"
+       }
+      ]
+     },
+     {
+      "answer": "Oui, vous pouvez encore justifier votre absence à l’examen.\n\n**Comment faire ?**  \n- **Délai :** l’absence à un examen doit être justifiée dans les 48 heures qui suivent l’examen. Le mardi 3 novembre 2026 étant la date de l’examen, vous êtes encore dans le délai (aujourd’hui mercredi 4 novembre 2026, soit moins de 48 h).【TEST-ABS-48H】  \n- **À qui :** vous devez transmettre votre justificatif (attestation de retard SNCF, billet de train, etc.) à la **scolarité / service des examens** de votre établissement.  \n\n**Conseil pratique**  \nEnvoyez rapidement votre justificatif (par mail ou via le portail étudiant) en précisant votre nom, votre numéro d’étudiant, le nom de l’épreuve et la date de l’examen. Cela permettra à la scolarité de prendre en compte votre situation et, le cas échéant, d’organiser une session de rattrapage.",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"justifier absence examen transport retard train justification examen université\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"TEST-ABS-48H\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"(test passage) Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat méd"
+       }
+      ]
+     },
+     {
+      "answer": "Oui, vous pouvez tout à fait justifier votre absence à l’examen.\n\n**Comment procéder ?**\n\n1. **Délai :** vous avez **48 heures** à compter de la date de l’examen pour transmettre votre justification.  \n2. **À qui :** la justification doit être envoyée à la **scolarité / service des examens** de votre établissement (ou à l’interlocuteur indiqué dans le règlement des examens).  \n3. **Quel justificatif :** une **attestation de retard SNCF** (ou tout autre document officiel prouvant le retard du train) suffit ; vous pouvez également joindre un billet ou un relevé d’incident.\n\n**Ce qui vous reste à faire :**  \n- Rassembler votre attestation de retard (ou le document équivalent).  \n- L’envoyer à la scolarité dans les 48 h suivant l’examen (au plus tard le **samedi 7 novembre 2026** si l’examen était mardi 5 novembre).  \n\nSi vous avez besoin d’un modèle d’email pour transmettre ce justificatif, dites‑le‑moi et je le préparerai pour vous.",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"justifier examen absent retard train justificatif étudiant délai\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"TEST-ABS-48H\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"(test passage) Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat méd"
+       }
+      ]
+     },
+     {
+      "answer": "Oui, vous pouvez encore justifier votre absence à l’examen.\n\n**Comment faire ?**  \n- **Délai** : l’absence doit être justifiée dans les **48 heures** qui suivent l’examen.  \n- **À qui** : vous devez transmettre le justificatif (attestation de retard SNCF, billet de train, etc.) à la **scolarité / service des examens** de votre établissement.  \n\n**Ce que vous devez fournir**  \n- Une attestation de retard de la SNCF (ou tout autre document prouvant le retard du train).  \n- Votre nom, votre numéro d’étudiant et la référence de l’examen concerné.\n\n---\n\n### Exemple de courrier à envoyer à la scolarité\n\n**Objet :** Justification d’absence à l’examen du 3 novembre 2026\n\n> Madame, Monsieur,\n> \n> Je vous informe que je n’ai pu me présenter à l’examen prévu le **mardi 3 novembre 2026** en raison d’un retard important de mon train (voir attestation SNCF ci‑jointe). \n> \n> Conformément aux dispositions qui prévoient une justification d’absence dans un délai de 48 heures, je vous transmets ce justificatif afin que ma situation soit prise en compte.\n> \n> Je reste à votre disposition pour tout renseignement complémentaire.\n> \n> Bien cordialement,\n> \n> *[Votre prénom Nom]*  \n> *Numéro d’étudiant : …*  \n\n---\n\n**Référence réglementaire** : le texte indique que « Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat médical, attestation de retard SNCF…) »【TEST-ABS-48H】.  \n\nEnvoyez rapidement votre justificatif à la scolarité (par email ou via la plateforme étudiante) afin de respecter le délai de 48 h.",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"justifier absence examen retard train justificatif étudiant retard transport\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"TEST-ABS-48H\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"(test passage) Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat méd"
+       }
+      ]
+     }
+    ],
+    "email": [
+     {
+      "answer": "**Projet d’e‑mail à votre service RH**\n\n---\n\n**Objet :** Demande de congé d’examen (5 jours) avant la session de juin  \n\n**Destinataire :** service RH  \n\n**Corps du message :**\n\n> Madame, Monsieur,\n> \n> Je vous adresse la présente afin de solliciter l’octroi de mon congé d’examen, prévu pour la préparation directe des épreuves de mon cursus.  \n> Conformément à l’article **L6222‑35** du Code du travail, l’apprenti bénéficie d’un congé supplémentaire de cinq jours ouvrables, à prendre dans le mois qui précède les épreuves.\n> \n> Ma session d’examen est prévue en juin 2027 ; je souhaiterais donc poser ces cinq jours de congé du **[date de début]** au **[date de fin]** (période située dans le mois précédant la session).  \n> \n> Je reste à votre disposition pour toute information complémentaire et vous remercie par avance de bien vouloir valider cette demande.\n> \n> Bien cordialement,\n> \n> **[Votre prénom et nom]**  \n> **[Votre poste / contrat d’apprentissage]**  \n> **[Numéro de téléphone]**  \n> **[Adresse e‑mail]**\n\n---\n\n**Citations légales utilisées** : L6222‑35  \n\n---\n\nSi le texte vous convient, je peux l’envoyer immédiatement à votre service RH. Merci de me confirmer ou d’indiquer les éventuelles modifications souhaitées.",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"congé d'examen 5 jours étudiant alternance\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"L6222-35\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"Pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Il est pris dans le mois qui les précèd"
+       }
+      ]
+     },
+     {
+      "answer": "**Objet : Demande de congé d’examen (5 jours ouvrables)**  \n\nBonjour [Nom du·la Responsable RH],\n\nJe souhaite vous informer que, conformément à l’article **L6222‑35** du Code du travail, un·e apprenti·e bénéficie d’un congé supplémentaire de **cinq jours ouvrables** pour la préparation directe des épreuves d’examen. Ce congé doit être pris dans le mois précédant la session d’examen.\n\nMa session d’examen ayant lieu en juin, je souhaiterais donc poser les cinq jours de congé suivants :\n\n- **[Date de début]** au **[Date de fin]** (cinq jours ouvrables)\n\nJe resterai bien sûr joignable en cas d’urgence et je m’assurerai que mes dossiers en cours soient à jour avant mon départ.\n\nMerci de bien vouloir valider cette demande. Je reste à votre disposition pour toute information complémentaire.\n\nCordialement,  \n\n[Votre prénom et nom]  \nApprenti·e en [Intitulé du poste]  \n[Votre service / département]  \n\n\n\n*Référence légale : article L6222‑35 du Code du travail.*",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"congé d'examen 5 jours étudiants apprentis avant session juin article\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"L6222-35\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"Pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Il est pris dans le mois qui les précèd"
+       }
+      ]
+     },
+     {
+      "answer": "**Objet : Demande de congé d’examen (5 jours) avant la session de juin**\n\nBonjour [Nom du responsable RH],\n\nJe souhaite solliciter mon droit au congé d’examen prévu par le Code du travail pour les apprentis.  \nConformément à l’article **L6222‑35**, l’apprenti bénéficie d’un congé supplémentaire de **cinq jours ouvrables** destiné à la préparation directe des épreuves, à prendre **dans le mois qui précède** la session d’examen.\n\nMa session d’examen ayant lieu en juin, je vous propose les dates suivantes pour ce congé : du **[date de début]** au **[date de fin]** (cinq jours ouvrables).  \n\nJe reste bien sûr disponible pour organiser la continuité de mes missions pendant mon absence et je m’engage à transmettre toutes les informations nécessaires à mon équipe avant mon départ.\n\nMerci de bien vouloir me confirmer la prise en compte de cette demande.\n\nCordialement,  \n[Votre prénom et nom]  \nApprenti(e) – [Nom du service / département]  \n\n*Articles cités : L6222‑35*",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"congé d'examen 5 jours règle\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"L6222-35\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"Pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Il est pris dans le mois qui les précèd"
+       }
+      ]
+     },
+     {
+      "answer": "**Objet :** Demande de congé d’examen (5 jours ouvrables)\n\nBonjour [Nom du responsable RH],\n\nJe vous écris afin de solliciter mon congé d’examen prévu par le Code du travail pour les apprentis.\n\nConformément à l’article **L6222‑35** du Code du travail, l’apprenti bénéficie d’un congé supplémentaire de **cinq jours ouvrables** pour la préparation directe des épreuves. Ce congé doit être pris **dans le mois qui précède** la session d’examen.\n\nMa session d’examen aura lieu en **juin 2027** (date exacte à confirmer). Ainsi, je souhaiterais poser ce congé du **[date de début]** au **[date de fin]**, soit dans le mois précédant la session, afin de préparer les épreuves dans les meilleures conditions.\n\nJe reste à votre disposition pour toute information complémentaire ou pour ajuster les dates en fonction des besoins du service.\n\nMerci d’avance pour votre compréhension et votre soutien.\n\nCordialement,\n\n[Votre prénom et nom]  \nApprenti(e) – [Nom de votre formation]  \n[Numéro de contrat ou d’apprenti si applicable]  \n\n---\n\n*Référence légale :* L6222‑35 du Code du travail.",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"congé d'examen 5 jours règle durée avant session juin\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"L6222-35\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"Pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Il est pris dans le mois qui les précèd"
+       }
+      ]
+     },
+     {
+      "answer": "**Objet : Demande de congé d'examen (5 jours ouvrables) – Session de juin 2026**\n\nBonjour,\n\nConformément à l’article **L6222-35** du Code du travail, qui prévoit que « l’apprenti a droit à un congé supplémentaire de cinq jours ouvrables pour la préparation directe des épreuves, à prendre dans le mois qui les précède », je souhaite poser ces cinq jours de congé d’examen avant ma session de juin 2026.\n\nJe vous propose les dates suivantes, qui respectent le cadre légal :\n\n- **Du lundi 24 mai 2026 au vendredi 28 mai 2026** (cinq jours ouvrables)\n\nCes journées me permettront de me préparer sereinement aux épreuves et de revenir en pleine forme pour poursuivre mes missions au sein de l’entreprise.\n\nJe reste à votre disposition pour toute information complémentaire et pour organiser la continuité de mon travail pendant mon absence.\n\nMerci d’avance pour votre compréhension et votre accord.\n\nCordialement,\n\n*[Votre Prénom Nom]*  \nApprenti – [Intitulé du poste]  \n[Nom de l’entreprise]  \n\n*Références : L6222-35*",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"congé d'examen 5 jours droit étudiant travail\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"L6222-35\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"Pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Il est pris dans le mois qui les précèd"
+       }
+      ]
+     }
+    ]
+   },
+   "after": {
+    "exam": [
+     {
+      "answer": "Oui, vous pouvez toujours justifier votre absence à l’examen.\n\n**Comment ?**  \nSelon le texte officiel, toute absence à un examen doit être justifiée **dans un délai de 48 heures** auprès de la **scolarité** de votre établissement, en présentant un justificatif (certificat médical, attestation de retard SNCF, etc.)【TEST-ABS-48H】.  \n\n**Votre situation**  \n- L’examen a eu lieu le **mardi 2 novembre 2026**.  \n- Vous avez donc jusqu’au **mercredi 4 novembre 2026** (48 h après, le même jour que nous sommes) pour déposer votre justificatif. Le délai n’est pas encore expiré.\n\n**À qui adresser la justification**  \n- Adressez‑la à la **service de scolarité / bureau des examens** de votre école ou université (souvent le même service que le “service des étudiants” ou “service des examens”).  \n- Vous pouvez transmettre le document par email, via le portail étudiant, ou le déposer en main propre selon les procédures de votre établissement.\n\n**Conseils pratiques**  \n1. Récupérez une **attestation de retard SNCF** (ou tout autre document prouvant le retard du train).  \n2. Rédigez un court message indiquant la date de l’examen, la raison de votre absence et joignez le justificatif.  \n3. Envoyez‑le dès que possible à la scolarité ; conservez une copie de l’email ou du dépôt pour vos archives.  \n\nSi vous avez besoin d’un modèle de mail à envoyer à la scolarité, dites‑le‑moi et je le préparerai pour vous.",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"justifier absence examen retard train justification règle étudiant\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"TEST-ABS-48H\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"(test passage) Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat méd"
+       },
+       {
+        "name": "deadline",
+        "arguments": "{\"amount\":48,\"event_date\":\"2026-11-02\",\"event_time\":null,\"unit\":\"hours\"}",
+        "result": "{\"deadline_date\":\"2026-11-04\",\"deadline_weekday\":\"mercredi\",\"deadline_time\":\"same time as the event\",\"today\":\"2026-11-04\",\"passed\":false,\"days_left\":0,\"counting_rule\":\"The day of the event is not counted: counting starts the next day. calendar_days counts every day. working_days_mon_sat (jours ouvra"
+       }
+      ]
+     },
+     {
+      "answer": "Oui, vous pouvez encore justifier votre absence à l’examen.  \n\n- Selon le règlement (voir **TEST-ABS-48H**), toute absence à un examen doit être justifiée **dans les 48 heures** qui suivent l’événement, en présentant un justificatif (certificat médical, attestation de retard SNCF, etc.).  \n- Vous avez raté l’examen le **mardi 3 novembre 2026** ; le délai de 48 heures expire le **jeudi 5 novembre 2026**. Nous sommes aujourd’hui **mercredi 4 novembre 2026**, donc le délai n’est pas encore écoulé.  \n\n**À qui adresser la justification ?**  \nEnvoyez votre justificatif à la **scolarité / service des examens** de votre établissement (ou à l’adresse indiquée dans le calendrier des examens).  \n\n---\n\n### Modèle de mail à envoyer à la scolarité\n\n**Objet :** Justification d’absence à l’examen du 3 novembre 2026  \n\n**Corps du mail :**  \n\n```\nBonjour,\n\nJe vous informe que je n’ai pas pu me présenter à l’examen du mardi 3 novembre 2026 en raison d’un retard important de mon train (SNCF). Vous trouverez en pièce jointe l’attestation de retard délivrée par la SNCF.\n\nConformément à l’article TEST-ABS-48H, je vous transmets ce justificatif dans le délai de 48 heures.\n\nJe reste à votre disposition pour tout renseignement complémentaire.\n\nCordialement,\n[Votre Prénom Nom]\n[Numéro d’étudiant]\n```\n\nN’oubliez pas de joindre l’attestation de retard SNCF. Vous pouvez maintenant envoyer ce mail à la scolarité.",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"justifier absence examen retard train justification étudiant délai\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"TEST-ABS-48H\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"(test passage) Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat méd"
+       },
+       {
+        "name": "deadline",
+        "arguments": "{\"amount\":48,\"event_date\":\"2026-11-03\",\"event_time\":null,\"unit\":\"hours\"}",
+        "result": "{\"deadline_date\":\"2026-11-05\",\"deadline_weekday\":\"jeudi\",\"deadline_time\":\"same time as the event\",\"today\":\"2026-11-04\",\"passed\":false,\"days_left\":1,\"counting_rule\":\"The day of the event is not counted: counting starts the next day. calendar_days counts every day. working_days_mon_sat (jours ouvrable"
+       }
+      ]
+     },
+     {
+      "answer": "Oui, vous pouvez encore justifier votre absence à l’examen.\n\n**À qui ?**  \nVous devez transmettre le justificatif (attestation de retard SNCF, ticket, etc.) **au service de scolarité** de votre établissement.  \n\n**Quel délai ?**  \nSelon le règlement universitaire, toute absence à un examen doit être justifiée dans les **48 heures suivant l’événement**【TEST-ABS-48H】.  \nL’examen a eu lieu le **mardi 3 novembre 2026** ; le délai de 48 heures se termine le **jeudi 5 novembre 2026**, soit **1 jour restant** à compter d’aujourd’hui (mercredi 4 novembre)【deadline】.\n\n**Ce que vous devez faire :**\n1. Rassembler votre preuve de retard (ticket de train, attestation SNCF, etc.).  \n2. Envoyer ou déposer ce justificatif auprès de la scolarité **avant le jeudi 5 novembre** (par mail, plateforme en ligne ou directement au guichet, selon les procédures de votre école).  \n3. Indiquer clairement votre nom, votre numéro d’étudiant, la date de l’examen et les raisons de votre absence.\n\nSi vous avez besoin d’un modèle de mail à adresser à la scolarité, je peux le préparer pour vous.",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"justifier absence examen retard train article règlement universitaire délai justification\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"TEST-ABS-48H\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"(test passage) Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat méd"
+       },
+       {
+        "name": "deadline",
+        "arguments": "{\"amount\":48,\"event_date\":\"2026-11-03\",\"event_time\":null,\"unit\":\"hours\"}",
+        "result": "{\"deadline_date\":\"2026-11-05\",\"deadline_weekday\":\"jeudi\",\"deadline_time\":\"same time as the event\",\"today\":\"2026-11-04\",\"passed\":false,\"days_left\":1,\"counting_rule\":\"The day of the event is not counted: counting starts the next day. calendar_days counts every day. working_days_mon_sat (jours ouvrable"
+       }
+      ]
+     },
+     {
+      "answer": "Oui, vous pouvez encore justifier votre absence à l’examen.\n\n**À qui ?**  \nVous devez transmettre le justificatif (attestation de retard SNCF, ticket de train, etc.) à la **scolarité** de votre établissement.  \n\n**Dans quel délai ?**  \nSelon le règlement (voir passage ID `TEST-ABS-48H`), toute absence à un examen doit être justifiée **dans les 48 heures** qui suivent l’événement. L’examen a eu lieu le mardi 2 novembre 2026, et le délai de 48 h se clôture le **jeudi 4 novembre 2026** (au même moment de la journée). Vous êtes donc encore dans le délai.\n\n### Que faire maintenant ?\n1. **Rassembler le justificatif** : attestation de retard SNCF ou tout autre document prouvant le retard du train.  \n2. **Envoyer le document** à la scolarité : vous pouvez le déposer directement sur le portail étudiant ou l’envoyer par courrier électronique selon les modalités de votre école.  \n3. **Indiquer les informations suivantes** dans votre message :  \n   - Votre nom, prénom et numéro d’étudiant.  \n   - La date de l’examen (mardi 2 novembre 2026).  \n   - Le motif de votre absence (retard du train) et le numéro du train si vous le connaissez.  \n   - Joindre le justificatif.\n\nSi vous avez besoin d’un modèle de courriel à envoyer à la scolarité, dites‑le‑moi et je le préparerai pour vous.",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"justifier absence examen retard train délai justification examen université\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"TEST-ABS-48H\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"(test passage) Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat méd"
+       },
+       {
+        "name": "deadline",
+        "arguments": "{\"amount\":48,\"event_date\":\"2026-11-02\",\"event_time\":null,\"unit\":\"hours\"}",
+        "result": "{\"deadline_date\":\"2026-11-04\",\"deadline_weekday\":\"mercredi\",\"deadline_time\":\"same time as the event\",\"today\":\"2026-11-04\",\"passed\":false,\"days_left\":0,\"counting_rule\":\"The day of the event is not counted: counting starts the next day. calendar_days counts every day. working_days_mon_sat (jours ouvra"
+       }
+      ]
+     },
+     {
+      "answer": "Oui, vous pouvez toujours justifier votre absence à l’examen.\n\n**Comment faire ?**  \n- Vous devez transmettre le justificatif (attestation de retard SNCF, billet, etc.) **dans les 48 h** suivant l’examen.  \n- La demande doit être adressée **à la scolarité / service des examens de votre établissement** (et non à l’enseignant directement).\n\n**Ce que dit la règle**  \n> « Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat médical, attestation de retard SNCF…) »【TEST-ABS-48H】.\n\nDonc, dès que possible (et avant la fin du délai de 48 h), envoyez votre attestation de retard à la scolarité. Si vous avez besoin d’un modèle de mail pour le faire, dites‑le moi !",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"justifier absence examen retard train délai de justification\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"TEST-ABS-48H\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"(test passage) Toute absence à un examen doit être justifiée dans un délai de 48 heures auprès de la scolarité, par un justificatif (certificat méd"
+       }
+      ]
+     }
+    ],
+    "email": [
+     {
+      "answer": "**Objet : Demande de congé d’examen – 5 jours ouvrables avant la session de juin**\n\nBonjour,\n\nJe me permets de vous solliciter afin de bénéficier du congé d’examen prévu pour les apprentis.  \nConformément à l’article **L6222‑35** du Code du travail, « l’apprenti a droit à un congé supplémentaire de cinq jours ouvrables, pris dans le mois qui précède la préparation directe des épreuves ».\n\nMa session d’examen étant prévue en juin, je souhaiterais poser ces cinq jours ouvrables durant le mois de **mai** (dates à préciser avec vous selon l’organisation de l’entreprise).  \n\nJe reste à votre disposition pour toute information complémentaire et pour organiser la continuité de mon activité pendant mon absence.\n\nMerci par avance pour votre compréhension et votre accord.\n\nCordialement,\n\n*Votre prénom Nom*  \nApprenti – *Nom de votre formation / service*  \n\n---  \n\n*Citations :* L6222‑35 (Code du travail).",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"congé d'examen 5 jours étudiants apprentis\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"L6222-35\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"Pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Il est pris dans le mois qui les précèd"
+       }
+      ]
+     },
+     {
+      "answer": "**Objet : Demande de congé d’examen – 5 jours ouvrables avant la session de juin**\n\nBonjour [Nom du·de la responsable RH],\n\nJe souhaite solliciter les cinq (5) jours de congé d’examen prévus par le Code du travail pour les apprentis, afin de préparer la session d’examen de juin.  \n\nConformément à l’article **L6222-35** du Code du travail, « l’apprenti a droit à un congé supplémentaire de cinq jours ouvrables, pris dans le mois qui les précède ».  \n\nJe propose de prendre ce congé du **[date de début]** au **[date de fin]** (cinq jours ouvrables), ce qui correspond bien au mois précédant ma session d’examen.\n\nJe reste bien entendu disponible pour organiser la continuité de mes tâches et assurer la passation des dossiers en cours avant mon départ.\n\nMerci de bien vouloir me confirmer la prise en compte de cette demande.\n\nCordialement,\n\n[Votre prénom et nom]  \nApprenti – [Intitulé de votre formation]  \n[Numéro de téléphone]  \n[Adresse e‑mail]",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"congé d'examen 5 jours avant session juin apprentissage\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"L6222-35\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"Pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Il est pris dans le mois qui les précèd"
+       }
+      ]
+     },
+     {
+      "answer": "**Objet : Demande de congé d’examen (5 jours ouvrables) – Session de juin**\n\nBonjour [Nom du·de la Responsable RH],\n\nJe souhaite solliciter les 5 jours ouvrables de congé d’examen prévus par le Code du travail pour les apprentis (article **L6222‑35**).  \nCes journées, destinées à la préparation directe des épreuves, doivent être prises dans le mois qui précède la session d’examen.\n\nPouvez‑vous me confirmer les dates exactes à poser pour ma session de juin 2026 ? Ainsi, je pourrai les indiquer précisément dans ma demande tout en veillant à la continuité de mes missions pendant mon absence.\n\nMerci par avance pour votre compréhension et votre accord.\n\nCordialement,  \n\n[Votre prénom Nom]  \nApprenti(e) – [Intitulé du poste / Service]  \n[Numéro de téléphone]",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"congé d'examen 5 jours apprentissage\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"L6222-35\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"Pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Il est pris dans le mois qui les précèd"
+       },
+       {
+        "name": "(check in code: Your answer writes 2026-06, 2026-06-03, 2026-06-07, a date the user and the tools did not give, sent back)"
+       }
+      ]
+     },
+     {
+      "answer": "Pour pouvoir rédiger votre demande, j’ai besoin de connaître la date exacte (ou la première date) de votre session d’examen de juin. Pouvez‑vous me préciser ce jour‑début ?",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"congé d'examen apprentis 5 jours avant session juin\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"L6222-35\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"Pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Il est pris dans le mois qui les précèd"
+       }
+      ]
+     },
+     {
+      "answer": "**Objet : Demande de congé d’examen – 5 jours ouvrables avant la session de juin**\n\nBonjour,\n\nConformément à l’article **L6222-35** du Code du travail, je souhaite bénéficier du congé supplémentaire de **cinq jours ouvrables** prévu pour la préparation directe des épreuves d’examen.  \n\nJe vous propose de le prendre pendant le mois précédant ma session d’examen prévue en juin (dates exactes à préciser dès que le calendrier d’examen sera confirmé).  \n\nJe reste à votre disposition pour organiser la continuité de mon travail pendant mon absence et pour toute information complémentaire.\n\nCordialement,\n\n*Votre prénom Nom*  \nApprenti – *Nom de l’entreprise*  \n\n*Référence légale : L6222-35*",
+      "trace": [
+       {
+        "name": "search_texts",
+        "arguments": "{\"query\":\"congé d'examen 5 jours règle article\"}",
+        "result": "{\"not_found\": false, \"missing_ids\": [], \"passages\": [{\"id\": \"L6222-35\", \"title\": null, \"source\": \"test\", \"version_date\": null, \"url\": null, \"text\": \"Pour la préparation directe des épreuves, l'apprenti a droit à un congé supplémentaire de cinq jours ouvrables. Il est pris dans le mois qui les précèd"
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "real": [
+  {
+   "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+   "pipeline": {
+    "answer": "L’apprenti a droit à un congé supplémentaire de cinq jours ouvrables dédié à la préparation directe de ses épreuves, à prendre dans le mois qui précède les examens et rémunéré [ L6222-35][F2918].\n\nÀ demander : votre service RH ou le centre de formation d’apprentis pour connaître les dates précises à poser.  \n\nSources: [L6222-35] [F2918]",
+    "sources": [
+     "D3142-32",
+     "F2918",
+     "L6222-35",
+     "L3141-17",
+     "F15478"
+    ]
+   },
+   "agent": {
+    "answer": "En tant qu’apprenti, vous bénéficiez d’un **congé supplémentaire de 5 jours ouvrables** spécifiquement dédié à la préparation directe de vos épreuves.  \n\n- Ce congé doit être pris **dans le mois qui précède les examens**.  \n- Il s’ajoute aux congés payés légaux (5 semaines par an) et, le cas échéant, aux congés supplémentaires prévus pour les jeunes de moins de 21 ans.  \n- Le salaire est maintenu pendant ces 5 jours [Article L6222‑35 du Code du travail] (id L6222-35).  \n\nAinsi, vous avez droit à **cinq jours ouvrables** (lundi – samedi, hors dimanche) pour réviser vos examens, en plus de vos congés payés habituels.",
+    "trace": [
+     {
+      "name": "search_texts",
+      "arguments": "{\"query\":\"jours de congés révision examens apprentissage\"}",
+      "result": "passage ids: L6222-35 (texts not stored: the school regulations are private)"
+     }
+    ]
+   }
+  },
+  {
+   "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+   "pipeline": {
+    "answer": "L’absence à un examen pour cause de retard de transport n’est pas un motif accepté pour justifier une absence, même si elle est imprévue ; le règlement indique que le « réveil tardif ou les problèmes de transport (public ou privé) ne sont pas des motifs acceptés » [aivancity‑RI‑9.2]. Ainsi, même en le notifiant rapidement, la justification ne sera pas reconnue et l’examen sera noté zéro.  \n\nÀ demander : Service Administratif (et le responsable du Programme) pour connaître la procédure de rattrapage éventuel.  \n\nSources: [aivancity‑RI‑9.2]",
+    "sources": [
+     "aivancity-RI-9.2",
+     "aivancity-RP-4.1.2",
+     "aivancity-RP-4.1.3",
+     "aivancity-RI-9.1",
+     "aivancity-RI-10.2"
+    ]
+   },
+   "agent": {
+    "answer": "**Oui, vous pouvez demander à faire reconnaître votre absence, mais les règles de votre école précisent que les retards ou problèmes de transport (train, bus, etc.) **ne sont pas considérés comme des motifs acceptés** pour justifier une absence à un examen.\n\n- **À qui adresser votre demande ?**  \n  Vous devez la transmettre **au Service Administratif** ainsi qu’au **responsable du Programme** de votre formation (le professeur référent ou le coordinateur pédagogique).  \n\n- **Quel est le délai ?**  \n  La règle indique que les absences imprévues doivent être notifiées « le plus rapidement possible » après l’événement. Même si le délai exact n’est pas fixé, il est recommandé d’envoyer votre justification dès que possible (aujourd’hui, le mercredi 4 novembre 2026) afin de montrer votre bonne foi.\n\n- **Quel type de justificatif pourra être accepté ?**  \n  Le règlement ne prévoit que les justificatifs médicaux ou les cas de force majeure dûment prouvés. Un simple retard de train ne rentre pas dans ces catégories, donc il y a peu de chances que votre absence soit considérée comme justifiée.\n\n### Que faire concrètement ?\n\n1. **Rédigez un courrier** (ou un mail) expliquant la situation, en joignant, si possible, une attestation de retard du service ferroviaire (cela peut aider à montrer que le problème était indépendant de votre volonté, même si ce n’est pas un motif reconnu).  \n2. **Envoyez‑le** au Service Administratif et au responsable du Programme dès aujourd’hui.  \n3. Si votre demande est refusée, vous pourrez éventuellement solliciter une session de rattrapage ; toutefois, cela dépendra de la décision du responsable du Programme, qui doit juger si le motif d’absence est recevable.\n\n---\n\n#### Exemple de mail que vous pourriez envoyer (à valider avant envoi)  \n\n> **Objet :** Demande de prise en compte d’une absence à l’examen du 3 novembre 2026  \n>   \n> Madame, Monsieur,  \n>   \n> Je vous informe que je n’ai pas pu me présenter à l’examen prévu le mardi 3 novembre 2026 en raison d’un retard important de mon train (attestation du service SNCF jointe).  \n>   \n> Conformément à l’article 9.2 du règlement intérieur, je vous transmets cette justification dans les plus brefs délais.  \n>   \n> Je reste à votre disposition pour toute information complémentaire et vous remercie de bien vouloir étudier la possibilité d’un rattrapage.  \n>   \n> Cordialement,  \n>   \n> *[Votre prénom et nom]*  \n\n---\n\n**En résumé :**  \n- Le retard de train n’est pas un motif officiellement accepté (voir article 9.2 du règlement intérieur).  \n- Vous pouvez tout de même adresser une demande au Service Administratif et au responsable du Programme, en joignant une attestation de retard, mais il n’est pas garanti que votre absence soit considérée comme justifiée.  \n\nN’hésitez pas à me dire si vous souhaitez que je prépare le mail complet pour vous.",
+    "trace": [
+     {
+      "name": "search_texts",
+      "arguments": "{\"query\":\"justification absence examen retard train délai justification examen université\"}",
+      "result": "passage ids: aivancity-RI-9.2 (texts not stored: the school regulations are private)"
+     }
+    ]
+   }
+  },
+  {
+   "request": "J'ai le droit à combien ?",
+   "pipeline": {
+    "answer": "L’apprenti bénéficie des congés payés légaux, soit 5 semaines de congés payés par an, et l’employeur fixe la période de prise de ces congés.  \nS’il a moins de 21 ans au 30 avril de l’année précédente, il peut demander des congés supplémentaires sans solde, dans la limite de 30 jours ouvrables par an, la condition d’âge étant examinée à cette date.  \nPour la préparation des épreuves, il obtient un congé supplémentaire de 5 jours ouvrables dans le mois qui précède les examens, ces jours s’ajoutent aux congés payés et sont rémunérés.  \nIl a également les mêmes droits que tout salarié pour les congés liés au mariage, au Pacs, au décès d’un proche, ainsi qu’une autorisation d’absence exceptionnelle d’un jour pour la journée défense et citoyenneté, sans perte de salaire.  \n\nÀ demander : le service RH de votre entreprise ou le référent de votre centre de formation pour connaître la période exacte de prise des congés et les éventuels accords d’entreprise.  \n\nSources: [F2918]",
+    "sources": [
+     "F2258",
+     "F38630",
+     "F37482",
+     "F2918",
+     "F33375"
+    ]
+   },
+   "agent": {
+    "answer": "Pouvez‑vous préciser de quel droit ou de quelle indemnité vous souhaitez connaître le montant ? Par exemple : le droit à l’allocation chômage, à l’indemnité de congés payés, à la prime de fin d’année, etc. Cela me permettra de vous répondre avec les règles exactes.",
+    "trace": []
+   }
+  },
+  {
+   "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+   "pipeline": {
+    "answer": "Vous percevrez 1 138,88 € brut par mois en deuxième année d’apprentissage pour un salarié de 22 ans. [F2918]\n\nÀ demander : votre employeur (service paie) pour le détail du salaire net et les éventuelles majorations conventionnelles.  \n\nSources: [F2918]",
+    "sources": [
+     "F219",
+     "F2918",
+     "D6222-26",
+     "D6243-2",
+     "F23556"
+    ]
+   },
+   "agent": {
+    "answer": "Selon le Code du travail (article D 6222‑26) et le tableau récapitulatif de Service‑Public.fr, la rémunération minimale d’un apprenti dépend de son âge et de son année de formation :\n\n| Âge | 2ᵉ année de contrat |\n|-----|----------------------|\n| 21‑25 ans | **61 % du SMIC**, soit **1 138,88 €** brut par mois |\n\nVous avez 22 ans et êtes en deuxième année d’apprentissage ; votre salaire mensuel minimum est donc **environ 1 138,88 € brut** (ce montant peut être majoré par une convention collective ou un accord d’entreprise).  \n\n**Sources**  \n- Service‑Public.fr, « Contrat d’apprentissage : Quel est le salaire de l’apprenti ? », tableau « 2e année », 21‑25 ans → 1 138,88 € 【F2918】  \n- Code du travail, article D 6222‑26, alinéa 3 b → 61 % du SMIC pour les 21‑25 ans en 2ᵉ année 【D6222-26】",
+    "trace": [
+     {
+      "name": "search_texts",
+      "arguments": "{\"query\":\"apprentis 22 ans deuxième année salaire mensuel\"}",
+      "result": "passage ids: F2918 (texts not stored: the school regulations are private)"
+     }
+    ]
+   }
+  },
+  {
+   "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+   "pipeline": {
+    "answer": "Objet : Demande de congé d’examen – 5 jours ouvrables  \n\nMadame, Monsieur,  \n\nConformément à l’article L. 6222‑35, je souhaite bénéficier d’un congé supplémentaire de cinq jours ouvrables pour la préparation directe de mes épreuves, à prendre dans le mois qui précède ma session d’examen prévue en juin.  \n\nJe vous informe que ma convocation à l’examen est jointe à ce courrier et que la demande est faite dans le délai requis (au moins quinze jours calendaires avant le début de la session).  \n\nJe vous remercie de bien vouloir confirmer la prise en compte de ce congé et de m’indiquer les éventuelles formalités complémentaires.  \n\nCordialement,  \n\n[Nom et prénom]  \n[Numéro de contrat d’apprentissage]  \n\nÀ demander : RH – confirmation du congé et procédure de validation.  \n\nSources : [L6222-35]",
+    "sources": [
+     "D3142-32",
+     "L6222-35",
+     "R3142-28",
+     "D3142-43",
+     "F682"
+    ]
+   },
+   "agent": {
+    "answer": "Voici le projet d’email à envoyer à votre service RH :\n\n**Objet :** Demande de congé d’examen – 5 jours ouvrables  \n\n**Corps du message :**\n\n> Madame, Monsieur,\n> \n> Je vous adresse la présente afin de solliciter l’octroi du congé supplémentaire prévu par l’article **L6222‑35** du Code du travail, destiné à la préparation directe des épreuves d’examen. En tant qu’apprenti, j’ai droit à cinq jours ouvrables de congé rémunéré dans le mois qui précède les épreuves.\n> \n> Ma session d’examen est prévue au mois de **juin** (date exacte à préciser). Conformément à la disposition légale, je souhaiterais poser ces cinq jours de congé du **[date de début]** au **[date de fin]** inclus, afin de pouvoir suivre les enseignements dispensés par mon centre de formation d’apprentis.\n> \n> Je reste bien entendu à votre disposition pour toute information complémentaire et pour organiser la continuité de mes missions pendant mon absence.\n> \n> Je vous remercie par avance de l’attention portée à ma demande et vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.\n> \n> **[Prénom Nom]**  \n> Apprenti – **[Intitulé du poste]**  \n> **[Numéro de contrat / Service]**\n\n**Références légales :** Article L6222‑35 du Code du travail.\n\nPouvez‑vous me communiquer les dates exactes de votre examen (ou la période souhaitée) afin que je remplisse les champs **[date de début]** et **[date de fin]** ?",
+    "trace": [
+     {
+      "name": "search_texts",
+      "arguments": "{\"query\":\"congé d'examen 5 jours étudiants apprentis\"}",
+      "result": "passage ids: L6222-35 (texts not stored: the school regulations are private)"
+     },
+     {
+      "name": "send_email",
+      "arguments": "{\"body\":\"Objet : Demande de congé d'examen – 5 jours ouvrables\\n\\nMadame, Monsieur,\\n\\nJe vous adresse la présente afin de solliciter l’octroi du congé supplémentaire prévu par l’article L6222‑35 du Code du travail, destiné à la préparation directe des épreuves d’examen. En tant qu’apprenti, j’ai droit à cinq jours ouvrables de congé rémunéré dans le mois qui précède les épreuves.\\n\\nMa session d’examen est prévue au mois de juin 2027 (date exacte à confirmer). Conformément à la disposition légale, je souhaiterais poser ces cinq jours de congé du [date de début] au [date de fin] inclus, afin de pouvoir suivre les enseignements dispensés par mon centre de formation d’apprentis.\\n\\nJe reste bien entendu à votre disposition pour toute information complémentaire et pour organiser la continuité de mes missions pendant mon absence.\\n\\nJe vous remercie par avance de l’attention portée à ma demande et vous prie d’agréer, Madame, Monsieur, l’expression de mes salutations distinguées.\\n\\n[Prénom Nom]\\nApprenti – [Intitulé du poste]\\n[Numéro de contrat / Service]\",\"cited_ids\":[\"L6222-35\"],\"subject\":\"Demande de congé d'examen – 5 jours ouvrables\",\"to\":\"employer_hr\"}",
+      "result": "{\"status\":\"pending_approval\",\"draft_id\":\"5cedd7a0\",\"message\":\"Shown to the user for approval. Not sent until the user approves it in the interface.\"}"
+     },
+     {
+      "name": "(check in code: Your answer writes 2027-06, a date the user and the tools did not give, sent back)"
+     }
+    ]
+   }
+  }
+ ],
+ "tool_calls_refused_by_provider": 0,
+ "seconds": 468
+}
