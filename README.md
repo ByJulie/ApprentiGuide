@@ -90,3 +90,6 @@ The development measurements made while building the retrieval (to choose its se
 | Johanna Fokui | retrieval / model | chat interface and voice input, tooling to run the evaluation |
 | Nafissatou Ndiaye | evaluation and safety | test set (99 questions), red-team set (28 cases) |
 | Nafissatou Ndiaye | product and demo | |
+
+## 8. Agentic AI extension (November 2026)
+The same product becomes an agent in the Agentic AI course: it will use tools to act on the user's situation (today's date and deadlines, pay computed by a tool, a clarifying question when the request is vague, a draft email to HR or the school that the user approves). The agent sheet, `docs/agent_sheet.md`, is completed after each session; each task is committed with a message starting with its session number (`S1: ...`).
