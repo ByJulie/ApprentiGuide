@@ -69,12 +69,26 @@ def cell_text(cell) -> str:
 
 
 def table_lines(table) -> list[str]:
-    """One line per table row, cells separated by ' | ', preceded by the column headers."""
+    """Text lines of a table: one line per row, cells separated by ' | '.
+
+    A table of 3 columns or more whose header row has the same width as the row gets one line
+    per cell, "<row label>, <column header> : <value>", so a value never has to be matched to
+    its column by counting separators.
+    """
     headers = [cell_text(c) for c in table if etree.QName(c).localname == "Colonne"]
     lines = [" | ".join(headers)] if any(headers) else []
+    header_row = None
     for row in table:
-        if etree.QName(row).localname == "Rangée":
-            lines.append(" | ".join(cell_text(c) for c in row))
+        if etree.QName(row).localname != "Rangée":
+            continue
+        cells = [cell_text(c) for c in row]
+        if row.get("type") == "header" and header_row is None and len(cells) >= 3:
+            header_row = cells
+        elif header_row and len(cells) == len(header_row):
+            lines += [f"{cells[0]}, {head} : {value}"
+                      for head, value in zip(header_row[1:], cells[1:], strict=True) if value]
+            continue
+        lines.append(" | ".join(cells))
     return lines
 
 
