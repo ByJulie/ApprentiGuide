@@ -1,0 +1,128 @@
+{
+ "date": "2026-11-04",
+ "model": "openai/gpt-oss-120b",
+ "config": {
+  "mcpServers": {
+   "apprentiguide": {
+    "command": "/Users/johannafokui/Desktop/PGE5/Generative AI/ApprentiGuide/.venv/bin/python",
+    "args": [
+     "/Users/johannafokui/Desktop/PGE5/Generative AI/ApprentiGuide/server.py"
+    ],
+    "env": {
+     "FASTMCP_LOG_LEVEL": "WARNING"
+    }
+   }
+  }
+ },
+ "tools": [
+  {
+   "name": "deadline",
+   "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+     "event_date": {
+      "description": "Exact date of the event, YYYY-MM-DD, as given by the user or read in the calendar of the system prompt. If the user did not give it, ask for it, never guess.",
+      "format": "date",
+      "type": "string"
+     },
+     "event_time": {
+      "anyOf": [
+       {
+        "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "description": "Time of the event, HH:MM, only if the user gave it, else null. Used with hours."
+     },
+     "amount": {
+      "description": "The number written in the rule, for example 48 for 48 hours.",
+      "maximum": 400,
+      "minimum": 1,
+      "type": "integer"
+     },
+     "unit": {
+      "description": "The unit written in the rule returned by search_texts: working_days_mon_sat for jours ouvrables, working_days_mon_fri for jours ouvrés.",
+      "enum": [
+       "hours",
+       "calendar_days",
+       "working_days_mon_sat",
+       "working_days_mon_fri",
+       "months"
+      ],
+      "type": "string"
+     }
+    },
+    "required": [
+     "event_date",
+     "event_time",
+     "amount",
+     "unit"
+    ]
+   },
+   "has_output_schema": true
+  },
+  {
+   "name": "search_texts",
+   "input_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+     "query": {
+      "description": "The question or a few keywords, in French or English. Include an article id (for example L6222-35) if the user names one.",
+      "maxLength": 500,
+      "minLength": 3,
+      "type": "string"
+     }
+    },
+    "required": [
+     "query"
+    ]
+   },
+   "has_output_schema": true
+  }
+ ],
+ "resources": [],
+ "prompts": [],
+ "call_valid": {
+  "deadline_date": "2026-11-05",
+  "deadline_weekday": "jeudi",
+  "deadline_time": "same time as the event",
+  "today": "2026-11-04",
+  "passed": false,
+  "days_left": 1,
+  "counting_rule": "The day of the event is not counted: counting starts the next day. calendar_days counts every day. working_days_mon_sat (jours ouvrables) counts Monday to Saturday, working_days_mon_fri (jours ouvrés) Monday to Friday, both without the 11 public holidays of metropolitan France. months gives the same day number n months later (the last day of the month if it does not exist). hours counts from event_time; without event_time, the limit is the same time of day as the event."
+ },
+ "call_invalid": "refused by the server before our code ran: 2 validation errors for call[deadline]",
+ "agent": [
+  {
+   "goal": "J'ai le droit à combien de jours de congé pour préparer mes examens en apprentissage ?",
+   "mcp_calls": [
+    {
+     "tool": "search_texts",
+     "arguments": {
+      "query": "jours de congé pour préparer les examens apprentissage"
+     },
+     "result": "passage ids: L6222-35, F2918, R6227-7, D3142-32, F15478"
+    }
+   ],
+   "answer": "En tant qu’apprenti, vous bénéficiez d’un **congé supplémentaire de 5 jours ouvrables** pour préparer directement les épreuves de votre examen.  \n\nCe congé :\n\n* est prévu par l’article **L 6222‑35** du Code du travail ; il s’ajoute aux congés payés légaux et aux éventuels congés annuels spécifiques aux jeunes salariés ; il est **rémunéré** ; et il doit être pris **dans le mois qui précède les épreuves** 【L6222-35】.  \n\nAinsi, vous pouvez demander à votre employeur 5 jours ouvrables (lundi‑samedi, hors dimanche) de congé payé pour vous préparer aux examens, à condition que la convention de votre centre de formation le prévoie.  \n\n*Note :* si vous avez moins de 21 ans au 30 avril de l’année précédente, vous pouvez également demander des congés supplémentaires sans solde, dans la limite de 30 jours ouvrables par an, mais le congé de 5 jours pour les examens est déjà rémunéré et obligatoire.  \n\n---  \n\n**Sources**  \n\n- Article L 6222‑35 du Code du travail (prévu pour la préparation directe des épreuves) 【L6222-35】."
+  },
+  {
+   "goal": "Mon contrat d'apprentissage a commencé le 2026-10-15. Jusqu'à quand mon employeur et moi pouvons-nous le rompre librement pendant la période d'essai ?",
+   "mcp_calls": [
+    {
+     "tool": "search_texts",
+     "arguments": {
+      "query": "période d'essai contrat d'apprentissage rompre librement durée"
+     },
+     "result": "passage ids: F2918, L6222-18, L6222-16, D6222-21-1, L6222-7"
+    }
+   ],
+   "answer": "**Période pendant laquelle le contrat d’apprentissage peut être rompu librement :**\n\n- **Jusqu’à la fin des 45 premiers jours de formation pratique en entreprise** (ces jours ne doivent pas forcément être consécutifs).  \n- Pendant cette période, **l’employeur** comme **l’apprenti** peuvent mettre fin au contrat **par simple écrit**, sans formalités particulières ni préavis.\n\n**Sources**  \n\n- Service‑Public.fr : « Le contrat peut être rompu par écrit par l’employeur ou par l’apprenti … avant la fin des 45 premiers jours de formation pratique dans l’entreprise »【0†F2918】  \n- Code du travail, article **L6222‑18** : « Le contrat d’apprentissage peut être rompu par l’une ou l’autre des parties jusqu’à l’échéance des quarante‑cinq premiers jours, consécutifs ou non, de formation pratique en entreprise effectuée par l’apprenti »【0†L6222-18】\n\n**En pratique :**  \n- Votre contrat a commencé le **15 octobre 2026**.  \n- Vous avez donc jusqu’au **28 novembre 2026** (45 jours calendaires à compter du 15 octobre, le jour du début n’est pas compté) pour rompre le contrat librement, que vous soyez l’employeur ou l’apprenti.  \n- Passé ce délai, la rupture doit suivre les procédures spécifiques (accord écrit, médiation, etc.) décrites dans les mêmes articles."
+  }
+ ]
+}
