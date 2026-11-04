@@ -92,4 +92,7 @@ The development measurements made while building the retrieval (to choose its se
 | Nafissatou Ndiaye | product and demo | |
 
 ## 8. Agentic AI extension (November 2026)
-The same product becomes an agent in the Agentic AI course: it will use tools to act on the user's situation (today's date and deadlines, pay computed by a tool, a clarifying question when the request is vague, a draft email to HR or the school that the user approves). The agent sheet, `docs/agent_sheet.md`, is completed after each session; each task is committed with a message starting with its session number (`S1: ...`).
+The same product becomes an agent in the Agentic AI course: it will use tools to act on the user's situation (today's date and deadlines, a clarifying question when the request is vague, a draft email to HR or the school that the user approves). The agent sheet, `docs/agent_sheet.md`, is completed after each session; each task is committed with a message starting with its session number (`S1: ...`).
+
+- **Tools** (S2): `app/tools.py`, pydantic models for `search_texts`, `deadline` and `send_email`; the JSON schemas of the sheet are generated from them (`python -m app.tools`).
+- **MCP server** (S3): `python server.py` (stdio) or `MCP_PORT=8765 python server.py` (HTTP) exposes `deadline` and `search_texts`. Check: `python -m eval.s3_mcp_check`.
