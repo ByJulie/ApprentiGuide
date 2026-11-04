@@ -99,3 +99,10 @@ def test_schemas_are_generated_from_the_models():
         assert set(p["required"]) == set(p["properties"])     # strict mode: every field is required
     assert s["deadline"]["parameters"]["properties"]["unit"]["enum"] == \
         ["hours", "calendar_days", "working_days_mon_sat", "working_days_mon_fri", "months"]
+
+
+def test_search_texts_without_retrieval_is_not_found(monkeypatch):
+    from app import pipeline
+    monkeypatch.setattr(pipeline, "retrieve", lambda question: None)     # retrieval.enabled: false (baseline)
+    assert json.loads(call("search_texts", json.dumps({"query": "congés d'examen"}))) == \
+        {"not_found": True, "passages": [], "missing_ids": []}

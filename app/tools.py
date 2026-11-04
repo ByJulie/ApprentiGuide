@@ -46,6 +46,8 @@ def search_texts(args: SearchTextsArgs, **_) -> SearchTextsResult:
     """The Generative AI retrieval, unchanged: French rewrite, three signals, RRF, reranker, threshold."""
     from app import pipeline
     found = pipeline.retrieve(args.query)
+    if found is None:                          # retrieval disabled in config.yaml (baseline mode): no texts
+        return SearchTextsResult(not_found=True, passages=[], missing_ids=[])
     if found.abstain:
         return SearchTextsResult(not_found=True, passages=[], missing_ids=found.missing_ids)
     return SearchTextsResult(not_found=False, missing_ids=found.missing_ids, passages=[
