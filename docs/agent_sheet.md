@@ -227,4 +227,31 @@ Script `eval/agent_s2_check.py`, results `eval/runs/2026-11-04_s2_tools_check.js
 - **Real corpus, five S1 requests, one run each** (`real` in the results): the agent and the Generative AI pipeline agree on requests 1, 2 (transport is not an accepted reason in the school regulations, so there is no delay to compute) and 5, and both give 1 138,88 € for request 4 in this run. On request 3, the agent asks what the user means; the pipeline guesses and lists several rights.
 - The check in code (a conclusion about time without a `deadline` call, or a date the user and the tools did not give, sends the answer back once) lives in the test script for now; it moves to the agent loop in a later session.
 
-**Not in the S2 tools:** the pay table of F2918 was read in the wrong column by the Generative AI pipeline (952,18 € instead of 1 138,88 € at 22 in year 2). It is a data problem, fixed on the branch `fix-table-cells` (Julie), not a missing tool.
+**Not in the S2 tools:** the pay table of F2918 was read in the wrong column by the Generative AI pipeline (952,18 € instead of 1 138,88 € at 22 in year 2). It is a data problem, fixed by Julie (tables written one line per cell with their headers, commit `30a0a03`), not a missing tool.
+
+## S3. Our tools as an MCP server
+
+`server.py` exposes the two read tools of `app/tools.py` with FastMCP: `deadline` and `search_texts`. Their parameters reuse the pydantic fields of S2, so a client lists the same schemas as this sheet, and each result is the pydantic result model (MCP structured output). `send_email` is not exposed: it is a write tool and its approval belongs to the interface (Session 7).
+
+| | |
+|---|---|
+| Transport | stdio by default (`python server.py`); Streamable HTTP with `MCP_PORT=8765 python server.py` (`127.0.0.1:8765/mcp`, for n8n) |
+| Needs | `deadline`: fastmcp and pydantic only, so it runs in Colab. `search_texts`: the PostgreSQL database and the local models of the RAG; without them it returns a clear error. |
+| Client config | `{"mcpServers": {"apprentiguide": {"command": "python", "args": ["server.py"]}}}`, the same JSON as Claude Desktop, VS Code and OpenCode |
+| Tests | `tests/test_server.py` (in memory) and `eval/s3_mcp_check.py` (stdio, results in `eval/runs/2026-11-04_s3_mcp_check.json`) |
+
+**Called from the Session 3 notebook.** After the cell "Server configurations", add:
+
+```python
+!git clone -q https://github.com/ByJulie/ApprentiGuide.git
+!pip install -q fastmcp pydantic
+SERVERS["apprentiguide"] = {"command": sys.executable, "args": ["ApprentiGuide/server.py"], "env": QUIET}
+async with Client(config("apprentiguide")) as mc:
+    print([t.name for t in await mc.list_tools()])
+    print(text_of(await mc.call_tool("deadline", {"event_date": "2026-11-03", "event_time": None, "amount": 48, "unit": "hours"})))
+answer = await mcp_agent("Mon examen était le mardi 3 novembre 2026 et le règlement donne 48 heures pour le justifier. "
+                         "Jusqu'à quand ?", servers=("apprentiguide",))
+```
+
+**What the check showed (4 November):** the server lists 2 tools, both with an input and an output schema, and no resource or prompt. `deadline` with 48 hours from Tuesday 3 November returns jeudi 2026-11-05. A call with `event_date: "mardi"` and `unit: "jours"` is refused by the server's validation before our code runs. The notebook's agent loop, with the tools taken from the server: for the exam leave, it called `search_texts` and answered 5 jours ouvrables with L6222-35; for the trial period of a contract started 20 days ago, it found the rule of the first 45 days of practical training in the company and did not compute a date (they are days of presence, not calendar days). A fresh environment with only fastmcp and pydantic (as in Colab) runs `deadline`, and `search_texts` returns its error message.
+
