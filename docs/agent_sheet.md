@@ -331,6 +331,98 @@ Script `eval/agent_s5_check.py`, one thread per request of S1, today fixed to We
 
 Total 250 s for the five requests (Groq free plan, gpt-oss-20b).
 
+**Rerun with the real RAG on gpt-oss-120b** (Johanna Fokui, with the database; `eval/runs/2026-11-05_s5_langgraph_check_real_gpt-oss-120b.json`, 158 s for the five requests):
+
+| # | Tools called | Result |
+|---|---|---|
+| 1 | search_texts (F2918, L6222-35…) | 5 jours ouvrables, paid, in the month before the exams, citing L6222-35 and F2918: right. |
+| 2 | search_texts (aivancity-RI-9.2 first) | Asks for the exact date of the exam instead of guessing it (on gpt-oss-20b it turned « mardi » into a wrong date). The right passage was found, but the answer could have said directly that a late train is not an accepted reason (internal rules 9.2), which needs no date. |
+| 3 | none | A clarifying question: right. |
+| 4 | search_texts (F2918, D6222-26…) | 1 138,88 € read in the official table of F2918 (2nd year, 21-25 years): right. |
+| 5 | search_texts (L6222-35, D3142-32…) | The draft is written in the answer, citing L6222-35, and `send_email` is not called yet: the email waits for the user to confirm, so nothing is sent. |
+
+With the real retrieval and the project's model, 4 of 5 answers are right as they are and the fifth (request 2) is a safe question back; no email was prepared without being asked.
+
 **What this shows:** the graph, our tools, the approval and the check work as designed; the approval in code also stopped an email the user had not asked for. The errors left are the model's (the weekday turned into a date, seen in S2 as well; an unrequested write action) and the simple search's. **Next:** rerun with `--search real` on gpt-oss-120b; let `deadline` take a weekday (« mardi ») and resolve it in code (S2); refuse `send_email` in code when the user did not ask to write.
 
 Found while building it: `tools.approve` wrote the outbox in the default encoding, which fails on Windows on the non-breaking hyphens of gpt-oss (U+2011); it now writes UTF-8.
+
+## S6. One agent or several?
+
+**Decision: one agent.** ApprentiGuide stays one ReAct agent (the LangGraph graph of S5) with its six tools.
+
+**Why, against the three reasons of the course to split:**
+- **Context isolation:** our requests are short (one to three parts) and the context of one request stays small: five passages and a few tool results. Nothing needs to be hidden from the agent that answers.
+- **Specialisation:** one domain (the rights of apprentices and students), one model, six tools: far below the number of tools where the choice of the first tool degrades (S2 lab, distractor tools).
+- **Parallelism:** the only independent reads, the law and the school regulations, are already one call: `search_texts` searches both together.
+- **And our decisions depend on each other:** the deadline depends on the rule found, the email on the rule and the user's dates. The course rule is to keep such write decisions in one agent; splitting would hand them over through briefs, where information is lost.
+
+**Measured on our project** (`eval/agent_s6_check.py`, results `eval/runs/2026-11-05_s6_one_agent_or_team_corpus_gpt-oss-120b.json`): our agent against a supervisor with two specialists built from our own tools, the pattern of the course lab. Rules specialist: `search_texts` and `deadline`. Email specialist: `send_email` only. Supervisor: the two specialists as tools, and the memory tools. Same model (gpt-oss-120b), same five S1 requests, same fixed day, same search (`--search corpus`: no database on this laptop, the real corpus ranked by shared words, passages cut to 1500 characters to stay under Groq's 8000 tokens per request).
+
+| Design | Right outcomes (5 requests) | Model calls | Tokens | Time |
+|---|---|---|---|---|
+| **One agent** | **3 of 5** | **9** | **22 600** | **89 s** |
+| Supervisor + 2 specialists | 2 of 5 | 21 | 31 762 | 185 s |
+
+Per request, read one by one:
+
+| # | One agent | Supervisor + specialists |
+|---|---|---|
+| 1 Exam leave | Asked which leave was meant instead of answering (wrong) | Asked the contract year, not needed (wrong) |
+| 2 Missed exam, late train | Wrong: « you can still justify it », with the 3-hour tolerance that the school rules exclude for apprentices (RP-4.1.4); the simple search did not return internal rules 9.2 (the real RAG of S5 did) | Same error |
+| 3 « J'ai le droit à combien ? » | Clarifying question (right) | Clarifying question (right) |
+| 4 Pay at 22 in year 2 | 1 138,88 € (right) | **1 065,80 €, wrong:** the supervisor asked the rules specialist three times; the specialist computed 61 % of the 2024 Smic from another page (F144) instead of copying the table of F2918, and the supervisor never saw the table. 11 calls and 20 981 tokens for this request alone. |
+| 5 Email to HR | Draft in the answer (right) | Draft through the email specialist, waiting for approval (right) |
+
+The outcomes are checked in code (`outcome()` in the script) and were checked again by reading. A first version of the check counted the wrong answer of request 2 as right, because it only looked for the words « transport » and « n'est pas »; the check is now strict and the saved answers were scored again (`--rescore`, no model call).
+
+**What it shows:** the team costs 2.3 times the model calls, 1.4 times the tokens and twice the time, for one right answer fewer. Its extra error is a hand-over failure (the brief and the specialist's answer lost the table), the « inter-agent misalignment » of the course. Neither design wrote an email it was not asked for. With one run per request and a simple search, these are indications, not a proof; they agree with the course lab (pipeline: 2 times the tokens of one agent; supervisor: 9 model calls).
+
+**When we would split:** if the agent got actions with different rights (for example sending real emails), an email agent holding only `send_email` would isolate the write action (least privilege). Today `send_email` only prepares a draft and the approval is in code (`interrupt()`, S5), so it is not needed.
+
+## Kickoff summary
+
+| | |
+|---|---|
+| Team | Julie Abouem (data), Johanna Fokui (retrieval, model, interface), Nafissatou Ndiaye (evaluation, safety) |
+| Generative AI product | ApprentiGuide: cited answers on the rights of apprentices and students from the Labour Code, the CESEDA, Service-Public.fr and the aivancity regulations, NOT FOUND when the texts do not answer (correct and cited 0.56 on 99 questions, `docs/evaluation_report.md`) |
+| Agent goal | Act on the student's situation: today's date and deadlines, a question back when the request is vague, the situation remembered, a draft email to HR or the school that the user approves |
+| Read tools | `search_texts` (our RAG), `deadline`, `recall` |
+| Write tools | `send_email` (a draft, sent only after approval), `remember`, `forget` (the user's own memory file) |
+| How we check success | The five questions below with their expected outcome, checked in code and by reading (`eval/agent_s5_check.py`, `eval/agent_s6_check.py`); citations only from ids returned by `search_texts` |
+| Autonomy level | 3 · agent loop, one agent (simple questions could stay on the workflow, S1) |
+| Control strategy | ReAct, with checks in code before the final answer (S4) |
+| Reasoning effort | low (config.yaml) |
+| Short-term memory | the thread of the conversation (LangGraph checkpointer); the last 4 messages in the chat interface |
+| Long-term memory | five typed facts of the student's situation said by the user, until 31 August, one file per user, `forget` |
+| Retrieval | agentic RAG: `search_texts` is a tool the agent calls as often as needed, with its own query |
+| Framework | LangGraph (`app/agent.py`) |
+| Tools from | Python functions (`app/tools.py`, `app/memory.py`) and our MCP server (`server.py`: `deadline`, `search_texts`) |
+| Agents | one agent (S6, measured against a supervisor with two specialists) |
+| Hard limits | 8 model calls per request; Groq free plan: 8000 tokens per request, 200 000 tokens per day and per key (key rotation in `app/keys.py`) |
+| Human approval before | `send_email` (`interrupt()`); the model cannot approve |
+| How we inspect prompts | the traces saved by the check scripts in `eval/runs/` (every tool call and result); LangGraph `stream_mode="updates"` |
+| Risks | a write action the user did not ask for (stopped by the approval, S5); personal data in memory (typed facts said by the user, expiry, `forget`); an injected instruction saved as memory (no free text); a weekday turned into a wrong date (seen in S2 and S5) |
+
+**Five test questions with their expected outcome** (the requests of S1):
+
+| # | Question | Expected outcome |
+|---|---|---|
+| 1 | « Combien de jours de congés j'ai pour réviser mes examens ? » | 5 jours ouvrables, paid, in the month before the exams, citing L6222-35 |
+| 2 | « J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ? » | A late train is not an accepted reason (internal rules 9.2), or a question for the exam date if needed; no email unless asked |
+| 3 | « J'ai le droit à combien ? » | One clarifying question, no guessed answer |
+| 4 | « J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ? » | 1 138,88 € read in the table of F2918 (61 % of the Smic), not computed |
+| 5 | « Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin. » | A draft citing L6222-35, shown to the user and sent only after approval |
+
+**Plan until 30 November** (course timeline): the agent run end to end on the five questions with the real retrieval (done once in S5, repeated after each change); connected to n8n or OpenCode through `server.py` (S7, S8); evaluated on its test set and attacked by another team (S9); behind a simple interface with the cost per task measured (S10). Fixes listed by the checks: let `deadline` take a weekday (« mardi ») and resolve it in code; refuse `send_email` in code when the user did not ask to write; find internal rules 9.2 for « train en retard »; read amounts in tables instead of computing them (request 4 of S6).
+
+## Deliverables by session
+
+| Session | Deliverable | Where |
+|---|---|---|
+| S1 | Five requests, workflow or agent | this sheet, S1 |
+| S2 | Three tool schemas with pydantic | `app/tools.py`, this sheet, S2; check `eval/agent_s2_check.py` |
+| S3 | MCP server | `server.py`; check `eval/s3_mcp_check.py` |
+| S4 | Strategy and memory in five lines | this sheet, S4; `app/memory.py`; check `eval/agent_s4_check.py` |
+| S5 | The agent in LangGraph on the five requests | `app/agent.py`; check `eval/agent_s5_check.py` |
+| S6 | One agent or several, justified; completed sheet | this sheet, S6 and kickoff summary; check `eval/agent_s6_check.py` |
