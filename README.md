@@ -96,3 +96,4 @@ The same product becomes an agent in the Agentic AI course: it will use tools to
 
 - **Tools** (S2): `app/tools.py`, pydantic models for `search_texts`, `deadline` and `send_email`; the JSON schemas of the sheet are generated from them (`python -m app.tools`).
 - **MCP server** (S3): `python server.py` (stdio) or `MCP_PORT=8765 python server.py` (HTTP) exposes `deadline` and `search_texts`. Check: `python -m eval.s3_mcp_check`.
+- **Planning and memory** (S4): ReAct with checks in code; long-term memory of the student's situation in `app/memory.py` (`remember`, `recall`, `forget`: five typed facts said by the user, until 31 August, one file per user). Check: `python -m eval.agent_s4_check --part memory`.
