@@ -1,0 +1,187 @@
+{
+ "date": "2026-11-05",
+ "today_fixed": "2026-11-04",
+ "model": "openai/gpt-oss-20b",
+ "search": "corpus",
+ "framework": "LangGraph (app/agent.py)",
+ "requests": [
+  {
+   "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+   "paused_for_approval": false,
+   "answer": "Vous avez droit à **5 jours ouvrables** de congé supplémentaire pour la préparation de vos examens.  \nCes jours s’ajoutent aux congés payés légaux (5 semaines par an) et sont rémunérés.  \n(Source : Service‑Public.fr – « Congé pour examen »).",
+   "steps": [
+    {
+     "tool": "search_texts",
+     "args": {
+      "query": "jours de congés apprentissage réviser examens"
+     }
+    },
+    {
+     "result_of": "search_texts",
+     "result": "passage ids: F2918, F3059, L3142-4, F15478, F31633"
+    }
+   ],
+   "model_calls": 2,
+   "seconds": 12.4
+  },
+  {
+   "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+   "paused_for_approval": true,
+   "approval_asked": {
+    "action": "send_email",
+    "draft_id": "d70357fa",
+    "to": "school",
+    "subject": "Justification d’absence à l’examen du 28 octobre",
+    "cited_ids": [
+     "aivancity-RP-4.1.4"
+    ],
+    "body": "Bonjour,\n\nJe vous informe que j’ai manqué mon examen du mardi 28 octobre 2026 en raison d’un retard de train. Je souhaite justifier cette absence afin de ne pas être pénalisé.\n\nJe vous remercie de bien vouloir m’indiquer la procédure à suivre (formulaire, justificatif à fournir, délai de dépôt, etc.) et à qui je dois adresser la demande.\n\nCordialement,\n[Votre nom]"
+   },
+   "decision": "refused by the check (nothing sent)",
+   "answer": "**Réponse corrigée**\n\nOui, vous pouvez toujours justifier votre absence à l’examen.  \nDans le règlement pédagogique de votre établissement (section 4.1.4), il est précisé que :\n\n> *« Pour les absences occasionnées par un retard dans les transports en commun, la justification doit être déposée **au plus tard le jour du retour de l’étudiant**. »*  \n> (source : aivancity‑RP‑4.1.4)\n\nComme votre retard de train vous a empêché d’être présent le mardi 28 octobre 2026, la date limite pour déposer votre justification était le **29 octobre 2026** (le jour suivant votre retour).  \nCette date est déjà passée (aujourd’hui : 4 novembre 2026).  \n\n---\n\n### Que faire maintenant ?\n\n1. **Contactez rapidement le service des examens ou le responsable pédagogique** de votre établissement pour expliquer la situation et demander s’il est encore possible de justifier l’absence.  \n2. **Préparez le justificatif** (ticket de train, attestation de la SNCF, etc.) et le formulaire de justification.  \n3. **Envoyez‑le dès que possible** et demandez une confirmation écrite de réception.\n\n---\n\n### Modèle d’e‑mail à envoyer\n\n> **Objet :** Demande de justification tardive d’absence à l’examen du 28 octobre 2026  \n>   \n> Bonjour,  \n>   \n> Je vous informe que j’ai manqué l’examen du mardi 28 octobre 2026 en raison d’un retard de train.  \n>   \n> Conformément au règlement pédagogique (section 4.1.4), je souhaite justifier cette absence.  \n>   \n> Vous trouverez ci‑joint le justificatif de mon retard (ticket de train).  \n>   \n> Étant donné que la date limite de dépôt était le 29 octobre 2026, je vous prie de bien vouloir m’indiquer si une justification tardive est encore possible et, le cas échéant, la procédure à suivre.  \n>   \n> Je vous remercie par avance pour votre aide.  \n>   \n> Cordialement,  \n>   \n> [Votre nom]  \n> [Votre numéro d’étudiant]  \n> [Votre programme / année]\n\n---\n\n**À qui adresser ?**  \n- Si votre établissement a un **service des examens** ou un **responsable pédagogique** dédié, envoyez‑le le courriel.  \n- Sinon, adressez‑le à votre **directeur de programme** ou à la **direction de l’établissement**.\n\n---\n\n**Remarque**  \nComme la date limite est déjà dépassée, il est important d’agir rapidement et de demander une éventuelle dérogation. Bonne chance !",
+   "steps": [
+    {
+     "tool": "search_texts",
+     "args": {
+      "query": "justifier absence examen retard train justification délai 48 heures apprentissage"
+     }
+    },
+    {
+     "result_of": "search_texts",
+     "result": "passage ids: aivancity-RP-4.1.4, L3142-1-1, R6222-24, F34964, F303"
+    },
+    {
+     "tool": "send_email",
+     "args": {
+      "body": "Bonjour,\n\nJe vous informe que j’ai manqué mon examen du mardi 28 octobre 2026 en raison d’un retard de train. Je souhaite justifier cette absence afin de ne pas être pénalisé.\n\nJe vous remercie de bien vouloir m’indiquer la procédure à suivre (formulaire, justificatif à fournir, délai de dépôt, etc.) et à qui je dois adresser la demande.\n\nCordialement,\n[Votre nom]",
+      "cited_ids": [
+       "aivancity-RP-4.1.4"
+      ],
+      "subject": "Justification d’absence à l’examen du 28 octobre",
+      "to": "school"
+     }
+    },
+    {
+     "result_of": "send_email",
+     "result": "{\"status\": \"refused\", \"message\": \"The user refused this email: it was not sent. Do not send it.\"}"
+    },
+    {
+     "check_in_code": "[system check] Your answer states a delay but you did not call deadline. Call deadline, or remove that date, or ask the user for it."
+    },
+    {
+     "tool": "deadline",
+     "args": {
+      "amount": 1,
+      "event_date": "2026-10-28",
+      "event_time": null,
+      "unit": "working_days_mon_fri"
+     }
+    },
+    {
+     "result_of": "deadline",
+     "result": "{\"deadline_date\":\"2026-10-29\",\"deadline_weekday\":\"jeudi\",\"deadline_time\":null,\"today\":\"2026-11-04\",\"passed\":true,\"days_left\":-6,\"counting_rule\":\"The day of the event is not counted: counting starts the next day. calendar_days counts every day. working_days_mon_sat (jours ouvrables) counts Monday to "
+    }
+   ],
+   "model_calls": 5,
+   "seconds": 109.7
+  },
+  {
+   "request": "J'ai le droit à combien ?",
+   "paused_for_approval": false,
+   "answer": "Pouvez‑vous préciser de quel droit ou de quelle situation vous parlez ? Par exemple, s’agit‑il d’un congé, d’une indemnité, d’un délai de réponse, etc. ?",
+   "steps": [],
+   "model_calls": 1,
+   "seconds": 16.3
+  },
+  {
+   "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+   "paused_for_approval": false,
+   "answer": "À 22 ans, vous êtes dans la tranche « 21 – 25 ans ».  \nEn deuxième année d’apprentissage, le Code du travail fixe la rémunération minimale à **61 % du SMIC** (article D 6222‑26).  \n\nLe SMIC mensuel brut en 2026 est de **1 867,02 €**.  \n61 % de ce montant donnent :\n\n\\[\n1 867,02 \\times 0,61 \\approx 1 138,88 \\text{ €}\n\\]\n\nDonc, votre salaire minimum mensuel brut sera d’environ **1 138,88 €**.  \n(Le montant peut être majoré si votre convention collective ou votre contrat prévoit un taux plus élevé.)",
+   "steps": [
+    {
+     "tool": "search_texts",
+     "args": {
+      "query": "salaire apprentissage 22 ans deuxième année apprentissage taux minimum"
+     }
+    },
+    {
+     "result_of": "search_texts",
+     "result": "passage ids: D6222-26, F3059, D6235-4, F2918, F219"
+    }
+   ],
+   "model_calls": 2,
+   "seconds": 39.7
+  },
+  {
+   "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+   "paused_for_approval": true,
+   "approval_asked": {
+    "action": "send_email",
+    "draft_id": "bf8e34dd",
+    "to": "employer_hr",
+    "subject": "Demande de congé d’examen de 5 jours",
+    "cited_ids": [
+     "L6222-35"
+    ],
+    "body": "Bonjour,\n\nJe souhaite prendre un congé d’examen de 5 jours ouvrables dans le mois qui précède ma session de juin. Conformément à l’article L 6222‑35 du Code du travail, je suis autorisé à bénéficier de ces jours supplémentaires, rémunérés, pour la préparation de mes épreuves.\n\nJe vous propose de prendre ces congés du [date de début] au [date de fin] (5 jours ouvrables). Je reste à votre dispositio"
+   },
+   "decision": "refused by the check (nothing sent)",
+   "answer": "**Objet :** Demande de congé d’examen de 5 jours\n\n**À :** Service RH\n\n**Bonjour,**\n\nJe souhaite prendre un congé d’examen de 5 jours ouvrables dans le mois qui précède ma session de juin. Conformément à l’article **L 6222‑35** du Code du travail, je suis autorisé à bénéficier de ces jours supplémentaires, rémunérés, pour la préparation de mes épreuves.\n\nJe vous propose de prendre ces congés du **[date de début]** au **[date de fin]** (5 jours ouvrables). Je reste à votre disposition pour toute information complémentaire ou pour organiser la continuité de mes missions durant cette période.\n\nJe vous remercie par avance de votre accord.\n\n**Cordialement,**  \n[Votre nom]\n\n---\n\n*Références utilisées : L6222-35*",
+   "steps": [
+    {
+     "tool": "search_texts",
+     "args": {
+      "query": "congé d'examen 5 jours apprentissage"
+     }
+    },
+    {
+     "result_of": "search_texts",
+     "result": "passage ids: F2918, F3059, aivancity-RP-4.1.4, L3142-4, L6222-35"
+    },
+    {
+     "tool": "send_email",
+     "args": {
+      "body": "Bonjour,\n\nJe souhaite prendre un congé d’examen de 5 jours ouvrables dans le mois qui précède ma session de juin. Conformément à l’article L 6222‑35 du Code du travail, je suis autorisé à bénéficier de ces jours supplémentaires, rémunérés, pour la préparation de mes épreuves.\n\nJe vous propose de prendre ces congés du [date de début] au [date de fin] (5 jours ouvrables). Je reste à votre disposition pour toute information complémentaire ou pour organiser la continuité de mes missions durant cette période.\n\nJe vous remercie par avance de votre accord.\n\nCordialement,\n[Votre nom]",
+      "cited_ids": [
+       "L6222-35"
+      ],
+      "subject": "Demande de congé d’examen de 5 jours",
+      "to": "employer_hr"
+     }
+    },
+    {
+     "result_of": "send_email",
+     "result": "{\"status\": \"refused\", \"message\": \"The user refused this email: it was not sent. Do not send it.\"}"
+    }
+   ],
+   "model_calls": 3,
+   "seconds": 71.6
+  }
+ ],
+ "memory_after": [],
+ "outbox_after": [
+  {
+   "to": "school",
+   "subject": "Justification d’absence à l’examen du 28 octobre",
+   "body": "Bonjour,\n\nJe vous informe que j’ai manqué mon examen du mardi 28 octobre 2026 en raison d’un retard de train. Je souhaite justifier cette absence afin de ne pas être pénalisé.\n\nJe vous remercie de bien vouloir m’indiquer la procédure à suivre (formulaire, justificatif à fournir, délai de dépôt, etc.) et à qui je dois adresser la demande.\n\nCordialement,\n[Votre nom]",
+   "cited_ids": [
+    "aivancity-RP-4.1.4"
+   ],
+   "draft_id": "50916a05",
+   "decision": "refused",
+   "at": "2026-11-05T12:21:36"
+  },
+  {
+   "to": "employer_hr",
+   "subject": "Demande de congé d’examen de 5 jours",
+   "body": "Bonjour,\n\nJe souhaite prendre un congé d’examen de 5 jours ouvrables dans le mois qui précède ma session de juin. Conformément à l’article L 6222‑35 du Code du travail, je suis autorisé à bénéficier de ces jours supplémentaires, rémunérés, pour la préparation de mes épreuves.\n\nJe vous propose de prendre ces congés du [date de début] au [date de fin] (5 jours ouvrables). Je reste à votre disposition pour toute information complémentaire ou pour organiser la continuité de mes missions durant cette période.\n\nJe vous remercie par avance de votre accord.\n\nCordialement,\n[Votre nom]",
+   "cited_ids": [
+    "L6222-35"
+   ],
+   "draft_id": "b8232c29",
+   "decision": "refused",
+   "at": "2026-11-05T12:24:34"
+  }
+ ],
+ "seconds": 250
+}
