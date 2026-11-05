@@ -1,0 +1,154 @@
+{
+ "date": "2026-11-05",
+ "today_fixed": "2026-11-04",
+ "model": "openai/gpt-oss-120b",
+ "search": "corpus",
+ "designs": {
+  "one_agent": {
+   "summary": {
+    "outcomes_ok": 3,
+    "out_of": 5,
+    "emails_not_asked": 0,
+    "model_calls": 9,
+    "tokens": 22600,
+    "seconds": 89.0
+   },
+   "requests": [
+    {
+     "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+     "outcome_ok": false,
+     "calls": [
+      "agent:search_texts"
+     ],
+     "email_prepared_without_being_asked": false,
+     "model_calls": 2,
+     "tokens": 5283,
+     "seconds": 13.0,
+     "answer": "Pour répondre précisément à votre question, il me faut connaître le cadre exact auquel vous faites référence :\n\n* **Est‑ce que vous parlez des jours de congés payés** que vous pouvez prendre auprès de votre employeur ?  \n* **Ou bien des jours de « congé d’étude » ou de « congé de révision »** prévus par votre centre de formation d’apprentis (CFA) ou votre établissement scolaire ?  \n\nCes deux notions sont différentes : les congés payés sont régis par le Code du travail, tandis que les éventuels congés d’étude sont définis dans le règlement pédagogique de votre CFA ou de votre école.\n\nPouvez‑vous préciser si vous cherchez :\n\n1. Le nombre de jours de congés payés que vous pouvez poser pour réviser vos examens ; ou  \n2. Le nombre de jours de congés d’étude (sans solde ou avec solde) prévus par votre formation d’apprentissage ?  \n\nMerci de me le préciser afin que je puisse vous fournir la réponse exacte et, si besoin, vous indiquer les démarches à suivre."
+    },
+    {
+     "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+     "outcome_ok": false,
+     "calls": [
+      "agent:search_texts"
+     ],
+     "email_prepared_without_being_asked": false,
+     "model_calls": 2,
+     "tokens": 5394,
+     "seconds": 5.6,
+     "answer": "**Ce que dit votre règlement pédagogique**\n\nLe règlement pédagogique de votre établissement (section 4.1.4 « Présence en cours et gestion des absences ») prévoit :\n\n- Une tolérance de **3 heures d’absence** pour les modules de 12 h à 18 h (ou 6 h pour les modules de 24 h et plus) **sans présentation de justificatif**.  \n- Cette tolérance couvre les retards liés aux transports en commun, les obligations administratives, etc.  \n- **Aucune justification n’est admise ni requise** pour ces cas ; seules les absences pour maladie grave ou obsèques doivent être justifiées et présentées **au plus tard le jour du retour** de l’étudiant【aivancity‑RP‑4.1.4】.\n\n**En pratique pour votre examen**\n\n- Si l’examen était prévu le **mardi** et que votre retard de train vous a fait arriver **plus de 3 heures après le début** de l’épreuve, vous êtes hors de la tolérance prévue.  \n- Le règlement indique qu’aucune justification n’est acceptée pour les retards de transport ; il faut donc vous adresser directement à l’organisateur (enseignant‑responsable ou service des examens) pour expliquer la situation.  \n- L’établissement pourra, à sa discrétion, accepter une justification exceptionnelle (ex. : attestation de retard SNCF) mais ce n’est **pas une obligation légale**.\n\n**À qui vous adresser ?**\n\n1. **En premier lieu**, contactez **l’enseignant‑responsable de l’examen** (ou le coordinateur du module) : expliquez le retard, joignez une attestation de retard SNCF si vous l’avez.  \n2. Si vous n’obtenez pas de réponse ou si la décision vous semble injuste, vous pouvez saisir le **service des affaires étudiantes / le responsable pédagogique** de votre formation.  \n\n**Conseils pratiques**\n\n- Conservez **l’attestation de retard** délivrée par la SNCF (ou le ticket avec l’heure de départ/arrivée).  \n- Envoyez votre demande **dans les plus brefs délais** (idéalement le jour même ou le lendemain) afin de montrer votre bonne foi.  \n- Mentionnez le **règlement pédagogique** (section 4.1.4) pour rappeler que les retards de transport sont normalement couverts par la tolérance, mais que vous avez dépassé le seuil.\n\n---\n\n### Exemple de mail que vous pourriez envoyer\n\n*(Vous pourrez le copier‑colle, le modifier si besoin, puis me le renvoyer pour que je le prépare à l’envoi.)*\n\n```\nObjet : Demande de prise en compte d’un retard à l’examen du mardi [date]\n\nMadame / Monsieur [Nom de l’enseignant‑responsable],\n\nJe me permets de vous écrire suite à mon absence à l’examen prévu le mardi [date] à [heure]. En raison d’un retard important du train SNCF (attestation jointe), je n’ai pu arriver que [heure d’arrivée], soit plus de 3 heures après le début de l’épreuve.\n\nLe règlement pédagogique de notre formation (section 4.1.4) prévoit une tolérance de 3 heures d’absence pour les retards liés aux transports, mais je suis malheureusement hors de cette marge. Je sollicite donc votre bienveillance pour examiner la possibilité de reprogrammer l’épreuve ou de me proposer une solution alternative.\n\nJe reste à votre disposition pour tout complément d’information et vous remercie par avance de l’attention portée à ma demande.\n\nCordialement,\n\n[Votre prénom et nom]\n[Numéro d’étudiant / contrat d’apprentissage]\n```\n\n---\n\n**En résumé**  \n- Le règlement ne prévoit pas de justification obligatoire pour les retards de transport ; il y a simplement une tolérance de 3 h.  \n- Au‑delà de cette tolérance, vous devez vous adresser directement à l’enseignant ou au service pédagogique, en joignant une attestation de retard.  \n- Aucun texte légal ne vous oblige à obtenir une justification ; c’est une décision de l’établissement.  \n\nN’hésitez pas à me dire si vous souhaitez que je prépare le mail ci‑dessus ou si vous avez besoin d’autres précisions."
+    },
+    {
+     "request": "J'ai le droit à combien ?",
+     "outcome_ok": true,
+     "calls": [],
+     "email_prepared_without_being_asked": false,
+     "model_calls": 1,
+     "tokens": 1478,
+     "seconds": 18.7,
+     "answer": "Pouvez‑vous préciser de quel droit il s’agit ?  \nPar exemple : le montant de la rémunération d’un apprenti, le nombre de jours de congés payés, le délai pour contester une décision, etc.  \nMerci de me donner le contexte (type de droit, date ou événement éventuel) afin que je puisse vous répondre avec précision."
+    },
+    {
+     "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+     "outcome_ok": true,
+     "calls": [
+      "agent:search_texts"
+     ],
+     "email_prepared_without_being_asked": false,
+     "model_calls": 2,
+     "tokens": 5993,
+     "seconds": 43.0,
+     "answer": "En tant qu’apprenti de **22 ans** (donc dans la tranche d’âge 21‑25 ans) et en **deuxième année** d’exécution du contrat, votre rémunération minimale légale correspond à **61 % du SMIC**.\n\n- SMIC mensuel brut (au 1 janvier 2026) : **1 867,02 €**  \n- 61 % du SMIC : **1 138,88 €** brut par mois  \n\n> **Source** – Article D6222‑26 du Code du travail et tableau « Rémunération minimum » de Service‑Public.fr : « 2e année, 21‑25 ans : Salaire le + élevé entre 61 % du Smic, soit 1 138,88 € »【F2918】.\n\n> **Source** – Article D6222‑26 du Code du travail : « Pour les jeunes âgés de vingt‑et‑un an à vingt‑cinq ans : … 61 % du salaire minimum de croissance pendant la deuxième année d’exécution du contrat »【D6222‑26】.\n\n**Donc, vous devriez percevoir environ 1 138,88 € brut chaque mois** (hors éventuelles majorations conventionnelles ou avantages en nature).  \n\n> **À retenir** : le montant indiqué est le **minimum légal**. Votre convention collective ou votre employeur peuvent prévoir un salaire plus élevé (par exemple, en fonction du poste occupé). Pensez à vérifier votre contrat de travail ou la convention collective applicable."
+    },
+    {
+     "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+     "outcome_ok": true,
+     "calls": [
+      "agent:search_texts"
+     ],
+     "email_prepared_without_being_asked": false,
+     "model_calls": 2,
+     "tokens": 4452,
+     "seconds": 8.7,
+     "answer": "**Objet :** Demande de congé d’examen – 5 jours avant la session de juin  \n\nBonjour [Nom du·de la responsable RH],\n\nJe vous adresse cette demande afin de bénéficier du congé d’examen prévu par le Code du travail pour les salariés en apprentissage.\n\n- **Période souhaitée** : du **[date de début]** au **[date de fin]** (soit 5 jours ouvrés).  \n- **Motif** : participation à la session d’examen de mon cursus d’apprentissage prévue en juin 2026.  \n- **Justificatif** : vous trouverez en pièce jointe la convocation officielle du jury d’examen.\n\nConformément à l’article **D3142‑32** du Code du travail, je vous informe de ma volonté de prendre ce congé au moins quinze jours calendaires avant le début de la session.  \n\nJe reste à votre disposition pour toute information complémentaire ou pour organiser la continuité de mes missions pendant mon absence.\n\nMerci par avance pour votre compréhension et votre accord.\n\nCordialement,  \n[Votre prénom et nom]  \nApprenti·e – [Intitulé du poste]  \n\n*Référence légale : D3142‑32 (Code du travail).*"
+    }
+   ]
+  },
+  "supervisor_and_2_specialists": {
+   "summary": {
+    "outcomes_ok": 2,
+    "out_of": 5,
+    "emails_not_asked": 0,
+    "model_calls": 21,
+    "tokens": 31762,
+    "seconds": 184.9
+   },
+   "requests": [
+    {
+     "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+     "outcome_ok": false,
+     "calls": [],
+     "email_prepared_without_being_asked": false,
+     "model_calls": 1,
+     "tokens": 918,
+     "seconds": 0.6,
+     "answer": "Pour pouvoir vous répondre précisément, j’ai besoin de connaître votre situation d’apprenti : quelle est votre année de contrat d’apprentissage (1ᵉʳ, 2ᵉ, 3ᵉ ou 4ᵉ année) ?"
+    },
+    {
+     "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+     "outcome_ok": false,
+     "calls": [
+      "supervisor:ask_rules_agent",
+      "rules:search_texts"
+     ],
+     "email_prepared_without_being_asked": false,
+     "model_calls": 4,
+     "tokens": 5910,
+     "seconds": 15.6,
+     "answer": "Oui, vous pouvez encore justifier votre absence à l’examen.  \n\nDans le cadre d’un contrat d’apprentissage, le règlement pédagogique prévoit une tolérance de **3 heures d’absence** sans justificatif. Au‑delà, il faut fournir un justificatif ; l’absence à un examen doit donc être **justifiée auprès de votre établissement scolaire** (le service administratif ou le responsable de votre formation). L’employeur n’est pas concerné par la justification d’une absence à un examen.  \n\nVous pouvez donc transmettre dès maintenant votre justificatif (attestation de retard de train, billet, etc.) à votre école pour que votre absence soit prise en compte."
+    },
+    {
+     "request": "J'ai le droit à combien ?",
+     "outcome_ok": true,
+     "calls": [],
+     "email_prepared_without_being_asked": false,
+     "model_calls": 1,
+     "tokens": 848,
+     "seconds": 6.2,
+     "answer": "Pouvez‑vous préciser de quel droit il s’agit ?  \nPar exemple : le nombre d’heures de formation, le montant d’une indemnité, le nombre de jours de congés, etc."
+    },
+    {
+     "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+     "outcome_ok": false,
+     "calls": [
+      "supervisor:ask_rules_agent",
+      "rules:search_texts",
+      "supervisor:ask_rules_agent",
+      "rules:search_texts",
+      "supervisor:ask_rules_agent",
+      "rules:search_texts",
+      "rules:search_texts"
+     ],
+     "email_prepared_without_being_asked": false,
+     "model_calls": 11,
+     "tokens": 20981,
+     "seconds": 137.9,
+     "answer": "Le salaire minimum légal pour un apprenti de 22 ans en deuxième année est fixé à **61 % du SMIC** (ou au salaire minimum conventionnel le cas échéant) 【D6222-26】.  \n\nLe SMIC brut mensuel en vigueur au 1 janvier 2024 était de **1 747,20 €** 【F144】.  \n\n**Calcul :** 61 % × 1 747,20 € ≈ **1 065,80 € brut** par mois.\n\n> **Donc, en 2024, un apprenti de 22 ans en deuxième année doit percevoir au moins ≈ 1 066 € brut mensuel.**  \n\n*(Ce montant correspond au minimum légal ; votre convention collective ou votre entreprise peut prévoir un salaire plus favorable.)*"
+    },
+    {
+     "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+     "outcome_ok": true,
+     "calls": [
+      "supervisor:ask_email_agent",
+      "email:send_email"
+     ],
+     "email_prepared_without_being_asked": false,
+     "model_calls": 4,
+     "tokens": 3105,
+     "seconds": 24.6,
+     "answer": "Voici le projet d’email :\n\n---\n\n**Objet :** Demande de congés d’examen – 5 jours avant la session de juin  \n\nBonjour [Nom du·la responsable RH],\n\nJe souhaite poser **cinq jours de congé d’examen** afin de préparer ma session de juin.  \nCes jours correspondent aux dates suivantes : **[préciser les dates exactes]**.\n\nConformément à la réglementation en vigueur, les apprentis ont droit à des congés d’examen pour leurs épreuves. Je vous remercie de bien vouloir valider cette demande.\n\nJe reste à votre disposition pour toute information complémentaire.\n\nCordialement,  \n[Votre prénom et nom]  \n[Votre poste / service]  \n\n---\n\nMerci de me dire si vous souhaitez modifier quelque chose ou ajouter des informations !"
+    }
+   ]
+  }
+ }
+}
