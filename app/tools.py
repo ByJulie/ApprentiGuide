@@ -185,8 +185,9 @@ def approve(draft_id: str, approved: bool, edited_body: str | None = None, outbo
     record = {**draft, "body": edited_body or draft["body"], "draft_id": draft_id,
               "decision": "approved" if approved else "refused", "at": datetime.now().isoformat(timespec="seconds")}
     os.makedirs(os.path.dirname(outbox), exist_ok=True)
-    log = json.load(open(outbox)) if os.path.exists(outbox) else []
-    json.dump(log + [record], open(outbox, "w"), ensure_ascii=False, indent=1)
+    # utf-8: on Windows the default encoding cannot write the non-breaking hyphens gpt-oss uses (U+2011)
+    log = json.load(open(outbox, encoding="utf-8")) if os.path.exists(outbox) else []
+    json.dump(log + [record], open(outbox, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return record
 
 

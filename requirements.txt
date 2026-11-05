@@ -23,3 +23,6 @@ pypdf==6.7.1   # school regulations (ingest/regulations.py)
 # Agent tools (app/tools.py): argument and result models, JSON schemas generated from them
 pydantic==2.14.2
 fastmcp==4.1.6   # MCP server (server.py)
+langgraph==1.2.20          # agent graph (app/agent.py, S5)
+langchain-core==1.7.6
+langchain-openai==1.7.4
