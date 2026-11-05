@@ -296,3 +296,41 @@ Script `eval/agent_s4_check.py`, today fixed to Wednesday 4 November 2026, tempe
 Found while building the check: with `kind: Kind | "all"` (an `anyOf` in the schema), Groq's strict validation refused every value but `all` in `forget`; the schema now has one enum.
 
 **Next:** rerun both parts on gpt-oss-120b; the year said as « 2e année de mon contrat » saved as `programme_year` once shows that the two years must be told apart in the description or asked when unclear.
+
+## S5. The agent in LangGraph
+
+`app/agent.py` rebuilds the agent as a LangGraph graph with our own tools: the three tools of S2 (`app/tools.py`) and the three memory tools of S4 (`app/memory.py`), with their strict pydantic schemas unchanged.
+
+```
+START -> agent -> tool calls? -> tools -> agent ...      no tool call -> check -> END (or back to agent, once)
+```
+
+| Node | What it does |
+|---|---|
+| `agent` | gpt-oss-120b on Groq (config.yaml) through `ChatOpenAI`, the six strict schemas bound; the system prompt gets today, the last days and the facts saved about the user (S4, rule 5) from code. |
+| `tools` | Runs each call with `tools.call` / `memory.call`, so the pydantic validation and its errors are those of S2 and S4. `send_email` calls `interrupt()`: the graph stops with the draft, the decision comes back with `Command(resume=True or False)`, and only an approved draft goes to the outbox (`tools.approve`). The model has no way to approve. |
+| `check` | The checks in code of S2 (a delay stated without `deadline`, a date neither the user nor a tool gave) send the answer back to `agent` once. |
+
+- **Why LangGraph and not smolagents:** our agent has a write action that needs a human decision, possibly much later (the draft email); `interrupt()` and a checkpointer give exactly that. Our tools are few and validated JSON calls; a code agent would run code written by the model and needs a sandbox. In the course lab, smolagents' CodeAgent sent about 2 300 tokens of its own prompt and used 6 442 tokens against 2 412 for the LangGraph graph on the same request.
+- **Threads:** one `thread_id` per conversation (`InMemorySaver`): a follow-up keeps the history of its thread; a new thread starts empty, and only the facts of `app/memory.py` cross threads.
+- **Hard limit:** 8 model calls per request, counted in the state; after that the graph ends.
+- **Use:** `agent.ask(graph, question, thread, user)`, then `agent.decide(graph, approved, thread, user)` when it paused.
+- Tests: `tests/test_agent.py` (scripted model, no API call): search then answer and the history of a thread, the pause before `send_email` and a refused email not sent, the check sending an unchecked delay back, the saved facts in the system prompt.
+
+## S5 check: the five requests
+
+Script `eval/agent_s5_check.py`, one thread per request of S1, today fixed to Wednesday 4 November 2026, every email refused at the approval (nothing sent). Results: `eval/runs/2026-11-05_s5_langgraph_check_corpus_gpt-oss-20b.json`. Model **gpt-oss-20b**: the daily quota of gpt-oss-120b was used up. Search **corpus**: this laptop has no database, so `search_texts` returned the 5 chunks of the real corpus (laws, fiches, school regulations) sharing the most words with the query, not the RAG ranking; `--search real` uses the RAG.
+
+| # | Request | Tools called | Result |
+|---|---|---|---|
+| 1 | Days of leave to revise for exams | search_texts | 5 jours ouvrables, right. Cites Service-Public, not L6222-35 (not in the 5 chunks of the simple search). |
+| 2 | Missed exam on Tuesday, train late: can I still justify it? | search_texts, send_email, (check), deadline | **Wrong.** The model turned « mardi » into 28 October (Tuesday was 3 November), quoted a rule that is not in the regulations, and prepared an email nobody asked for: the graph paused, the email was refused, nothing was sent. The check in code sent the first answer back (a delay without `deadline`). The real rule (internal rules 9.2: a late train is not an accepted reason) was not among the 5 chunks. |
+| 3 | « J'ai le droit à combien ? » | none | A clarifying question, right (the workflow guesses, S2). |
+| 4 | 22 years, 2nd year: how much per month? | search_texts | 1 138,88 €, right, but the model computed 61 % of the Smic instead of copying the amount of the table, and did not save the age and year with `remember`. |
+| 5 | Email to HR for the 5 days of exam leave | search_texts, send_email | The draft, citing L6222-35, paused for approval and refused: not sent. |
+
+Total 250 s for the five requests (Groq free plan, gpt-oss-20b).
+
+**What this shows:** the graph, our tools, the approval and the check work as designed; the approval in code also stopped an email the user had not asked for. The errors left are the model's (the weekday turned into a date, seen in S2 as well; an unrequested write action) and the simple search's. **Next:** rerun with `--search real` on gpt-oss-120b; let `deadline` take a weekday (« mardi ») and resolve it in code (S2); refuse `send_email` in code when the user did not ask to write.
+
+Found while building it: `tools.approve` wrote the outbox in the default encoding, which fails on Windows on the non-breaking hyphens of gpt-oss (U+2011); it now writes UTF-8.
