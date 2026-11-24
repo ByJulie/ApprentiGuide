@@ -435,7 +435,7 @@ The outcomes are checked in code (`outcome()` in the script) and were checked ag
 | 2 | search_texts, 3 model calls, 58.1 s | **Wrong:** the 3-hour tolerance of the school rules (RP-4.1.4), which does not apply to apprentices; the simple search did not return internal rules 9.2 (the real RAG of S5 did). The trace shows it: the passages returned by `search_texts` do not contain 9.2. |
 | 3 | no tool, 1 model call, 0.6 s | A clarifying question: right |
 | 4 | search_texts, 2 model calls, 22.6 s | 1 138,88 € (2nd year, 21-25 years): right; `remember` was not called this time (it was in an earlier run of the same day) |
-| 5 | search_texts, 2 model calls, 17.1 s | A draft citing L6222-35 in the answer, `send_email` not called: nothing sent |
+| 5 | search_texts, 2 model calls, 17.1 s | A draft in the answer, `send_email` not called: nothing sent. It cites D3142-32 (the leave asked 15 days before), not L6222-35, the article on the 5 days for apprentices: the simple search did not return L6222-35 this time (the passages were D3142-32, L3142-1-1, R3142-28, D3142-43, L3142-4) |
 
 The test suite sent traces once before `tests/conftest.py` existed (sessions t1 to t4); they were deleted from the project, with the traces of earlier runs (named « LangGraph », before `run_name`), so the project holds only the five traces above. Langfuse shows no cost: it has no price for gpt-oss-120b on Groq (a price can be added in the project's model settings).
 
