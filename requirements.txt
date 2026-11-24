@@ -26,3 +26,5 @@ fastmcp==4.1.6   # MCP server (server.py)
 langgraph==1.2.20          # agent graph (app/agent.py, S5)
 langchain-core==1.7.6
 langchain-openai==1.7.4
+langfuse==5.2.0           # tracing of the agent (app/tracing.py)
+truststore==0.10.5        # TLS through the OS certificate store (company networks), used by app/tracing.py

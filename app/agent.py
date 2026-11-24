@@ -140,23 +140,34 @@ def build(llm=None, search: Callable[[str], str] | None = None, checkpointer=Non
     return g.compile(checkpointer=checkpointer or InMemorySaver())
 
 
-def config(thread: str, user: str, today: date | None = None, outbox: str | None = None) -> dict:
+def config(thread: str, user: str, today: date | None = None, outbox: str | None = None,
+           tags: list[str] | None = None) -> dict:
+    """LangGraph run config; with Langfuse keys in the environment it also traces the run (app/tracing.py)."""
+    from app import tracing
     c = {"thread_id": thread, "user": user, "today": today or date.today()}
     if outbox:
         c["outbox"] = outbox
-    return {"configurable": c, "recursion_limit": 4 * MAX_STEPS}
+    return {"configurable": c, "recursion_limit": 4 * MAX_STEPS, **tracing.run_config(thread, user, tags)}
 
 
-def ask(graph, question: str, thread: str, user: str, today: date | None = None, outbox: str | None = None) -> dict:
-    """One user turn. Returns the answer, or the pending approval when send_email paused the graph."""
-    cfg = config(thread, user, today, outbox)
-    out = graph.invoke({"messages": [("user", question)], "steps": 0, "checked": False}, cfg)
+def ask(graph, question: str, thread: str, user: str, today: date | None = None, outbox: str | None = None,
+        tags: list[str] | None = None) -> dict:
+    """One user turn. Returns the answer, or the pending approval when send_email paused the graph.
+    The input guardrail runs first, as in the Generative AI product: personal data is masked before the question
+    reaches the model (and Langfuse), injection and distress get their fixed message without any model call."""
+    from app import guardrail
+    check = guardrail.check(question)
+    if check.blocked:
+        return {"paused": False, "answer": check.message, "messages": [], "blocked": check.blocked}
+    cfg = config(thread, user, today, outbox, tags)
+    out = graph.invoke({"messages": [("user", check.question)], "steps": 0, "checked": False}, cfg)
     return result(out)
 
 
-def decide(graph, approved: bool, thread: str, user: str, today: date | None = None, outbox: str | None = None) -> dict:
+def decide(graph, approved: bool, thread: str, user: str, today: date | None = None, outbox: str | None = None,
+           tags: list[str] | None = None) -> dict:
     """The user's decision on a paused send_email (the interface calls it after the click)."""
-    return result(graph.invoke(Command(resume=approved), config(thread, user, today, outbox)))
+    return result(graph.invoke(Command(resume=approved), config(thread, user, today, outbox, tags)))
 
 
 def result(out: dict) -> dict:
