@@ -30,6 +30,7 @@ from typing_extensions import TypedDict
 from app import memory, tools
 
 MAX_STEPS = 8        # model calls per request (S1 hard limit), checked in code
+RUN_NAME = "ApprentiGuide agent"
 
 PROMPT = ("You are ApprentiGuide, an assistant for apprentices and international students. Use the tools; never "
           "guess rules, dates or amounts. Call search_texts before stating a rule and cite only ids it returned. Call "
@@ -147,7 +148,9 @@ def config(thread: str, user: str, today: date | None = None, outbox: str | None
     c = {"thread_id": thread, "user": user, "today": today or date.today()}
     if outbox:
         c["outbox"] = outbox
-    return {"configurable": c, "recursion_limit": 4 * MAX_STEPS, **tracing.run_config(thread, user, tags)}
+    # run_name: the name of the run in LangGraph, and the name of the trace in Langfuse (instead of "LangGraph")
+    return {"configurable": c, "recursion_limit": 4 * MAX_STEPS, "run_name": RUN_NAME,
+            **tracing.run_config(thread, user, tags)}
 
 
 def ask(graph, question: str, thread: str, user: str, today: date | None = None, outbox: str | None = None,

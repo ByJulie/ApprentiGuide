@@ -419,7 +419,7 @@ The outcomes are checked in code (`outcome()` in the script) and were checked ag
 
 | | |
 |---|---|
-| How | the Langfuse LangChain `CallbackHandler`, added to the run config of the graph (`agent.config`), with `langfuse_session_id` (the thread), `langfuse_user_id` and `langfuse_tags` |
+| How | the Langfuse LangChain `CallbackHandler`, added to the run config of the graph (`agent.config`), with `langfuse_session_id` (the thread), `langfuse_user_id` and `langfuse_tags`; each trace is named « ApprentiGuide agent » (`run_name`; the traces of 24 November, made before, are named « LangGraph ») |
 | When | only when `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` are in `.env` (never committed; `.env.example` lists them); without them the agent runs unchanged |
 | Personal data | Langfuse is an external service: every string sent to it goes through the guardrail's masking first (email, phone, social security number, IBAN), by the `mask` function of the Langfuse client; the user id is replaced by a hash (`u-` and 12 hex characters) |
 | Company networks | the TLS certificate of a network that inspects traffic is trusted through the operating system's store (`truststore`), never by turning verification off |
