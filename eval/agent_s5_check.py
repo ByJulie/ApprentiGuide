@@ -15,7 +15,7 @@ from datetime import date
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from langchain_core.messages import AIMessage, ToolMessage
 
-from app import agent, memory, pipeline as P
+from app import agent, memory, pipeline as P, tracing
 from eval.agent_s2_check import REQUESTS, TODAY
 
 STOP = set("avec dans pour quel quelle quels quelles est-ce mon mes une des les que qui est pas plus mais peux puis "
@@ -77,11 +77,11 @@ def main():
     rows, t0 = [], time.time()
     for i, q in enumerate(REQUESTS, 1):
         t = time.time()
-        out = agent.ask(graph, q, thread=f"request-{i}", user="ines", today=TODAY, outbox=outbox)
+        out = agent.ask(graph, q, thread=f"request-{i}", user="ines", today=TODAY, outbox=outbox, tags=["s5-check", a.search])
         row = {"request": q, "paused_for_approval": out["paused"]}
         if out["paused"]:
             row["approval_asked"] = {k: v for k, v in out["approval"].items() if k != "body"} | {"body": out["approval"]["body"][:400]}
-            out = agent.decide(graph, False, thread=f"request-{i}", user="ines", today=TODAY, outbox=outbox)
+            out = agent.decide(graph, False, thread=f"request-{i}", user="ines", today=TODAY, outbox=outbox, tags=["s5-check", a.search])
             row["decision"] = "refused by the check (nothing sent)"
         row.update(answer=out["answer"], steps=trace(out["messages"]),
                    model_calls=sum(isinstance(m, AIMessage) for m in out["messages"]), seconds=round(time.time() - t, 1))
@@ -95,7 +95,8 @@ def main():
     path = os.path.join(os.path.dirname(__file__), "runs",
                         f"{date.today()}_s5_langgraph_check_{a.search}_{P.CFG['model']['name'].split('/')[-1]}.json")
     json.dump(res, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1, default=str)
-    print("->", path)
+    tracing.flush()                    # with Langfuse keys: one trace per request, one session per thread
+    print("->", path, "| Langfuse:", "traces sent" if tracing.enabled() else "off (no keys)")
 
 
 if __name__ == "__main__":

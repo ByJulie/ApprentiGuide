@@ -1,0 +1,115 @@
+{
+ "date": "2026-11-24",
+ "today_fixed": "2026-11-04",
+ "model": "openai/gpt-oss-120b",
+ "search": "corpus",
+ "framework": "LangGraph (app/agent.py)",
+ "requests": [
+  {
+   "request": "Combien de jours de congés j'ai pour réviser mes examens ?",
+   "paused_for_approval": false,
+   "answer": "En tant qu’apprenti, vous bénéficiez :\n\n* **Des congés payés légaux** : 5 semaines (soit 25 jours ouvrés) par an, à prendre selon les dates fixées par votre employeur.  \n* **D’un congé supplémentaire pour examen** : **5 jours ouvrables** à prendre **dans le mois qui précède vos épreuves**. Ce congé s’ajoute aux congés payés et est rémunéré【id: F2918】【id: F3059】.  \n\n> **À retenir**  \n> - Le congé examen doit être demandé avant le début du mois d’examen.  \n> - Il est payé comme un jour de travail normal.  \n> - Si vous avez moins de 21 ans au 30 avril de l’année précédente, vous pouvez également demander, sans solde, jusqu’à 30 jours ouvrables supplémentaires par an, mais cela ne concerne pas le congé examen qui est déjà rémunéré.  \n\nSi vous avez besoin d’aide pour formuler une demande à votre employeur (lettre ou email), dites‑moi ! Je peux vous préparer un projet de courrier.",
+   "steps": [
+    {
+     "tool": "search_texts",
+     "args": {
+      "query": "jours de congés révision examens apprentissage contrat"
+     }
+    },
+    {
+     "result_of": "search_texts",
+     "result": "passage ids: F2918, F15478, F31633, F3059, F2258"
+    }
+   ],
+   "model_calls": 2,
+   "seconds": 13.2
+  },
+  {
+   "request": "J'ai raté mon examen mardi à cause d'un train en retard. Est-ce que je peux encore le justifier, et à qui ?",
+   "paused_for_approval": false,
+   "answer": "Pour pouvoir justifier votre absence à l’examen, il faut connaître la règle de votre établissement concernant :\n\n1. **Le délai de dépôt du justificatif** (ex. : « le justificatif doit être présenté au plus tard le jour ouvrable suivant l’examen » ou « dans les 48 heures suivant l’absence »).  \n2. **Le destinataire du justificatif** (le responsable de formation, le service des examens, le secrétariat, etc.).  \n\nCes informations sont généralement précisées dans le règlement pédagogique de votre école ou dans la convocation à l’examen.  \n\n**Que faire maintenant ?**  \n- Vérifiez le règlement de votre formation (section « absences et justifications ») ou la note d’information qui accompagnait votre convocation.  \n- Si le délai n’est pas indiqué, contactez rapidement le service des examens ou votre référent pédagogique : expliquez la situation, joignez le justificatif du retard du train (ticket, attestation SNCF) et demandez à ce qu’il soit accepté.  \n\n**À qui adresser votre demande ?**  \n- En général, c’est le **responsable de formation / le service des examens** qui traite les justifications d’absence aux épreuves.  \n- Si vous êtes en alternance, vous pouvez également informer votre **maître d’apprentissage** ou le **service RH de votre entreprise**, qui pourra appuyer votre demande auprès de l’établissement.  \n\n**Prochaine étape**  \nSi vous le souhaitez, je peux préparer un courrier (ou un mail) à adresser à votre service des examens en y joignant le justificatif du retard du train. Il me suffit de connaître :\n\n1. Le nom exact de votre établissement (ou le service concerné).  \n2. La date précise de l’examen (mardi — vous avez indiqué « mardi », mais la date exacte aidera à vérifier les délais).  \n\nMerci de me préciser ces deux informations, et je vous rédigerai le texte de justification.",
+   "steps": [
+    {
+     "tool": "search_texts",
+     "args": {
+      "query": "justification examen retard train délai justification examen universitaire retard transport"
+     }
+    },
+    {
+     "result_of": "search_texts",
+     "result": "passage ids: F34964, aivancity-RP-4.1.4, F2918, F19846, F303"
+    }
+   ],
+   "model_calls": 2,
+   "seconds": 10.2
+  },
+  {
+   "request": "J'ai le droit à combien ?",
+   "paused_for_approval": false,
+   "answer": "Pouvez‑vous préciser de quel droit il s’agit ?  \nPar exemple : le montant de la rémunération d’un apprenti, le nombre de jours de congés payés, le délai pour contester une décision, etc.  \nMerci de me donner le contexte (type de droit, date ou événement éventuel) afin que je puisse vous répondre avec les références légales appropriées.",
+   "steps": [],
+   "model_calls": 1,
+   "seconds": 14.8
+  },
+  {
+   "request": "J'ai 22 ans et je suis en deuxième année d'apprentissage : combien je vais gagner par mois, en euros ?",
+   "paused_for_approval": false,
+   "answer": "**Salaire mensuel brut d’un apprenti de 22 ans en 2ᵉ année**\n\n| Âge | Année du contrat | % du SMIC | Montant mensuel brut (en €) |\n|-----|------------------|----------|-----------------------------|\n| 21 – 25 ans | 2ᵉ année | **61 %** du SMIC | **≈ 1 138,88 €** |\n\n**Pourquoi ?**  \n- L’article **D6222‑26** du Code du travail fixe le pourcentage du salaire minimum de croissance (SMIC) selon l’âge et l’ancienneté du contrat.  \n- Pour les jeunes de **21 à 25 ans**, le **2ᵉ année** donne **61 % du SMIC**.  \n- Le Service‑Public (fiche F2918, mise à jour 2026‑09‑08) indique que 61 % du SMIC correspond à **1 138,88 €** brut par mois.\n\n> *Sources : Article D6222‑26 du Code du travail ; Service‑Public.fr – « Contrat d’apprentissage : quel est le salaire de l’apprenti ? » (F2918).*\n\n**À retenir**\n\n- Ce montant est le **minimum légal**. Votre convention collective ou un accord d’entreprise peut prévoir une rémunération plus élevée.  \n- Le salaire indiqué est **brut** ; le net dépendra des cotisations sociales (environ 22 % à 25 % du brut pour les apprentis).  \n- Vous avez droit à la prise en charge de vos frais de transport et, le cas échéant, à des majorations (ex. : +15 points si le contrat dure ≤ 1 an et que le diplôme est du même niveau que le précédent).\n\nSi vous avez besoin d’un calcul plus précis (net à payer, éventuelles majorations, etc.) ou d’un modèle de courrier à votre employeur pour vérifier votre rémunération, n’hésitez pas à me le demander !",
+   "steps": [
+    {
+     "tool": "search_texts",
+     "args": {
+      "query": "salaire apprentissage 22 ans deuxième année salaire minimum apprentissage 2024"
+     }
+    },
+    {
+     "result_of": "search_texts",
+     "result": "passage ids: D6222-26, D6235-4, F2918, F219, F3059"
+    },
+    {
+     "tool": "remember",
+     "args": {
+      "kind": "age",
+      "value": "22"
+     }
+    },
+    {
+     "result_of": "remember",
+     "result": "{\"facts\":[{\"kind\":\"age\",\"value\":\"22\",\"saved_on\":\"2026-11-04\",\"expires_on\":\"2027-08-31\",\"source\":\"user\"}],\"message\":\"saved age, until 2027-08-31\"}"
+    }
+   ],
+   "model_calls": 3,
+   "seconds": 90.8
+  },
+  {
+   "request": "Prépare un email à mes RH pour poser mes 5 jours de congé d'examen avant ma session de juin.",
+   "paused_for_approval": false,
+   "answer": "**Avant de rédiger votre courriel, j’ai besoin d’une précision :**  \nÀ quelle date exacte débute votre session d’examen de juin ?  \nEn effet, le Code du travail impose d’informer l’employeur **au moins 15 jours calendaires** avant le début de la session (article D3142‑32). Cette information me permettra de vérifier que le délai est respecté et d’inclure la bonne date dans votre demande.",
+   "steps": [
+    {
+     "tool": "search_texts",
+     "args": {
+      "query": "congé d'examen apprentissage 5 jours avant session juin"
+     }
+    },
+    {
+     "result_of": "search_texts",
+     "result": "passage ids: D3142-32, L3142-1-1, R3142-28, D3142-43, F2918"
+    }
+   ],
+   "model_calls": 2,
+   "seconds": 36.1
+  }
+ ],
+ "memory_after": [
+  {
+   "kind": "age",
+   "value": "22",
+   "saved_on": "2026-11-04",
+   "expires_on": "2027-08-31",
+   "source": "user"
+  }
+ ],
+ "outbox_after": [],
+ "seconds": 165
+}
