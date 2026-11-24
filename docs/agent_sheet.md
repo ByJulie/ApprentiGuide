@@ -412,6 +412,33 @@ The outcomes are checked in code (`outcome()` in the script) and were checked ag
 
 **When we would split:** if the agent got actions with different rights (for example sending real emails), an email agent holding only `send_email` would isolate the write action (least privilege). Today `send_email` only prepares a draft and the approval is in code (`interrupt()`, S5), so it is not needed.
 
+
+## Between S6 and S7. Tracing with Langfuse
+
+`app/tracing.py` traces every run of the LangGraph agent in Langfuse (cloud.langfuse.com, project of the team). A run is one trace: each model call with its prompt, answer, model, tokens (input, output, reasoning) and latency, and each tool call with its arguments and result. One conversation (`thread_id`) is one Langfuse session, so a follow-up question appears under the same session.
+
+| | |
+|---|---|
+| How | the Langfuse LangChain `CallbackHandler`, added to the run config of the graph (`agent.config`), with `langfuse_session_id` (the thread), `langfuse_user_id` and `langfuse_tags` |
+| When | only when `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` are in `.env` (never committed; `.env.example` lists them); without them the agent runs unchanged |
+| Personal data | Langfuse is an external service: every string sent to it goes through the guardrail's masking first (email, phone, social security number, IBAN), by the `mask` function of the Langfuse client; the user id is replaced by a hash (`u-` and 12 hex characters) |
+| Company networks | the TLS certificate of a network that inspects traffic is trusted through the operating system's store (`truststore`), never by turning verification off |
+| Tests | `tests/test_tracing.py` (off without keys, masking at any depth, stable hashed user id, handler and session with keys, the agent masks personal data and blocks an injection); `tests/conftest.py` turns tracing off in every test, so the test suite never sends traces |
+
+**Found while adding it:** the agent of S5 did not run the input guardrail before the model, unlike the Generative AI product. `agent.ask` now runs it first: personal data is masked before Groq and Langfuse, and injection and distress get their fixed message without any model call (test in `tests/test_tracing.py`).
+
+**First traces (24 November):** `python -m eval.agent_s5_check --search corpus` with the keys in `.env`, gpt-oss-120b, results `eval/runs/2026-11-24_s5_langgraph_check_corpus_gpt-oss-120b.json`. Langfuse received one trace per request, sessions `request-1` to `request-5`, with the model `openai/gpt-oss-120b` and the tokens of each call (for example 2 721 input, 106 output of which 61 reasoning). What the traces show:
+
+| # | Trace | Answer |
+|---|---|---|
+| 1 | search_texts, 2 model calls, 11.6 s | 5 jours ouvrables in the month before the exams: right |
+| 2 | search_texts, 2 model calls, 10.2 s | Asks which rule of the school applies (the simple search did not return internal rules 9.2) |
+| 3 | no tool, 1 model call, 14.8 s | A clarifying question: right |
+| 4 | search_texts, remember, 3 model calls, 90.8 s | 1 138,88 € (2nd year, 21-25 years) and the age saved in memory; the slowest trace, the time is in the model calls |
+| 5 | search_texts, 2 model calls, 36.1 s | Asks the exam date before writing the email, because the employer must be told 15 calendar days before (D3142-32) |
+
+The test suite sent traces once before `tests/conftest.py` existed (sessions t1 to t4); they were deleted from the project, with the traces of a run stopped halfway. Langfuse shows no cost: it has no price for gpt-oss-120b on Groq (a price can be added in the project's model settings).
+
 ## Kickoff summary
 
 | | |
@@ -433,7 +460,7 @@ The outcomes are checked in code (`outcome()` in the script) and were checked ag
 | Agents | one agent (S6, measured against a supervisor with two specialists) |
 | Hard limits | 8 model calls per request; Groq free plan: 8000 tokens per request, 200 000 tokens per day and per key (key rotation in `app/keys.py`) |
 | Human approval before | `send_email` (`interrupt()`); the model cannot approve |
-| How we inspect prompts | the traces saved by the check scripts in `eval/runs/` (every tool call and result); LangGraph `stream_mode="updates"` |
+| How we inspect prompts | Langfuse traces of every run (`app/tracing.py`, personal data masked), and the traces saved by the check scripts in `eval/runs/` |
 | Risks | a write action the user did not ask for (stopped by the approval, S5); personal data in memory (typed facts said by the user, expiry, `forget`); an injected instruction saved as memory (no free text); a weekday turned into a wrong date (seen in S2 and S5) |
 
 **Five test questions with their expected outcome** (the requests of S1):
@@ -458,3 +485,4 @@ The outcomes are checked in code (`outcome()` in the script) and were checked ag
 | S4 | Strategy and memory in five lines | this sheet, S4; `app/memory.py`; check `eval/agent_s4_check.py` |
 | S5 | The agent in LangGraph on the five requests | `app/agent.py`; check `eval/agent_s5_check.py` |
 | S6 | One agent or several, justified; completed sheet | this sheet, S6 and kickoff summary; check `eval/agent_s6_check.py` |
+| S6-S7 | Tracing with Langfuse | `app/tracing.py`, this sheet; tests `tests/test_tracing.py` |
