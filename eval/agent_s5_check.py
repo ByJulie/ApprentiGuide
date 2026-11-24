@@ -29,6 +29,9 @@ def words(text: str) -> set[str]:
     return {w[:6] for w in re.findall(r"[a-z0-9]{3,}", t) if w not in STOP}      # 6 letters: a crude stem
 
 
+PASSAGE_CHARS = {"max": None}   # --passage-chars: cut each passage (Groq free plan: 8000 tokens per request)
+
+
 def corpus_search(query: str) -> str:
     """No database: the 5 best chunks of the real corpus by shared words, one per document, as SearchTextsResult."""
     global _CHUNKS
@@ -46,7 +49,7 @@ def corpus_search(query: str) -> str:
             break
     return json.dumps({"not_found": not chosen, "missing_ids": [], "passages": [
         {"id": c.citation_id, "title": c.title, "source": c.source_label, "version_date": c.version_date,
-         "url": c.url, "text": c.text} for c in chosen]}, ensure_ascii=False, default=str)
+         "url": c.url, "text": c.text[:PASSAGE_CHARS["max"]]} for c in chosen]}, ensure_ascii=False, default=str)
 
 
 def trace(messages) -> list[dict]:
@@ -68,11 +71,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--search", choices=["real", "corpus"], required=True)
     ap.add_argument("--model", help="answer model, default the one of config.yaml (gpt-oss-120b)")
+    ap.add_argument("--passage-chars", type=int, help="corpus search: cut each passage to this length (whole by default)")
     a = ap.parse_args()
     if a.model:
         P.use_model(a.model)
     memory.STORE = tempfile.mkdtemp(prefix="s5_memory_")
     outbox = os.path.join(tempfile.mkdtemp(prefix="s5_outbox_"), "outbox.json")
+    PASSAGE_CHARS["max"] = a.passage_chars
     graph = agent.build(search=corpus_search if a.search == "corpus" else None)
     rows, t0 = [], time.time()
     for i, q in enumerate(REQUESTS, 1):

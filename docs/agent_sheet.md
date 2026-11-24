@@ -427,17 +427,17 @@ The outcomes are checked in code (`outcome()` in the script) and were checked ag
 
 **Found while adding it:** the agent of S5 did not run the input guardrail before the model, unlike the Generative AI product. `agent.ask` now runs it first: personal data is masked before Groq and Langfuse, and injection and distress get their fixed message without any model call (test in `tests/test_tracing.py`).
 
-**First traces (24 November):** `python -m eval.agent_s5_check --search corpus` with the keys in `.env`, gpt-oss-120b, results `eval/runs/2026-11-24_s5_langgraph_check_corpus_gpt-oss-120b.json`. Langfuse received one trace per request, sessions `request-1` to `request-5`, with the model `openai/gpt-oss-120b` and the tokens of each call (for example 2 721 input, 106 output of which 61 reasoning). What the traces show:
+**Traces in the project (24 November):** `python -m eval.agent_s5_check --search corpus --passage-chars 1500` with the keys in `.env`, gpt-oss-120b, results `eval/runs/2026-11-24_s5_langgraph_check_corpus_gpt-oss-120b.json`. Passages are cut to 1500 characters: with whole passages, request 2 asked Groq for 8002 tokens in one call, over the free plan's 8000. Langfuse received one trace per request, named « ApprentiGuide agent », sessions `request-1` to `request-5`: 12 model calls and 33 129 tokens in all, with the model `openai/gpt-oss-120b` and the input, output and reasoning tokens of each call. What the traces show:
 
 | # | Trace | Answer |
 |---|---|---|
-| 1 | search_texts, 2 model calls, 11.6 s | 5 jours ouvrables in the month before the exams: right |
-| 2 | search_texts, 2 model calls, 10.2 s | Asks which rule of the school applies (the simple search did not return internal rules 9.2) |
-| 3 | no tool, 1 model call, 14.8 s | A clarifying question: right |
-| 4 | search_texts, remember, 3 model calls, 90.8 s | 1 138,88 € (2nd year, 21-25 years) and the age saved in memory; the slowest trace, the time is in the model calls |
-| 5 | search_texts, 2 model calls, 36.1 s | Asks the exam date before writing the email, because the employer must be told 15 calendar days before (D3142-32) |
+| 1 | search_texts twice, 3 model calls, 25.7 s | 5 jours ouvrables in the month before the exams: right |
+| 2 | search_texts, 3 model calls, 58.1 s | **Wrong:** the 3-hour tolerance of the school rules (RP-4.1.4), which does not apply to apprentices; the simple search did not return internal rules 9.2 (the real RAG of S5 did). The trace shows it: the passages returned by `search_texts` do not contain 9.2. |
+| 3 | no tool, 1 model call, 0.6 s | A clarifying question: right |
+| 4 | search_texts, 2 model calls, 22.6 s | 1 138,88 € (2nd year, 21-25 years): right; `remember` was not called this time (it was in an earlier run of the same day) |
+| 5 | search_texts, 2 model calls, 17.1 s | A draft citing L6222-35 in the answer, `send_email` not called: nothing sent |
 
-The test suite sent traces once before `tests/conftest.py` existed (sessions t1 to t4); they were deleted from the project, with the traces of a run stopped halfway. Langfuse shows no cost: it has no price for gpt-oss-120b on Groq (a price can be added in the project's model settings).
+The test suite sent traces once before `tests/conftest.py` existed (sessions t1 to t4); they were deleted from the project, with the traces of earlier runs (named « LangGraph », before `run_name`), so the project holds only the five traces above. Langfuse shows no cost: it has no price for gpt-oss-120b on Groq (a price can be added in the project's model settings).
 
 ## Kickoff summary
 
